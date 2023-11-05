@@ -1,0 +1,26 @@
+
+.page {
+    display: none;
+    padding: 20px;
+    background-color: white;
+}
+
+.page.active {
+    display: block;
+}
+
+#navigation {
+    position: fixed;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.circle {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #333;
+    margin: 10px 0;
+    cursor: pointer;
+}
