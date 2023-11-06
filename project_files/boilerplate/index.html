@@ -24,7 +24,23 @@
 
 	<div id="page2" class="page">
 		<h1>Page 2</h1>
-		<h2>testing page 2</h2>
+		<h2>barchart</h2>
+		<div class="container">
+			<form class="row g-3">
+				<div class="col-auto">
+					<div class="form-group">
+						<!-- Select box to choose the ranking type -->
+						<select class="form-control" id="ranking-type">
+							<option value="spotify">Spotify</option>
+							<option value="tiktok">TikTok</option>
+						</select>
+					</div>
+				</div>
+			</form>
+			<!-- Parent container for the visualization -->
+			<div id="chart-area"></div>
+
+		</div>
 	</div>
 
 	<!-- need the same amount of circles as pages -->
@@ -63,5 +79,7 @@
 
 	<!-- own js files -->
 	<script src="js/main.js"></script>
+	<script src="js/barchart.js"></script>
+
 	</body>
 </html>
