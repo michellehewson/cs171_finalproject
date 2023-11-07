@@ -83,24 +83,24 @@ function updateVisualization(data) {
         .attr("class", "x-axis")
         .attr("transform", "translate(0," + height + ")")
         .transition()
-        .duration(1000)
+        .duration(500)
         .call(xAxis);
 
     svg.append("g")
         .attr("class", "y-axis")
         .transition()
-        .duration(1000)
+        .duration(500)
         .call(yAxis);
 
     svg.select(".x-axis")
         .transition()
-        .duration(1000)
+        .duration(500)
         .call(xAxis);
 
     // Update the y-axis
     svg.select(".y-axis")
         .transition()
-        .duration(1000)
+        .duration(500)
         .call(yAxis);
 
     d3.select("#ranking-type").on("change", switchRanking);
@@ -117,25 +117,26 @@ function switchRanking() {
 
     svg.selectAll(".x-axis")
         .transition()
-        .duration(1000)
+        .duration(500)
         .style("opacity", 0)
         .remove();
 
     svg.selectAll(".y-axis")
         .transition()
-        .duration(1000)
+        .duration(500)
         .style("opacity", 0)
         .remove();
 
     x.domain(data.slice(0, 10).map(d => d.artist));
     y.domain([0, d3.max(data, (d) => d.count)]);
 
+
     svg.append("g")
         .attr("class", "x-axis")
         .attr("transform", "translate(0," + height + ")")
         .style("opacity", 0)
         .transition()
-        .duration(1000)
+        .duration(500)
         .style("opacity", 1)
         .call(xAxis);
 
@@ -143,7 +144,7 @@ function switchRanking() {
         .attr("class", "y-axis")
         .style("opacity", 0)
         .transition()
-        .duration(1000)
+        .duration(500)
         .style("opacity", 1)
         .call(yAxis);
 

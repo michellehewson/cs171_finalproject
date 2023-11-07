@@ -1,6 +1,6 @@
 
 .page {
-    display: none;
+    display: block;
     padding: 20px;
     background-color: white;
 }
@@ -20,7 +20,7 @@
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background-color: #333;
+    background-color: black;
     margin: 10px 0;
     cursor: pointer;
 }
