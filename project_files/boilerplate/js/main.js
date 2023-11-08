@@ -10,7 +10,9 @@
 // tiktok_spotify_merged -- the merged spotify and TikTok datasets (they were merged on track_name) and contain all of the columns of both datasets (not 100% clean... some songs are repeated because they are remixes, be careful with this data)
 //
 
-function loadSpotifyData() {
+
+let bubbleChart;
+let promises = [
     d3.csv("data/spotify_clean.csv").then(csv=> {
 
         csv.forEach(function(d){
@@ -31,9 +33,9 @@ function loadSpotifyData() {
             d.weeks_on_chart = +d.weeks_on_chart;
         });
         console.log(csv);
-    });
-}
-function loadTikTokdata() {
+        return csv;
+    }),
+
     d3.csv("data/tiktok_clean.csv").then(csv=> {
 
         csv.forEach(function(d){
@@ -53,12 +55,21 @@ function loadTikTokdata() {
             d.track_pop = +d.track_pop;
             d.valence = +d.valence;
         });
-        console.log(csv);
+        return csv;
+
+        })
+    ]
+
+Promise.all(promises)
+    .then(function (data) {
+        console.log(data)
+        initMainPage(data)
+    })
+    .catch(function (err) {
+        console.log(err)
     });
+
+function initMainPage(dataArray) {
+    bubbleChart = new BubbleGraph('bubblechart', dataArray[0], dataArray[1])
+
 }
-
-
-
-loadSpotifyData()
-loadTikTokdata()
-
