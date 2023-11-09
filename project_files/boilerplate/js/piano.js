@@ -1,9 +1,11 @@
 // michelle
 class Piano {
-    constructor(parentElement) {
+    constructor(parentElement, spotify_keys, tiktok_keys) {
         this.parentElement = parentElement;
         this.whiteKeys = [1, 3, 5, 6, 8, 10, 12];
-        this.blackKeys = [2, 4, 7, 9, 11]
+        this.blackKeys = [2, 4, 7, 9, 11];
+        this.spotify_keys = spotify_keys;
+        this.tikok_keys = tiktok_keys;
         this.initVis()
     }
     initVis() {
@@ -96,28 +98,33 @@ class Piano {
         vis.pianoWhiteKeys.on("click", function (d) {
             let key = d3.select(this).attr("key");
             d3.select(".pianoTextInit")
-                .text('key '+ key)
-                .style("font-size", "20px");
+                .text(vis.updatePianoText(key))
+                .style("font-size", "12px");
 
         });
 
         vis.pianoBlackKeys.on("click", function (d) {
             let key = d3.select(this).attr("key");
-            console.log(key)
             d3.select(".pianoTextInit")
-                .text('key ' + key)
-                .style("font-size", "20px");
+                .text(vis.updatePianoText(key))
+                .style("font-size", "12px");
         });
 
 
         vis.distBtn.on("click", function () {
             d3.select(".pianoTextInit")
                 .text("need to add histogram")
-                .style("font-size", "20px");
+                .style("font-size", "12px");
         });
 
 
     }
 
-
-}
+    updatePianoText(key) {
+        let vis = this;
+        let spotifyPercentage = vis.spotify_keys[key].percentage;
+        //let tiktokPercentage = vis.tiktok_keys[key].percentage;
+        //console.log(vis.tiktok_keys[key].percentage)
+        return (spotifyPercentage + '% of top songs on Spotify are in key ' + key)
+    }
+    }
