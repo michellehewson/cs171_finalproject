@@ -57,8 +57,8 @@ let promises = [
         });
         return csv;
 
-        })
-    ]
+    })
+]
 
 Promise.all(promises)
     .then(function (data) {
@@ -70,6 +70,6 @@ Promise.all(promises)
     });
 
 function initMainPage(dataArray) {
-    bubbleChart = new BubbleGraph('bubblechart', dataArray[0], dataArray[1])
-
+    // bubbleChart = new BubbleGraph('bubblechart', dataArray[0], dataArray[1])
+    pianoChart = new Piano('piano')
 }
