@@ -1,8 +1,8 @@
 class BubbleGraph {
-    constructor(parentElement, tiktokData, spotifyData) {
+    constructor(parentElement, mergedData) {
         this.parentElement = parentElement;
-        this.tiktokData = tiktokData;
-        this.spotifyData = spotifyData;
+        this.mergedData = mergedData;
+        this.sortByPopularity = true; // A flag to determine the sorting order
         this.initVis();
     }
 
@@ -18,28 +18,43 @@ class BubbleGraph {
             .attr("height", vis.height + vis.margin.top + vis.margin.bottom)
             .append('g')
             .attr("transform", "translate(" + vis.margin.left + "," + vis.margin.top + ")");
-        vis.wrangleData();
+        document.getElementById("sortButton").addEventListener("click", () => {
+            vis.handleSortButtonClick();
+        });
+        vis.wrangleData(true); // Initially, sort by popularity
     }
 
-    wrangleData() {
+    wrangleData(sortByPopularity) {
         let vis = this;
 
-        vis.spotifyData = vis.spotifyData.sort((a, b) => b.weeks_on_chart - a.weeks_on_chart);
-        vis.tiktokData = vis.tiktokData.sort((a, b) => b.track_pop - a.track_pop);
+        if (sortByPopularity) {
+            vis.mergedData = vis.mergedData.sort((a, b) => b.track_pop - a.track_pop);
+        } else {
+            vis.mergedData = vis.mergedData.sort((a, b) => a.weeks_on_chart - b.weeks_on_chart);
+        }
 
-        vis.data = [
-            ...vis.spotifyData.slice(0, 10).map(d => ({ ...d, group: 'group1' })),
-            ...vis.tiktokData.slice(0, 10).map(d => ({ ...d, group: 'group1' })),
-            ...vis.spotifyData.slice(10, 20).map(d => ({ ...d, group: 'group2' })),
-            ...vis.tiktokData.slice(10, 20).map(d => ({ ...d, group: 'group2' })),
-            ...vis.spotifyData.slice(20, 30).map(d => ({ ...d, group: 'group3' })),
-            ...vis.tiktokData.slice(20, 30).map(d => ({ ...d, group: 'group3' })),
-            ...vis.spotifyData.slice(30, 40).map(d => ({ ...d, group: 'group4' })),
-            ...vis.tiktokData.slice(30, 40).map(d => ({ ...d, group: 'group4' })),
-            ...vis.spotifyData.slice(40, 50).map(d => ({ ...d, group: 'group5' })),
-            ...vis.tiktokData.slice(40, 50).map(d => ({ ...d, group: 'group5' })),
-        ];
+        // Reset the groups before regrouping the data
+        vis.data = [];
 
+        for (let i = 0; i < 5; i++) {
+            vis.data = vis.data.concat(
+                vis.mergedData.slice(i * 10, (i + 1) * 10).map((d, j) => ({
+                    ...d,
+                    group: `group${i + 1}`,
+                    index: j
+                }))
+            );
+        }
+
+        vis.updateVisualization();
+    }
+
+    handleSortButtonClick() {
+        let vis = this;
+
+        vis.sortByPopularity = !vis.sortByPopularity; // Toggle the sorting order
+
+        vis.wrangleData(vis.sortByPopularity); // Sort based on the new order
         vis.updateVisualization();
     }
 
@@ -47,50 +62,68 @@ class BubbleGraph {
         let vis = this;
 
         // Define y scale to separate the rows
+
         let y = d3.scaleBand()
             .domain(['group1', 'group2', 'group3', 'group4', 'group5'])
             .range([vis.height, 0])
-            .padding(0.1);
+            .padding(0.05);
 
-        // Create a separate x scale for each group
-        let xScales = {
-            group1: d3.scaleLinear().domain([0, d3.max(vis.data, d => d.x)]).range([0, vis.width / 5]),
-            group2: d3.scaleLinear().domain([0, d3.max(vis.data, d => d.x)]).range([vis.width / 5, (2 * vis.width) / 5]),
-            group3: d3.scaleLinear().domain([0, d3.max(vis.data, d => d.x)]).range([(2 * vis.width) / 5, (3 * vis.width) / 5]),
-            group4: d3.scaleLinear().domain([0, d3.max(vis.data, d => d.x)]).range([(3 * vis.width) / 5, (4 * vis.width) / 5]),
-            group5: d3.scaleLinear().domain([0, d3.max(vis.data, d => d.x)]).range([(4 * vis.width) / 5, vis.width]),
-        };
+        // Create an x scale based on the sorting order
+        let xScale;
+        if (vis.sortByPopularity) {
+            xScale = d3.scaleLinear()
+                .domain([0, d3.max(vis.data, d => d.track_pop)])
+                .range([0, vis.width]);
+        } else {
+            xScale = d3.scaleLinear()
+                .domain([0, d3.max(vis.data, d => d.weeks_on_chart)])
+                .range([0, vis.width]);
+        }
 
         vis.rows = vis.svg.selectAll(".matrix-row")
-            .data(vis.displayData, d => d.name);
+            .data(vis.data, d => d.name);
 
         const rowEnter = vis.rows.enter()
             .append("g")
             .attr("class", "matrix-row")
-            .attr("transform", (d, i) => `translate(80, ${100 + i * (vis.cellHeight + vis.cellPadding)})`);
+            //.attr("transform", d => `translate(0, ${y(d.group)})`);
 
-        vis.rows.exit().remove();
+        // Smoothly remove any rows that are no longer in the data
+        vis.rows.exit()
+            .transition()
+            .duration(500)
+            .attr("transform", `translate(0, ${vis.height})`)
+            .remove();
 
-        // Update the positions of the rows
+        // Update the positions of the rows smoothly
         vis.rows.transition()
-            .duration(500) // Add transition for a smooth update
-            .attr("transform", (d, i) => `translate(80, ${100 + i * (vis.cellHeight + vis.cellPadding)})`);
+            .duration(500)
+           // .attr("transform", d => `translate(0, ${y(d.group)})`);
 
-
+// Update the positions of the circles smoothly
+        vis.rows.selectAll(".bubble")
+            .transition()
+            .duration(500)
+            .attr("cx", d => xScale(vis.sortByPopularity ? d.track_pop : d.weeks_on_chart))
+            .attr("cy", d => y(d.group));
         // Select and bind data to circles
         vis.rows.selectAll(".bubble")
-            .data(vis.data);
+            .data(d => [d]);
 
         // Create circles for the data
-        vis.rows.enter()
+        const circles = rowEnter
             .append("circle")
             .attr("class", "bubble")
             .attr("r", 10)
-            .attr("cx", (d,i) => xScales[d.group](d.x) + i +10)
+            .attr("cx", d => xScale(vis.sortByPopularity ? d.track_pop : d.weeks_on_chart))
             .attr("cy", d => y(d.group))
             .attr("fill", 'blue');
 
-        // Remove any extra circles
-        circles.exit().remove();
+        // Smoothly remove any extra circles
+        circles.exit()
+            .transition()
+            .duration(500)
+            .attr("r", 0)
+            .remove();
     }
 }

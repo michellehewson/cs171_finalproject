@@ -57,7 +57,12 @@ let promises = [
         });
         return csv;
 
-    })
+    }),
+
+    d3.csv("data/tiktok_spotify_merged.csv").then(csv=> {
+        console.log("merged", csv)
+        return csv;
+        })
 ]
 
 Promise.all(promises)
@@ -71,6 +76,6 @@ Promise.all(promises)
 
 function initMainPage(dataArray) {
 
-   // bubbleChart = new BubbleGraph('bubblechart', dataArray[0], dataArray[1])
+    bubbleChart = new BubbleGraph('bubblechart', dataArray[2])
     pianoChart = new Piano('piano')
 }
