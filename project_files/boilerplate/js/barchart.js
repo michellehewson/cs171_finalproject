@@ -1,5 +1,6 @@
 // michelle
 // got inspiration for this from week 7 lab
+// i'll put this in a class soon
 
 let margin = {top: 40, right: 10, bottom: 60, left: 60};
 
