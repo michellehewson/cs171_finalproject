@@ -3,6 +3,13 @@ class BubbleGraph {
         this.parentElement = parentElement;
         this.mergedData = mergedData;
         this.sortByPopularity = true; // A flag to determine the sorting order
+        this.groupColors = {
+            group1: 'lightblue',
+            group2: 'lightgreen',
+            group3: 'lightpink',
+            group4: 'lightyellow',
+            group5: 'lightcoral',
+        };
         this.initVis();
     }
 
@@ -31,6 +38,18 @@ class BubbleGraph {
 
         if (sortByPopularity) {
             vis.mergedData = vis.mergedData.sort((a, b) => b.track_pop - a.track_pop);
+            if (!vis.initializedColors) {
+                vis.colorGroups = {};
+
+                for (let i = 0; i < 5; i++) {
+                    const groupName = `group${i + 1}`;
+                    vis.colorGroups[groupName] = vis.groupColors[groupName];
+                    vis.colorGroups[groupName] = vis.mergedData.slice(i * 10, (i + 1) * 10);
+                }
+
+                vis.initializedColors = true;
+            }
+
         } else {
             vis.mergedData = vis.mergedData.sort((a, b) => a.weeks_on_chart - b.weeks_on_chart);
         }
@@ -48,6 +67,7 @@ class BubbleGraph {
             );
         }
 
+
         vis.updateVisualization();
     }
 
@@ -63,6 +83,7 @@ class BubbleGraph {
     updateVisualization() {
         let vis = this;
         console.log("many", vis.data);
+        console.log(vis.groupColors)
 
         // Define y scale to separate the rows
         vis.radius = 20;
@@ -105,7 +126,7 @@ class BubbleGraph {
             .attr("class", "bubble")
             .attr("r", vis.radius)
             .attr("cy", (d) => vis.y(d.group) + 20)
-            .attr("fill", "lightblue")
+            .attr("fill", (d) => vis.groupColors[d.group])
             .merge(groupCircles) // Merge with existing circles
             .transition()
             .duration(500)
