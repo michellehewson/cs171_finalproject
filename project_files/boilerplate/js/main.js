@@ -71,7 +71,7 @@ let promises = [
             // numerical values
             d.key = +d.key;
             d.count = +d.count;
-            d.percentage = +d.percentage;
+            d.percentage = Math.round(+d.percentage);
         });
         console.log(csv);
         return csv;
@@ -83,7 +83,7 @@ let promises = [
             // numerical values
             d.key = +d.key;
             d.count = +d.count;
-            d.percentage = +d.percentage;
+            d.percentage = Math.round(+d.percentage);
         });
         console.log(csv);
         return csv;

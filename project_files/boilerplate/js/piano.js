@@ -2,8 +2,10 @@
 class Piano {
     constructor(parentElement, spotify_keys, tiktok_keys) {
         this.parentElement = parentElement;
-        this.whiteKeys = [1, 3, 5, 6, 8, 10, 12];
-        this.blackKeys = [2, 4, 7, 9, 11];
+        this.whiteKeys = [0, 2, 4, 5, 7, 9, 11];
+        this.blackKeys = [1, 3, 6, 8, 10];
+        this.whiteKeysDict = {0:"C", 2:"D", 4:"E", 5:"F", 7:"G", 9:"A", 11:"B"};
+        this.blackKeysDict = {1:"C#", 3:"D#", 6:"F#", 8:"G#", 10:"A#"};
         this.spotify_keys = spotify_keys;
         this.tikok_keys = tiktok_keys;
         this.initVis()
@@ -97,17 +99,23 @@ class Piano {
 
         vis.pianoWhiteKeys.on("click", function (d) {
             let key = d3.select(this).attr("key");
+            console.log(key)
+
             d3.select(".pianoTextInit")
                 .text(vis.updatePianoText(key))
-                .style("font-size", "12px");
+                .style("font-size", "12px")
+                .attr("x", 218);
 
         });
 
         vis.pianoBlackKeys.on("click", function (d) {
             let key = d3.select(this).attr("key");
+            console.log(key)
+
             d3.select(".pianoTextInit")
                 .text(vis.updatePianoText(key))
-                .style("font-size", "12px");
+                .style("font-size", "12px")
+                .attr("x", 218);
         });
 
 
@@ -122,9 +130,13 @@ class Piano {
 
     updatePianoText(key) {
         let vis = this;
+        console.log(vis.tikok_keys)
         let spotifyPercentage = vis.spotify_keys[key].percentage;
-        //let tiktokPercentage = vis.tiktok_keys[key].percentage;
-        //console.log(vis.tiktok_keys[key].percentage)
-        return (spotifyPercentage + '% of top songs on Spotify are in key ' + key)
+        if (vis.whiteKeys.includes(parseInt(key))) {
+            return spotifyPercentage + '% of top songs on Spotify are in key ' + vis.whiteKeysDict[key];
+        } else {
+            return spotifyPercentage + '% of top songs on Spotify are in key ' + vis.blackKeysDict[key];
+        }
     }
-    }
+
+}
