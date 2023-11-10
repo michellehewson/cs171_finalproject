@@ -12,6 +12,7 @@
 
 
 let bubbleChart;
+let pianoChart;
 let promises = [
     d3.csv("data/spotify_clean.csv").then(csv=> {
 
@@ -62,7 +63,31 @@ let promises = [
     d3.csv("data/tiktok_spotify_merged.csv").then(csv=> {
         console.log("merged", csv)
         return csv;
-        })
+        }),
+
+    d3.csv("data/spotify_keys.csv").then(csv=> {
+
+        csv.forEach(function(d){
+            // numerical values
+            d.key = +d.key;
+            d.count = +d.count;
+            d.percentage = Math.round(+d.percentage);
+        });
+        console.log(csv);
+        return csv;
+    }),
+
+    d3.csv("data/tiktok_keys.csv").then(csv=> {
+
+        csv.forEach(function(d){
+            // numerical values
+            d.key = +d.key;
+            d.count = +d.count;
+            d.percentage = Math.round(+d.percentage);
+        });
+        console.log(csv);
+        return csv;
+    })
 ]
 
 Promise.all(promises)
@@ -77,5 +102,5 @@ Promise.all(promises)
 function initMainPage(dataArray) {
 
     bubbleChart = new BubbleGraph('bubblechart', dataArray[2])
-    pianoChart = new Piano('piano')
+    pianoChart = new Piano('piano', dataArray[3], dataArray[4])
 }
