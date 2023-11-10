@@ -21,6 +21,8 @@ class BubbleGraph {
         document.getElementById("sortButton").addEventListener("click", () => {
             vis.handleSortButtonClick();
         });
+        vis.rows = vis.svg.append("g").attr("class", "rows");
+
         vis.wrangleData(true); // Initially, sort by popularity
     }
 
@@ -36,7 +38,7 @@ class BubbleGraph {
         // Reset the groups before regrouping the data
         vis.data = [];
 
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < 5; i++) { // Change to 5 groups
             vis.data = vis.data.concat(
                 vis.mergedData.slice(i * 10, (i + 1) * 10).map((d, j) => ({
                     ...d,
@@ -51,79 +53,87 @@ class BubbleGraph {
 
     handleSortButtonClick() {
         let vis = this;
+        console.log("Button Clicked");
 
         vis.sortByPopularity = !vis.sortByPopularity; // Toggle the sorting order
 
         vis.wrangleData(vis.sortByPopularity); // Sort based on the new order
-        vis.updateVisualization();
     }
 
     updateVisualization() {
         let vis = this;
+        console.log("many", vis.data);
 
         // Define y scale to separate the rows
+        vis.radius = 20;
+        vis.padding = 10;
 
-        let y = d3.scaleBand()
+        vis.y = d3.scaleBand()
             .domain(['group1', 'group2', 'group3', 'group4', 'group5'])
             .range([vis.height, 0])
-            .padding(0.05);
+            .padding(0.1); // Adjust padding
 
-        // Create an x scale based on the sorting order
-        let xScale;
-        if (vis.sortByPopularity) {
-            xScale = d3.scaleLinear()
-                .domain([0, d3.max(vis.data, d => d.track_pop)])
-                .range([0, vis.width]);
-        } else {
-            xScale = d3.scaleLinear()
-                .domain([0, d3.max(vis.data, d => d.weeks_on_chart)])
-                .range([0, vis.width]);
-        }
+        // Create a fixed x scale
+        const xScale = d3.scaleLinear()
+            .domain([0, 10 * (vis.radius + vis.padding)]) // Adjust the domain based on the number of circles
+            .range([0, vis.width]);
 
-        vis.rows = vis.svg.selectAll(".matrix-row")
-            .data(vis.data, d => d.name);
+        // Group circles within their respective groups
+        const groups = vis.rows.selectAll(".matrix-row")
+            .data(d3.group(vis.data, d => d.group).values(), d => d[0].group); // Group by 'group' property
 
-        const rowEnter = vis.rows.enter()
+        const groupsEnter = groups.enter()
             .append("g")
             .attr("class", "matrix-row")
-            //.attr("transform", d => `translate(0, ${y(d.group)})`);
+            .attr("transform", (d) => `translate(100, ${30 + vis.y(d.group) || 0})`);
+        groups.exit().remove();
 
-        // Smoothly remove any rows that are no longer in the data
-        vis.rows.exit()
-            .transition()
+        groups.transition()
             .duration(500)
-            .attr("transform", `translate(0, ${vis.height})`)
-            .remove();
+            .attr("transform", (d) => `translate(100, ${30 + vis.y(d.group) || 0})`);
 
-        // Update the positions of the rows smoothly
-        vis.rows.transition()
-            .duration(500)
-           // .attr("transform", d => `translate(0, ${y(d.group)})`);
+        // Use .join() to create circles and text
+        const groupCircles = groups.merge(groupsEnter).selectAll(".bubble")
+            .data(d => d, d => d.index);
 
-// Update the positions of the circles smoothly
-        vis.rows.selectAll(".bubble")
-            .transition()
-            .duration(500)
-            .attr("cx", d => xScale(vis.sortByPopularity ? d.track_pop : d.weeks_on_chart))
-            .attr("cy", d => y(d.group));
-        // Select and bind data to circles
-        vis.rows.selectAll(".bubble")
-            .data(d => [d]);
+        const groupText = groups.merge(groupsEnter).selectAll(".label")
+            .data(d => d, d => d.index);
 
-        // Create circles for the data
-        const circles = rowEnter
+        // Enter
+        groupCircles.enter()
             .append("circle")
             .attr("class", "bubble")
-            .attr("r", 10)
-            .attr("cx", d => xScale(vis.sortByPopularity ? d.track_pop : d.weeks_on_chart))
-            .attr("cy", d => y(d.group))
-            .attr("fill", 'blue');
-
-        // Smoothly remove any extra circles
-        circles.exit()
+            .attr("r", vis.radius)
+            .attr("cy", (d) => vis.y(d.group) + 20)
+            .attr("fill", "lightblue")
+            .merge(groupCircles) // Merge with existing circles
             .transition()
             .duration(500)
-            .attr("r", 0)
+            .attr("cx", (d, i) => i * (50 + vis.radius + vis.padding));
+
+        groupText.enter()
+            .append("text")
+            .attr("class", "label")
+            .attr("dy", "0.35em")
+            .attr("font-size", "8px")
+            .merge(groupText) // Merge with existing text
+            .transition()
+            .duration(500)
+            .attr("x", (d, i) => (i * (50 + vis.radius + vis.padding)) - 10)
+            .attr("y", (d) => (vis.y(d.group) + 20 + vis.radius) - 10)
+            .text((d) => d.track_name);
+
+        // Exit
+        groupCircles.exit()
+            .transition()
+            .duration(500)
+            .remove();
+
+        groupText.exit()
+            .transition()
+            .duration(500)
             .remove();
     }
+
+
 }
