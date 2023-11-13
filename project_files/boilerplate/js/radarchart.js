@@ -9,11 +9,11 @@ class RadarChart {
 
     initVis() {
         let vis = this;
-        const NUM_OF_SIDES = 5;
-        const NUM_OF_LEVEL = 4;
+        vis.NUM_OF_SIDES = 5;
+        vis.NUM_OF_LEVEL = 4;
         const size = Math.min(window.innerWidth, window.innerHeight, 400);
         const offset = Math.PI;
-        const polyangle = (Math.PI * 2) / NUM_OF_SIDES;
+        const polyangle = (Math.PI * 2) / vis.NUM_OF_SIDES;
         const r = 0.8 * size;
         const r_0 = r / 2;
         const center = {
@@ -24,17 +24,17 @@ class RadarChart {
         const colorScale = d3.scaleOrdinal(d3.schemeCategory10); // You can choose a different color scheme
 
 
-        const tooltip = d3.select(".tooltip");
+    //    const tooltip = d3.select(".tooltip");
 
         const desiredColumns = ['danceability', 'energy', 'speechiness', 'acousticness', 'liveness'];
 
         // Fetch Spotify data and extract relevant columns
-        const spotifySubset = vis.spotifyData.slice(0, 2);
+        vis.spotifySubset = vis.spotifyData.slice(0, 1);
 
         const dataset = [];
 
 // Iterate over each attribute and create the dataset
-        spotifySubset.forEach(row => {
+        vis.spotifySubset.forEach(row => {
             const data = {
                 track: row.track_name,
                 values: desiredColumns.map(attribute => ({
@@ -65,7 +65,7 @@ class RadarChart {
             return ticks;
         };
 
-        const ticks = genTicks(NUM_OF_LEVEL);
+        const ticks = genTicks(vis.NUM_OF_LEVEL);
 
         // Append SVG and create group element
         const wrapper = d3.select("#" + vis.parentElement)
@@ -73,7 +73,7 @@ class RadarChart {
             .attr("width", size)
             .attr("height", size);
 
-        const g = wrapper.append("g");
+        vis.g = wrapper.append("g");
 
         const generatePoint = ({ length, angle }) => {
             const point = {
@@ -88,13 +88,15 @@ class RadarChart {
 
         // Iterate over each attribute in the dataset and create points
         desiredColumns.forEach((attribute, i) => {
-            const attributeValue = dataset[0].values[i].value; // Access data correctly
-            const theta = i * polyangle;
+            if (dataset[0] && dataset[0].values && dataset[0].values[i]) {
+                const attributeValue = dataset[0].values[i].value;
+                const theta = i * polyangle;
+                const len = scale(attributeValue);
 
-            points.push(generatePoint({
-                length: scale(attributeValue),
-                angle: theta
-            }));
+                points.push(generatePoint({ length: len, angle: theta }));
+            } else {
+                console.error('Error accessing dataset or values:', dataset);
+            }
         });
 
         const drawPath = (points, parent, strokeColor = "black", fillColor = "none", fillOpacity = 1) => {
@@ -110,8 +112,8 @@ class RadarChart {
         };
 
 
-        const generateAndDrawLevels = (levelsCount, sideCount) => {
-            const levelsGroup = g.append("g").attr("class", "levels-group");
+         vis.generateAndDrawLevels = (levelsCount, sideCount) => {
+            const levelsGroup = vis.g.append("g").attr("class", "levels-group");
 
             for (let level = 1; level <= levelsCount; level++) {
                 const hyp = (level / levelsCount) * r_0;
@@ -126,85 +128,92 @@ class RadarChart {
             }
         };
 
-        const generateAndDrawLines = ( sideCount ) =>
-        {
-
-            const group = g.append( "g" ).attr( "class", "grid-lines" );
-            for ( let vertex = 1; vertex <= sideCount; vertex++ )
-            {
+         vis.generateAndDrawLines = (sideCount) => {
+            const group = vis.g.append("g").attr("class", "grid-lines");
+            for (let vertex = 1; vertex <= sideCount; vertex++) {
                 const theta = vertex * polyangle;
-                const point = generatePoint( { length: r_0, angle: theta } );
+                const point = generatePoint({ length: r_0, angle: theta });
 
-                drawPath( [ center, point ], group );
+                drawPath([center, point], group);
             }
-
         };
 
-        generateAndDrawLines(NUM_OF_SIDES);
-        generateAndDrawLevels(NUM_OF_LEVEL, NUM_OF_SIDES);
+        vis.generateAndDrawLines(vis.NUM_OF_SIDES);
+        vis.generateAndDrawLevels(vis.NUM_OF_LEVEL, vis.NUM_OF_SIDES);
         points = [...points, points[0]];
-        drawPath(points, g, "black", "lightblue", 0.3);
+        drawPath(points, vis.g, "black", "lightblue", 0.3);
 
 
         const drawCircles = (points) => {
-            const mouseEnter = (event, d) => {
-                tooltip.style("opacity", 1);
-                const { x, y } = d3.pointer(event);
-                tooltip.style("top", `${y - 20}px`);
-                tooltip.style("left", `${x + 15}px`);
-                tooltip.html(`<strong>Track:</strong> ${dataset[0].track}<br><strong>Data Point:</strong> ${d.value}`);
-            };
+          //  const mouseEnter = (event, d) => {
+            //    tooltip.style("opacity", 1);
+            //    const { x, y } = d3.pointer(event);
+           //     tooltip.style("top", `${y - 20}px`);
+           //     tooltip.style("left", `${x + 15}px`);
+           //     tooltip.html(`<strong>Track:</strong> ${dataset[0].track}<br><strong>Data Point:</strong> ${d.value}`);
+         //   };
 
-            const mouseLeave = () => {
-                tooltip.style("opacity", 0);
-            };
+          //  const mouseLeave = () => {
+          //      tooltip.style("opacity", 0);
+         //   };
 
-            g.append("g")
-                .attr("class", "indic")
+            const circlesGroup = vis.g.append("g").attr("class", "circles-group");
+
+            circlesGroup
                 .selectAll("circle")
                 .data(points)
                 .enter()
                 .append("circle")
-                .attr("cx", d => d.x)
-                .attr("cy", d => d.y)
+                .attr("cx", d => {
+                    if (!isNaN(d.x)) return d.x; // Check if x is a valid number
+                    else console.error('Invalid x-coordinate:', d.x);
+                })
+                .attr("cy", d => {
+                    if (!isNaN(d.y)) return d.y; // Check if y is a valid number
+                    else console.error('Invalid y-coordinate:', d.y);
+                })
                 .attr("r", 4)
-                .on("mouseenter", (event, d) => mouseEnter(event, d))
-                .on("mouseleave", mouseLeave);
+               // .on("mouseenter", (event, d) => mouseEnter(event, d))
+                //.on("mouseleave", mouseLeave);
         };
 
-        const drawData = (dataset, n) => {
-            // Create a group for paths
-            const pathsGroup = g.append("g").attr("class", "shape-group");
+         vis.drawData = (dataset, n) => {
+             if (!dataset || dataset.length === 0) {
+                 console.error('Dataset is empty or undefined');
+                 return;
+             }
+             const pathsGroup = vis.g.append("g").attr("class", "shape-group");
+             const circlesGroup = vis.g.append("g").attr("class", "circles-group");
+             dataset.forEach((d, i) => {
+                 const trackGroup = vis.g.append("g").attr("class", "track-group"); // Create a group for each track
 
-            // Create a group for circles
-            const circlesGroup = g.append("g").attr("class", "circles-group");
+                 let points = []; // Move points array inside the loop
 
-            dataset.forEach((d, i) => {
-                const trackGroup = g.append("g").attr("class", "track-group"); // Create a group for each track
+                 desiredColumns.forEach((column, j) => {
+                     const len = scale(d[column]); // Access data directly using the column name
+                     const theta = j * (2 * Math.PI / n);
 
-                let points = []; // Move points array inside the loop
+                     const point = generatePoint({ length: len, angle: theta });
 
-                d.values.forEach((value, j) => {
-                    const len = scale(value.value);
-                    const theta = j * (2 * Math.PI / n);
+                     // Log values for debugging
+                     console.log(`Track: ${d.track}, Column: ${column}, Length: ${len}, Theta: ${theta}, Point:`, point);
 
-                    points.push(generatePoint({ length: len, angle: theta }));
+                     points.push(point);
+                 });
 
-                    // Append path to the paths group
-                    const pathGroup = pathsGroup.append("g").attr("class", "shape");
-                    drawPath([...points, points[0]], pathGroup, "black", colorScale(d.track), 0.5);
+                 // Append path to the paths group
+                 const pathGroup = pathsGroup.append("g").attr("class", "shape");
+                 drawPath([...points, points[0]], pathGroup, "black", colorScale(d.track), 0.5);
 
-                    // Append circles to the circles group
-                    const circleGroup = circlesGroup.append("g").attr("class", "indic");
-                    drawCircles(points, circleGroup, d.track);
+                 // Append circles to the circles group
+                 const circleGroup = circlesGroup.append("g").attr("class", "indic");
+                 drawCircles(points, circleGroup, d.track);
 
-                    // Append circles to the track group
-                    const circleGroupTrack = trackGroup.append("g").attr("class", "indic");
-                    drawCircles(points, circleGroupTrack, d.track);
-                });
-            });
+                 // Append circles to the track group
+                 const circleGroupTrack = trackGroup.append("g").attr("class", "indic");
+                 drawCircles(points, circleGroupTrack, d.track);
+             });
         };
-
 
         const drawText = ( text, point, isAxis, group ) =>
         {
@@ -234,34 +243,84 @@ class RadarChart {
 
         };
 
-        const drawLabels = (dataset, sideCount) => {
-            const groupL = g.append("g").attr("class", "labels");
+        vis.drawLabels = (dataset, sideCount) => {
+            const groupL = vis.g.append("g").attr("class", "labels");
             for (let vertex = 0; vertex < sideCount; vertex++) {
                 const angle = vertex * polyangle;
-                const label = dataset[0].values[vertex].name; // Adjust the way you access the name property
+                const label = desiredColumns[vertex]; // Use desiredColumns to access column names
                 const point = generatePoint({ length: 0.9 * (size / 2), angle });
 
                 drawText(label, point, false, groupL);
             }
         };
 
-        //drawAxis( ticks, NUM_OF_LEVEL );
-        drawData( dataset, NUM_OF_SIDES );
+        vis.drawData(dataset, vis.NUM_OF_SIDES );
+        vis.drawLabels(dataset, vis.NUM_OF_SIDES );
 
+        vis.initializeNoUiSlider();
 
-        drawLabels( dataset, NUM_OF_SIDES );
-
-        vis.wrangleData();
+        // Draw the initial visualization
+        vis.updateVisualization();
+        console.log('Dataset:', dataset);
+        console.log('Attribute values:', dataset[0].values);
+        console.log('Points:', points);
 
     }
 
-    wrangleData() {
+    initializeNoUiSlider() {
+        let vis = this;
+        let slider = document.getElementById("song-slider");
+        let startLabel = document.getElementById("start-label");
+        let endLabel = document.getElementById("end-label");
+        let minValue = 0; // Adjust as needed
+        let maxValue = Math.min(5, vis.spotifyData.length - 1); // Set the maximum value to 5 or the length of the data, whichever is smaller
 
+        noUiSlider.create(slider, {
+            start: [0, 0], // Set initial range to show only the first song
+            connect: true,
+            step: 1,
+            range: {
+                'min': minValue,
+                'max': maxValue
+            },
+            behaviour: 'drag',
+        });
 
+        // Set initial labels
+        startLabel.textContent = 0;
+        endLabel.textContent = 0;
+
+        // Update the subset and visualization for the initial values
+        vis.spotifySubset = vis.spotifyData.slice(0, 1);
+        vis.updateVisualization();
+
+        slider.noUiSlider.on('slide', function (values) {
+            const [start, end] = values.map(value => parseInt(value, 10));
+            startLabel.textContent = start;
+            endLabel.textContent = end;
+
+            // Update the subset of Spotify data based on the slider values
+            vis.spotifySubset = vis.spotifyData.slice(start, end + 1);
+
+            console.log(vis.spotifySubset); // Log the subset data
+
+            // Update the visualization
+            vis.updateVisualization();
+        });
     }
 
     updateVisualization() {
+        console.log("Updating visualization");
         let vis = this;
 
+        // Clear the existing chart
+        vis.g.selectAll("*").remove();
+
+        vis.generateAndDrawLines(vis.NUM_OF_SIDES);
+        vis.generateAndDrawLevels(vis.NUM_OF_LEVEL, vis.NUM_OF_SIDES);
+        // Redraw the chart with the updated subset of data
+        vis.drawData(vis.spotifySubset, vis.NUM_OF_SIDES); // Use vis.spotifySubset instead of vis.dataset
+        vis.drawLabels(vis.spotifySubset, vis.NUM_OF_SIDES); // Use vis.spotifySubset instead of vis.dataset
     }
+
 }
