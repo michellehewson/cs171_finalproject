@@ -10,7 +10,7 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.4.0/nouislider.css" integrity="sha512-DGB74Gyw93qON+V0QxSRs1er6sqoPyFoy23HBL5LN7MRJBcjeCU22zega+vOEGE0XQLoVrv4ExcaesSTwZQA2w==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/4.0.20/fullpage.css" integrity="sha512-wCVOuVtxsXqrQK7tj9j4BvyfITQmpp7UE7mVilD7aieGLYFEIAa5UKTP1RapOf6dxQ9JIKAneakcyykWG4r4Ow==" crossorigin="anonymous" referrerpolicy="no-referrer" />	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.4.0/nouislider.css" integrity="sha512-DGB74Gyw93qON+V0QxSRs1er6sqoPyFoy23HBL5LN7MRJBcjeCU22zega+vOEGE0XQLoVrv4ExcaesSTwZQA2w==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
 
 
 
@@ -22,74 +22,74 @@
 <body>
 
 <!-- we can add each page here -->
-<div id="page1" class="page active">
-	<h1>Page 1</h1>
-	<h2>hello</h2>
-	<!-- i just added this to test the scrolling feature, we can remove it whenever -->
-	<img src="img/spotify.png" alt="spotify">
-</div>
+	<div id="fullPage">
+		<div id="page1" class="section">
+			<h1>Page 1</h1>
+			<h2>hello</h2>
+			<!-- i just added this to test the scrolling feature, we can remove it whenever -->
+			<img src="img/spotify.png" alt="spotify">
+		</div>
+		<div id="page2" class="section">
+			<h1>Page 2</h1>
+			<h2>barchart</h2>
+			<div class="container">
+				<form class="row g-3">
+					<div class="col-auto">
+						<div class="form-group">
+							<select class="form-control" id="ranking-type">
+								<option value="spotify">Spotify</option>
+								<option value="tiktok">TikTok</option>
+							</select>
+						</div>
+					</div>
+				</form>
+				<div id="chart-area"></div>
+			</div>
+		</div>
+		<div id="page3" class="section">
+			<h1>Page 3</h1>
+			<h2>Piano</h2>
+			<div class="container">
+					<div class="col-auto">
+						<div id="piano"></div>
+					</div>
+			</div>
+		</div>
 
-<div id="page2" class="page">
-	<h1>Page 2</h1>
-	<h2>barchart</h2>
-	<div class="container">
-		<form class="row g-3">
-			<div class="col-auto">
-				<div class="form-group">
-					<select class="form-control" id="ranking-type">
-						<option value="spotify">Spotify</option>
-						<option value="tiktok">TikTok</option>
-					</select>
+
+		<div id="page4" class="section">
+			<h1>Page 4</h1>
+			<h2>Bubble Chart</h2>
+			<div class="container">
+				<div class="col-auto">
+					<button id="sortButton">Sort by Weeks on Chart</button>
+					<div id="bubblechart"></div>
 				</div>
 			</div>
-		</form>
-		<div id="chart-area"></div>
-	</div>
-</div>
+		</div>
 
-<div id="page3" class="page">
-	<h1>Page 3</h1>
-	<h2>Piano</h2>
-	<div class="container">
-			<div class="col-auto">
-				<div id="piano"></div>
+		<div id="page5" class="section">
+			<h1>Page 5</h1>
+			<h2>Radar Chart</h2>
+			<div class="container">
+				<div class="col-auto">
+					<div id="slider-container">
+						<span id="start-label" class="slider-label"></span>
+						<div id="song-slider"></div>
+						<span id="end-label" class="slider-label"></span>
+					</div>
+					<div id="radarchart"></div>
+
+				</div>
 			</div>
-	</div>
-</div>
-
-
-<div id="page4" class="page">
-	<h1>Page 4</h1>
-	<h2>Bubble Chart</h2>
-	<div class="container">
-		<div class="col-auto">
-			<button id="sortButton">Sort by Weeks on Chart</button>
-			<div id="bubblechart"></div>
 		</div>
 	</div>
-</div>
-
-<div id="page5" class="page">
-	<h1>Page 5</h1>
-	<h2>Radar Chart</h2>
-	<div class="container">
-		<div class="col-auto">
-			<div id="slider-container">
-				<span id="start-label" class="slider-label"></span>
-				<div id="song-slider"></div>
-				<span id="end-label" class="slider-label"></span>
-			</div>
-			<div id="radarchart"></div>
-
-		</div>
-	</div>
-</div>
 
 
 
 
 <!-- need the same amount of circles as pages -->
-<div id="navigation">
+<!-- <div id="navigation">
 	<div class="circle" data-target="0"></div>
 	<div class="circle" data-target="1"></div>
 	<div class="circle" data-target="2"></div>
@@ -98,8 +98,8 @@
 
 
 </div>
-
-<!-- this script controls which page we are viewing -->
+-->
+<!-- this script controls which page we are viewing
 <script>
 	const circles = document.querySelectorAll('.circle');
 	const pages = document.querySelectorAll('.page');
@@ -111,8 +111,9 @@
 		});
 	});
 </script>
+-->
 
-<!-- this allows us to scroll between pages and click on circles to teleport us to the specific page -->
+<!-- this allows us to scroll between pages and click on circles to teleport us to the specific page
 <script>
 	const windowHeight = window.innerHeight;
 
@@ -147,7 +148,7 @@
 		});
 	});
 </script>
-
+-->
 
 <!-- embedding JS libraries -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
@@ -158,6 +159,16 @@
 		integrity="sha512-mZXUH8DAODwCHioWP3gltQwa953LbABMlzTYwYkKqv8eNxOk37B1HgNNuCMfFxgrpW5C34WJbxPDcM58+s1dJA=="
 		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/4.0.20/fullpage.min.js" integrity="sha512-LGiXf+jHGTHcIybSsOWO3I/in+OObCkcEsWIZ7IyhzfD6RzD5qDUw2CK+JveuI7zTSEcDG//bIOvOpAJW2BWsg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+	new fullpage('#fullPage', {
+		//options here
+		autoScrolling:true,
+		navigation: true
+	});
+</script>
 
 <!-- own js files -->
 
@@ -166,7 +177,6 @@
 <script src="js/BubbleGraph.js"></script>
 <script src="js/radarchart.js"></script>
 <script src="js/main.js"></script>
-
 
 </body>
 </html>
