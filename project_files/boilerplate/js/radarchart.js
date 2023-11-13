@@ -24,7 +24,7 @@ class RadarChart {
         const colorScale = d3.scaleOrdinal(d3.schemeCategory10); // You can choose a different color scheme
 
 
-        const tooltip = d3.select(".tooltip");
+    //    const tooltip = d3.select(".tooltip");
 
         const desiredColumns = ['danceability', 'energy', 'speechiness', 'acousticness', 'liveness'];
 
@@ -88,13 +88,15 @@ class RadarChart {
 
         // Iterate over each attribute in the dataset and create points
         desiredColumns.forEach((attribute, i) => {
-            const attributeValue = dataset[0].values[i].value; // Access data correctly
-            const theta = i * polyangle;
+            if (dataset[0] && dataset[0].values && dataset[0].values[i]) {
+                const attributeValue = dataset[0].values[i].value;
+                const theta = i * polyangle;
+                const len = scale(attributeValue);
 
-            points.push(generatePoint({
-                length: scale(attributeValue),
-                angle: theta
-            }));
+                points.push(generatePoint({ length: len, angle: theta }));
+            } else {
+                console.error('Error accessing dataset or values:', dataset);
+            }
         });
 
         const drawPath = (points, parent, strokeColor = "black", fillColor = "none", fillOpacity = 1) => {
@@ -110,7 +112,7 @@ class RadarChart {
         };
 
 
-        const generateAndDrawLevels = (levelsCount, sideCount) => {
+         vis.generateAndDrawLevels = (levelsCount, sideCount) => {
             const levelsGroup = vis.g.append("g").attr("class", "levels-group");
 
             for (let level = 1; level <= levelsCount; level++) {
@@ -126,7 +128,7 @@ class RadarChart {
             }
         };
 
-        const generateAndDrawLines = (sideCount) => {
+         vis.generateAndDrawLines = (sideCount) => {
             const group = vis.g.append("g").attr("class", "grid-lines");
             for (let vertex = 1; vertex <= sideCount; vertex++) {
                 const theta = vertex * polyangle;
@@ -136,36 +138,43 @@ class RadarChart {
             }
         };
 
-        generateAndDrawLines(vis.NUM_OF_SIDES);
-        generateAndDrawLevels(vis.NUM_OF_LEVEL, vis.NUM_OF_SIDES);
+        vis.generateAndDrawLines(vis.NUM_OF_SIDES);
+        vis.generateAndDrawLevels(vis.NUM_OF_LEVEL, vis.NUM_OF_SIDES);
         points = [...points, points[0]];
         drawPath(points, vis.g, "black", "lightblue", 0.3);
 
 
         const drawCircles = (points) => {
-            const mouseEnter = (event, d) => {
-                tooltip.style("opacity", 1);
-                const { x, y } = d3.pointer(event);
-                tooltip.style("top", `${y - 20}px`);
-                tooltip.style("left", `${x + 15}px`);
-                tooltip.html(`<strong>Track:</strong> ${dataset[0].track}<br><strong>Data Point:</strong> ${d.value}`);
-            };
+          //  const mouseEnter = (event, d) => {
+            //    tooltip.style("opacity", 1);
+            //    const { x, y } = d3.pointer(event);
+           //     tooltip.style("top", `${y - 20}px`);
+           //     tooltip.style("left", `${x + 15}px`);
+           //     tooltip.html(`<strong>Track:</strong> ${dataset[0].track}<br><strong>Data Point:</strong> ${d.value}`);
+         //   };
 
-            const mouseLeave = () => {
-                tooltip.style("opacity", 0);
-            };
+          //  const mouseLeave = () => {
+          //      tooltip.style("opacity", 0);
+         //   };
 
-            vis.g.append("g")
-                .attr("class", "indic")
+            const circlesGroup = vis.g.append("g").attr("class", "circles-group");
+
+            circlesGroup
                 .selectAll("circle")
                 .data(points)
                 .enter()
                 .append("circle")
-                .attr("cx", d => d.x)
-                .attr("cy", d => d.y)
+                .attr("cx", d => {
+                    if (!isNaN(d.x)) return d.x; // Check if x is a valid number
+                    else console.error('Invalid x-coordinate:', d.x);
+                })
+                .attr("cy", d => {
+                    if (!isNaN(d.y)) return d.y; // Check if y is a valid number
+                    else console.error('Invalid y-coordinate:', d.y);
+                })
                 .attr("r", 4)
-                .on("mouseenter", (event, d) => mouseEnter(event, d))
-                .on("mouseleave", mouseLeave);
+               // .on("mouseenter", (event, d) => mouseEnter(event, d))
+                //.on("mouseleave", mouseLeave);
         };
 
          vis.drawData = (dataset, n) => {
@@ -184,7 +193,12 @@ class RadarChart {
                      const len = scale(d[column]); // Access data directly using the column name
                      const theta = j * (2 * Math.PI / n);
 
-                     points.push(generatePoint({ length: len, angle: theta }));
+                     const point = generatePoint({ length: len, angle: theta });
+
+                     // Log values for debugging
+                     console.log(`Track: ${d.track}, Column: ${column}, Length: ${len}, Theta: ${theta}, Point:`, point);
+
+                     points.push(point);
                  });
 
                  // Append path to the paths group
@@ -200,7 +214,6 @@ class RadarChart {
                  drawCircles(points, circleGroupTrack, d.track);
              });
         };
-
 
         const drawText = ( text, point, isAxis, group ) =>
         {
@@ -248,6 +261,9 @@ class RadarChart {
 
         // Draw the initial visualization
         vis.updateVisualization();
+        console.log('Dataset:', dataset);
+        console.log('Attribute values:', dataset[0].values);
+        console.log('Points:', points);
 
     }
 
@@ -260,7 +276,7 @@ class RadarChart {
         let maxValue = Math.min(5, vis.spotifyData.length - 1); // Set the maximum value to 5 or the length of the data, whichever is smaller
 
         noUiSlider.create(slider, {
-            start: [0, Math.min(4, maxValue)], // Initial range, change as needed
+            start: [0, 0], // Set initial range to show only the first song
             connect: true,
             step: 1,
             range: {
@@ -269,6 +285,14 @@ class RadarChart {
             },
             behaviour: 'drag',
         });
+
+        // Set initial labels
+        startLabel.textContent = 0;
+        endLabel.textContent = 0;
+
+        // Update the subset and visualization for the initial values
+        vis.spotifySubset = vis.spotifyData.slice(0, 1);
+        vis.updateVisualization();
 
         slider.noUiSlider.on('slide', function (values) {
             const [start, end] = values.map(value => parseInt(value, 10));
@@ -292,6 +316,8 @@ class RadarChart {
         // Clear the existing chart
         vis.g.selectAll("*").remove();
 
+        vis.generateAndDrawLines(vis.NUM_OF_SIDES);
+        vis.generateAndDrawLevels(vis.NUM_OF_LEVEL, vis.NUM_OF_SIDES);
         // Redraw the chart with the updated subset of data
         vis.drawData(vis.spotifySubset, vis.NUM_OF_SIDES); // Use vis.spotifySubset instead of vis.dataset
         vis.drawLabels(vis.spotifySubset, vis.NUM_OF_SIDES); // Use vis.spotifySubset instead of vis.dataset
