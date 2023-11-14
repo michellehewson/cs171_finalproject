@@ -59,7 +59,7 @@ class Piano {
 
         vis.svgPiano = d3.select("#" + vis.parentElement).append("svg")
             .attr("width", 1000)
-            .attr("height", 900)
+            .attr("height", 700)
             .append("g")
             .attr("transform", "translate(" + vis.pianoMargin.left + "," + vis.pianoMargin.top + ")");
 

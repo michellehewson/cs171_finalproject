@@ -104,4 +104,5 @@ function initMainPage(dataArray) {
     bubbleChart = new BubbleGraph('bubblechart', dataArray[2])
     radarChart = new RadarChart('radarchart', dataArray[0])
     pianoChart = new Piano('piano', dataArray[3], dataArray[4])
+    barChart = new BarChart('barchart', dataArray[0], dataArray[1])
 }
