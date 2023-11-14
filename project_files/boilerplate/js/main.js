@@ -102,6 +102,7 @@ Promise.all(promises)
 function initMainPage(dataArray) {
 
     bubbleChart = new BubbleGraph('bubblechart', dataArray[2])
-    radarChart = new RadarChart('radarchart', dataArray[0])
+    spotifyradarChart = new RadarChart('spotifyradarchart', dataArray[0], 'spotify')
+    tiktokradarChart = new RadarChart('tiktokradarchart', dataArray[1], 'tiktok')
     pianoChart = new Piano('piano', dataArray[3], dataArray[4])
 }
