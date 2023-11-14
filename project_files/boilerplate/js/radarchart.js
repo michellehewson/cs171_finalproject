@@ -1,17 +1,31 @@
 class RadarChart {
-    constructor(parentElement, spotifyData) {
+    constructor(parentElement, chartData, sortingCriteria) {
         this.parentElement = parentElement;
-        this.spotifyData = spotifyData;
+        this.chartData = chartData;
+        this.sortingCriteria = sortingCriteria;
+        this.chartData.sort((a, b) => {
+            if (this.sortingCriteria === 'tiktok') {
+                return b.track_pop - a.track_pop;
+            } else if (this.sortingCriteria === 'spotify') {
+                if (a.peak_rank !== b.peak_rank) {
+                    return a.peak_rank - b.peak_rank;
+                } else {
+                    return b.weeks_on_chart - a.weeks_on_chart;
+                }
+            } else {
+                return 0;
+            }
+        });
 
-        this.spotifySubset = this.spotifyData.slice(0, 10);
+        this.chartSubset = this.chartData.slice(0, 10);
         this.desiredColumns = ['danceability', 'energy', 'speechiness', 'acousticness', 'liveness'];
 
         this.dataset = [];
         this.colorScale = d3.scaleOrdinal(d3.schemeCategory10); // Move colorScale here
-        this.spotifySubset.sort((a, b) => b.track_pop - a.track_pop);
 
 
-        this.spotifySubset.forEach(row => {
+
+        this.chartSubset.forEach(row => {
             const data = {
                 track: row.track_name,
                 values: this.desiredColumns.map(attribute => ({
@@ -44,7 +58,7 @@ class RadarChart {
         let vis = this;
         vis.NUM_OF_SIDES = 5;
         vis.NUM_OF_LEVEL = 4;
-        const size = 800;
+        const size = 500;
         const offset = Math.PI;
         const polyangle = (Math.PI * 2) / vis.NUM_OF_SIDES;
         const r = 0.8 * size;
@@ -63,7 +77,7 @@ class RadarChart {
         const dataset = [];
 
         // Iterate over each attribute and create the dataset
-        vis.spotifySubset.forEach(row => {
+        vis.chartSubset.forEach(row => {
             const data = {
                 track: row.track_name,
                 values: vis.desiredColumns.map(attribute => ({
@@ -126,7 +140,7 @@ class RadarChart {
         }
 
         // Initialize points array with the first song data
-        vis.spotifySubset.forEach((row, i) => {
+        vis.chartSubset.forEach((row, i) => {
             const points = [];
             vis.desiredColumns.forEach((attribute, j) => {
                 const attributeValue = row[attribute];
@@ -183,8 +197,8 @@ class RadarChart {
         vis.generateAndDrawLines(vis.NUM_OF_SIDES);
         vis.generateAndDrawLevels(vis.NUM_OF_LEVEL, vis.NUM_OF_SIDES);
         vis.drawLabels(dataset, vis.NUM_OF_SIDES);
-        const initialTrackName = vis.spotifySubset[0].track;
-        const trackNamesDiv = d3.select("#track-names");
+        const initialTrackName = vis.chartSubset[0].track;
+        let trackNamesDiv = d3.select("#" + vis.sortingCriteria + "-track-names");
         trackNamesDiv.append("p")
             .text(initialTrackName)
             .attr("class", "track-name");
@@ -194,11 +208,20 @@ class RadarChart {
 
     initializeNoUiSlider() {
         let vis = this;
-        let slider = document.getElementById("song-slider");
-        let startLabel = document.getElementById("start-label");
-        let endLabel = document.getElementById("end-label");
+        let slider, startLabel, endLabel;
+
+        if (this.sortingCriteria === 'spotify') {
+            slider = document.getElementById("spotify-slider");
+            startLabel = document.getElementById("start-label-s");
+            endLabel = document.getElementById("end-label-s");
+        } else {
+            slider = document.getElementById("tiktok-slider");
+            startLabel = document.getElementById("start-label-t");
+            endLabel = document.getElementById("end-label-t");
+        }
+
         let minValue = 0; // Adjust as needed
-        let maxValue = Math.min(10, vis.spotifyData.length - 1); // Set the maximum value to 5 or the length of the data, whichever is smaller
+        let maxValue = Math.min(10, vis.chartData.length - 1); // Set the maximum value to 5 or the length of the data, whichever is smaller
 
         noUiSlider.create(slider, {
             start: [0, 0], // Set initial range to show only the first song
@@ -216,7 +239,7 @@ class RadarChart {
         endLabel.textContent = 0;
 
         // Update the subset and visualization for the initial values
-        vis.spotifySubset = vis.spotifyData.slice(0, 1);
+        vis.chartSubset = vis.chartData.slice(0, 1);
         vis.updateVisualization();
 
         slider.noUiSlider.on('slide', function (values) {
@@ -225,12 +248,12 @@ class RadarChart {
             endLabel.textContent = end;
 
             // Clear the existing content of the track-names div
-            d3.select("#track-names").html("");
+            d3.select("#" + vis.sortingCriteria + "-track-names").html("");
 
-            // Update the subset of Spotify data based on the slider values
-            vis.spotifySubset = vis.spotifyData.slice(start, end + 1);
-            const trackNamesDiv = d3.select("#track-names");
-            vis.spotifySubset.forEach((row) => {
+            // Update the subset of Spotify or TikTok data based on the slider values
+            vis.chartSubset = vis.chartData.slice(start, end + 1);
+            const trackNamesDiv = d3.select("#" + vis.sortingCriteria + "-track-names");
+            vis.chartSubset.forEach((row) => {
                 trackNamesDiv.append("p")
                     .text(row.track_name)
                     .attr("class", "track-name");
@@ -251,7 +274,7 @@ class RadarChart {
         vis.generateAndDrawLevels(vis.NUM_OF_LEVEL, vis.NUM_OF_SIDES);
 
         // Update the visualization with the new subset of data
-        vis.spotifySubset.forEach((row, i) => {
+        vis.chartSubset.forEach((row, i) => {
             const points = [];
             vis.desiredColumns.forEach((attribute, j) => {
                 const attributeValue = row[attribute];
@@ -285,7 +308,7 @@ class RadarChart {
         });
 
         // Draw labels
-        vis.drawLabels(vis.spotifySubset, vis.NUM_OF_SIDES);
+        vis.drawLabels(vis.chartSubset, vis.NUM_OF_SIDES);
     }
 
 }
