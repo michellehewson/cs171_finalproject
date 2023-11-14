@@ -24,3 +24,32 @@
     fill: red;
     cursor: pointer;
 }
+#slider-container {
+    width: 30%; /* Adjust the percentage as needed */
+    margin: auto; /* Center the slider container */
+    position: relative; /* Enable relative positioning */
+}
+
+#song-slider {
+    /* Additional styles for the slider itself */
+}
+
+.slider-label {
+    position: absolute;
+    top: 50%;
+}
+
+#start-label {
+    left: -40px;
+}
+
+#end-label {
+    right: -30px;
+}
+
+#radarchart {
+    /* Add centering styles for the radar chart */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

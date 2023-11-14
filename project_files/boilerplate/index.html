@@ -12,8 +12,6 @@
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/4.0.20/fullpage.css" integrity="sha512-wCVOuVtxsXqrQK7tj9j4BvyfITQmpp7UE7mVilD7aieGLYFEIAa5UKTP1RapOf6dxQ9JIKAneakcyykWG4r4Ow==" crossorigin="anonymous" referrerpolicy="no-referrer" />	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.4.0/nouislider.css" integrity="sha512-DGB74Gyw93qON+V0QxSRs1er6sqoPyFoy23HBL5LN7MRJBcjeCU22zega+vOEGE0XQLoVrv4ExcaesSTwZQA2w==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
 
-
-
 	<!-- GOOGLE FONTS -->
 	<link href='https://fonts.googleapis.com/css?family=Press Start 2P' rel='stylesheet'>
 	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,400italic,300italic' rel='stylesheet' type='text/css'>
@@ -72,83 +70,26 @@
 			<h1>Page 5</h1>
 			<h2>Radar Chart</h2>
 			<div class="container">
-				<div class="col-auto">
-					<div id="slider-container">
-						<span id="start-label" class="slider-label"></span>
-						<div id="song-slider"></div>
-						<span id="end-label" class="slider-label"></span>
+				<div class="row">
+					<div class="col-md-3">
+						<!-- Display track names -->
+						<h3> Songs on Chart:</h3>
+						<div id="track-names" class="track-names"></div>
 					</div>
-					<div id="radarchart"></div>
-
+					<div class="col-md-9">
+						<div id="slider-container">
+							<span id="start-label" class="slider-label"></span>
+							<div id="song-slider"></div> <span id="end-label" class="slider-label"></span>
+						</div>
+						<!-- Display radar chart -->
+						<div id="radarchart"></div>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 
 
-
-
-<!-- need the same amount of circles as pages -->
-<!-- <div id="navigation">
-	<div class="circle" data-target="0"></div>
-	<div class="circle" data-target="1"></div>
-	<div class="circle" data-target="2"></div>
-	<div class="circle" data-target="3"></div>
-	<div class="circle" data-target="4"></div>
-
-
-</div>
--->
-<!-- this script controls which page we are viewing
-<script>
-	const circles = document.querySelectorAll('.circle');
-	const pages = document.querySelectorAll('.page');
-
-	circles.forEach((circle, index) => {
-		circle.addEventListener('click', () => {
-			pages.forEach((page) => page.classList.remove('active'));
-			pages[index].classList.add('active');
-		});
-	});
-</script>
--->
-
-<!-- this allows us to scroll between pages and click on circles to teleport us to the specific page
-<script>
-	const windowHeight = window.innerHeight;
-
-	function updateActivePage() {
-		const scrollY = window.scrollY;
-		const currentPage = Math.floor(scrollY / windowHeight);
-		pages.forEach((page, index) => {
-			page.classList.remove('active');
-			if (index === currentPage) {
-				page.classList.add('active');
-			}
-		});
-
-		circles.forEach((circle, index) => {
-			if (index === currentPage) {
-				circle.classList.add('active');
-			} else {
-				circle.classList.remove('active');
-			}
-		});
-	}
-
-	// calling which page we are actively looking at and setting up the circles
-	updateActivePage();
-
-	window.addEventListener('scroll', updateActivePage);
-
-	// clicking on the circle means we teleport to the page of that circle's index
-	circles.forEach((circle, index) => {
-		circle.addEventListener('click', () => {
-			window.scrollTo(0, index * windowHeight);
-		});
-	});
-</script>
--->
 
 <!-- embedding JS libraries -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
@@ -164,14 +105,12 @@
 
 <script>
 	new fullpage('#fullPage', {
-		//options here
 		autoScrolling:true,
 		navigation: true
 	});
 </script>
 
 <!-- own js files -->
-
 <script src="js/barchart.js"></script>
 <script src="js/piano.js"></script>
 <script src="js/BubbleGraph.js"></script>
