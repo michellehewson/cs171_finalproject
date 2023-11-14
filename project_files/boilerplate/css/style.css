@@ -1,4 +1,31 @@
-<!--
+
+h1 {
+    text-align: center;
+    font-family: 'Times New Roman', sans-serif; /* Replace with your preferred font */
+    color: #333; /* Set your desired text color */
+    margin-top: 50px;
+}
+
+
+h2 {
+    text-align: center;
+    font-family: 'Times New Roman', sans-serif; /* Replace with your preferred font */
+    color: #333; /* Set your desired text color */
+    margin-top: 20px;
+}
+
+.video-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px; /* Adjust as needed */
+}
+
+.tiktok-video {
+    width: calc(30% - 10px); /* Adjust the width and margin as needed */
+    box-sizing: border-box;
+}
+
+
 .section {
     display: block;
     padding: 20px;
