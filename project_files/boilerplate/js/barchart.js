@@ -5,11 +5,14 @@ class BarChart {
         this.parentElement = parentElement;
         this.spotifyData = spotifyData;
         this.tiktokData = tiktokData;
+        this.spotifyArtistCounts = [];
+        this.tiktokArtistCounts = [];
         this.initVis();
     }
 
     initVis() {
         let vis = this;
+
         vis.margin = { top: 40, right: 10, bottom: 60, left: 60 };
 
         vis.width = 960 - vis.margin.left - vis.margin.right,
@@ -43,8 +46,6 @@ class BarChart {
         vis.xAxis = d3.axisBottom(vis.x);
         vis.yAxis = d3.axisLeft(vis.y);
 
-        vis.loadData();
-
         vis.svg.append("g")
             .attr("class", "x-axis")
             .attr("transform", "translate(0," + vis.height + ")")
@@ -63,24 +64,35 @@ class BarChart {
     loadData() {
         let vis = this;
 
-        d3.csv("data/spotify_artist_counts.csv").then(csv => {
-            csv.forEach(function (d) {
-                d.count = +d.count;
-            });
-
-            vis.spotifydata = csv.sort((a, b) => b.count - a.count);
-
-            vis.updateVisualization(vis.spotifydata);
+        let spotifyCounts = {};
+        vis.spotifyData.forEach(function (song) {
+            let artistName = song.artist_name;
+            spotifyCounts[artistName] = (spotifyCounts[artistName] || 0) + 1;
         });
 
-        d3.csv("data/tiktok_artist_counts.csv").then(csv => {
-            csv.forEach(function (d) {
-                d.count = +d.count;
-            });
+        vis.spotifyArtistCounts = Object.keys(spotifyCounts).map(key => ({
+            artist: key,
+            count: spotifyCounts[key]
+        }));
 
-            vis.tiktokdata = csv.sort((a, b) => b.count - a.count);
+        vis.spotifyArtistCounts.sort((a, b) => b.count - a.count);
+
+        let tiktokCounts = {};
+        vis.tiktokData.forEach(function (song) {
+            let artistName = song.artist_name;
+            tiktokCounts[artistName] = (tiktokCounts[artistName] || 0) + 1;
         });
+
+        vis.tiktokArtistCounts = Object.keys(tiktokCounts).map(key => ({
+            artist: key,
+            count: tiktokCounts[key]
+        }));
+
+        vis.tiktokArtistCounts.sort((a, b) => b.count - a.count);
+
+        vis.updateVisualization(vis.spotifyArtistCounts);
     }
+
 
     updateVisualization(data) {
         let vis = this;
@@ -109,12 +121,12 @@ class BarChart {
 
         vis.svg.select(".x-axis")
             .transition()
-            .duration(500)
+            .duration(1000)
             .call(vis.xAxis);
 
         vis.svg.select(".y-axis")
             .transition()
-            .duration(500)
+            .duration(1000)
             .call(vis.yAxis);
 
         vis.svg.selectAll(".bar")
@@ -129,26 +141,28 @@ class BarChart {
         let selectedValue = d3.select("#ranking-type").property("value");
 
         if (selectedValue === "tiktok") {
-            vis.data = vis.tiktokdata.sort((a, b) => b.count - a.count);
+            vis.updateVisualization(vis.tiktokArtistCounts);
         } else if (selectedValue === "spotify") {
-            vis.data = vis.spotifydata.sort((a, b) => b.count - a.count);
+            vis.updateVisualization(vis.spotifyArtistCounts);
         }
 
         vis.svg.selectAll(".x-axis, .y-axis")
             .transition()
-            .duration(500)
+            .duration(1000)
             .style("opacity", 0)
             .remove();
 
-        vis.x.domain(vis.data.slice(0, 10).map(d => d.artist));
-        vis.y.domain([0, d3.max(vis.data, (d) => d.count)]);
+        let selectedData = (selectedValue === "tiktok") ? vis.tiktokArtistCounts : vis.spotifyArtistCounts;
+
+        vis.x.domain(selectedData.slice(0, 10).map(d => d.artist));
+        vis.y.domain([0, d3.max(selectedData, (d) => d.count)]);
 
         vis.svg.append("g")
             .attr("class", "x-axis")
             .attr("transform", "translate(0," + vis.height + ")")
             .style("opacity", 0)
             .transition()
-            .duration(500)
+            .duration(1000)
             .style("opacity", 1)
             .call(vis.xAxis);
 
@@ -160,14 +174,15 @@ class BarChart {
             .style("opacity", 1)
             .call(vis.yAxis);
 
-        vis.updateVisualization(vis.data);
+        vis.updateVisualization(selectedData);
     }
-    updateInfoBox(artistName) {
+
+    updateInfoBox(artistData) {
         let vis = this;
 
         vis.infoBox.selectAll("*").remove();
 
-        let infoGroup = vis.infoBox.append("g")
+        let infoGroup = vis.infoBox.append("g");
 
         infoGroup.append("rect")
             .attr("width", 300)
@@ -180,7 +195,15 @@ class BarChart {
             .attr("fill", "black")
             .attr("stroke", "white")
             .attr("stroke-width", 2)
-            .text("Artist: " + artistName.artist);
+            .text("Artist: " + artistData.artist);
+
+        infoGroup.append("text")
+            .attr("x", 10)
+            .attr("y", 40)
+            .attr("fill", "black")
+            .attr("stroke", "white")
+            .attr("stroke-width", 2)
+            .text("Number of Songs: " + artistData.count);
     }
 
 
