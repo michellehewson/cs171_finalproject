@@ -48,7 +48,6 @@
 					</blockquote>
 					<script async src="https://www.tiktok.com/embed.js"></script>
 				</div>
-
 				<div class="tiktok-video">
 					<blockquote class="tiktok-embed" cite="https://www.tiktok.com/@juanpazurita/video/6828965457890954502" data-video-id="6828965457890954502" style="max-width: 605px;min-width: 325px;">
 						<section>
@@ -60,10 +59,16 @@
 				</div>
 			</div>
 		</div>
-
 		<div id="page3" class="section">
 			<h2> Do you use TikTok?</h2>
-			<h2> Questions</h2>
+			<div class="button-container">
+				<button class="yes-button">Yes</button>
+				<button class="no-button">No</button>
+			</div>
+			<div id="input-container" style="display: none;">
+				<label for="hoursInput"></label>
+				<input type="number" id="hoursInput">
+			</div>
 		</div>
 		<div id="page4" class="section">
 			<h2>Bubble plot</h2>
@@ -145,8 +150,6 @@
 					<div class="row" style="background: lightgrey;">
 						<div id="stateCarousel" class="carousel slide" data-ride="carousel" style=" width: 100%">
 							<div class="carousel-inner">
-
-
 								<!-- T -->
 								<div class="carousel-item">
 									<div class="col">
@@ -158,14 +161,12 @@
 									</div>
 								</div>
 
-
 								<!-- S -->
 								<div class="carousel-item active">
 									<div class="col">
 										<div class="row" style="height: 70vh; background: lightgrey; padding: 1vh;">
 											<div id="SpotScatterDiv"
 												 style="height: 100%; width:100%; border: thin solid grey; border-radius: 5px; background: rgba(64,64,64,0.4);">
-
 
 											</div>
 										</div>
@@ -202,6 +203,16 @@
 		new fullpage('#fullPage', {
 			autoScrolling: true,
 			navigation: true
+		});
+		const yesButton = document.querySelector('.yes-button');
+		const noButton = document.querySelector('.no-button');
+
+		yesButton.addEventListener('click', function () {
+			showInput('yes');
+		});
+
+		noButton.addEventListener('click', function () {
+			showInput('no');
 		});
 	});
 </script>

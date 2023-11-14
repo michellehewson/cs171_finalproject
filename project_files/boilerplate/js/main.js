@@ -111,9 +111,24 @@ function initMainPage(dataArray) {
     SpotscatterChart = new ScatterChart("SpotScatterDiv",dataArray[0])
 }
 
-//set up the carousel
 let carousel = new bootstrap.Carousel(document.getElementById('stateCarousel'), {interval: false})
 function switchView() {
     carousel.next();
     document.getElementById('switchView').innerHTML === 'spotify view' ? document.getElementById('switchView').innerHTML = 'tiktok view' : document.getElementById('switchView').innerHTML = 'spotify view';
+}
+
+function showInput(response) {
+    const inputContainer = document.getElementById('input-container');
+
+    if (response === 'yes') {
+        // Show input box for hours
+        inputContainer.style.display = 'block';
+        inputContainer.innerHTML = '<label for="hoursInput">How many minutes a week do you spend on TikTok?  </label>' +
+            '<input type="number" id="hoursInput">';
+    } else if (response === 'no') {
+        // Show input box for minutes
+        inputContainer.style.display = 'block';
+        inputContainer.innerHTML = '<label for="minutesInput">How many minutes do you think the average user spends on TikTok?  </label>' +
+            '<input type="number" id="minutesInput">';
+    }
 }
