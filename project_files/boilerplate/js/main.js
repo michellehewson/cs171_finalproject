@@ -105,4 +105,15 @@ function initMainPage(dataArray) {
     spotifyradarChart = new RadarChart('spotifyradarchart', dataArray[0], 'spotify')
     tiktokradarChart = new RadarChart('tiktokradarchart', dataArray[1], 'tiktok')
     pianoChart = new Piano('piano', dataArray[3], dataArray[4])
+    barChart = new BarChart('barchart', dataArray[0], dataArray[1])
+
+    TikscatterChart = new ScatterChart("tikScatterDiv", dataArray[1])
+    SpotscatterChart = new ScatterChart("SpotScatterDiv",dataArray[0])
+}
+
+//set up the carousel
+let carousel = new bootstrap.Carousel(document.getElementById('stateCarousel'), {interval: false})
+function switchView() {
+    carousel.next();
+    document.getElementById('switchView').innerHTML === 'spotify view' ? document.getElementById('switchView').innerHTML = 'tiktok view' : document.getElementById('switchView').innerHTML = 'spotify view';
 }
