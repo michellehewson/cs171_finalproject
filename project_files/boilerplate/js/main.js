@@ -121,15 +121,20 @@ function switchView() {
 function showInput(response) {
     const inputContainer = document.getElementById('input-container');
 
+
     if (response === 'yes') {
         // Show input box for hours
         inputContainer.style.display = 'block';
-        inputContainer.innerHTML = '<label for="hoursInput">How many minutes a week do you spend on TikTok?  </label>' +
+        inputContainer.innerHTML = '<label for="hoursInput">How many minutes a day do you spend on TikTok?  </label>' +
             '<input type="number" id="hoursInput">';
     } else if (response === 'no') {
         // Show input box for minutes
         inputContainer.style.display = 'block';
-        inputContainer.innerHTML = '<label for="minutesInput">How many minutes do you think the average user spends on TikTok?  </label>' +
+        inputContainer.innerHTML = '<label for="minutesInput">How many minutes do you think the average user spends on TikTok a day?  </label>' +
             '<input type="number" id="minutesInput">';
     }
+    const submitButton = document.createElement('button');
+    submitButton.id = 'submit-button';
+    submitButton.textContent = 'Submit';
+    inputContainer.appendChild(submitButton);
 }
