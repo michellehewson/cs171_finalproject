@@ -23,14 +23,16 @@
     fill: red;
     cursor: pointer;
 }
-#slider-container {
-    width: 30%; /* Adjust the percentage as needed */
+#spotify-slider {
+    width: 50%; /* Adjust the percentage as needed */
     margin: auto; /* Center the slider container */
     position: relative; /* Enable relative positioning */
 }
 
-#song-slider {
-    /* Additional styles for the slider itself */
+#tiktok-slider {
+    width: 50%; /* Adjust the percentage as needed */
+    margin: auto; /* Center the slider container */
+    position: relative; /* Enable relative positioning */
 }
 
 .slider-label {
@@ -38,12 +40,24 @@
     top: 50%;
 }
 
-#start-label {
-    left: -40px;
+
+#start-label-s,
+#end-label-s,
+#start-label-t,
+#end-label-t {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
-#end-label {
-    right: -30px;
+#start-label-s,
+#start-label-t {
+    left: 5%; /* Adjust the percentage as needed */
+}
+
+#end-label-s,
+#end-label-t {
+    right: 5%; /* Adjust the percentage as needed */
 }
 
 #radarchart {

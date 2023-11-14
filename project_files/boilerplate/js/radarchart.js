@@ -198,7 +198,7 @@ class RadarChart {
         vis.generateAndDrawLevels(vis.NUM_OF_LEVEL, vis.NUM_OF_SIDES);
         vis.drawLabels(dataset, vis.NUM_OF_SIDES);
         const initialTrackName = vis.chartSubset[0].track;
-        const trackNamesDiv = d3.select("#track-names");
+        let trackNamesDiv = d3.select("#" + vis.sortingCriteria + "-track-names");
         trackNamesDiv.append("p")
             .text(initialTrackName)
             .attr("class", "track-name");
@@ -248,11 +248,11 @@ class RadarChart {
             endLabel.textContent = end;
 
             // Clear the existing content of the track-names div
-            d3.select("#track-names").html("");
+            d3.select("#" + vis.sortingCriteria + "-track-names").html("");
 
-            // Update the subset of Spotify data based on the slider values
+            // Update the subset of Spotify or TikTok data based on the slider values
             vis.chartSubset = vis.chartData.slice(start, end + 1);
-            const trackNamesDiv = d3.select("#track-names");
+            const trackNamesDiv = d3.select("#" + vis.sortingCriteria + "-track-names");
             vis.chartSubset.forEach((row) => {
                 trackNamesDiv.append("p")
                     .text(row.track_name)
