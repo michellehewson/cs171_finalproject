@@ -3,11 +3,13 @@ class RadarChart {
         this.parentElement = parentElement;
         this.spotifyData = spotifyData;
 
-        this.spotifySubset = this.spotifyData.slice(0, 5);
+        this.spotifySubset = this.spotifyData.slice(0, 10);
         this.desiredColumns = ['danceability', 'energy', 'speechiness', 'acousticness', 'liveness'];
 
         this.dataset = [];
         this.colorScale = d3.scaleOrdinal(d3.schemeCategory10); // Move colorScale here
+        this.spotifySubset.sort((a, b) => b.track_pop - a.track_pop);
+
 
         this.spotifySubset.forEach(row => {
             const data = {
@@ -31,32 +33,7 @@ class RadarChart {
                 .attr("fill-opacity", fillOpacity)
                 .attr("stroke", strokeColor);
         };
-        this.drawCircles = (points, group, track) => {
-            const tooltip = d3.select("#radar-tooltip");
 
-            const mouseEnter = (event) => {
-                tooltip.style("opacity", 1);
-                const { x, y } = d3.pointer(event);
-                tooltip.style("top", `${y - 20}px`);
-                tooltip.style("left", `${x + 15}px`);
-                tooltip.html(`<strong>Track:</strong> ${track}`);
-            };
-
-            const mouseLeave = () => {
-                tooltip.style("opacity", 0);
-            };
-
-            group.selectAll("circle")
-                .data(points)
-                .enter()
-                .append("circle")
-                .attr("cx", d => d.x)
-                .attr("cy", d => d.y)
-                .attr("r", 4)
-                .attr("fill", this.colorScale(track))  // Use colorScale to get the color
-                .on("mouseenter", mouseEnter)
-                .on("mouseleave", mouseLeave);
-        };
 
         this.initVis();
 
@@ -67,7 +44,7 @@ class RadarChart {
         let vis = this;
         vis.NUM_OF_SIDES = 5;
         vis.NUM_OF_LEVEL = 4;
-        const size = Math.min(window.innerWidth, window.innerHeight, 400);
+        const size = 800;
         const offset = Math.PI;
         const polyangle = (Math.PI * 2) / vis.NUM_OF_SIDES;
         const r = 0.8 * size;
@@ -81,7 +58,6 @@ class RadarChart {
             .range([0, this.r_0]);
 
 
-        // const colorScale = d3.scaleOrdinal(d3.schemeCategory10);
 
 
         const dataset = [];
@@ -98,7 +74,6 @@ class RadarChart {
             dataset.push(data);
         });
 
-        // Scale for mapping data to chart size
 
         // Generate ticks for chart levels
         const genTicks = levels => {
@@ -164,18 +139,24 @@ class RadarChart {
             const pathGroup = vis.g.append("g").attr("class", "shape");
             const color = vis.colorScale(dataset[i].track);
             vis.drawPath([...points, points[0]], pathGroup, "black", color, 0.5);
+
+
         });
 
         vis.drawLabels = (dataset, sideCount) => {
             const groupL = vis.g.append("g").attr("class", "labels");
+
             for (let vertex = 0; vertex < sideCount; vertex++) {
                 const angle = vertex * polyangle;
                 const label = vis.desiredColumns[vertex];
                 const point = vis.generatePoint({ length: 0.9 * (size / 2), angle });
 
                 vis.drawText(label, point, false, groupL);
+
             }
         };
+
+
 
         vis.generateAndDrawLines = (sideCount) => {
             const group = vis.g.append("g").attr("class", "grid-lines");
@@ -202,6 +183,11 @@ class RadarChart {
         vis.generateAndDrawLines(vis.NUM_OF_SIDES);
         vis.generateAndDrawLevels(vis.NUM_OF_LEVEL, vis.NUM_OF_SIDES);
         vis.drawLabels(dataset, vis.NUM_OF_SIDES);
+        const initialTrackName = vis.spotifySubset[0].track;
+        const trackNamesDiv = d3.select("#track-names");
+        trackNamesDiv.append("p")
+            .text(initialTrackName)
+            .attr("class", "track-name");
 
         vis.initializeNoUiSlider();
     }
@@ -212,7 +198,7 @@ class RadarChart {
         let startLabel = document.getElementById("start-label");
         let endLabel = document.getElementById("end-label");
         let minValue = 0; // Adjust as needed
-        let maxValue = Math.min(5, vis.spotifyData.length - 1); // Set the maximum value to 5 or the length of the data, whichever is smaller
+        let maxValue = Math.min(10, vis.spotifyData.length - 1); // Set the maximum value to 5 or the length of the data, whichever is smaller
 
         noUiSlider.create(slider, {
             start: [0, 0], // Set initial range to show only the first song
@@ -238,8 +224,17 @@ class RadarChart {
             startLabel.textContent = start;
             endLabel.textContent = end;
 
+            // Clear the existing content of the track-names div
+            d3.select("#track-names").html("");
+
             // Update the subset of Spotify data based on the slider values
             vis.spotifySubset = vis.spotifyData.slice(start, end + 1);
+            const trackNamesDiv = d3.select("#track-names");
+            vis.spotifySubset.forEach((row) => {
+                trackNamesDiv.append("p")
+                    .text(row.track_name)
+                    .attr("class", "track-name");
+            })
 
             // Update the visualization
             vis.updateVisualization();
@@ -248,7 +243,6 @@ class RadarChart {
 
     updateVisualization() {
         let vis = this;
-
         // Clear the existing chart
         vis.g.selectAll("*").remove();
 
@@ -293,6 +287,5 @@ class RadarChart {
         // Draw labels
         vis.drawLabels(vis.spotifySubset, vis.NUM_OF_SIDES);
     }
-
 
 }
