@@ -68,7 +68,6 @@ let promises = [
     d3.csv("data/spotify_keys.csv").then(csv=> {
 
         csv.forEach(function(d){
-            // numerical values
             d.key = +d.key;
             d.count = +d.count;
             d.percentage = Math.round(+d.percentage);
@@ -77,17 +76,19 @@ let promises = [
         return csv;
     }),
 
-    d3.csv("data/tiktok_keys.csv").then(csv=> {
+    d3.csv("data/tiktok_user_stats.csv").then(csv => {
+        csv.forEach(function(d) {
+            let time = d['Time'];
+            let value = parseFloat(d['Value']);
 
-        csv.forEach(function(d){
-            // numerical values
-            d.key = +d.key;
-            d.count = +d.count;
-            d.percentage = Math.round(+d.percentage);
+            // Use time and value variables as needed
+            console.log("Time:", time);
+            console.log("Value:", value);
         });
         console.log(csv);
         return csv;
     })
+
 ]
 
 Promise.all(promises)

@@ -34,7 +34,7 @@ class BarChart {
         vis.infoBox.append("rect")
             .attr("width", 300)
             .attr("height", vis.height + vis.margin.top + vis.margin.bottom)
-            .attr("fill", "blue");
+            .attr("fill", "white");
 
         vis.x = d3.scaleBand()
             .rangeRound([0, vis.width])
@@ -187,23 +187,22 @@ class BarChart {
         infoGroup.append("rect")
             .attr("width", 300)
             .attr("height", vis.height + vis.margin.top + vis.margin.bottom)
-            .attr("fill", "blue");
+            .attr("fill", "white");
 
         infoGroup.append("text")
             .attr("x", 10)
             .attr("y", 20)
             .attr("fill", "black")
-            .attr("stroke", "white")
-            .attr("stroke-width", 2)
+            .attr("stroke", "black")
             .text("Artist: " + artistData.artist);
 
         infoGroup.append("text")
             .attr("x", 10)
             .attr("y", 40)
             .attr("fill", "black")
-            .attr("stroke", "white")
-            .attr("stroke-width", 2)
+            .attr("stroke", "black")
             .text("Number of Songs: " + artistData.count);
+
     }
 
 
