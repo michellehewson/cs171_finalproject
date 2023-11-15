@@ -101,7 +101,7 @@ class BubbleGraph {
         });
 
         vis.allBubbleData = vis.spotifyBubbleData.concat(vis.tiktokBubbleData).concat(combinedArtistBubbleData);
-        console.log(vis.allBubbleData)
+      //  console.log(vis.allBubbleData)
     }
 
     updateVisualization() {

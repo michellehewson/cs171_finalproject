@@ -14,6 +14,9 @@
 // common_artists -- dataset that has all of the artists that are in both the spotify and tiktok datasets. also has the count of how many songs of theirs are in the spotify dataset
 
 
+
+// https://www.codespeedy.com/display-html-element-after-n-seconds/
+
 let bubbleChart;
 let pianoChart;
 let promises = [
@@ -36,7 +39,7 @@ let promises = [
             d.time_signature = +d.time_signature;
             d.weeks_on_chart = +d.weeks_on_chart;
         });
-        console.log(csv);
+     //   console.log(csv);
         return csv;
     }),
 
@@ -59,13 +62,13 @@ let promises = [
             d.track_pop = +d.track_pop;
             d.valence = +d.valence;
         });
-        console.log(csv);
+    //    console.log(csv);
         return csv;
 
     }),
 
     d3.csv("data/tiktok_spotify_merged.csv").then(csv=> {
-        console.log("merged", csv)
+    //    console.log("merged", csv)
         return csv;
         }),
 
@@ -76,7 +79,7 @@ let promises = [
             d.count = +d.count;
             d.percentage = Math.round(+d.percentage);
         });
-        console.log(csv);
+    //    console.log(csv);
         return csv;
     }),
 
@@ -87,7 +90,7 @@ let promises = [
             d.count = +d.count;
             d.percentage = Math.round(+d.percentage);
         });
-        console.log(csv);
+    //    console.log(csv);
         return csv;
     }),
 
@@ -95,8 +98,8 @@ let promises = [
         csv.forEach(function(d) {
             let time = d['Time'];
             let value = parseFloat(d['Value']);
-            console.log("Time:", time);
-            console.log("Value:", value);
+        //    console.log("Time:", time);
+        //    console.log("Value:", value);
         });
         return csv;
     }),
@@ -113,11 +116,11 @@ let promises = [
 
 Promise.all(promises)
     .then(function (data) {
-        console.log(data)
+       // console.log(data)
         initMainPage(data)
     })
     .catch(function (err) {
-        console.log(err)
+      //  console.log(err)
     });
 
 function initMainPage(dataArray) {
