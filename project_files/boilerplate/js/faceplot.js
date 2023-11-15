@@ -34,8 +34,12 @@ class FacePlot {
         const rows = 3;
          vis.cols = 3;
 
-         vis.cellSize = {
-            width: vis.width / vis.cols - 50,
+
+        // Calculate the width and height of each cell
+       // console.log("new face", vis.tiktokSubset)
+
+        const cellSize = {
+            width: vis.width / cols - 50,
             height: vis.height / rows
         };
 

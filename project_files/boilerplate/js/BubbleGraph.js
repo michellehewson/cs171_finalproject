@@ -26,13 +26,13 @@ class BubbleGraph {
             .attr('cx', 0)
             .attr('cy', 7)
             .attr('r', 6)
-            .style('fill', 'lightgrey');
+            .style('fill', '#ff0050');
 
         legend.append('circle')
             .attr('cx', 20)
             .attr('cy', 7)
             .attr('r', 6)
-            .style('fill', 'grey');
+            .style('fill', '#00f2ea');
 
         legend.append('circle')
             .attr('cx', 40)
@@ -101,7 +101,7 @@ class BubbleGraph {
         });
 
         vis.allBubbleData = vis.spotifyBubbleData.concat(vis.tiktokBubbleData).concat(combinedArtistBubbleData);
-        console.log(vis.allBubbleData)
+      //  console.log(vis.allBubbleData)
     }
 
     updateVisualization() {
@@ -131,9 +131,9 @@ class BubbleGraph {
             .attr('r', d => radiusScale(d.sizeRatio))
             .style('fill', d => {
                 if (d.dataset === 'Spotify') {
-                    return 'lightgrey';
+                    return '#ff0050';
                 } else if (d.dataset === 'TikTok') {
-                    return 'grey';
+                    return '#00f2ea';
                 } else {
                     return 'black';
                 }

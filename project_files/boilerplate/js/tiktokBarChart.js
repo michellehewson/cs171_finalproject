@@ -57,7 +57,7 @@ class BarChart {
 
     updateVis() {
         let vis = this;
-        console.log(vis.tiktokUserData)
+      //  console.log(vis.tiktokUserData)
         let timeData = vis.tiktokUserData.map(d => d['Time']);
         let valueData = vis.tiktokUserData.map(d => parseFloat(d['Value']));
 

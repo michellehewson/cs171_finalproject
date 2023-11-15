@@ -291,11 +291,11 @@ class RadarChart {
                     .attr("fill", vis.colorScale(row.track_name))
                     .on("mouseenter", () => {
                         // Add any tooltip or interaction logic here
-                        console.log(`Mouse entered: ${row.track_name}`);
+                 //       console.log(`Mouse entered: ${row.track_name}`);
                     })
                     .on("mouseleave", () => {
                         // Add any tooltip or interaction logic here
-                        console.log(`Mouse left: ${row.track_name}`);
+                //        console.log(`Mouse left: ${row.track_name}`);
                     });
 
                 points.push(point);

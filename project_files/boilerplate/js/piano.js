@@ -134,7 +134,7 @@ class Piano {
 
         vis.pianoWhiteKeys.on("click", function (d) {
             let key = d3.select(this).attr("key");
-            console.log(key)
+         //   console.log(key)
             playSound(key);
             vis.keyText = vis.updatePianoText(key)
             vis.textContainer = d3.select(".pianoTextInit");
@@ -162,7 +162,7 @@ class Piano {
 
         vis.pianoBlackKeys.on("click", function (d) {
             let key = d3.select(this).attr("key");
-            console.log(key)
+      //      console.log(key)
             playSound(key);
             vis.keyText = vis.updatePianoText(key)
             vis.textContainer = d3.select(".pianoTextInit");
@@ -199,7 +199,7 @@ class Piano {
 
     updatePianoText(key) {
         let vis = this;
-        console.log(vis.tiktok_keys)
+     //   console.log(vis.tiktok_keys)
         let spotifyPercentage = vis.spotify_keys[key].percentage;
         let tiktokPercentage = vis.tiktok_keys[key].percentage;
 
@@ -212,7 +212,7 @@ class Piano {
             };
         } else if (vis.blackKeys.includes(parseInt(key))) {
             vis.keyLtr = vis.blackKeysDict[key] || '';
-            console.log(vis.keyLtr)
+      //      console.log(vis.keyLtr)
             return {
                 tiktokPercentageStr: tiktokPercentage + '% of top songs on TikTok',
                 spotifyPercentageStr: spotifyPercentage + '% of top songs on Spotify',
