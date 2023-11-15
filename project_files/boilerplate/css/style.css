@@ -119,12 +119,12 @@ h2 {
 }
 
 .delayed-element {
-    opacity: 0;
+    opacity: 1;
     transition: opacity 0.5s ease-in-out;
 }
 
 .delayed-element.hide-element {
-    opacity: 0;
+    opacity: 1;
 }
 
 .delayed-element.show-element {
