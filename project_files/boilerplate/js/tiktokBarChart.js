@@ -61,7 +61,7 @@ class BarChart {
         let timeData = vis.tiktokUserData.map(d => d['Time']);
         let valueData = vis.tiktokUserData.map(d => parseFloat(d['Value']));
 
-        vis.x.domain(timeData); 
+        vis.x.domain(timeData);
         vis.y.domain([0, d3.max(valueData)]);
 
         vis.svg.append("g")
