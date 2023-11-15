@@ -298,17 +298,15 @@
 					const titleElement = document.querySelector('.fade-in-title');
 					titleElement.classList.add('show');
 
-					// Set a delay for the first fact
 					setTimeout(function() {
 						const fact1 = document.querySelector('.fade-in-fact1');
 						fact1.classList.add('show');
-					}, 1000); // Adjust the delay time in milliseconds (e.g., 1000ms = 1 second)
+					}, 1000);
 
-					// Set a delay for the second fact after the first one
 					setTimeout(function() {
 						const fact2 = document.querySelector('.fade-in-fact2');
 						fact2.classList.add('show');
-					}, 2000); // Adjust the delay time in milliseconds as needed
+					}, 2000);
 				}
 			}
 		});
