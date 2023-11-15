@@ -20,19 +20,27 @@
 
 <!-- we can add each page here -->
 	<div id="fullPage">
-		<div id="page1" class="section">
+		<div data-anchor="page1" class="section">
 			<h1>From Tiktok Trends to Playlist Picks</h1>
 			<h2>Exploring Musical Trends Across Spotify and TikTok</h2>
 		</div>
-		<div id="page2" class="section">
+		<div data-anchor="page2" class="section">
 			<div class="column-container">
 				<div class="column">
+<<<<<<< HEAD
 					<div class="tiktok-title">
 						<h1>What is <img src="img/tiktok.png" alt="TikTok logo" width="416" height="121">?</h1>
+=======
+					<div class="fade-in-title">
+						<h1 id="test">What is <img src="/img/tiktok.png" alt="TikTok logo" width="416" height="121">?</h1>
 					</div>
-					<h2>TikTok is a social media platform that has taken the world by storm.</h2>
-					<h2>Users can create short videos to distribute to others around the globe</h2>
-
+					<div class="fade-in-fact1">
+					<h2 id="test2">TikTok is a social media platform that has taken the world by storm.</h2>
+					</div>
+					<div class="fade-in-fact2">
+					<h2 id="test3">Users can create short videos to distribute to others around the globe</h2>
+>>>>>>> 8c6c7cd8eab2429fc5b47627f809475d40ad0762
+					</div>
 				</div>
 				<div class="column">
 					<div class="video-container">
@@ -69,33 +77,26 @@
 			</div>
 		</div>
 
-		<div id="page3" class="section">
+		<div data-anchor="page3" class="section">
 			<h2> Do you use TikTok?</h2>
 			<div class="button-container">
 				<button class="yes-button">Yes</button>
 				<button class="no-button">No</button>
 			</div>
+			<h2 id="response-text" style="display: none;"></h2>
 
-
-			<!--
-			<div id="input-container" style="display: none;">
-				<label for="hoursInput"></label>
-				<input type="number" id="hoursInput">
-				<button id="submit-button">Submit</button>
-			</div>
-			-->
 			<div id="result-container"></div>
-			<h2 class="delayed-element">To date, TikTok has been downloaded over 3.5 billion times.</h2>
-			<h2 class="delayed-element">TikTok dominated the charts in 2022 as the most downloaded app, amassing over 800 million downloads.</h2>
-			<h3 class="delayed-element">The Rapid Influx of TikTok Users</h3> <button id="start-button">Start</button>
-			<div id="barchart" class="delayed-element"></div>
-			<h2 class="delayed-element">This rise in popularity is a testament to TikTok's capability to influence in shaping current trends and culture.</h2>
+			<h2>To date, TikTok has been downloaded over 3.5 billion times.</h2>
+			<h2>TikTok dominated the charts in 2022 as the most downloaded app, amassing over 800 million downloads.</h2>
+			<h3>The Rapid Influx of TikTok Users</h3> <button id="start-button">Start</button>
+			<div id="barchart"></div>
+			<h2>This rise in popularity is a testament to TikTok's capability to influence in shaping current trends and culture.</h2>
 
 
 		</div>
 
 
-		<div id="page4" class="section">
+		<div data-anchor="page4" class="section">
 			<h2>Bubble plot</h2>
 			<div class="container">
 				<div class="col-auto">
@@ -105,10 +106,10 @@
 			</div>
 
 		</div>
-		<div id="page5" class="section">
+		<div data-anchor="page5" class="section">
 			<h2>What makes an artist popular on tiktok vs spotify</h2>
 		</div>
-		<div id="page6" class="section">
+		<div data-anchor="page6" class="section">
 			<div class="col-auto">
 				<h2> 9 Most Popular Artists on Tiktok</h2>
 				<button id="showTopArtistsButton">Show Top Artists</button>
@@ -124,13 +125,13 @@
 				</div>
 			</div>
 		</div>
-		<div id="page7" class="section">
+		<div data-anchor="page7" class="section">
 			<h2>take away</h2>
 		</div>
-		<div id="page8" class="section">
+		<div data-anchor="page8" class="section">
 			<h2>What makes a song popular on these platforms?</h2>
 		</div>
-		<div id="page9" class="section">
+		<div data-anchor="page9" class="section">
 			<h2>Radar chart</h2>
 			<div class="container">
 				<div class="row">
@@ -161,7 +162,12 @@
 				</div>
 			</div>
 		</div>
-		<div id="page10" class="section">
+
+		<div data-anchor="page10" class="section">
+			<h2>histogram</h2>
+		</div>
+
+		<div data-anchor="page11" class="section">
 			<h2> piano</h2>
 			<div class="container">
 				<div class="col-auto">
@@ -170,10 +176,10 @@
 			</div>
 
 		</div>
-		<div id="page11" class="section">
+		<div data-anchor="page12" class="section">
 			<h2>conclusion</h2>
 		</div>
-		<div id="page12" class="section">
+		<div data-anchor="page13" class="section">
 			<h2>scatter plot</h2>
 			<div class="container-fluid">
 				<div class="col-2">
@@ -231,6 +237,27 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/4.0.20/fullpage.min.js" integrity="sha512-LGiXf+jHGTHcIybSsOWO3I/in+OObCkcEsWIZ7IyhzfD6RzD5qDUw2CK+JveuI7zTSEcDG//bIOvOpAJW2BWsg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+
+<script>
+	document.addEventListener('DOMContentLoaded', function() {
+		const yesButton = document.querySelector('.yes-button');
+		const noButton = document.querySelector('.no-button');
+		const responseText = document.getElementById('response-text');
+
+		yesButton.addEventListener('click', function() {
+			responseText.textContent = 'You are part of a community of over 3.5 million downloads!';
+			responseText.style.display = 'block';
+		});
+
+		noButton.addEventListener('click', function() {
+			responseText.textContent = 'Everyone has their preferences!';
+			responseText.style.display = 'block';
+		});
+	});
+</script>
+
+
+<!--
 <script>
 	document.addEventListener("DOMContentLoaded", function () {
 
@@ -265,32 +292,38 @@
 
 	});
 </script>
+-->
 
-<!--
 <script>
-	document.addEventListener("DOMContentLoaded", function () {
-		let delayedElements = document.querySelectorAll('#page3 .delayed-element');
-		let delay = 2000; // this is 2 seconds
-		let currentIndex = 0;
+	document.addEventListener('DOMContentLoaded', function() {
+		new fullpage('#fullPage', {
+			autoScrolling: true,
+			navigation: true,
+			licenseKey: 'gplv3-license',
+			anchors: ['page1', 'page2', 'page3', 'page4', 'page5', 'page6', 'page7'],
+			afterLoad: function(origin, destination) {
+				if (destination.anchor === 'page2') {
+					const titleElement = document.querySelector('.fade-in-title');
+					titleElement.classList.add('show');
 
-		function displayDelayedElement() {
-			if (currentIndex < delayedElements.length) {
-				delayedElements[currentIndex].classList.add('show-element');
-				currentIndex++;
-				setTimeout(displayDelayedElement, delay);
+					setTimeout(function() {
+						const fact1 = document.querySelector('.fade-in-fact1');
+						fact1.classList.add('show');
+					}, 1000);
+
+					setTimeout(function() {
+						const fact2 = document.querySelector('.fade-in-fact2');
+						fact2.classList.add('show');
+					}, 2000);
+				}
 			}
-		}
-
-		delayedElements.forEach(function (element) {
-			element.classList.add('hide-element');
 		});
-
-		setTimeout(displayDelayedElement, delay);
 	});
-	-->
 
 </script>
+
 <!-- own js files -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="js/piano.js"></script>
 <script src="js/BubbleGraph.js"></script>
 <script src="js/radarchart.js"></script>
