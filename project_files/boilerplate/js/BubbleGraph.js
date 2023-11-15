@@ -10,16 +10,43 @@ class BubbleGraph {
 
     initVis() {
         let vis = this;
-        vis.width = 960;
-        vis.height = 600;
+        vis.width = 1296;
+        vis.height = 700;
         vis.svg = d3.select("#" + vis.parentElement)
             .append("svg")
             .attr("width", vis.width)
             .attr("height", vis.height)
             .append('g');
 
+        let legend = vis.svg.append('g')
+            .attr('class', 'legend')
+            .attr('transform', 'translate(450, 140)');
+
+        legend.append('circle')
+            .attr('cx', 0)
+            .attr('cy', 7)
+            .attr('r', 6)
+            .style('fill', 'lightgrey');
+
+        legend.append('circle')
+            .attr('cx', 20)
+            .attr('cy', 7)
+            .attr('r', 6)
+            .style('fill', 'grey');
+
+        legend.append('circle')
+            .attr('cx', 40)
+            .attr('cy', 7)
+            .attr('r', 6)
+            .style('fill', 'black');
+
+
         vis.wrangleData();
         vis.updateVisualization();
+
+        d3.select('#separate-button').on('click', () => {
+            vis.separateBubbles();
+        });
     }
 
     wrangleData() {
@@ -90,8 +117,8 @@ class BubbleGraph {
             .range([5, 50]);
 
         const simulation = d3.forceSimulation(data)
-            .force('x', d3.forceX(vis.width / 2).strength(0.05))
-            .force('y', d3.forceY(vis.height / 2).strength(0.05))
+            .force('x', d3.forceX(vis.width / 2).strength(0.03))
+            .force('y', d3.forceY(vis.height / 2).strength(0.03))
             .force('collide', d3.forceCollide(d => radiusScale(d.sizeRatio) + 2));
 
         const bubbleGroups = vis.svg.selectAll('.bubble-group')
@@ -104,28 +131,90 @@ class BubbleGraph {
             .attr('r', d => radiusScale(d.sizeRatio))
             .style('fill', d => {
                 if (d.dataset === 'Spotify') {
-                    return 'red';
+                    return 'lightgrey';
                 } else if (d.dataset === 'TikTok') {
-                    return 'blue';
+                    return 'grey';
                 } else {
-                    return 'yellow';
+                    return 'black';
                 }
             });
 
-        const labels = bubbleGroups.append('text')
-            .attr('class', 'bubble-label')
-            .attr('text-anchor', 'middle')
-            .attr('dy', '0.35em')
-            .text(d => d.artist_name);
 
         simulation.on('tick', () => {
             bubbles
                 .attr('cx', d => d.x)
                 .attr('cy', d => d.y);
 
-            labels
-                .attr('x', d => d.x)
-                .attr('y', d => d.y);
+        });
+
+
+        const tooltip = d3.select("#" + vis.parentElement) // Tooltip element
+            .append("div")
+            .attr("class", "tooltip")
+            .style("opacity", 0);
+
+        bubbles.on("mouseover", function (event, d) {
+            tooltip.transition().duration(200).style("opacity", 0.9);
+            tooltip.html(d.artist_name)
+                .style("left", event.pageX + "px")
+                .style("top", event.pageY - 28 + "px");
+        })
+            .on("mouseout", function () {
+                tooltip.transition().duration(500).style("opacity", 0);
+            });
+
+    }
+
+    separateBubbles() {
+        let vis = this;
+
+        const spotifyData = vis.allBubbleData.filter(d => d.dataset === 'Spotify');
+        const tiktokData = vis.allBubbleData.filter(d => d.dataset === 'TikTok');
+        const combinedData = vis.allBubbleData.filter(d => d.dataset === 'Combined');
+
+        const radiusScale = d3.scaleLinear()
+            .domain([0, d3.max(vis.allBubbleData, d => d.sizeRatio)])
+            .range([5, 50]);
+
+        const simulationSpotify = d3.forceSimulation(spotifyData)
+            .force('x', d3.forceX(vis.width / 4).strength(0.3))
+            .force('y', d3.forceY(vis.height / 2).strength(0.3))
+            .force('collide', d3.forceCollide(d => radiusScale(d.sizeRatio) +2));
+
+        const simulationTikTok = d3.forceSimulation(tiktokData)
+            .force('x', d3.forceX((vis.width / 4) * 3).strength(0.3))
+            .force('y', d3.forceY(vis.height / 2).strength(0.3))
+            .force('collide', d3.forceCollide(d => radiusScale(d.sizeRatio) +2));
+
+        const simulationCombined = d3.forceSimulation(combinedData)
+            .force('x', d3.forceX(vis.width / 2).strength(0.3))
+            .force('y', d3.forceY(vis.height / 2).strength(0.3))
+            .force('collide', d3.forceCollide(d => radiusScale(d.sizeRatio) +2));
+
+        simulationSpotify.on('tick', () => {
+            vis.svg.selectAll('.bubble')
+                .filter(d => d.dataset === 'Spotify')
+                .attr('cx', d => d.x)
+                .attr('cy', d => d.y);
+
+
+        });
+
+        simulationTikTok.on('tick', () => {
+            vis.svg.selectAll('.bubble')
+                .filter(d => d.dataset === 'TikTok')
+                .attr('cx', d => d.x)
+                .attr('cy', d => d.y);
+
+
+        });
+
+        simulationCombined.on('tick', () => {
+            vis.svg.selectAll('.bubble')
+                .filter(d => d.dataset === 'Combined')
+                .attr('cx', d => d.x)
+                .attr('cy', d => d.y);
+
         });
     }
 
