@@ -48,7 +48,7 @@ let promises = [
             d.instrumentalness = +d.instrumentalness;
             d.key = +d.key;
             d.liveness = +d.liveness;
-            d.loudness = +d.loudness;
+            d.loudness = +d.loudness
             d.mode = +d.mode;
             d.speechiness = +d.speechiness;
             d.tempo = +d.tempo;
@@ -114,15 +114,38 @@ function initMainPage(dataArray) {
     spotifyradarChart = new RadarChart('spotifyradarchart', dataArray[0], 'spotify')
     tiktokradarChart = new RadarChart('tiktokradarchart', dataArray[1], 'tiktok')
     pianoChart = new Piano('piano', dataArray[3], dataArray[4])
-    //barChart = new BarChart('barchart', dataArray[0], dataArray[1])
+    faceplot = new FacePlot('faceplot', dataArray[1])
     barChart = new BarChart('barchart', dataArray[5])
-   // TikscatterChart = new ScatterChart("tikScatterDiv", dataArray[1])
-    //SpotscatterChart = new ScatterChart("SpotScatterDiv",dataArray[0])
+
+
+    TikscatterChart = new ScatterChart("tikScatterDiv", dataArray[1])
+    SpotscatterChart = new ScatterChart("SpotScatterDiv",dataArray[0])
+
 }
 
-//set up the carousel
 let carousel = new bootstrap.Carousel(document.getElementById('stateCarousel'), {interval: false})
 function switchView() {
     carousel.next();
     document.getElementById('switchView').innerHTML === 'spotify view' ? document.getElementById('switchView').innerHTML = 'tiktok view' : document.getElementById('switchView').innerHTML = 'spotify view';
+}
+
+function showInput(response) {
+    const inputContainer = document.getElementById('input-container');
+
+
+    if (response === 'yes') {
+        // Show input box for hours
+        inputContainer.style.display = 'block';
+        inputContainer.innerHTML = '<label for="hoursInput">How many minutes a day do you spend on TikTok?  </label>' +
+            '<input type="number" id="hoursInput">';
+    } else if (response === 'no') {
+        // Show input box for minutes
+        inputContainer.style.display = 'block';
+        inputContainer.innerHTML = '<label for="minutesInput">How many minutes do you think the average user spends on TikTok a day?  </label>' +
+            '<input type="number" id="minutesInput">';
+    }
+    const submitButton = document.createElement('button');
+    submitButton.id = 'submit-button';
+    submitButton.textContent = 'Submit';
+    inputContainer.appendChild(submitButton);
 }

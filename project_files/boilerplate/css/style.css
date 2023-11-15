@@ -25,6 +25,29 @@ h2 {
     box-sizing: border-box;
 }
 
+.button-container {
+    text-align: center;
+    margin-top: 20px; /* Adjust as needed */
+}
+
+.yes-button, .no-button {
+    background-color: rgba(126, 191, 224, 0.72); /* Green */
+    color: black;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+#input-container {
+    text-align: center;
+}
+
+
 
 .section {
     display: block;
