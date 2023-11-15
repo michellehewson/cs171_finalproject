@@ -1,11 +1,21 @@
 class FacePlot {
-    constructor(parentElement, tiktokData, imageFolder) {
+    constructor(parentElement, tiktokData) {
         this.parentElement = parentElement;
         this.tiktokData = tiktokData.sort((a, b) => b.artist_pop - a.artist_pop);
         this.uniqueArtists = Array.from(new Set(this.tiktokData.map(entry => entry.artist_name)));
         this.tiktokSubset = this.uniqueArtists.slice(0, 9);
-        this.imageFolder = imageFolder;
         this.initVis();
+    }
+
+    showTracksForArtist(selectedArtist) {
+        // Filter the full TikTok dataset for rows matching the selected artist
+        const artistTracks = this.tiktokData.filter(entry => entry.artist_name === selectedArtist);
+
+        // Display track names in the artist-name-container
+        const tracksHtml = artistTracks.map(entry => `<p>${entry.track_name}</p>`).join('');
+        d3.select('#artist-name-container').html(`<h4>Tracks for ${selectedArtist}:</h4>${tracksHtml}`);
+
+        // Update your visualization as needed
     }
 
     initVis() {
@@ -62,11 +72,41 @@ class FacePlot {
             .attr('xlink:href', d => `img/${d}.png`);
 
 // Add a circle for each artist's face image
+
         cells.append('circle')
             .attr('r', 60) // Adjust the radius as needed
             .style('fill', (d, i) => `url(#pattern-${i})`) // Reference the pattern using the index
-            .style('stroke', 'white')
-            .style('stroke-width', '2');
+            .style('stroke', 'black')
+            .style('stroke-width', '2')
+            .on('mouseover', function (event, d) {
+                // Display artist's name and tracks when hovering over the circle
+                d3.select(this)
+                    .style('filter', 'url(#drop-shadow)'); // Apply shadow filter
+
+                d3.select('#artist-name-container').text(d);
+
+                // Show tracks for the artist
+                vis.showTracksForArtist(d);
+            })
+            .on('mouseout', function () {
+                // Clear the artist's name and remove shadow when not hovering
+                d3.select(this)
+                    .style('filter', null); // Remove shadow filter
+                d3.select('#artist-name-container').text('');
+            })
+            .on('click', function (event, d) {
+                // Handle click event to show track names for the selected artist
+                vis.showTracksForArtist(d);
+            });
+
+        vis.svg.append('defs')
+            .append('filter')
+            .attr('id', 'drop-shadow')
+            .attr('height', '130%')
+            .append('feDropShadow')
+            .attr('dx', 0)
+            .attr('dy', 4)
+            .attr('stdDeviation', 4);
 
         this.wrangleData();
     }
@@ -74,4 +114,5 @@ class FacePlot {
     wrangleData() {
         // Additional data wrangling if needed
     }
+
 }
