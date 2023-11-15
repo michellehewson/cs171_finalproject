@@ -8,7 +8,10 @@
 // TikTok_songs_2022.csv -- ORIGINAL TIKTOK DATASET, NOT COMPLETELY CLEANED BUT CAN STILL BE USED FOR SOME VISUALIZATIONS
 // spotify_top_charts_22.csv -- ORIGINAL SPOTIFY DATASET, NOT COMPLETELY CLEANED BUT CAN STILL BE USED FOR SOME VISUALIZATIONS
 // tiktok_spotify_merged -- the merged spotify and TikTok datasets (they were merged on track_name) and contain all of the columns of both datasets (not 100% clean... some songs are repeated because they are remixes, be careful with this data)
-//
+// tiktok_keys -- how many songs on tiktok are in each key (count, percentage)
+// spotify_keys -- how many songs on spotify are in each key (count, percentage)
+// tiktok_user_stats -- tiktok download statistics via https://www.statista.com/statistics/1377008/tiktok-worldwide-downloads-quarterly/
+// common_artists -- dataset that has all of the artists that are in both the spotify and tiktok datasets. also has the count of how many songs of theirs are in the spotify dataset
 
 
 let bubbleChart;
@@ -56,6 +59,7 @@ let promises = [
             d.track_pop = +d.track_pop;
             d.valence = +d.valence;
         });
+        console.log(csv);
         return csv;
 
     }),
@@ -95,7 +99,15 @@ let promises = [
             console.log("Value:", value);
         });
         return csv;
+    }),
+
+    d3.csv("data/common_artists.csv").then(csv => {
+        csv.forEach(function(d) {
+            d.count = + d.count;
+        });
+        return csv;
     })
+
 
 ]
 
@@ -110,7 +122,7 @@ Promise.all(promises)
 
 function initMainPage(dataArray) {
 
-    bubbleChart = new BubbleGraph('bubblechart', dataArray[2])
+    bubbleChart = new BubbleGraph('bubblechart', dataArray[0], dataArray[1], dataArray[6])
     spotifyradarChart = new RadarChart('spotifyradarchart', dataArray[0], 'spotify')
     tiktokradarChart = new RadarChart('tiktokradarchart', dataArray[1], 'tiktok')
     pianoChart = new Piano('piano', dataArray[3], dataArray[4])
@@ -118,8 +130,8 @@ function initMainPage(dataArray) {
     barChart = new BarChart('barchart', dataArray[5])
 
 
-    TikscatterChart = new ScatterChart("tikScatterDiv", dataArray[1])
-    SpotscatterChart = new ScatterChart("SpotScatterDiv",dataArray[0])
+   // TikscatterChart = new ScatterChart("tikScatterDiv", dataArray[1])
+   // SpotscatterChart = new ScatterChart("SpotScatterDiv",dataArray[0])
 
 }
 
