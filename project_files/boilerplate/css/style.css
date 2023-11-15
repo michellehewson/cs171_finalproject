@@ -53,7 +53,7 @@ h2 {
 .section {
     display: block;
     padding: 20px;
-    background-color: lightgoldenrodyellow;
+    background-color: white;
     max-height: 100vh;
 }
 
@@ -129,4 +129,32 @@ h2 {
 
 .delayed-element.show-element {
     opacity: 1;
+}
+
+.tooltip {
+    position: absolute;
+    background-color: lightgray;
+    padding: 8px;
+    border-radius: 4px;
+    pointer-events: none;
+    font-size: 12px;
+}
+
+.column-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.column {
+    flex: 1;
+}
+
+.tiktok-title h1 {
+    font-size: 48px;
+    color: black;
+}
+
+.tiktok-title h1 span {
+    display: inline-block;
+    margin-top: 15px;
 }

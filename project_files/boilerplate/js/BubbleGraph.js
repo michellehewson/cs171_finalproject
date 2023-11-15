@@ -139,21 +139,30 @@ class BubbleGraph {
                 }
             });
 
-     //   const labels = bubbleGroups.append('text')
-      //      .attr('class', 'bubble-label')
-       //     .attr('text-anchor', 'middle')
-        //    .attr('dy', '0.35em')
-         //   .text(d => d.artist_name);
 
         simulation.on('tick', () => {
             bubbles
                 .attr('cx', d => d.x)
                 .attr('cy', d => d.y);
 
-//            labels
-//                .attr('x', d => d.x)
- //               .attr('y', d => d.y);
         });
+
+
+        const tooltip = d3.select("#" + vis.parentElement) // Tooltip element
+            .append("div")
+            .attr("class", "tooltip")
+            .style("opacity", 0);
+
+        bubbles.on("mouseover", function (event, d) {
+            tooltip.transition().duration(200).style("opacity", 0.9);
+            tooltip.html(d.artist_name)
+                .style("left", event.pageX + "px")
+                .style("top", event.pageY - 28 + "px");
+        })
+            .on("mouseout", function () {
+                tooltip.transition().duration(500).style("opacity", 0);
+            });
+
     }
 
     separateBubbles() {
@@ -168,19 +177,19 @@ class BubbleGraph {
             .range([5, 50]);
 
         const simulationSpotify = d3.forceSimulation(spotifyData)
-            .force('x', d3.forceX(vis.width / 4).strength(0.2))
-            .force('y', d3.forceY(vis.height / 2).strength(0.2))
-            .force('collide', d3.forceCollide(d => radiusScale(d.sizeRatio) + 2));
+            .force('x', d3.forceX(vis.width / 4).strength(0.3))
+            .force('y', d3.forceY(vis.height / 2).strength(0.3))
+            .force('collide', d3.forceCollide(d => radiusScale(d.sizeRatio) +2));
 
         const simulationTikTok = d3.forceSimulation(tiktokData)
-            .force('x', d3.forceX((vis.width / 4) * 3).strength(0.2))
-            .force('y', d3.forceY(vis.height / 2).strength(0.2))
-            .force('collide', d3.forceCollide(d => radiusScale(d.sizeRatio) + 2));
+            .force('x', d3.forceX((vis.width / 4) * 3).strength(0.3))
+            .force('y', d3.forceY(vis.height / 2).strength(0.3))
+            .force('collide', d3.forceCollide(d => radiusScale(d.sizeRatio) +2));
 
         const simulationCombined = d3.forceSimulation(combinedData)
-            .force('x', d3.forceX(vis.width / 2).strength(0.2))
-            .force('y', d3.forceY(vis.height / 2).strength(0.2))
-            .force('collide', d3.forceCollide(d => radiusScale(d.sizeRatio) + 2));
+            .force('x', d3.forceX(vis.width / 2).strength(0.3))
+            .force('y', d3.forceY(vis.height / 2).strength(0.3))
+            .force('collide', d3.forceCollide(d => radiusScale(d.sizeRatio) +2));
 
         simulationSpotify.on('tick', () => {
             vis.svg.selectAll('.bubble')
@@ -188,10 +197,7 @@ class BubbleGraph {
                 .attr('cx', d => d.x)
                 .attr('cy', d => d.y);
 
-      //      vis.svg.selectAll('.bubble-label')
-      //          .filter(d => d.dataset === 'Spotify')
-       //         .attr('x', d => d.x)
-        //        .attr('y', d => d.y);
+
         });
 
         simulationTikTok.on('tick', () => {
@@ -200,10 +206,7 @@ class BubbleGraph {
                 .attr('cx', d => d.x)
                 .attr('cy', d => d.y);
 
-     //       vis.svg.selectAll('.bubble-label')
-      //          .filter(d => d.dataset === 'TikTok')
-       //         .attr('x', d => d.x)
-        //        .attr('y', d => d.y);
+
         });
 
         simulationCombined.on('tick', () => {
@@ -212,10 +215,6 @@ class BubbleGraph {
                 .attr('cx', d => d.x)
                 .attr('cy', d => d.y);
 
-     //       vis.svg.selectAll('.bubble-label')
-     //           .filter(d => d.dataset === 'Combined')
-     //           .attr('x', d => d.x)
-      //          .attr('y', d => d.y);
         });
     }
 
