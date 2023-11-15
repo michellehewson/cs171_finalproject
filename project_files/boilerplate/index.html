@@ -76,6 +76,7 @@
 				<button class="yes-button">Yes</button>
 				<button class="no-button">No</button>
 			</div>
+			<h2 id="response-text" style="display: none;"></h2>
 
 
 			<!--
@@ -160,7 +161,12 @@
 				</div>
 			</div>
 		</div>
+
 		<div id="page10" class="section">
+			<h2>histogram</h2>
+		</div>
+
+		<div id="page11" class="section">
 			<h2> piano</h2>
 			<div class="container">
 				<div class="col-auto">
@@ -169,10 +175,10 @@
 			</div>
 
 		</div>
-		<div id="page11" class="section">
+		<div id="page12" class="section">
 			<h2>conclusion</h2>
 		</div>
-		<div id="page12" class="section">
+		<div id="page13" class="section">
 			<h2>scatter plot</h2>
 			<div class="container-fluid">
 				<div class="col-2">
@@ -229,6 +235,27 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/4.0.20/fullpage.min.js" integrity="sha512-LGiXf+jHGTHcIybSsOWO3I/in+OObCkcEsWIZ7IyhzfD6RzD5qDUw2CK+JveuI7zTSEcDG//bIOvOpAJW2BWsg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+<script>
+	document.addEventListener('DOMContentLoaded', function() {
+		const yesButton = document.querySelector('.yes-button');
+		const noButton = document.querySelector('.no-button');
+		const responseText = document.getElementById('response-text');
+
+		yesButton.addEventListener('click', function() {
+			responseText.textContent = 'You are part of a community of over 3.5 million downloads!';
+			responseText.style.display = 'block';
+		});
+
+		noButton.addEventListener('click', function() {
+			responseText.textContent = 'Everyone has their preferences!';
+			responseText.style.display = 'block';
+		});
+	});
+</script>
+
+
 
 <script>
 	document.addEventListener("DOMContentLoaded", function () {
