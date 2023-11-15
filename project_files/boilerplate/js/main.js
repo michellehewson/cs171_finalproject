@@ -130,15 +130,15 @@ function initMainPage(dataArray) {
     barChart = new BarChart('barchart', dataArray[5])
 
 
-   // TikscatterChart = new ScatterChart("tikScatterDiv", dataArray[1])
-   // SpotscatterChart = new ScatterChart("SpotScatterDiv",dataArray[0])
+   TikscatterChart = new ScatterChart("tikScatterDiv", dataArray[1],"SpotScatterDiv" )
+   SpotscatterChart = new ScatterChart("SpotScatterDiv",dataArray[0],"SpotScatterDiv")
 
 }
 
 let carousel = new bootstrap.Carousel(document.getElementById('stateCarousel'), {interval: false})
 function switchView() {
     carousel.next();
-    document.getElementById('switchView').innerHTML === 'spotify view' ? document.getElementById('switchView').innerHTML = 'tiktok view' : document.getElementById('switchView').innerHTML = 'spotify view';
+    document.getElementById('switchView').innerHTML === 'tiktok view' ? document.getElementById('switchView').innerHTML = 'spotify view' : document.getElementById('switchView').innerHTML = 'tiktok view';
 }
 
 function showInput(response) {
