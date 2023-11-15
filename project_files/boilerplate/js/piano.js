@@ -18,18 +18,18 @@ class Piano {
         // necessary variables and function for playing sounds
         const audioContext = new (window.AudioContext || window.webkitAudioContext)();
         let soundFiles = {
-            0: '/sounds/C.wav',
-            1: '/sounds/C2.wav',
-            2: '/sounds/D.wav',
-            3: '/sounds/D2.wav',
-            4: '/sounds/E.wav',
-            5: '/sounds/F.wav',
-            6: '/sounds/F2.wav',
-            7: '/sounds/G.wav',
-            8: '/sounds/G2.wav',
-            9: '/sounds/A.wav',
-            10: '/sounds/A2.wav',
-            11: '/sounds/B.wav',
+            0: 'sounds/C.wav',
+            1: 'sounds/C2.wav',
+            2: 'sounds/D.wav',
+            3: 'sounds/D2.wav',
+            4: 'sounds/E.wav',
+            5: 'sounds/F.wav',
+            6: 'sounds/F2.wav',
+            7: 'sounds/G.wav',
+            8: 'sounds/G2.wav',
+            9: 'sounds/A.wav',
+            10: 'sounds/A2.wav',
+            11: 'sounds/B.wav',
         };
 
 
