@@ -1,37 +1,37 @@
 
 h1 {
     text-align: center;
-    font-family: 'Times New Roman', sans-serif; /* Replace with your preferred font */
-    color: #333; /* Set your desired text color */
+    font-family: 'Times New Roman', sans-serif;
+    color: #333;
     margin-top: 50px;
 }
 
 
 h2 {
     text-align: center;
-    font-family: 'Times New Roman', sans-serif; /* Replace with your preferred font */
-    color: #333; /* Set your desired text color */
+    font-family: 'Times New Roman', sans-serif;
+    color: #333;
     margin-top: 20px;
 }
 
 .video-container {
     display: flex;
     justify-content: space-between;
-    margin-top: 20px; /* Adjust as needed */
+    margin-top: 20px;
 }
 
 .tiktok-video {
-    width: calc(30% - 10px); /* Adjust the width and margin as needed */
+    width: calc(30% - 10px);
     box-sizing: border-box;
 }
 
 .button-container {
     text-align: center;
-    margin-top: 20px; /* Adjust as needed */
+    margin-top: 20px;
 }
 
 .yes-button, .no-button {
-    background-color: rgba(126, 191, 224, 0.72); /* Green */
+    background-color: rgba(126, 191, 224, 0.72);
     color: black;
     padding: 10px 20px;
     text-align: center;
@@ -74,15 +74,15 @@ h2 {
     cursor: pointer;
 }
 #spotify-slider {
-    width: 50%; /* Adjust the percentage as needed */
-    margin: auto; /* Center the slider container */
-    position: relative; /* Enable relative positioning */
+    width: 50%;
+    margin: auto;
+    position: relative;
 }
 
 #tiktok-slider {
-    width: 50%; /* Adjust the percentage as needed */
-    margin: auto; /* Center the slider container */
-    position: relative; /* Enable relative positioning */
+    width: 50%;
+    margin: auto;
+    position: relative;
 }
 
 .slider-label {
@@ -102,17 +102,29 @@ h2 {
 
 #start-label-s,
 #start-label-t {
-    left: 5%; /* Adjust the percentage as needed */
+    left: 5%;
 }
 
 #end-label-s,
 #end-label-t {
-    right: 5%; /* Adjust the percentage as needed */
+    right: 5%;
 }
 
 #radarchart {
-    /* Add centering styles for the radar chart */
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.delayed-element {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.delayed-element.hide-element {
+    opacity: 0;
+}
+
+.delayed-element.show-element {
+    opacity: 1;
 }
