@@ -76,16 +76,24 @@ let promises = [
         return csv;
     }),
 
+    d3.csv("data/tiktok_keys.csv").then(csv=> {
+
+        csv.forEach(function(d){
+            d.key = +d.key;
+            d.count = +d.count;
+            d.percentage = Math.round(+d.percentage);
+        });
+        console.log(csv);
+        return csv;
+    }),
+
     d3.csv("data/tiktok_user_stats.csv").then(csv => {
         csv.forEach(function(d) {
             let time = d['Time'];
             let value = parseFloat(d['Value']);
-
-            // Use time and value variables as needed
             console.log("Time:", time);
             console.log("Value:", value);
         });
-        console.log(csv);
         return csv;
     })
 
@@ -106,10 +114,10 @@ function initMainPage(dataArray) {
     spotifyradarChart = new RadarChart('spotifyradarchart', dataArray[0], 'spotify')
     tiktokradarChart = new RadarChart('tiktokradarchart', dataArray[1], 'tiktok')
     pianoChart = new Piano('piano', dataArray[3], dataArray[4])
-    barChart = new BarChart('barchart', dataArray[0], dataArray[1])
-
-    TikscatterChart = new ScatterChart("tikScatterDiv", dataArray[1])
-    SpotscatterChart = new ScatterChart("SpotScatterDiv",dataArray[0])
+    //barChart = new BarChart('barchart', dataArray[0], dataArray[1])
+    barChart = new BarChart('barchart', dataArray[5])
+   // TikscatterChart = new ScatterChart("tikScatterDiv", dataArray[1])
+    //SpotscatterChart = new ScatterChart("SpotScatterDiv",dataArray[0])
 }
 
 //set up the carousel
