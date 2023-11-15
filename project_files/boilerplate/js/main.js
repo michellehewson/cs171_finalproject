@@ -48,7 +48,7 @@ let promises = [
             d.instrumentalness = +d.instrumentalness;
             d.key = +d.key;
             d.liveness = +d.liveness;
-            d.loudness = +d.loudness;
+            d.loudness = +d.loudness
             d.mode = +d.mode;
             d.speechiness = +d.speechiness;
             d.tempo = +d.tempo;
@@ -107,6 +107,7 @@ function initMainPage(dataArray) {
     tiktokradarChart = new RadarChart('tiktokradarchart', dataArray[1], 'tiktok')
     pianoChart = new Piano('piano', dataArray[3], dataArray[4])
     barChart = new BarChart('barchart', dataArray[0], dataArray[1])
+    faceplot = new FacePlot('faceplot', dataArray[1])
 
     TikscatterChart = new ScatterChart("tikScatterDiv", dataArray[1])
     SpotscatterChart = new ScatterChart("SpotScatterDiv",dataArray[0])
