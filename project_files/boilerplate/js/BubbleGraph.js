@@ -1,6 +1,4 @@
 // https://observablehq.com/@d3/bubble-chart-component for reference
-
-// thank you so much sydney levy for the inspo
 class BubbleGraph {
     constructor(parentElement, spotifyData, tiktokData, mergedData) {
         this.parentElement = parentElement;
@@ -25,28 +23,22 @@ class BubbleGraph {
             .attr('transform', 'translate(450, 140)');
 
         legend.append('circle')
-            .attr('x', 0)
-            .attr('y', -5)
+            .attr('cx', 0)
+            .attr('cy', 7)
             .attr('r', 6)
-            .style('fill', 'purple');
+            .style('fill', 'lightgrey');
 
         legend.append('circle')
-            .attr('x', 0)
-            .attr('y', 15)
-            .attr('r',6)
-            .style('fill', 'orange');
+            .attr('cx', 20)
+            .attr('cy', 7)
+            .attr('r', 6)
+            .style('fill', 'grey');
 
-        legend.append('text')
-            .attr('x', 30)
-            .attr('y', 7)
-            .text('Marriage');
-
-        legend.append('text')
-            .attr('x', 30)
-            .attr('y', 28)
-            .text('Business');
-
-
+        legend.append('circle')
+            .attr('cx', 40)
+            .attr('cy', 7)
+            .attr('r', 6)
+            .style('fill', 'black');
 
 
         vis.wrangleData();
@@ -139,11 +131,11 @@ class BubbleGraph {
             .attr('r', d => radiusScale(d.sizeRatio))
             .style('fill', d => {
                 if (d.dataset === 'Spotify') {
-                    return 'red';
+                    return 'lightgrey';
                 } else if (d.dataset === 'TikTok') {
-                    return 'blue';
+                    return 'grey';
                 } else {
-                    return 'yellow';
+                    return 'black';
                 }
             });
 
