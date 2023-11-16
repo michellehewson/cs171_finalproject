@@ -3,6 +3,8 @@ class FacePlot {
         this.parentElement = parentElement;
         this.spotifyData = spotifyData;
         this.tiktokData = tiktokData;
+        this.currentArtist = null; // Initialize the currently displayed artist
+
         this.initVis();
 
     }
@@ -21,15 +23,20 @@ class FacePlot {
             source = 'Spotify';
         }
 
-        // Create HTML for tracks
-        const tracksHtml = artistTracks.map(entry => `<p>${entry.track_name}</p>`).join('');
-
-        // Display tracks in the artist-name-container
-        d3.select('#artist-name-container').html(`<h4>Tracks for ${selectedArtist} (from ${source}):</h4>${tracksHtml}`);
+        if (selectedArtist !== this.currentArtist) {
+            const tracksHtml = artistTracks.map(entry => `<p>${entry.track_name}</p>`).join('');
+            d3.select('#artist-name-container')
+                .html(`<h4>Tracks for ${selectedArtist} (from ${source}):</h4>`)
+                .append('div')
+                .attr('id', 'tracks-container')
+                .style('max-height', '200px') // Set the maximum height for the container
+                .style('overflow-y', 'auto') // Enable vertical scrolling
+                .html(tracksHtml);
+            this.currentArtist = selectedArtist;
+        }
     }
 
     initVis() {
-        console.log("Initializing visualization");
         let vis = this;
 
         vis.margin = { top: 40, right: 10, bottom: 60, left: 60 };
@@ -68,8 +75,17 @@ class FacePlot {
             vis.updateVis();
         });
 
-
         vis.getTopArtistsFromTiktok();
+
+        vis.defs = vis.svg.append('defs');
+
+        vis.defs.append('filter')
+            .attr('id', 'drop-shadow')
+            .attr('height', '130%')
+            .append('feDropShadow')
+            .attr('dx', 0)
+            .attr('dy', 4)
+            .attr('stdDeviation', 4);
 
         const cells = vis.svg.selectAll('.cell')
             .data(vis.subset) // Make sure vis.subset is defined
@@ -84,16 +100,6 @@ class FacePlot {
 
                 return `translate(${translateX},${translateY})`;
             });
-
-        vis.defs = vis.svg.append('defs');
-
-        vis.defs.append('filter')
-            .attr('id', 'drop-shadow')
-            .attr('height', '130%')
-            .append('feDropShadow')
-            .attr('dx', 0)
-            .attr('dy', 4)
-            .attr('stdDeviation', 4);
 
         const patterns = cells.append('defs')
             .append('pattern')
@@ -116,27 +122,60 @@ class FacePlot {
             .on('mouseover', function (event, d) {
                 d3.select(this)
                     .style('filter', 'url(#drop-shadow)'); // Apply shadow filter
-
-                d3.select('#artist-name-container').text(d);
+             //   d3.select('#artist-name-container').text(d);
                 vis.showTracksForArtist(d);
             })
             .on('mouseout', function () {
-                d3.select(this)
-                    .style('filter', null); // Remove shadow filter
-                d3.select('#artist-name-container').text('');
-            })
-            .on('click', function (event, d) {
-                vis.showTracksForArtist(d);
+                const circle = d3.select(this);
+                circle.style('filter', null);
             });
 
         vis.svg.append('defs')
             .append('filter')
             .attr('id', 'drop-shadow')
             .attr('height', '130%')
-            .append('feDropShadow')
             .attr('dx', 0)
             .attr('dy', 4)
             .attr('stdDeviation', 4);
+
+        vis.scrollbarHeight = 50; // Adjust the height of the scrollbar
+        vis.numDisplayedArtists = 9; // Number of artists to display in the visualization
+
+        const artistNameContainer = d3.select('#artist-name-container');
+        const artistNameContainerWidth = artistNameContainer.node().getBoundingClientRect().width;
+
+        vis.scrollbar = vis.svg.append('rect')
+            .attr('class', 'scrollbar')
+            .attr('x', vis.width ) // Position the scrollbar at the right edge of the SVG, considering container width
+            .attr('y', 0)
+            .attr('width', 10)
+            .attr('height', vis.scrollbarHeight) // Set the height to cover the #artist-name-container
+            .style('fill', 'lightgray')
+            .call(d3.drag().on('drag', function () {
+                // Handle drag events
+                const mouseY = d3.event.y;
+                const scrollPosition = Math.max(0, Math.min(vis.scrollbarHeight, mouseY));
+                const percentScrolled = scrollPosition / vis.scrollbarHeight;
+
+                // Update the subset of songs based on the scrollbar position
+                const totalSongs = vis.uniqueArtists.length;
+                const startIndex = Math.floor(percentScrolled * (totalSongs - vis.numDisplayedArtists));
+                const endIndex = startIndex + vis.numDisplayedArtists;
+                vis.subset = vis.uniqueArtists.slice(startIndex, endIndex);
+
+                // Update the visualization
+                vis.updateVis();
+
+                // Get the artist name at the center of the subset (or adjust as needed)
+                const centerIndex = Math.floor(vis.subset.length / 2);
+                const selectedArtist = vis.subset[centerIndex];
+
+                // Show tracks for the selected artist
+                vis.showTracksForArtist(selectedArtist);
+
+                // Move the scrollbar to the new position
+                vis.scrollbar.attr('y', scrollPosition);
+            }));
 
         // Initialize the subset and update the visualization
         vis.updateVis();
@@ -162,6 +201,7 @@ class FacePlot {
             }
         });
         console.log('Subset after sorting spotifyData:', vis.subset);
+        console.log('Subset after sorting spotifyData:', vis.subset);
 
         vis.uniqueArtists = Array.from(new Set(vis.spotifyData.map(entry => entry.artist_name)));
         vis.subset = vis.uniqueArtists.slice(0, 9);
@@ -170,6 +210,8 @@ class FacePlot {
 
     updateVis() {
         let vis = this;
+        vis.scrollbar.attr('height',20);
+
 
         // Update the data binding for cells
         const cells = vis.svg.selectAll('.cell')
@@ -217,28 +259,15 @@ class FacePlot {
             .style('fill', (d, i) => `url(#pattern-${i})`)
             .style('stroke', 'black')
             .style('stroke-width', '2')
-            .transition() // Add transition for update
-            .duration(500)
-            .attr('r', 60) // Adjust the radius as needed
             .on('mouseover', function (event, d) {
                 d3.select(this)
-                    .style('filter', 'url(#drop-shadow)') // Apply shadow filter
-                    .transition() // Add transition for mouseover
-                    .duration(200) // Set the duration of the transition in milliseconds
-                    .attr('r', 70);
-                d3.select('#artist-name-container').text(d);
+                    .style('filter', 'url(#drop-shadow)'); // Apply shadow filter
                 vis.showTracksForArtist(d);
             })
             .on('mouseout', function () {
-                d3.select(this)
-                    .style('filter', null) // Remove shadow filter
-                    .transition() // Add transition for mouseout
-                    .duration(200) // Set the duration of the transition in milliseconds
-                    .attr('r', 60);
-                d3.select('#artist-name-container').text('');
-            })
-            .on('click', function (event, d) {
-                vis.showTracksForArtist(d);
+                const circle = d3.select(this);
+                circle.style('filter', null);
+
             });
 
         vis.svg.append('defs')
@@ -249,5 +278,18 @@ class FacePlot {
             .attr('dx', 0)
             .attr('dy', 4)
             .attr('stdDeviation', 4);
+
+        newCells.each(function () {
+            const circle = d3.select(this).select('circle');
+
+            // Check if the circle has the mouse-out class
+            if (circle.classed('mouse-out')) {
+                // Remove the filter class and reset the mouse-out class
+                circle.style('filter', null);
+                circle.classed('mouse-out', false);
+            }
+        });
     }
+
+
 }
