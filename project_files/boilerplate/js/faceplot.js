@@ -1,9 +1,8 @@
 class FacePlot {
-    constructor(parentElement, tiktokData) {
+    constructor(parentElement, spotifyData, tiktokData) {
         this.parentElement = parentElement;
-        this.tiktokData = tiktokData.sort((a, b) => b.artist_pop - a.artist_pop);
-        this.uniqueArtists = Array.from(new Set(this.tiktokData.map(entry => entry.artist_name)));
-        this.tiktokSubset = this.uniqueArtists.slice(0, 9);
+        this.spotifyData = spotifyData;
+        this.tiktokData = tiktokData;
         this.initVis();
     }
 
@@ -33,7 +32,8 @@ class FacePlot {
             .attr("transform", "translate(" + vis.margin.left + "," + vis.margin.top + ")");
 
         const rows = 3;
-        const cols = 3;
+         vis.cols = 3;
+
 
         // Calculate the width and height of each cell
        // console.log("new face", vis.tiktokSubset)
@@ -43,16 +43,30 @@ class FacePlot {
             height: vis.height / rows
         };
 
+        d3.select('#showTopArtistsButton').on('click', function () {
+            // Toggle between TikTok and Spotify data
+            if (vis.isShowingTikTok) {
+                vis.showTopArtists();
+            } else {
+                vis.getTopArtistsFromSpotify();
+            }
+
+            // Update the visualization
+            vis.updateVis();
+        });
+
+        vis.showTopArtists();
+
         const cells = vis.svg.selectAll('.cell')
-            .data(vis.tiktokSubset)
+            .data(vis.subset)
             .enter()
             .append('g')
             .attr('class', 'cell')
             .attr('transform', (d, i) => {
-                const colIndex = i % cols;
-                const rowIndex = Math.floor(i / cols);
-                const translateX = colIndex * cellSize.width + cellSize.width / 2;
-                const translateY = rowIndex * cellSize.height + cellSize.height / 2;
+                const colIndex = i % vis.cols;
+                const rowIndex = Math.floor(i / vis.cols);
+                const translateX = colIndex * vis.cellSize.width + vis.cellSize.width / 2;
+                const translateY = rowIndex * vis.cellSize.height + vis.cellSize.height / 2;
 
                 return `translate(${translateX},${translateY})`;
             });
@@ -108,11 +122,82 @@ class FacePlot {
             .attr('dy', 4)
             .attr('stdDeviation', 4);
 
-        this.wrangleData();
     }
 
-    wrangleData() {
-        // Additional data wrangling if needed
+    showTopArtists() {
+        let vis = this;
+        vis.isShowingTikTok = true;
+
+        // Your logic to display the top 9 TikTok artists goes here
+        vis.tiktokData.sort((a, b) => b.artist_pop - a.artist_pop);
+        vis.uniqueArtists = Array.from(new Set(vis.tiktokData.map(entry => entry.artist_name)));
+        vis.subset = vis.uniqueArtists.slice(0, 9);
+
+        // Update the visualization
+        vis.updateVis();
+    }
+
+    getTopArtistsFromSpotify() {
+        let vis = this;
+        vis.isShowingTikTok = false;
+
+        // Your logic to display the top 9 Spotify artists goes here
+        vis.spotifyData.sort((a, b) => {
+            if (a.peak_rank !== b.peak_rank) {
+                return a.peak_rank - b.peak_rank;
+            } else {
+                return b.weeks_on_chart - a.weeks_on_chart;
+            }
+        });
+        vis.uniqueArtists = Array.from(new Set(vis.spotifyData.map(entry => entry.artist_name)));
+        vis.subset = vis.uniqueArtists.slice(0, 9);
+        console.log("spotify", vis.subset)
+
+        // Update the visualization
+        vis.updateVis();
+    }
+
+
+    updateVis() {
+        let vis = this;
+
+        // Update the data binding for circles
+        const circles = vis.svg.selectAll('.cell circle')
+            .data(vis.subset);
+
+        // Exit
+        circles.exit().remove();
+
+        // Enter
+        const newCircles = circles.enter()
+            .append('circle')
+            .attr('r', 60) // Adjust the radius as needed
+            .style('stroke', 'black')
+            .style('stroke-width', '2')
+            .on('mouseover', function (event, d) {
+                // Your existing mouseover logic
+            })
+            .on('mouseout', function () {
+                // Your existing mouseout logic
+            })
+            .on('click', function (event, d) {
+                // Your existing click logic
+            });
+
+        // Update
+        circles.merge(newCircles)
+            .transition() // You can add transitions for a smoother update
+            .attr('cx', (d, i) => {
+                const colIndex = i % vis.cols;
+                return colIndex * vis.cellSize.width + vis.cellSize.width / 2;
+            })
+            .attr('cy', (d, i) => {
+                const rowIndex = Math.floor(i / vis.cols);
+                return rowIndex * vis.cellSize.height + vis.cellSize.height / 2;
+            })
+            .style('fill', (d, i) => `url(#pattern-${i})`);
+
+        // Additional update logic if needed
     }
 
 }

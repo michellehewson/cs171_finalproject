@@ -133,6 +133,7 @@ function initMainPage(dataArray) {
     //barChart = new BarChart('barchart', dataArray[5])
 
 
+
    TikscatterChart = new ScatterChart("tikScatterDiv", dataArray[1],"SpotScatterDiv" )
    SpotscatterChart = new ScatterChart("SpotScatterDiv",dataArray[0],"SpotScatterDiv")
 }
