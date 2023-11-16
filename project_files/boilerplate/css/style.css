@@ -33,7 +33,20 @@ h2 {
 }
 
 .yes-button, .no-button {
-    background-color: rgba(126, 191, 224, 0.72);
+    background-color: #00f2ea;
+    color: black;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.no-button {
+    background-color: #ff0050;
     color: black;
     padding: 10px 20px;
     text-align: center;
@@ -68,14 +81,11 @@ h2 {
 }
 
 .pianoKey:hover {
-    fill: red;
+    fill: #ff0050;
     cursor: pointer;
 }
 
-.distributionBtn:hover {
-    fill: red;
-    cursor: pointer;
-}
+
 #spotify-slider {
     width: 50%;
     margin: auto;
@@ -174,6 +184,44 @@ h2 {
     opacity: 1;
 }
 
+.fade-in-fact3 {
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.fade-in-fact3.show {
+    opacity: 1;
+}
+
+.fade-in-fact4 {
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.fade-in-fact4.show {
+    opacity: 1;
+}
+
+#intro-text {
+    padding: 20px;
+}
+
+#intro-text1 {
+    padding: 20px;
+}
+
+#intro-text2 {
+    padding: 20px;
+}
+
+#intro-text3 {
+    padding: 20px;
+}
+
+#intro-text4 {
+    padding: 20px;
+}
+
 .fade-in-tiktok-text1 {
     opacity: 0;
     transition: opacity 1s ease-in-out;
@@ -192,18 +240,131 @@ h2 {
     opacity: 1;
 }
 
-#button-container {
-    position: fixed;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
+.fade-in-tiktok-text3 {
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
 }
 
-.button-group button {
-    margin-right: 10px;
+.fade-in-tiktok-text3.show {
+    opacity: 1;
 }
 
-#button-container h2 {
-    margin-bottom: 10px;
+.fade-in-tiktok-text4 {
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
 }
 
+.fade-in-tiktok-text4.show {
+    opacity: 1;
+}
+
+#tiktok-text1 {
+    padding: 20px;
+}
+
+#tiktok-text2 {
+    padding: 20px;
+}
+
+#tiktok-text3 {
+    padding: 20px;
+}
+
+
+
+
+body {
+    font-family: helvetica;
+    display: flex ;
+    flex-direction: column;
+    align-items: center;
+}
+
+.chat {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.messages {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.message {
+    border-radius: 20px;
+    padding: 8px 15px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: inline-block;
+}
+
+.yours {
+    align-items: flex-start;
+}
+
+.yours .message {
+    margin-right: 25%;
+    background-color: #EEE;
+    position: relative;
+}
+
+.yours .message.last:before {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    bottom: 0;
+    left: -7px;
+    height: 20px;
+    width: 20px;
+    background: #EEE;
+    border-bottom-right-radius: 15px;
+}
+.yours .message.last:after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    bottom: 0;
+    left: -10px;
+    width: 10px;
+    height: 20px;
+    background: white;
+    border-bottom-right-radius: 10px;
+}
+
+.mine {
+    align-items: flex-end;
+}
+
+.mine .message {
+    color: white;
+    margin-left: 25%;
+    background: rgb(0, 120, 254);
+    position: relative;
+}
+
+.mine .message.last:before {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    bottom: 0;
+    right: -8px;
+    height: 20px;
+    width: 20px;
+    background: rgb(0, 120, 254);
+    border-bottom-left-radius: 15px;
+}
+
+.mine .message.last:after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    bottom: 0;
+    right: -10px;
+    width: 10px;
+    height: 20px;
+    background: white;
+    border-bottom-left-radius: 10px;
+}

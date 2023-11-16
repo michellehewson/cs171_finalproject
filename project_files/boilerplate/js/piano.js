@@ -75,8 +75,8 @@ class Piano {
             .attr("y", 20)
             .attr("width", 500)
             .attr("height", 200)
-            .style("fill", "#0099ff")
-            .style("stroke", '#000099')
+            .style("fill", "#00f2ea")
+            .style("stroke", 'black')
             .style("stroke-width", 2);
 
         vis.svgPiano.append("text")
@@ -85,7 +85,7 @@ class Piano {
             .attr("y", 140)
             .text("PRESS A KEY")
             .style("font-size", "40px")
-            .style("fill", "#000099");
+            .style("fill", "black");
 
         vis.pianoWhiteKeys = vis.svgPiano.selectAll(".pianoWhiteKey")
             .data(vis.whiteKeys)
@@ -120,13 +120,6 @@ class Piano {
             .attr("height", vis.blackKeyHeight)
             .style("stroke", 'black')
             .style("stroke-width", 2);
-
-        vis.distBtn = vis.svgPiano.append("circle")
-            .text('hello')
-            .attr("cx", 100)
-            .attr("cy", 100)
-            .attr("r", 20)
-            .style("fill", "green")
 
 
         vis.svgPiano.selectAll(".pianoWhiteKey, .pianoBlackKey")
@@ -184,13 +177,6 @@ class Piano {
                 .text(vis.keyText.tiktokPercentageStr)
                 .attr("x", 218)
                 .attr("dy", "1.2em")
-                .style("font-size", "12px");
-        });
-
-
-        vis.distBtn.on("click", function () {
-            d3.select(".pianoTextInit")
-                .text("need to add histogram")
                 .style("font-size", "12px");
         });
 
