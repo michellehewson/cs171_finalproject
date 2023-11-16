@@ -8,9 +8,24 @@ class FacePlot {
     }
 
     showTracksForArtist(selectedArtist) {
-        const artistTracks = this.tiktokData.filter(entry => entry.artist_name === selectedArtist);
+        let artistTracks;
+        let source;
+
+        if (this.isShowingTikTok) {
+            // If currently showing TikTok data, use TikTok data
+            artistTracks = this.tiktokData.filter(entry => entry.artist_name === selectedArtist);
+            source = 'TikTok';
+        } else {
+            // If currently showing Spotify data, use Spotify data
+            artistTracks = this.spotifyData.filter(entry => entry.artist_name === selectedArtist);
+            source = 'Spotify';
+        }
+
+        // Create HTML for tracks
         const tracksHtml = artistTracks.map(entry => `<p>${entry.track_name}</p>`).join('');
-        d3.select('#artist-name-container').html(`<h4>Tracks for ${selectedArtist}:</h4>${tracksHtml}`);
+
+        // Display tracks in the artist-name-container
+        d3.select('#artist-name-container').html(`<h4>Tracks for ${selectedArtist} (from ${source}):</h4>${tracksHtml}`);
     }
 
     initVis() {
@@ -32,7 +47,7 @@ class FacePlot {
         vis.cols = 3;
 
         // Calculate the width and height of each cell
-         vis.cellSize = {
+        vis.cellSize = {
             width: vis.width / vis.cols - 50,
             height: vis.height / rows
         };
