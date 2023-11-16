@@ -44,8 +44,20 @@ class BubbleGraph {
         vis.wrangleData();
         vis.updateVisualization();
 
+        document.getElementById('form').addEventListener('submit', function(event) {
+            event.preventDefault();
+        });
+
         d3.select('#separate-button').on('click', () => {
             vis.separateBubbles();
+        });
+
+        d3.select('#one-hit-button').on('click', () => {
+            vis.oneHitWonders();
+        });
+
+        document.getElementById('searchButton').addEventListener('click', () => {
+            vis.search();
         });
     }
 
@@ -216,6 +228,62 @@ class BubbleGraph {
                 .attr('cy', d => d.y);
 
         });
+
+    }
+
+    oneHitWonders() {
+        let vis = this;
+
+        const oneHitWonderArtists = vis.allBubbleData.filter(d => d.count === 1);
+
+        const radiusScale = d3.scaleLinear()
+            .domain([0, d3.max(vis.allBubbleData, d => d.sizeRatio)])
+            .range([5, 50]);
+
+        const simulation = d3.forceSimulation(oneHitWonderArtists)
+            .force('x', d3.forceX(vis.width / 2).strength(0.05))
+            .force('y', d3.forceY(vis.height / 2).strength(0.05))
+            .force('collide', d3.forceCollide(d => radiusScale(d.sizeRatio) + 2));
+
+        simulation.on('tick', () => {
+            vis.svg.selectAll('.bubble')
+                .style('display', 'none');
+
+            vis.svg.selectAll('.bubble')
+                .filter(d => d.count === 1)
+                .attr('cx', d => d.x)
+                .attr('cy', d => d.y)
+                .style('display', 'initial');
+        });
+    }
+
+    search() {
+        let vis = this;
+        const searchInput = document.getElementById('searchArtist');
+
+        const searchTerm = searchInput.value;
+
+        console.log(searchTerm);
+        // Reset bubble colors
+        vis.svg.selectAll('.bubble')
+            .style('fill', d => {
+                if (d.dataset === 'Spotify') {
+                    return '#ff0050';
+                } else if (d.dataset === 'TikTok') {
+                    return '#00f2ea';
+                } else {
+                    return 'black';
+                }
+            });
+
+        const searchedBubble = vis.allBubbleData.find(artist => artist.artist_name.toLowerCase() === searchTerm);
+        if (searchedBubble) {
+            vis.svg.selectAll('.bubble')
+                .filter(d => d.artist_name === searchedBubble.artist_name)
+                .style('fill', 'yellow');
+        } else {
+            console.log('artist not found')
+        }
     }
 
 }
