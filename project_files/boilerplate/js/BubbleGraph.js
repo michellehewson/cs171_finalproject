@@ -70,8 +70,8 @@ class BubbleGraph {
             vis.separateBubbles();
         });
 
-        d3.select('#one-hit-button').on('click', () => {
-            vis.oneHitWonders();
+        d3.select('#together-button').on('click', () => {
+            vis.togetherBubbles();
         });
 
         document.getElementById('searchButton').addEventListener('click', () => {
@@ -131,7 +131,7 @@ class BubbleGraph {
         });
 
         vis.allBubbleData = vis.spotifyBubbleData.concat(vis.tiktokBubbleData).concat(combinedArtistBubbleData);
-      //  console.log(vis.allBubbleData)
+        //  console.log(vis.allBubbleData)
     }
 
     updateVisualization() {
@@ -147,8 +147,8 @@ class BubbleGraph {
             .range([5, 50]);
 
         const simulation = d3.forceSimulation(data)
-            .force('x', d3.forceX(vis.width / 2).strength(0.03))
-            .force('y', d3.forceY(vis.height / 2).strength(0.03))
+            .force('x', d3.forceX(vis.width / 2).strength(0.05))
+            .force('y', d3.forceY(vis.height / 2).strength(0.05))
             .force('collide', d3.forceCollide(d => radiusScale(d.sizeRatio) + 2));
 
         const bubbleGroups = vis.svg.selectAll('.bubble-group')
@@ -184,8 +184,8 @@ class BubbleGraph {
             .style("opacity", 0);
 
         bubbles.on("mouseover", function (event, d) {
-            tooltip.transition().duration(200).style("opacity", 0.9);
-            tooltip.html(d.artist_name)
+            tooltip.transition().duration(200).style("opacity", 1);
+            tooltip.text(`${d.artist_name}, Songs: ${d.count}`)
                 .style("left", event.pageX + "px")
                 .style("top", event.pageY - 28 + "px");
         })
@@ -193,6 +193,25 @@ class BubbleGraph {
                 tooltip.transition().duration(500).style("opacity", 0);
             });
 
+    }
+
+    togetherBubbles() {
+        let vis = this;
+
+        const radiusScale = d3.scaleLinear()
+            .domain([0, d3.max(vis.allBubbleData, d => d.sizeRatio)])
+            .range([5, 50]);
+
+        const simulation = d3.forceSimulation(vis.allBubbleData)
+            .force('x', d3.forceX(vis.width / 2).strength(0.05))
+            .force('y', d3.forceY(vis.height / 2).strength(0.05))
+            .force('collide', d3.forceCollide(d => radiusScale(d.sizeRatio) + 2));
+
+        simulation.on('tick', () => {
+            vis.svg.selectAll('.bubble')
+                .attr('cx', d => d.x)
+                .attr('cy', d => d.y);
+        });
     }
 
     separateBubbles() {
@@ -206,76 +225,31 @@ class BubbleGraph {
             .domain([0, d3.max(vis.allBubbleData, d => d.sizeRatio)])
             .range([5, 50]);
 
-        const simulationSpotify = d3.forceSimulation(spotifyData)
-            .force('x', d3.forceX(vis.width / 4).strength(0.3))
-            .force('y', d3.forceY(vis.height / 2).strength(0.3))
-            .force('collide', d3.forceCollide(d => radiusScale(d.sizeRatio) +2));
+        const separateSimulation = (data, xOffset) => {
+            return d3.forceSimulation(data)
+                .force('x', d3.forceX(vis.width / 2 + xOffset).strength(0.05))
+                .force('y', d3.forceY(vis.height / 2).strength(0.05))
+                .force('collide', d3.forceCollide(d => radiusScale(d.sizeRatio) + 2));
+        };
 
-        const simulationTikTok = d3.forceSimulation(tiktokData)
-            .force('x', d3.forceX((vis.width / 4) * 3).strength(0.3))
-            .force('y', d3.forceY(vis.height / 2).strength(0.3))
-            .force('collide', d3.forceCollide(d => radiusScale(d.sizeRatio) +2));
+        const simulationSpotify = separateSimulation(spotifyData, -400);
+        const simulationTikTok = separateSimulation(tiktokData, 400);
+        const simulationCombined = separateSimulation(combinedData, 0);
 
-        const simulationCombined = d3.forceSimulation(combinedData)
-            .force('x', d3.forceX(vis.width / 2).strength(0.3))
-            .force('y', d3.forceY(vis.height / 2).strength(0.3))
-            .force('collide', d3.forceCollide(d => radiusScale(d.sizeRatio) +2));
+        const applyTick = (simulation, dataset) => {
+            simulation.on('tick', () => {
+                vis.svg.selectAll('.bubble')
+                    .filter(d => d.dataset === dataset)
+                    .attr('cx', d => d.x)
+                    .attr('cy', d => d.y);
+            });
+        };
 
-        simulationSpotify.on('tick', () => {
-            vis.svg.selectAll('.bubble')
-                .filter(d => d.dataset === 'Spotify')
-                .attr('cx', d => d.x)
-                .attr('cy', d => d.y);
-
-
-        });
-
-        simulationTikTok.on('tick', () => {
-            vis.svg.selectAll('.bubble')
-                .filter(d => d.dataset === 'TikTok')
-                .attr('cx', d => d.x)
-                .attr('cy', d => d.y);
-
-
-        });
-
-        simulationCombined.on('tick', () => {
-            vis.svg.selectAll('.bubble')
-                .filter(d => d.dataset === 'Combined')
-                .attr('cx', d => d.x)
-                .attr('cy', d => d.y);
-
-        });
-
+        applyTick(simulationSpotify, 'Spotify');
+        applyTick(simulationTikTok, 'TikTok');
+        applyTick(simulationCombined, 'Combined');
     }
 
-    oneHitWonders() {
-        let vis = this;
-
-        const oneHitWonderArtists = vis.allBubbleData.filter(d => d.count === 1);
-        const fixedRadius = 8;
-
-        const radiusScale = d3.scaleLinear()
-            .domain([0, d3.max(vis.allBubbleData, d => d.sizeRatio)])
-            .range([5, 50]);
-
-        const simulation = d3.forceSimulation(oneHitWonderArtists)
-            .force('x', d3.forceX(vis.width / 2).strength(0.05))
-            .force('y', d3.forceY(vis.height / 2).strength(0.05))
-            .force('collide', d3.forceCollide(fixedRadius + 2));
-
-        simulation.on('tick', () => {
-            vis.svg.selectAll('.bubble')
-                .style('display', 'none');
-
-            vis.svg.selectAll('.bubble')
-                .filter(d => d.count === 1)
-                .attr('r', fixedRadius)
-                .attr('cx', d => d.x)
-                .attr('cy', d => d.y)
-                .style('display', 'initial');
-        });
-    }
 
     search() {
         let vis = this;
@@ -306,4 +280,3 @@ class BubbleGraph {
     }
 
 }
-
