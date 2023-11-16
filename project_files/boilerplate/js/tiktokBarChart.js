@@ -26,7 +26,7 @@ class BarChart {
             .attr("x", vis.width / 2)
             .attr("y", -vis.margin.top * 0.7)
             .attr("text-anchor", "middle")
-            .text("Tracking the Surge of TikTok Downloads in 2022")
+            .text("Tracking the Surge of TikTok Downloads")
             .style("font-weight", "bold")
             .style("font-size", "20px");
 
@@ -85,6 +85,15 @@ class BarChart {
         vis.svg.append("g")
             .attr("class", "y-axis")
             .call(vis.yAxis);
+
+        vis.svg.append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 0 - vis.margin.left)
+            .attr("x", 0 - (vis.height / 2))
+            .attr("dy", "1em")
+            .style("text-anchor", "middle")
+            .text("Number of Downloads (millions)");
+
 
         vis.animateBars(vis.tiktokUserData);
     }

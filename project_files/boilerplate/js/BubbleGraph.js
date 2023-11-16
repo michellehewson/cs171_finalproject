@@ -20,25 +20,43 @@ class BubbleGraph {
 
         let legend = vis.svg.append('g')
             .attr('class', 'legend')
-            .attr('transform', 'translate(450, 140)');
+            .attr('transform', 'translate(10, 20)');
 
         legend.append('circle')
             .attr('cx', 0)
             .attr('cy', 7)
-            .attr('r', 6)
+            .attr('r', 10)
             .style('fill', '#ff0050');
 
         legend.append('circle')
-            .attr('cx', 20)
-            .attr('cy', 7)
-            .attr('r', 6)
+            .attr('cx', 0)
+            .attr('cy', 47)
+            .attr('r', 10)
             .style('fill', '#00f2ea');
 
         legend.append('circle')
-            .attr('cx', 40)
-            .attr('cy', 7)
-            .attr('r', 6)
+            .attr('cx', 0)
+            .attr('cy', 87)
+            .attr('r', 10)
             .style('fill', 'black');
+
+        legend.append('text')
+            .attr('x', 20)
+            .attr('y', 12)
+            .text('Spotify')
+            .attr('class', 'legend-label');
+
+        legend.append('text')
+            .attr('x', 20)
+            .attr('y', 52)
+            .text('TikTok')
+            .attr('class', 'legend-label');
+
+        legend.append('text')
+            .attr('x', 20)
+            .attr('y', 92)
+            .text('Both')
+            .attr('class', 'legend-label');
 
 
         vis.wrangleData();
@@ -160,7 +178,7 @@ class BubbleGraph {
         });
 
 
-        const tooltip = d3.select("#" + vis.parentElement) // Tooltip element
+        const tooltip = d3.select("#" + vis.parentElement)
             .append("div")
             .attr("class", "tooltip")
             .style("opacity", 0);
@@ -235,6 +253,7 @@ class BubbleGraph {
         let vis = this;
 
         const oneHitWonderArtists = vis.allBubbleData.filter(d => d.count === 1);
+        const fixedRadius = 8;
 
         const radiusScale = d3.scaleLinear()
             .domain([0, d3.max(vis.allBubbleData, d => d.sizeRatio)])
@@ -243,7 +262,7 @@ class BubbleGraph {
         const simulation = d3.forceSimulation(oneHitWonderArtists)
             .force('x', d3.forceX(vis.width / 2).strength(0.05))
             .force('y', d3.forceY(vis.height / 2).strength(0.05))
-            .force('collide', d3.forceCollide(d => radiusScale(d.sizeRatio) + 2));
+            .force('collide', d3.forceCollide(fixedRadius + 2));
 
         simulation.on('tick', () => {
             vis.svg.selectAll('.bubble')
@@ -251,6 +270,7 @@ class BubbleGraph {
 
             vis.svg.selectAll('.bubble')
                 .filter(d => d.count === 1)
+                .attr('r', fixedRadius)
                 .attr('cx', d => d.x)
                 .attr('cy', d => d.y)
                 .style('display', 'initial');
@@ -264,7 +284,6 @@ class BubbleGraph {
         const searchTerm = searchInput.value;
 
         console.log(searchTerm);
-        // Reset bubble colors
         vis.svg.selectAll('.bubble')
             .style('fill', d => {
                 if (d.dataset === 'Spotify') {
