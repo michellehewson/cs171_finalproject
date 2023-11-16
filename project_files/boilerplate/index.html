@@ -74,19 +74,27 @@
 		</div>
 
 		<div data-anchor="page3" class="section">
-			<h2> Do you use TikTok?</h2>
-			<div class="button-container">
-				<button class="yes-button">Yes</button>
-				<button class="no-button">No</button>
+			<div class="column-container">
+				<div class="column">
+					<div class="button-container">
+						<h2> Do you use TikTok?</h2>
+						<div class="button-group">
+							<button id="yesButton" class="yes-button">Yes</button>
+							<button id="noButton" class="no-button">No</button>
+						</div>
+					</div>
+					<h2 id="response-text" style="display: none;"></h2>
+					<div class="fade-in-tiktok-text1">
+						<h2 id="tiktok-text1">TikTok dominated the charts in 2022 as the most downloaded app on the market, amassing over 800 million downloads.</h2>
+					</div>
+				</div>
+				<div class="column">
+					<div id="barchart"></div>
+						<div class="fade-in-tiktok-text2">
+							<h2 id="tiktok-text2">This rise in popularity is a testament to TikTok's capability to influence in shaping current trends and culture.</h2>
+						</div>
+				</div>
 			</div>
-			<h2 id="response-text" style="display: none;"></h2>
-
-			<div id="result-container"></div>
-			<h2>To date, TikTok has been downloaded over 3.5 billion times.</h2>
-			<h2>TikTok dominated the charts in 2022 as the most downloaded app, amassing over 800 million downloads.</h2>
-			<h3>The Rapid Influx of TikTok Users</h3> <button id="start-button">Start</button>
-			<div id="barchart"></div>
-			<h2>This rise in popularity is a testament to TikTok's capability to influence in shaping current trends and culture.</h2>
 
 
 		</div>
@@ -97,6 +105,12 @@
 			<div class="container">
 				<div class="col-auto">
 					<button id="separate-button">Separate</button>
+					<button id="one-hit-button">One Hit Wonders</button>
+
+					<form id="form">
+						<input type="search" id="searchArtist" name="q" placeholder="Search...">
+						<button id="searchButton">Search</button>
+					</form>
 					<div id="bubblechart"></div>
 				</div>
 			</div>
@@ -239,52 +253,17 @@
 		const responseText = document.getElementById('response-text');
 
 		yesButton.addEventListener('click', function() {
-			responseText.textContent = 'You are part of a community of over 3.5 million downloads!';
+			responseText.textContent = 'You are part of a massive community! To date, TikTok has been downloaded over 3.5 million times!';
 			responseText.style.display = 'block';
 		});
 
 		noButton.addEventListener('click', function() {
-			responseText.textContent = 'Everyone has their preferences!';
+			responseText.textContent = 'Join TikTok\'s global community of over 3.4 billion users to explore engaging content that\'s taking the world by storm!';
 			responseText.style.display = 'block';
 		});
 	});
 </script>
 
-
-<!--
-<script>
-	document.addEventListener("DOMContentLoaded", function () {
-
-		new fullpage('#fullPage', {
-			autoScrolling: true,
-			navigation: true
-		});
-		const yesButton = document.querySelector('.yes-button');
-		const noButton = document.querySelector('.no-button');
-
-		yesButton.addEventListener('click', function () {
-			showInput('yes');
-		});
-
-		noButton.addEventListener('click', function () {
-			showInput('no');
-		});
-
-		const inputContainer = document.getElementById('input-container');
-		const resultContainer = document.getElementById('result-container');
-
-		inputContainer.addEventListener('click', function (event) {
-			const target = event.target;
-
-			if (target.id === 'submit-button') {
-				const userInput = parseFloat(document.getElementById('hoursInput').value);
-				const difference = Math.abs(userInput - 52);
-				resultContainer.textContent = `The average amount of time on TikTok is 52 minutes per day. You were ${difference} minutes off.`;
-			}
-		});
-	});
-</script>
--->
 
 <script>
 	document.addEventListener('DOMContentLoaded', function() {
@@ -312,6 +291,57 @@
 		});
 	});
 
+</script>
+
+<script>
+	let tiktokUserData;
+	let isBarChartDrawn = false;
+
+	d3.csv("data/tiktok_user_stats.csv").then(csv => {
+		tiktokUserData = csv.map(d => ({
+			Time: d['Time'],
+			Value: parseFloat(d['Value'])
+		}));
+
+		const yesButton = document.getElementById('yesButton');
+		const noButton = document.getElementById('noButton');
+		const text1 = document.querySelector('.fade-in-tiktok-text1');
+		const text2 = document.querySelector('.fade-in-tiktok-text2');
+
+		yesButton.addEventListener('click', function() {
+			if (!isBarChartDrawn && tiktokUserData) {
+				setTimeout(function() {
+					const barChart = new BarChart('barchart', tiktokUserData);
+					isBarChartDrawn = true;
+				}, 4000);
+
+				setTimeout(function() {
+					text1.classList.add('show');
+				}, 2000);
+
+				setTimeout(function() {
+					text2.classList.add('show');
+				}, 6000);
+			}
+		});
+
+		noButton.addEventListener('click', function() {
+			if (!isBarChartDrawn && tiktokUserData) {
+				setTimeout(function() {
+					const barChart = new BarChart('barchart', tiktokUserData);
+					isBarChartDrawn = true;
+				}, 4000);
+
+				setTimeout(function() {
+					text1.classList.add('show');
+				}, 2000);
+
+				setTimeout(function() {
+					text2.classList.add('show');
+				}, 6000);
+			}
+		});
+	});
 </script>
 
 <!-- own js files -->

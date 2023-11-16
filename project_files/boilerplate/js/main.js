@@ -130,12 +130,11 @@ function initMainPage(dataArray) {
     tiktokradarChart = new RadarChart('tiktokradarchart', dataArray[1], 'tiktok')
     pianoChart = new Piano('piano', dataArray[3], dataArray[4])
     faceplot = new FacePlot('faceplot', dataArray[1])
-    barChart = new BarChart('barchart', dataArray[5])
+    //barChart = new BarChart('barchart', dataArray[5])
 
 
    TikscatterChart = new ScatterChart("tikScatterDiv", dataArray[1],"SpotScatterDiv" )
    SpotscatterChart = new ScatterChart("SpotScatterDiv",dataArray[0],"SpotScatterDiv")
-
 }
 
 let carousel = new bootstrap.Carousel(document.getElementById('stateCarousel'), {interval: false})

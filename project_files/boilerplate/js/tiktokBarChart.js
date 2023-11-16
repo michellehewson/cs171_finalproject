@@ -12,7 +12,7 @@ class BarChart {
     initVis() {
         let vis = this;
 
-        vis.margin = { top: 10, right: 10, bottom: 60, left: 60 };
+        vis.margin = { top: 70, right: 10, bottom: 60, left: 60 };
         vis.width = 960 - vis.margin.left - vis.margin.right;
         vis.height = 600 - vis.margin.top - vis.margin.bottom;
         vis.svg = d3.select("#" + vis.parentElement)
@@ -21,6 +21,14 @@ class BarChart {
             .attr("height", vis.height + vis.margin.top + vis.margin.bottom)
             .append('g')
             .attr("transform", "translate(" + vis.margin.left + "," + vis.margin.top + ")");
+
+        vis.svg.append("text")
+            .attr("x", vis.width / 2)
+            .attr("y", -vis.margin.top * 0.7)
+            .attr("text-anchor", "middle")
+            .text("Tracking the Surge of TikTok Downloads in 2022")
+            .style("font-weight", "bold")
+            .style("font-size", "20px");
 
         vis.x = d3.scaleBand()
             .range([0, vis.width])
@@ -47,7 +55,7 @@ class BarChart {
             .attr("y", vis.height)
             .attr("width", vis.x.bandwidth())
             .attr("height", 0)
-            .attr("fill", "steelblue")
+            .attr("fill", '#ff0050')
             .transition()
             .delay((d, i) => i * 100)
             .attr("y", d => vis.y(d.Value))
