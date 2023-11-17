@@ -77,7 +77,7 @@
 
 	<div data-anchor="page3" class="section">
 		<div class="column-container" style="position: relative;">
-			<div class="column fixed-column" style="position: sticky; top: 20px; height: 716.79px; width: 450px;">
+			<div class="column fixed-column" style="position: sticky; top: 20px; height: 716.79px; width: 375px;">
 				<div class="button-container">
 					<h2> Do you use TikTok?</h2>
 					<div class="button-group">
@@ -96,7 +96,7 @@
 					<h2 id="tiktok-text3">Let's explore whether TikTok's immense popularity in 2022 influenced music trends during that period.</h2>
 				</div>
 			</div>
-			<div class="column">
+			<div class="column fixed-column" style="position: sticky; top: 20px; height: 716.79px; width: 350px;">
 				<div id="barchart"></div>
 			</div>
 		</div>
@@ -106,22 +106,35 @@
 
 
 	<div data-anchor="page4" class="section">
-		<h2>Visualizing Top Artists on TikTok and Spotify</h2>
-		<div class="container">
-			<div class="col-auto">
-				<div id="popupRectangle" class="popup-rectangle">
-					<p>Check Out if Your Favorite Artist is in the Charts!</p>
-					<form id="form">
-						<input type="search" id="searchArtist" name="q" placeholder="Search...">
-						<button id="searchButton">Search</button>
-					</form>
+			<div class="column-container">
+				<div class="column-left">
+					<h3>Let's explore the artists who dominated the TikTok and Spotify charts in 2022.</h3>
+					<p>Hover over the legend to learn about the filtering and sizing.</p>
+					<div id="legend"></div>
+					<div id="popupRectangle" class="popup-rectangle">
+
+						<button id="together-button">Together</button>
+						<button id="separate-button">Separate</button>
+						<button id="everyone-button">Everyone</button>
+						<button id="one-hit-wonders-button">One Hit Wonders</button>
+
+
+						<h4>Was your favorite artist at the top of the charts?</h4>
+						<form id="form">
+							<input type="search" id="searchArtist" name="q" placeholder="Search...">
+							<button id="searchButton">Search</button>
+							<p id="notFoundMessage" style="display: none;">Sorry, that artist was not in the top charts.</p>
+						</form>
+					</div>
 				</div>
-				<button id="together-button">Together</button>
-				<button id="separate-button">Separate</button>
-				<div id="bubblechart"></div>
+				<div class="column">
+					<h3>Visualizing Top Artists on TikTok and Spotify</h3>
+					<div id="bubblechart"></div>
+				</div>
+
 			</div>
-		</div>
 	</div>
+
 
 
 	<div data-anchor="page5" class="section">
@@ -313,16 +326,6 @@
 						const fact4 = document.querySelector('.fade-in-fact4');
 						fact4.classList.add('show');
 					}, 6000);
-				} else if (destination.anchor === 'page4') {
-					const popupRectangle = document.getElementById('popupRectangle');
-
-					function showPopup() {
-						popupRectangle.style.display = 'block';
-						popupRectangle.style.right = '20px';
-					}
-
-					setTimeout(showPopup, 5000);
-
 				}
 			}
 		});

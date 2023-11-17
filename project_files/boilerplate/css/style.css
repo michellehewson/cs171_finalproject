@@ -143,7 +143,15 @@ h2 {
 
 .column-container {
     display: flex;
-    justify-content: space-between;
+}
+
+#bubble-chart {
+    position: relative;
+}
+
+.column-left {
+    width: 400px;
+    padding-left: 60px;
 }
 
 .column {
@@ -298,30 +306,55 @@ h2 {
     transform: translateY(-2px);
 }
 
-
-.popup-rectangle {
-    display: none;
-    position: absolute;
-    top: 50%;
-    right: -300px;
-    width: 250px;
-    height: 300px;
-    background-color: #00f2ea;
-    padding: 20px;
-    border: 3px solid black;
-    transition: right 2s ease-in-out;
+.fixed-column {
+    width: 200px;
+    position: sticky;
+    top: 20px;
+}
+.container {
+    display: flex;
+    justify-content: space-between;
 }
 
-.popup-rectangle p {
-    font-family: 'Times New Roman', sans-serif;
-    font-size: 24px;
-    color: black;
-    line-height: 1.4;
+.section {
+    width: 100%;
+}
+
+.container-fluid {
+    width: 100%;
+    padding-right: 0;
+    padding-left: 0;
+}
+
+.row {
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.col-md-4 {
+    padding-right: 0;
+    padding-left: 0;
+}
+
+
+
+
+
+#form {
+    margin-top: 20px;
+}
+
+#searchArtist {
+    width: 200px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
 }
 
 
 #searchArtist {
-    width: 100%;
+    width: 200px;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -340,5 +373,46 @@ h2 {
 }
 
 #searchButton:hover {
+    background-color: grey;
+}
+
+
+.button-container {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    width: 300px;
+    margin: 0 auto;
+    border: 2px solid #333333;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    font-family: 'Times New Roman', sans-serif;
+}
+
+.button-container h2 {
+    margin-bottom: 15px;
+}
+
+.button-group {
+    display: flex;
+    justify-content: space-around;
+}
+
+#together-button,
+#separate-button,
+#one-hit-wonders-button,
+#everyone-button {
+    padding: 10px 20px;
+    background-color: #ff0050;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+#together-button:hover,
+#separate-button:hover {
     background-color: grey;
 }
