@@ -26,36 +26,35 @@ h2 {
     box-sizing: border-box;
 }
 
-
-.button-container {
+.button-group {
     text-align: center;
     margin-top: 20px;
 }
 
-.yes-button, .no-button {
+.yes-button, #yesButton {
+    padding: 10px 20px;
+    margin-right: 10px;
     background-color: #00f2ea;
     color: black;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
+    border: none;
+    border-radius: 5px;
     cursor: pointer;
-    border-radius: 4px;
+    transition: background-color 0.3s;
 }
 
-.no-button {
+.no-button, #noButton {
+    padding: 10px 20px;
     background-color: #ff0050;
     color: black;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
+    border: none;
+    border-radius: 5px;
     cursor: pointer;
-    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.yes-button:hover, #yesButton:hover,
+.no-button:hover, #noButton:hover {
+    background-color: #555;
 }
 
 #input-container {
@@ -371,4 +370,71 @@ body {
     height: 20px;
     background: white;
     border-bottom-left-radius: 10px;
+}
+
+.pushable {
+    background: hsl(340deg 100% 32%);
+    border: none;
+    border-radius: 12px;
+    padding: 0;
+    cursor: pointer;
+    outline-offset: 4px;
+}
+.front {
+    display: block;
+    padding: 12px 42px;
+    border-radius: 12px;
+    font-size: 1.25rem;
+    background: hsl(345deg 100% 47%);
+    color: white;
+    transform: translateY(-6px);
+}
+
+.pushable:active .front {
+    transform: translateY(-2px);
+}
+
+
+.popup-rectangle {
+    display: none;
+    position: absolute;
+    top: 50%;
+    right: -300px;
+    width: 250px;
+    height: 300px;
+    background-color: #00f2ea;
+    padding: 20px;
+    border: 3px solid black;
+    transition: right 2s ease-in-out;
+}
+
+.popup-rectangle p {
+    font-family: 'Times New Roman', sans-serif;
+    font-size: 24px;
+    color: black;
+    line-height: 1.4;
+}
+
+
+#searchArtist {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+#searchButton {
+    padding: 10px 20px;
+    background-color: #ff0050;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#searchButton:hover {
+    background-color: grey;
 }
