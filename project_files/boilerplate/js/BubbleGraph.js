@@ -227,9 +227,9 @@ class BubbleGraph {
 
         const separateSimulation = (data, xOffset) => {
             return d3.forceSimulation(data)
-                .force('x', d3.forceX(vis.width / 2 + xOffset).strength(0.05))
-                .force('y', d3.forceY(vis.height / 2).strength(0.05))
-                .force('collide', d3.forceCollide(d => radiusScale(d.sizeRatio) + 2));
+                .force('x', d3.forceX(vis.width / 2 + xOffset).strength(0.08))
+                .force('y', d3.forceY(vis.height / 2).strength(0.08))
+                .force('collide', d3.forceCollide(d => radiusScale(d.sizeRatio) + 1));
         };
 
         const simulationSpotify = separateSimulation(spotifyData, -400);
@@ -255,7 +255,7 @@ class BubbleGraph {
         let vis = this;
         const searchInput = document.getElementById('searchArtist');
 
-        const searchTerm = searchInput.value;
+        const searchTerm = (searchInput.value).toLowerCase();
 
         console.log(searchTerm);
         vis.svg.selectAll('.bubble')
