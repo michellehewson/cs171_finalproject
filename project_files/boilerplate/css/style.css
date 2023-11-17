@@ -376,7 +376,6 @@ h2 {
     background-color: grey;
 }
 
-
 .button-container {
     background-color: #ffffff;
     border-radius: 10px;
@@ -415,4 +414,38 @@ h2 {
 #together-button:hover,
 #separate-button:hover {
     background-color: grey;
+}
+#tiktokHist {
+    height: 400px;
+    width: 100%;
+    padding: 20px;
+    border: thin solid grey;
+    border-radius: 5px;
+    background: beige;
+}
+
+#spotHist {
+    height: 400px;
+    width: 100%;
+    padding: 20px;
+    border: thin solid grey;
+    border-radius: 5px;
+    background: beige;
+}
+#tikScatterDiv {
+    height: 400px;
+    width: 100%;
+    padding: 20px;
+    border: thin solid grey;
+    border-radius: 5px;
+    background: beige;
+}
+
+#spotScatterDiv {
+    height: 400px;
+    width: 100%;
+    padding: 20px;
+    border: thin solid grey;
+    border-radius: 5px;
+    background: beige;
 }

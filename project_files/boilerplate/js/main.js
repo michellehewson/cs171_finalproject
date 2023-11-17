@@ -19,6 +19,8 @@
 
 let bubbleChart;
 let pianoChart;
+let spotHistogram;
+let tiktokHistogram;
 let promises = [
     d3.csv("data/spotify_clean.csv").then(csv=> {
 
@@ -132,18 +134,19 @@ function initMainPage(dataArray) {
     faceplot = new FacePlot('faceplot', dataArray[0], dataArray[1])
     //barChart = new BarChart('barchart', dataArray[5])
 
-
-
-   TikscatterChart = new ScatterChart("tikScatterDiv", dataArray[1],"SpotScatterDiv" )
-   SpotscatterChart = new ScatterChart("SpotScatterDiv",dataArray[0],"SpotScatterDiv")
+    TikscatterChart = new ScatterChart("tikScatterDiv", dataArray[1] )
+    SpotscatterChart = new ScatterChart("spotScatterDiv",dataArray[0])
+    tiktokHistogram = new Histogram("tiktokHist", dataArray[1])
+    console.log(dataArray[0])
+    spotHistogram = new Histogram("spotHist",  dataArray[0])
 }
 
-let carousel = new bootstrap.Carousel(document.getElementById('stateCarousel'), {interval: false})
+/*let carousel = new bootstrap.Carousel(document.getElementById('stateCarousel'), {interval: false})
 function switchView() {
     carousel.next();
     document.getElementById('switchView').innerHTML === 'tiktok view' ? document.getElementById('switchView').innerHTML = 'spotify view' : document.getElementById('switchView').innerHTML = 'tiktok view';
 }
-
+*/
 function showInput(response) {
     const inputContainer = document.getElementById('input-container');
 
@@ -163,4 +166,11 @@ function showInput(response) {
     submitButton.id = 'submit-button';
     submitButton.textContent = 'Submit';
     inputContainer.appendChild(submitButton);
+}
+
+function categoryChange() {
+    //let selectedCategory = document.getElementById('categorySelector').value;
+
+    tiktokHistogram.updateVis()
+    spotHistogram.updateVis()
 }
