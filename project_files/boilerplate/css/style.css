@@ -342,3 +342,37 @@ h2 {
 #searchButton:hover {
     background-color: grey;
 }
+#tiktokHist {
+    height: 400px;
+    width: 100%;
+    padding: 20px;
+    border: thin solid grey;
+    border-radius: 5px;
+    background: beige;
+}
+
+#spotHist {
+    height: 400px;
+    width: 100%;
+    padding: 20px;
+    border: thin solid grey;
+    border-radius: 5px;
+    background: beige;
+}
+#tikScatterDiv {
+    height: 400px;
+    width: 100%;
+    padding: 20px;
+    border: thin solid grey;
+    border-radius: 5px;
+    background: beige;
+}
+
+#spotScatterDiv {
+    height: 400px;
+    width: 100%;
+    padding: 20px;
+    border: thin solid grey;
+    border-radius: 5px;
+    background: beige;
+}

@@ -183,7 +183,36 @@
 	</div>
 
 	<div data-anchor="page10" class="section">
-		<h2>histogram</h2>
+		<h2>Histograms on attributes </h2>
+		<div class = "container">
+			<div class = "row">
+				<div class="col-md-5">
+					<select id='categorySelector' class="custom-select align-self-center" style="width: 50%" onchange="categoryChange()">
+						<option value="danceability" selected>Danceability</option>
+						<option value="acousticness">Acousticness</option>
+						<option value="speechiness">Speechiness</option>
+						<option value="tempo">Tempo</option>
+						<option value="liveliness">Liveliness</option>
+						<option value="energy">Energy</option>
+					</select>
+				</div>
+			</div>
+
+			<div class = "container">
+				<div class = "row">
+					<div class="col-md-6">
+						<div id="tiktokHist">
+						</div>
+					</div>
+
+					<div class="col-md-6" >
+						<div id="spotHist">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
 	</div>
 
 	<div data-anchor="page11" class="section">
@@ -200,53 +229,34 @@
 		</div>
 	</div>
 
-
 	<div data-anchor="page12" class="section">
-		<h2>conclusion</h2>
-		</div>
-
-	</div>
-	<div data-anchor="page13" class="section">
 		<h2>scatter plot</h2>
 		<div class="container-fluid">
-			<div class="col-2">
-				<button id="switchView" class="btn btn-light align-self-center" type="button"
-						onclick="switchView()">switch view
-				</button> </div>
-			<div class="col-10">
-				<div class="row" style="background: lightgrey;">
-					<div id="stateCarousel" class="carousel slide" data-ride="carousel" style=" width: 100%">
-						<div class="carousel-inner">
-							<!-- T -->
-							<div class="carousel-item">
-								<div class="col">
-									<div class="row" style="height: 70vh; background: lightgray; padding: 1vh">
-										<div id="tikScatterDiv"
-											 style="height: 100%; width:100%; padding: 20px; border: thin solid grey; border-radius: 5px; background: beige;">
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<!-- S -->
-							<div class="carousel-item active">
-								<div class="col">
-									<div class="row" style="height: 70vh; background: lightgrey; padding: 1vh;">
-										<div id="SpotScatterDiv"
-											 style="height: 100%; width:100%; border: thin solid grey; border-radius: 5px; background: beige;">
-
-										</div>
-									</div>
-								</div>
-							</div>
+			<div class = 'row'>
+				<div class="col-2">  </div>
+			</div>
+			<div class = 'row'>
+				<div class="col-md-6">
+					<div id="tikScatterDiv">
+					</div>
+				</div>
+				<div class="col-md-6">
+						<div id="spotScatterDiv">
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+
 	</div>
+		<div data-anchor="page13" class="section">
+			<h2>conclusion</h2>
+		</div>
+
+
+
 
 </div>
+
 
 
 
@@ -397,6 +407,7 @@
 <script src="js/radarchart.js"></script>
 <script src="js/faceplot.js"></script>
 <script src="js/tiktokBarChart.js"></script>
+<script src="js/histogram.js"></script>
 <script src="js/scatterchart.js"></script>
 <script src="js/main.js"></script>
 
