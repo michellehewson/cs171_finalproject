@@ -19,6 +19,8 @@
 
 let bubbleChart;
 let pianoChart;
+let spotHistogram;
+let tiktokHistogram;
 let promises = [
     d3.csv("data/spotify_clean.csv").then(csv=> {
 
@@ -132,10 +134,11 @@ function initMainPage(dataArray) {
     faceplot = new FacePlot('faceplot', dataArray[0], dataArray[1])
     //barChart = new BarChart('barchart', dataArray[5])
 
-    TikscatterChart = new ScatterChart("tikScatterDiv", dataArray[1],"SpotScatterDiv" )
-    SpotscatterChart = new ScatterChart("spotScatterDiv",dataArray[0],"SpotScatterDiv")
+    TikscatterChart = new ScatterChart("tikScatterDiv", dataArray[1] )
+    SpotscatterChart = new ScatterChart("spotScatterDiv",dataArray[0])
     tiktokHistogram = new Histogram("tiktokHist", dataArray[1])
-    spotHistogram = new Histogram()
+    console.log(dataArray[0])
+    spotHistogram = new Histogram("spotHist",  dataArray[0])
 }
 
 /*let carousel = new bootstrap.Carousel(document.getElementById('stateCarousel'), {interval: false})
@@ -166,9 +169,8 @@ function showInput(response) {
 }
 
 function categoryChange() {
-    selectedCategory =  document.getElementById('categorySelector').value;
+    //let selectedCategory = document.getElementById('categorySelector').value;
 
-   // myMapVis.wrangleData();
-    //myBarVisOne.wrangleData();
-    //myBarVisTwo.wrangleData();// maybe you need to change this slightly depending on the name of your MapVis instance
+    tiktokHistogram.updateVis()
+    spotHistogram.updateVis()
 }

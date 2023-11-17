@@ -1,10 +1,7 @@
 class Histogram{
-
-
-    constructor(parentElement, data, sizeElement) {
-        this.parentElement = parentElement;
-        this.data = data;
-        this.sizeElement = sizeElement;
+    constructor(_parentElement, _data) {
+        this.parentElement = _parentElement;
+        this.data = _data;
 
         this.initVis();
     }
@@ -48,17 +45,49 @@ class Histogram{
             .attr("y", vis.height + vis.margin.bottom - 10)
             .style("text-anchor", "middle");
 
-        vis.svg.append("text")
-            .attr("transform", "rotate(-90)")
-            .attr("y", -vis.margin.left + 200)
-            .attr("x", -vis.height / 2)
-            .style("text-anchor", "middle");
-
         vis.updateVis(); // Initial rendering
     }
 
     updateVis(){
 
 
-    }
+            let vis = this;
+
+        console.log(this.data)
+
+           let selectedAttribute =  document.getElementById('categorySelector').value;
+
+            // Filter data based on the selected attribute
+            let filteredData = vis.data.map(d => d[selectedAttribute]);
+
+            // Update scales
+            vis.x.domain([0, d3.max(filteredData)]);
+            vis.y.domain([0, d3.max(filteredData, d => d.length)]);
+
+            // Update axes
+            vis.svg.select(".x-axis").call(vis.xAxis);
+            vis.svg.select(".y-axis").call(vis.yAxis);
+
+            // Update bars
+            let bars = vis.svg.selectAll(".bar")
+                .data(filteredData);
+
+            bars.enter().append("rect")
+                .attr("class", "bar")
+                .merge(bars)
+                .attr("x", d => vis.x(d))
+                .attr("y", d => vis.y(d.length))
+                .attr("width", vis.width / filteredData.length)
+                .attr("height", d => vis.height - vis.y(d.length))
+                .on("mouseover", function (event, d) {
+                    // Add tooltip or other interactivity as needed
+                })
+                .on("mouseout", function (event, d) {
+                    // Hide tooltip or other interactivity as needed
+                });
+
+            bars.exit().remove();
+        }
+
+
 }
