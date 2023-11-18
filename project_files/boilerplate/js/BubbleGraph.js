@@ -1,10 +1,11 @@
 // https://observablehq.com/@d3/bubble-chart-component for reference
 class BubbleGraph {
-    constructor(parentElement, spotifyData, tiktokData, mergedData) {
+    constructor(parentElement, spotifyData, tiktokData, spotifyartistcount, tiktokartistcount) {
         this.parentElement = parentElement;
         this.spotifyData = spotifyData;
         this.tiktokData = tiktokData;
-        this.mergedData = mergedData;
+        this.topSpotifyArtists = spotifyartistcount;
+        this.topTikTokArtists = tiktokartistcount;
         this.initVis();
     }
 
@@ -22,27 +23,27 @@ class BubbleGraph {
             .style("margin", "auto");
 
         vis.wrangleData();
-        vis.updateVisualization();
+        vis.updateVisualization(vis.allBubbleData);
         vis.createLegend();
 
         document.getElementById('form').addEventListener('submit', function(event) {
             event.preventDefault();
         });
 
-        d3.select('#separate-button').on('click', () => {
+        d3.select('#separate-radio').on('click', () => {
             vis.separateBubbles();
         });
 
-        d3.select('#together-button').on('click', () => {
+        d3.select('#together-radio').on('click', () => {
             vis.togetherBubbles();
         });
 
-        d3.select('#one-hit-wonders-button').on('click', () => {
-            vis.oneHitWonders();
+        d3.select('#one-hit-wonders-radio').on('click', () => {
+            vis.clusterOneHitWonders();
         });
 
-        d3.select('#everyone-button').on('click', () => {
-            vis.everyone();
+        d3.select('#most-songs-radio').on('click', () => {
+            vis.clusterTopArtists();
         });
 
         document.getElementById('searchButton').addEventListener('click', () => {
@@ -103,13 +104,16 @@ class BubbleGraph {
             }
         });
 
+        vis.combinedArtistBubbleData = combinedArtistBubbleData;
+
         vis.allBubbleData = vis.spotifyBubbleData.concat(vis.tiktokBubbleData).concat(combinedArtistBubbleData);
         //  console.log(vis.allBubbleData)
+
     }
 
-    updateVisualization() {
+    updateVisualization(allBubbleData) {
         let vis = this;
-        vis.drawBubbles(vis.allBubbleData);
+        vis.drawBubbles(allBubbleData);
     }
 
     drawBubbles(data) {
@@ -120,8 +124,8 @@ class BubbleGraph {
             .range([5, 50]);
 
         const simulation = d3.forceSimulation(data)
-            .force('x', d3.forceX(vis.width / 2).strength(0.05))
-            .force('y', d3.forceY(vis.height / 2).strength(0.05))
+            .force('x', d3.forceX(vis.width / 2).strength(0.15))
+            .force('y', d3.forceY(vis.height / 2).strength(0.15))
             .force('collide', d3.forceCollide(d => radiusScale(d.sizeRatio) + 2));
 
         const bubbleGroups = vis.svg.selectAll('.bubble-group')
@@ -149,6 +153,14 @@ class BubbleGraph {
                 .attr('cy', d => d.y);
 
         });
+
+        vis.svg.append('text')
+            .attr('class', 'cluster-label')
+            .attr('x', vis.width / 2 )
+            .attr('y', vis.height - 20)
+            .text('Artists with Top Songs on Spotify and TikTok')
+            .attr('text-anchor', 'middle')
+            .attr('fill', 'black');
 
 
         const tooltip = d3.select("#" + vis.parentElement)
@@ -182,14 +194,16 @@ class BubbleGraph {
 
     togetherBubbles() {
         let vis = this;
+        vis.svg.selectAll('.cluster-label').remove();
+
 
         const radiusScale = d3.scaleLinear()
             .domain([0, d3.max(vis.allBubbleData, d => d.sizeRatio)])
             .range([5, 50]);
 
         const simulation = d3.forceSimulation(vis.allBubbleData)
-            .force('x', d3.forceX(vis.width / 2).strength(0.05))
-            .force('y', d3.forceY(vis.height / 2).strength(0.05))
+            .force('x', d3.forceX(vis.width / 2).strength(0.15))
+            .force('y', d3.forceY(vis.height / 2).strength(0.15))
             .force('collide', d3.forceCollide(d => radiusScale(d.sizeRatio) + 2));
 
         simulation.on('tick', () => {
@@ -197,10 +211,20 @@ class BubbleGraph {
                 .attr('cx', d => d.x)
                 .attr('cy', d => d.y);
         });
+
+        vis.svg.append('text')
+            .attr('class', 'cluster-label')
+            .attr('x', vis.width / 2 )
+            .attr('y', vis.height - 20)
+            .text('Artists with Top Songs on Spotify and TikTok')
+            .attr('text-anchor', 'middle')
+            .attr('fill', 'black');
     }
 
     separateBubbles() {
         let vis = this;
+        vis.svg.selectAll('.cluster-label').remove();
+
 
         const spotifyData = vis.allBubbleData.filter(d => d.dataset === 'Spotify');
         const tiktokData = vis.allBubbleData.filter(d => d.dataset === 'TikTok');
@@ -212,8 +236,8 @@ class BubbleGraph {
 
         const separateSimulation = (data, xOffset) => {
             return d3.forceSimulation(data)
-                .force('x', d3.forceX(vis.width / 2 + xOffset).strength(0.08))
-                .force('y', d3.forceY(vis.height / 2).strength(0.08))
+                .force('x', d3.forceX(vis.width / 2 + xOffset).strength(0.15))
+                .force('y', d3.forceY(vis.height / 2).strength(0.15))
                 .force('collide', d3.forceCollide(d => radiusScale(d.sizeRatio) + 1));
         };
 
@@ -233,6 +257,30 @@ class BubbleGraph {
         applyTick(simulationSpotify, 'Spotify');
         applyTick(simulationTikTok, 'TikTok');
         applyTick(simulationCombined, 'Combined');
+
+        vis.svg.append('text')
+            .attr('class', 'cluster-label')
+            .attr('x', vis.width / 2 - 400)
+            .attr('y', vis.height - 20)
+            .text('Artists with Top Songs on Spotify')
+            .attr('text-anchor', 'middle')
+            .attr('fill', 'black');
+
+        vis.svg.append('text')
+            .attr('class', 'cluster-label')
+            .attr('x', vis.width / 2 + 400)
+            .attr('y', vis.height - 20)
+            .text('Artists with Top Songs on TikTok')
+            .attr('text-anchor', 'middle')
+            .attr('fill', 'black');
+
+        vis.svg.append('text')
+            .attr('class', 'cluster-label')
+            .attr('x', vis.width / 2)
+            .attr('y', vis.height - 20)
+            .text('Artists with Top Songs on Both Platforms')
+            .attr('text-anchor', 'middle')
+            .attr('fill', 'black');
     }
 
 
@@ -269,56 +317,117 @@ class BubbleGraph {
         }
     }
 
-    oneHitWonders() {
+    clusterOneHitWonders() {
         let vis = this;
+        vis.svg.selectAll('.cluster-label').remove();
 
-        const oneHitWondersData = vis.allBubbleData.filter(d => d.count === 1);
+
+        const oneHitData = vis.allBubbleData.filter(
+            d => d.count === 1
+        );
+        const aboveOneHitData = vis.allBubbleData.filter(
+            d => d.count !== 1
+        );
 
         const radiusScale = d3.scaleLinear()
             .domain([0, d3.max(vis.allBubbleData, d => d.sizeRatio)])
             .range([5, 50]);
 
-        const simulation = d3.forceSimulation(vis.allBubbleData)
-            .force('x', d3.forceX(vis.width / 2).strength(d => {
-                return (d.count === 1) ? 0.25 : 0.05;
-            }))
-            .force('y', d3.forceY(vis.height / 2).strength(d => {
-                return (d.count === 1) ? 0.25 : 0.05;
-            }))
-            .force('collide', d3.forceCollide(d => radiusScale(d.sizeRatio) + 2));
+        const oneHitSimulation = d3.forceSimulation(oneHitData)
+            .force('x', d3.forceX(vis.width / 4).strength(0.15))
+            .force('y', d3.forceY(vis.height / 2).strength(0.15))
+            .force('collide', d3.forceCollide(d => radiusScale(d.sizeRatio) + 1));
 
-        simulation.on('tick', () => {
-            vis.svg.selectAll('.bubble')
-                .attr('cx', d => d.x)
-                .attr('cy', d => d.y)
-                .style('display', d => {
-                    return (d.count === 1) ? 'block' : 'none';
-                });
-        });
+        const aboveOneHitSimulation = d3.forceSimulation(aboveOneHitData)
+            .force('x', d3.forceX((3 * vis.width) / 4).strength(0.15))
+            .force('y', d3.forceY(vis.height / 2).strength(0.15))
+            .force('collide', d3.forceCollide(d => radiusScale(d.sizeRatio) + 1));
+
+        const applyTick = (simulation, dataset) => {
+            simulation.on('tick', () => {
+                vis.svg.selectAll('.bubble')
+                    .filter(d => d.dataset === dataset)
+                    .attr('cx', d => d.x)
+                    .attr('cy', d => d.y);
+            });
+        };
+
+        applyTick(oneHitSimulation, 'oneHit');
+        applyTick(aboveOneHitSimulation, 'aboveOneHit');
+
+        vis.svg.append('text')
+            .attr('class', 'cluster-label')
+            .attr('x', vis.width / 4)
+            .attr('y', vis.height - 20)
+            .text('Artists with Only One Featured Song')
+            .attr('text-anchor', 'middle')
+            .attr('fill', 'black');
+
+        vis.svg.append('text')
+            .attr('class', 'cluster-label')
+            .attr('x', (3 * vis.width) / 4)
+            .attr('y', vis.height - 20)
+            .text('Artists with More than One Song')
+            .attr('text-anchor', 'middle')
+            .attr('fill', 'black');
     }
 
-    everyone() {
+    clusterTopArtists() {
         let vis = this;
+        vis.svg.selectAll('.cluster-label').remove();
+
+
+        const topSpotifyArtistsData = vis.topSpotifyArtists.slice(0, 10);
+        const topTikTokArtistsData = vis.topTikTokArtists.slice(0, 10);
+
+        const topArtists = topSpotifyArtistsData.concat(topTikTokArtistsData);
+        console.log(topArtists)
+
+        const topArtistsData = vis.allBubbleData.filter(d => topArtists.some(topArtist => topArtist.artist === d.artist_name));
+        const remainingData = vis.allBubbleData.filter(d => !topArtists.some(topArtist => topArtist.artist === d.artist_name));
 
         const radiusScale = d3.scaleLinear()
             .domain([0, d3.max(vis.allBubbleData, d => d.sizeRatio)])
             .range([5, 50]);
 
-        const simulation = d3.forceSimulation(vis.allBubbleData)
-            .force('x', d3.forceX(vis.width / 2).strength(0.05))
-            .force('y', d3.forceY(vis.height / 2).strength(0.05))
-            .force('collide', d3.forceCollide(d => radiusScale(d.sizeRatio) + 2));
+        const topArtistsSimulation = d3.forceSimulation(topArtistsData)
+            .force('x', d3.forceX(vis.width / 4).strength(0.15))
+            .force('y', d3.forceY(vis.height / 2).strength(0.15))
+            .force('collide', d3.forceCollide(d => radiusScale(d.sizeRatio) + 1));
 
-        simulation.on('tick', () => {
-            vis.svg.selectAll('.bubble')
-                .attr('cx', d => d.x)
-                .attr('cy', d => d.y);
-        });
+        const remainingDataSimulation = d3.forceSimulation(remainingData)
+            .force('x', d3.forceX((3 * vis.width) / 4).strength(0.15))
+            .force('y', d3.forceY(vis.height / 2).strength(0.15))
+            .force('collide', d3.forceCollide(d => radiusScale(d.sizeRatio) + 1));
 
-        vis.svg.selectAll('.bubble')
-            .style('display', 'block');
+        const applyTick = (simulation, dataset) => {
+            simulation.on('tick', () => {
+                vis.svg.selectAll('.bubble')
+                    .filter(d => d.dataset === dataset)
+                    .attr('cx', d => d.x)
+                    .attr('cy', d => d.y);
+            });
+        };
+
+        applyTick(topArtistsSimulation, 'topArtistsData');
+        applyTick(remainingDataSimulation, 'remainingData');
+
+        vis.svg.append('text')
+            .attr('class', 'cluster-label')
+            .attr('x', vis.width / 4)
+            .attr('y', vis.height - 20)
+            .text('Artists with the Most Featured Songs')
+            .attr('text-anchor', 'middle')
+            .attr('fill', 'black');
+
+        vis.svg.append('text')
+            .attr('class', 'cluster-label')
+            .attr('x', (3 * vis.width) / 4)
+            .attr('y', vis.height - 20)
+            .text('Artists with Less Featured Songs')
+            .attr('text-anchor', 'middle')
+            .attr('fill', 'black');
     }
-
 
 
     createLegend() {
@@ -401,5 +510,6 @@ class BubbleGraph {
             .attr('class', 'legend-label');
 
     }
+
 
 }

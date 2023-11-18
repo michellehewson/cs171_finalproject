@@ -111,6 +111,20 @@ let promises = [
             d.count = + d.count;
         });
         return csv;
+    }),
+
+    d3.csv("data/tiktok_artist_counts.csv").then(csv => {
+        csv.forEach(function(d) {
+            d.count = + d.count;
+        });
+        return csv;
+    }),
+
+    d3.csv("data/spotify_artist_counts.csv").then(csv => {
+        csv.forEach(function(d) {
+            d.count = + d.count;
+        });
+        return csv;
     })
 
 
@@ -127,7 +141,7 @@ Promise.all(promises)
 
 function initMainPage(dataArray) {
 
-    bubbleChart = new BubbleGraph('bubblechart', dataArray[0], dataArray[1], dataArray[6])
+    bubbleChart = new BubbleGraph('bubblechart', dataArray[0], dataArray[1], dataArray[7], dataArray[8])
     spotifyradarChart = new RadarChart('spotifyradarchart', dataArray[0], 'spotify')
     tiktokradarChart = new RadarChart('tiktokradarchart', dataArray[1], 'tiktok')
     pianoChart = new Piano('piano', dataArray[3], dataArray[4])
@@ -136,6 +150,7 @@ function initMainPage(dataArray) {
 
     TikscatterChart = new ScatterChart("tikScatterDiv", dataArray[1] )
     SpotscatterChart = new ScatterChart("spotScatterDiv",dataArray[0])
+    console.log(dataArray[0])
     tiktokHistogram = new Histogram("tiktokHist", dataArray[1])
     console.log(dataArray[0])
     spotHistogram = new Histogram("spotHist",  dataArray[0])
