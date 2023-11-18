@@ -1,3 +1,19 @@
+.fade-in-title {
+    text-align: center;
+    padding: 20px;
+}
+
+#intro-text {
+    font-family: 'Arial', sans-serif;
+    font-size: 36px;
+    color: #333;
+}
+
+#intro-text img {
+    vertical-align: middle;
+    margin-left: 10px;
+}
+
 
 h1 {
     text-align: center;
@@ -56,6 +72,13 @@ h2 {
 .no-button:hover, #noButton:hover {
     background-color: #555;
 }
+
+
+#button-box.hide {
+    display: none;
+}
+
+
 
 #input-container {
     text-align: center;
@@ -148,6 +171,17 @@ h2 {
 #bubble-chart {
     position: relative;
 }
+
+.cluster-label {
+    font-family: 'Times New Roman', sans-serif;
+    font-size: 21px;
+    fill: #333;
+}
+
+#legend-description {
+    font-size: 12px;
+}
+
 
 .column-left {
     width: 400px;
@@ -397,24 +431,31 @@ h2 {
     justify-content: space-around;
 }
 
-#together-button,
-#separate-button,
-#one-hit-wonders-button,
-#everyone-button {
-    padding: 10px 20px;
-    background-color: #ff0050;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    margin-right: 10px;
+input[type="radio"] {
+    display: none;
 }
 
-#together-button:hover,
-#separate-button:hover {
-    background-color: grey;
+label {
+    display: block;
+    margin-bottom: 10px;
+    padding: 8px 12px;
+    margin-right: 10px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    cursor: pointer;
 }
+
+label:hover {
+    background-color: #e0e0e0;
+}
+
+input[type="radio"]:checked + label {
+    background-color: #ff0050;
+    color: white;
+}
+
+
+
 #tiktokHist {
     display: flex;
     flex-direction: column;
