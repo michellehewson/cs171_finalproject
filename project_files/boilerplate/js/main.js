@@ -24,6 +24,7 @@ let tiktokHistogram;
 let TikscatterChart;
 let SpotscatterChart;
 let promises = [
+    // LOADING IN THE DATA
     d3.csv("data/spotify_clean.csv").then(csv=> {
 
         csv.forEach(function(d){
@@ -164,26 +165,6 @@ function switchView() {
     document.getElementById('switchView').innerHTML === 'tiktok view' ? document.getElementById('switchView').innerHTML = 'spotify view' : document.getElementById('switchView').innerHTML = 'tiktok view';
 }
 */
-function showInput(response) {
-    const inputContainer = document.getElementById('input-container');
-
-
-    if (response === 'yes') {
-        // Show input box for hours
-        inputContainer.style.display = 'block';
-        inputContainer.innerHTML = '<label for="hoursInput">How many minutes a day do you spend on TikTok?  </label>' +
-            '<input type="number" id="hoursInput">';
-    } else if (response === 'no') {
-        // Show input box for minutes
-        inputContainer.style.display = 'block';
-        inputContainer.innerHTML = '<label for="minutesInput">How many minutes do you think the average user spends on TikTok a day?  </label>' +
-            '<input type="number" id="minutesInput">';
-    }
-    const submitButton = document.createElement('button');
-    submitButton.id = 'submit-button';
-    submitButton.textContent = 'Submit';
-    inputContainer.appendChild(submitButton);
-}
 
 function categoryChange() {
     //let selectedCategory = document.getElementById('categorySelector').value;

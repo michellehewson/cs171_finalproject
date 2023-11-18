@@ -1,3 +1,4 @@
+// simple bar chart that animates when a user loads the page
 class BarChart {
     constructor(parentElement, tiktokUserData) {
         this.parentElement = parentElement;
@@ -57,7 +58,7 @@ class BarChart {
             .attr("height", 0)
             .attr("fill", '#ff0050')
             .transition()
-            .delay((d, i) => i * 100)
+            .delay((d, i) => i * 100) // this makes the cool animation that makes the bars appear intermittently
             .attr("y", d => vis.y(d.Value))
             .attr("height", d => vis.height - vis.y(d.Value))
             .duration(1500);
@@ -65,13 +66,14 @@ class BarChart {
 
     updateVis() {
         let vis = this;
-      //  console.log(vis.tiktokUserData)
+      //console.log(vis.tiktokUserData)
         let timeData = vis.tiktokUserData.map(d => d['Time']);
         let valueData = vis.tiktokUserData.map(d => parseFloat(d['Value']));
 
         vis.x.domain(timeData);
         vis.y.domain([0, d3.max(valueData)]);
 
+        //axes
         vis.svg.append("g")
             .attr("class", "x-axis")
             .attr("transform", "translate(0," + vis.height + ")")
@@ -86,6 +88,7 @@ class BarChart {
             .attr("class", "y-axis")
             .call(vis.yAxis);
 
+        //yaxis labels
         vis.svg.append("text")
             .attr("transform", "rotate(-90)")
             .attr("y", 0 - vis.margin.left)

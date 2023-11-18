@@ -317,6 +317,8 @@
 
 
 <script>
+	// this script waits for the user to press the yes/no buttons on page3 and then returns a message based on what
+	// button they chose
 	document.addEventListener('DOMContentLoaded', function() {
 		const buttonBox = document.getElementById('button-box');
 		const buttonContainer = document.querySelector('.button-container');
@@ -326,32 +328,35 @@
 
 		yesButton.addEventListener('click', function() {
 			buttonBox.classList.add('hide');
-			buttonContainer.style.display = 'none';
+			buttonContainer.style.display = 'none'; //get rid of the yes/no buttons and box
 			responseText.textContent = 'You are part of a massive community! To date, TikTok has been downloaded over 3.4 billion times!';
-			responseText.style.display = 'block';
+			responseText.style.display = 'block'; //show the text
 		});
 
 		noButton.addEventListener('click', function() {
 			buttonBox.classList.add('hide');
-			buttonContainer.style.display = 'none';
+			buttonContainer.style.display = 'none'; //get rid of the yes/no buttons and box
 			responseText.textContent = 'Consider joining TikTok\'s global community, which has amassed over 3.4 billion downloads, to discover the engaging content that has its users hooked!';
-			responseText.style.display = 'block';
+			responseText.style.display = 'block'; //show the text
 		});
 	});
 </script>
 
 <script>
+	// this script is how we get the text/visualizations to fade in based on what page the user is on
+	// we do this with fullpage.js
 	document.addEventListener('DOMContentLoaded', function() {
 		new fullpage('#fullPage', {
 			autoScrolling: true,
 			navigation: true,
 			licenseKey: 'gplv3-license',
 			afterLoad: function(origin, destination) {
-				if (destination.anchor === 'page2') {
+				if (destination.anchor === 'page2') { //fade-ins for page2
 					const titleElement = document.querySelector('.fade-in-title');
 					titleElement.classList.add('show');
 
 					setTimeout(function() {
+						// https://developer.mozilla.org/en-US/docs/Web/API/setTimeout
 						const fact1 = document.querySelector('.fade-in-fact1');
 						fact1.classList.add('show');
 					}, 1000);
@@ -370,7 +375,7 @@
 						const fact4 = document.querySelector('.fade-in-fact4');
 						fact4.classList.add('show');
 					}, 6000);
-				} else if (destination.anchor === 'page3') {
+				} else if (destination.anchor === 'page3') { // fade-ins for page3
 					const buttonBox = document.getElementById('button-box');
 					buttonBox.classList.add('centered');
 					}
@@ -382,8 +387,9 @@
 </script>
 
 <script>
+	//this script draws the bar chart and the rest of the text after the yes/no button is pushed
+	// (this follows the above script)
 	let tiktokUserData;
-	let isBarChartDrawn = false;
 
 	d3.csv("data/tiktok_user_stats.csv").then(csv => {
 		tiktokUserData = csv.map(d => ({
@@ -398,10 +404,10 @@
 		const text3 = document.querySelector('.fade-in-tiktok-text3');
 
 		yesButton.addEventListener('click', function() {
-			if (!isBarChartDrawn && tiktokUserData) {
+			// more time delays if the user pressed yes
+			// https://developer.mozilla.org/en-US/docs/Web/API/setTimeout
 				setTimeout(function() {
 					const barChart = new BarChart('barchart', tiktokUserData);
-					isBarChartDrawn = true;
 				}, 4000);
 
 				setTimeout(function() {
@@ -415,14 +421,13 @@
 				setTimeout(function() {
 					text3.classList.add('show');
 				}, 10000);
-			}
+
 		});
 
 		noButton.addEventListener('click', function() {
-			if (!isBarChartDrawn && tiktokUserData) {
 				setTimeout(function() {
+					//more time delays if the user pressed no
 					const barChart = new BarChart('barchart', tiktokUserData);
-					isBarChartDrawn = true;
 				}, 4000);
 
 				setTimeout(function() {
@@ -436,7 +441,6 @@
 				setTimeout(function() {
 					text3.classList.add('show');
 				}, 10000);
-			}
 		});
 	});
 </script>
