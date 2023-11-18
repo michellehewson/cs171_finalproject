@@ -1,4 +1,6 @@
-// https://observablehq.com/@d3/bubble-chart-component for reference
+// https://observablehq.com/@d3/bubble-chart-component and
+// https://gist.github.com/officeofjane/a70f4b44013d06b9c0a973f163d8ab7a
+// for reference for most of the bubble code
 class BubbleGraph {
     constructor(parentElement, spotifyData, tiktokData, spotifyartistcount, tiktokartistcount) {
         this.parentElement = parentElement;
@@ -14,7 +16,6 @@ class BubbleGraph {
         vis.width = 1100;
         vis.height = 700;
 
-
         vis.svg = d3.select("#" + vis.parentElement)
             .append("svg")
             .attr("width", vis.width)
@@ -26,6 +27,8 @@ class BubbleGraph {
         vis.updateVisualization(vis.allBubbleData);
         vis.createLegend();
 
+
+        //linking the buttons from the html
         document.getElementById('form').addEventListener('submit', function(event) {
             event.preventDefault();
         });
@@ -46,6 +49,7 @@ class BubbleGraph {
             vis.clusterTopArtists();
         });
 
+        //search bar
         document.getElementById('searchButton').addEventListener('click', () => {
             vis.search();
         });
@@ -63,6 +67,8 @@ class BubbleGraph {
         });
         vis.totalSpotifySongs = vis.spotifyArtists.length;
 
+
+        //create bubble data for spotify (artist_name, count:number of songs, size_ratio: number of songs/total # of songs)
         vis.spotifyBubbleData = Object.keys(spotifyArtistCounts).map(artist => ({
             artist_name: artist,
             count: spotifyArtistCounts[artist],
@@ -78,6 +84,7 @@ class BubbleGraph {
         });
         vis.totalTiktokSongs = vis.tiktokArtists.length;
 
+        //create bubble data for tiktok (artist_name, count:number of songs, size_ratio: number of songs/total # of songs)
         vis.tiktokBubbleData = Object.keys(tiktokArtistCounts).map(artist => ({
             artist_name: artist,
             count: tiktokArtistCounts[artist],
@@ -85,9 +92,12 @@ class BubbleGraph {
             dataset: 'TikTok'
         }));
 
+        // check if an artist is in both data sets
         vis.spotifyBubbleData.forEach(spotifyArtist => {
             const matchingTikTokArtist = vis.tiktokBubbleData.find(tiktokArtist => tiktokArtist.artist_name === spotifyArtist.artist_name);
 
+            //create bubble data for artists that are in both data sets
+            // (artist_name, count:number of songs, size_ratio: number of songs/total # of SPOTIFY songs)
             if (matchingTikTokArtist) {
                 let combinedData = {
                     artist_name: spotifyArtist.artist_name,
@@ -97,8 +107,10 @@ class BubbleGraph {
                     dataset: 'Combined'
                 };
 
+                //appending the artists to the combinedartistdata
                 combinedArtistBubbleData.push(combinedData);
 
+                //remove the artists that are in both datasets from the spotify and tiktok datasets
                 vis.spotifyBubbleData = vis.spotifyBubbleData.filter(artist => artist.artist_name !== spotifyArtist.artist_name);
                 vis.tiktokBubbleData = vis.tiktokBubbleData.filter(artist => artist.artist_name !== spotifyArtist.artist_name);
             }
@@ -117,12 +129,14 @@ class BubbleGraph {
     }
 
     drawBubbles(data) {
+        // this function draws the bubbles initially
         let vis = this;
 
         const radiusScale = d3.scaleLinear()
             .domain([0, d3.max(data, d => d.sizeRatio)])
             .range([5, 50]);
 
+        // this moves the bubbles around (collision)
         const simulation = d3.forceSimulation(data)
             .force('x', d3.forceX(vis.width / 2).strength(0.15))
             .force('y', d3.forceY(vis.height / 2).strength(0.15))
@@ -133,6 +147,7 @@ class BubbleGraph {
             .enter().append('g')
             .attr('class', 'bubble-group');
 
+        // color the bubbles based on what dataset they are in
         const bubbles = bubbleGroups.append('circle')
             .attr('class', 'bubble')
             .attr('r', d => radiusScale(d.sizeRatio))
@@ -146,7 +161,7 @@ class BubbleGraph {
                 }
             });
 
-
+        // call the collision/simulation function
         simulation.on('tick', () => {
             bubbles
                 .attr('cx', d => d.x)
@@ -154,6 +169,8 @@ class BubbleGraph {
 
         });
 
+
+        //label below the bubbles
         vis.svg.append('text')
             .attr('class', 'cluster-label')
             .attr('x', vis.width / 2 )
@@ -163,6 +180,7 @@ class BubbleGraph {
             .attr('fill', 'black');
 
 
+        //tooltip for the bubbles
         const tooltip = d3.select("#" + vis.parentElement)
             .append("div")
             .attr("class", "tooltip")
@@ -193,6 +211,7 @@ class BubbleGraph {
     }
 
     togetherBubbles() {
+        // this moves the bubbles to 1 cluster
         let vis = this;
         vis.svg.selectAll('.cluster-label').remove();
 
@@ -201,6 +220,7 @@ class BubbleGraph {
             .domain([0, d3.max(vis.allBubbleData, d => d.sizeRatio)])
             .range([5, 50]);
 
+        // collision/simulation
         const simulation = d3.forceSimulation(vis.allBubbleData)
             .force('x', d3.forceX(vis.width / 2).strength(0.15))
             .force('y', d3.forceY(vis.height / 2).strength(0.15))
@@ -212,6 +232,7 @@ class BubbleGraph {
                 .attr('cy', d => d.y);
         });
 
+        //label
         vis.svg.append('text')
             .attr('class', 'cluster-label')
             .attr('x', vis.width / 2 )
@@ -222,6 +243,7 @@ class BubbleGraph {
     }
 
     separateBubbles() {
+        // this function moves the bubbles into 3 clusters based on what data set they are in
         let vis = this;
         vis.svg.selectAll('.cluster-label').remove();
 
@@ -234,6 +256,7 @@ class BubbleGraph {
             .domain([0, d3.max(vis.allBubbleData, d => d.sizeRatio)])
             .range([5, 50]);
 
+        // function that moves the bubbles to their respective clusters with collision
         const separateSimulation = (data, xOffset) => {
             return d3.forceSimulation(data)
                 .force('x', d3.forceX(vis.width / 2 + xOffset).strength(0.15))
@@ -245,6 +268,7 @@ class BubbleGraph {
         const simulationTikTok = separateSimulation(tiktokData, 400);
         const simulationCombined = separateSimulation(combinedData, 0);
 
+        // function that moves the bubbles to their respective clusters with collision
         const applyTick = (simulation, dataset) => {
             simulation.on('tick', () => {
                 vis.svg.selectAll('.bubble')
@@ -258,6 +282,8 @@ class BubbleGraph {
         applyTick(simulationTikTok, 'TikTok');
         applyTick(simulationCombined, 'Combined');
 
+
+        //labels
         vis.svg.append('text')
             .attr('class', 'cluster-label')
             .attr('x', vis.width / 2 - 400)
@@ -285,10 +311,12 @@ class BubbleGraph {
 
 
     search() {
+        // this function lets the user search to see if their favorite artist is one of the bubbles
         let vis = this;
         const searchInput = document.getElementById('searchArtist');
 
-        const searchTerm = (searchInput.value).toLowerCase();
+        const searchTerm = (searchInput.value).toLowerCase(); // convert to lowercase or else we might
+        // not find the artist
 
         const notFoundMessage = document.getElementById('notFoundMessage');
 
@@ -306,6 +334,10 @@ class BubbleGraph {
             });
 
         const searchedBubble = vis.allBubbleData.find(artist => artist.artist_name.toLowerCase() === searchTerm);
+        //lowercase again
+
+        //if the bubble is someone's favorite artist, turn it yellow!
+        // otherwise, tell the user we didn't find the artist
         if (searchedBubble) {
             vis.svg.selectAll('.bubble')
                 .filter(d => d.artist_name === searchedBubble.artist_name)
@@ -318,10 +350,13 @@ class BubbleGraph {
     }
 
     clusterOneHitWonders() {
+        // this function separates artists that only have 1 song on the top charts and artists that have more
+        // than 1
         let vis = this;
         vis.svg.selectAll('.cluster-label').remove();
 
 
+        // filter for the above conditions
         const oneHitData = vis.allBubbleData.filter(
             d => d.count === 1
         );
@@ -343,6 +378,8 @@ class BubbleGraph {
             .force('y', d3.forceY(vis.height / 2).strength(0.15))
             .force('collide', d3.forceCollide(d => radiusScale(d.sizeRatio) + 1));
 
+
+        //change the positions of the bubbles based on the filtering
         const applyTick = (simulation, dataset) => {
             simulation.on('tick', () => {
                 vis.svg.selectAll('.bubble')
@@ -355,6 +392,7 @@ class BubbleGraph {
         applyTick(oneHitSimulation, 'oneHit');
         applyTick(aboveOneHitSimulation, 'aboveOneHit');
 
+        //labels
         vis.svg.append('text')
             .attr('class', 'cluster-label')
             .attr('x', vis.width / 4)
@@ -373,16 +411,22 @@ class BubbleGraph {
     }
 
     clusterTopArtists() {
+        // this function filters the top 10 artists in the spotify and tittok datasets based on
+        // the top 10 artists with the most songs in each dataset
+        // we have to filter these artists from the spotify/tiktok_artist_counts.csv otherwise the combinedbubbledata
+        // will mess this up... (i spent hours on that bug lol)
+
         let vis = this;
         vis.svg.selectAll('.cluster-label').remove();
 
-
+        // filtering
         const topSpotifyArtistsData = vis.topSpotifyArtists.slice(0, 10);
         const topTikTokArtistsData = vis.topTikTokArtists.slice(0, 10);
 
         const topArtists = topSpotifyArtistsData.concat(topTikTokArtistsData);
         console.log(topArtists)
 
+        //filtering
         const topArtistsData = vis.allBubbleData.filter(d => topArtists.some(topArtist => topArtist.artist === d.artist_name));
         const remainingData = vis.allBubbleData.filter(d => !topArtists.some(topArtist => topArtist.artist === d.artist_name));
 
@@ -390,6 +434,7 @@ class BubbleGraph {
             .domain([0, d3.max(vis.allBubbleData, d => d.sizeRatio)])
             .range([5, 50]);
 
+        // collision and forces for the top artists
         const topArtistsSimulation = d3.forceSimulation(topArtistsData)
             .force('x', d3.forceX(vis.width / 4).strength(0.15))
             .force('y', d3.forceY(vis.height / 2).strength(0.15))
@@ -400,6 +445,7 @@ class BubbleGraph {
             .force('y', d3.forceY(vis.height / 2).strength(0.15))
             .force('collide', d3.forceCollide(d => radiusScale(d.sizeRatio) + 1));
 
+        //change bubble positions based on whether they are top artists or not
         const applyTick = (simulation, dataset) => {
             simulation.on('tick', () => {
                 vis.svg.selectAll('.bubble')
@@ -412,6 +458,7 @@ class BubbleGraph {
         applyTick(topArtistsSimulation, 'topArtistsData');
         applyTick(remainingDataSimulation, 'remainingData');
 
+        //labels
         vis.svg.append('text')
             .attr('class', 'cluster-label')
             .attr('x', vis.width / 4)
@@ -431,6 +478,7 @@ class BubbleGraph {
 
 
     createLegend() {
+        //creating the legend in another svg
         console.log("creating legend");
         let vis = this;
 

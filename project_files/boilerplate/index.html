@@ -23,6 +23,7 @@
 	<div data-anchor="page1" class="section">
 		<h1>From Tiktok Trends to Playlist Picks</h1>
 		<h2>Exploring Musical Trends Across Spotify and TikTok</h2>
+		<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/3F5CgOj3wFlRv51JsHbxhe?utm_source=generator&theme=0" width="40%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
 	</div>
 	<div data-anchor="page2" class="section">
 		<div class="column-container">
@@ -239,11 +240,12 @@
 	<div data-anchor="page11" class="section">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-6">
-					<h1>hello</h1>
+				<div class="col-md-4">
+					<h3>In music theory, the key of a song is its central pitch. There are 12 keys that a song can be recorded in.</h3>
+					<h3>Each key represent 1 of the 12 pitches within an octave.</h3>
+					<h3>Try investigating the key distribution of the top songs on Spotify and TikTok in 2022!</h3>
 				</div>
-				<div class="col-md-6">
-					<h2>Song Distribution Across Piano Keys </h2>
+				<div class="col-md-8">
 					<div id="piano"></div>
 				</div>
 			</div>
@@ -315,6 +317,8 @@
 
 
 <script>
+	// this script waits for the user to press the yes/no buttons on page3 and then returns a message based on what
+	// button they chose
 	document.addEventListener('DOMContentLoaded', function() {
 		const buttonBox = document.getElementById('button-box');
 		const buttonContainer = document.querySelector('.button-container');
@@ -324,32 +328,35 @@
 
 		yesButton.addEventListener('click', function() {
 			buttonBox.classList.add('hide');
-			buttonContainer.style.display = 'none';
+			buttonContainer.style.display = 'none'; //get rid of the yes/no buttons and box
 			responseText.textContent = 'You are part of a massive community! To date, TikTok has been downloaded over 3.4 billion times!';
-			responseText.style.display = 'block';
+			responseText.style.display = 'block'; //show the text
 		});
 
 		noButton.addEventListener('click', function() {
 			buttonBox.classList.add('hide');
-			buttonContainer.style.display = 'none';
+			buttonContainer.style.display = 'none'; //get rid of the yes/no buttons and box
 			responseText.textContent = 'Consider joining TikTok\'s global community, which has amassed over 3.4 billion downloads, to discover the engaging content that has its users hooked!';
-			responseText.style.display = 'block';
+			responseText.style.display = 'block'; //show the text
 		});
 	});
 </script>
 
 <script>
+	// this script is how we get the text/visualizations to fade in based on what page the user is on
+	// we do this with fullpage.js
 	document.addEventListener('DOMContentLoaded', function() {
 		new fullpage('#fullPage', {
 			autoScrolling: true,
 			navigation: true,
 			licenseKey: 'gplv3-license',
 			afterLoad: function(origin, destination) {
-				if (destination.anchor === 'page2') {
+				if (destination.anchor === 'page2') { //fade-ins for page2
 					const titleElement = document.querySelector('.fade-in-title');
 					titleElement.classList.add('show');
 
 					setTimeout(function() {
+						// https://developer.mozilla.org/en-US/docs/Web/API/setTimeout
 						const fact1 = document.querySelector('.fade-in-fact1');
 						fact1.classList.add('show');
 					}, 1000);
@@ -368,7 +375,7 @@
 						const fact4 = document.querySelector('.fade-in-fact4');
 						fact4.classList.add('show');
 					}, 6000);
-				} else if (destination.anchor === 'page3') {
+				} else if (destination.anchor === 'page3') { // fade-ins for page3
 					const buttonBox = document.getElementById('button-box');
 					buttonBox.classList.add('centered');
 					}
@@ -380,8 +387,9 @@
 </script>
 
 <script>
+	//this script draws the bar chart and the rest of the text after the yes/no button is pushed
+	// (this follows the above script)
 	let tiktokUserData;
-	let isBarChartDrawn = false;
 
 	d3.csv("data/tiktok_user_stats.csv").then(csv => {
 		tiktokUserData = csv.map(d => ({
@@ -396,10 +404,10 @@
 		const text3 = document.querySelector('.fade-in-tiktok-text3');
 
 		yesButton.addEventListener('click', function() {
-			if (!isBarChartDrawn && tiktokUserData) {
+			// more time delays if the user pressed yes
+			// https://developer.mozilla.org/en-US/docs/Web/API/setTimeout
 				setTimeout(function() {
 					const barChart = new BarChart('barchart', tiktokUserData);
-					isBarChartDrawn = true;
 				}, 4000);
 
 				setTimeout(function() {
@@ -413,14 +421,13 @@
 				setTimeout(function() {
 					text3.classList.add('show');
 				}, 10000);
-			}
+
 		});
 
 		noButton.addEventListener('click', function() {
-			if (!isBarChartDrawn && tiktokUserData) {
 				setTimeout(function() {
+					//more time delays if the user pressed no
 					const barChart = new BarChart('barchart', tiktokUserData);
-					isBarChartDrawn = true;
 				}, 4000);
 
 				setTimeout(function() {
@@ -434,7 +441,6 @@
 				setTimeout(function() {
 					text3.classList.add('show');
 				}, 10000);
-			}
 		});
 	});
 </script>

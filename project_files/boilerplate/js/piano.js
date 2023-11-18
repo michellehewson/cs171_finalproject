@@ -1,15 +1,21 @@
 // michelle
-// https://developer.mozilla.org/en-US/docs/Web/API/AudioContext and https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Migrating_from_webkitAudioContext for playing the sounds
+// https://developer.mozilla.org/en-US/docs/Web/API/AudioContext and
+// https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Migrating_from_webkitAudioContext
+// https://developer.mozilla.org/en-US/docs/Web/API/Response/arrayBuffer
+// for playing the sounds
+
 // https://developer.mozilla.org/en-US/docs/Web/SVG/Element/tspan for additional text
 class Piano {
     constructor(parentElement, spotify_keys, tiktok_keys) {
         this.parentElement = parentElement;
         this.whiteKeys = [0, 2, 4, 5, 7, 9, 11];
         this.blackKeys = [1, 3, 6, 8, 10];
-        this.whiteKeysDict = {0:"C", 2:"D", 4:"E", 5:"F", 7:"G", 9:"A", 11:"B"};
+        this.whiteKeysDict = {0:"C", 2:"D", 4:"E", 5:"F", 7:"G", 9:"A", 11:"B"}; // soline pls double check these
         this.blackKeysDict = {1:"C#", 3:"D#", 6:"F#", 8:"G#", 10:"A#"};
         this.spotify_keys = spotify_keys;
         this.tiktok_keys = tiktok_keys;
+        this.images = ['/img/note1.png', '/img/note2.png', '/img/note3.png']; //images for the music notes
+
         this.initVis()
     }
     initVis() {
@@ -33,6 +39,7 @@ class Piano {
         };
 
 
+        //function for playing the sounds
         function playSound(key) {
             let source = audioContext.createBufferSource();
             let soundFile = soundFiles[key]
@@ -50,6 +57,7 @@ class Piano {
         vis.translateX = 120;
         vis.translateY = 260;
 
+        // drawing the piano
         vis.pianoMargin = { top: 40, right: 10, bottom: 60, left: 60 };
         vis.pianoWidth = 960 - vis.pianoMargin.left - vis.pianoMargin.right;
         vis.pianoHeight = 400 - vis.pianoMargin.top - vis.pianoMargin.bottom;
@@ -125,9 +133,15 @@ class Piano {
         vis.svgPiano.selectAll(".pianoWhiteKey, .pianoBlackKey")
             .attr("transform", "translate(" + vis.translateX + "," + vis.translateY + ")");
 
+
+        //playing white key sounds
         vis.pianoWhiteKeys.on("click", function (d) {
             let key = d3.select(this).attr("key");
          //   console.log(key)
+            const x = event.offsetX || event.clientX - parseInt(event.target.getBoundingClientRect().left);
+            const y = event.offsetY || event.clientY - parseInt(event.target.getBoundingClientRect().top);
+
+
             playSound(key);
             vis.keyText = vis.updatePianoText(key)
             vis.textContainer = d3.select(".pianoTextInit");
@@ -150,12 +164,32 @@ class Piano {
                 .attr("x", 218)
                 .attr("dy", "1.2em")
                 .style("font-size", "12px");
+
+            const randomImage = vis.images[Math.floor(Math.random() * vis.images.length)];
+
+            const image = vis.svgPiano.append('image')
+                .attr('xlink:href', randomImage)
+                .attr('x', x + Math.floor(Math.random() * 10) + 1)
+                .attr('y', y + Math.floor(Math.random() * 10) + 1)
+                .attr('width', '50px')
+                .attr('height', '50px')
+                .style('opacity', 1);
+
+            image.transition()
+                .duration(1000)
+                .style('opacity', 0)
+                .remove();
         });
 
-
+        //playing black key sounds
         vis.pianoBlackKeys.on("click", function (d) {
             let key = d3.select(this).attr("key");
-      //      console.log(key)
+      //    console.log(key)
+            const x = event.offsetX || event.clientX - parseInt(event.target.getBoundingClientRect().left);
+            const y = event.offsetY || event.clientY - parseInt(event.target.getBoundingClientRect().top);
+
+
+
             playSound(key);
             vis.keyText = vis.updatePianoText(key)
             vis.textContainer = d3.select(".pianoTextInit");
@@ -178,14 +212,30 @@ class Piano {
                 .attr("x", 218)
                 .attr("dy", "1.2em")
                 .style("font-size", "12px");
+
+            const randomImage = vis.images[Math.floor(Math.random() * vis.images.length)];
+
+            const image = vis.svgPiano.append('image')
+                .attr('xlink:href', randomImage)
+                .attr('x', x + Math.floor(Math.random() * 10) + 1)
+                .attr('y', y + Math.floor(Math.random() * 10) + 1)
+                .attr('width', '50px')
+                .attr('height', '50px')
+                .style('opacity', 1);
+
+            image.transition()
+                .duration(1000)
+                .style('opacity', 0)
+                .remove();
         });
 
 
     }
 
+    //change the text of the piano when a key is clicked
     updatePianoText(key) {
         let vis = this;
-     //   console.log(vis.tiktok_keys)
+     // console.log(vis.tiktok_keys)
         let spotifyPercentage = vis.spotify_keys[key].percentage;
         let tiktokPercentage = vis.tiktok_keys[key].percentage;
 
@@ -198,7 +248,7 @@ class Piano {
             };
         } else if (vis.blackKeys.includes(parseInt(key))) {
             vis.keyLtr = vis.blackKeysDict[key] || '';
-      //      console.log(vis.keyLtr)
+      //    console.log(vis.keyLtr)
             return {
                 tiktokPercentageStr: tiktokPercentage + '% of top songs on TikTok',
                 spotifyPercentageStr: spotifyPercentage + '% of top songs on Spotify',
