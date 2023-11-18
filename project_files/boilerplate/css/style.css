@@ -149,6 +149,7 @@ h2 {
     right: 5%;
 }
 
+
 #radarchart {
     display: flex;
     flex-direction: column;
@@ -281,7 +282,7 @@ h2 {
     transition: opacity 1s ease-in-out;
 }
 
-.fade-in-tiktok-text2.show {
+.fade-in-tiktok-text2.soverhow {
     opacity: 1;
 }
 
@@ -350,11 +351,17 @@ h2 {
     justify-content: space-between;
 }
 
+.track-names{
+    max-height: 200px;
+    overflow-y: auto;
+}
+
 .section {
     width: 100%;
 }
 
 .container-fluid {
+    height: 90%;
     width: 100%;
     padding-right: 0;
     padding-left: 0;
