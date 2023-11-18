@@ -149,7 +149,7 @@ function initMainPage(dataArray) {
     pianoChart = new Piano('piano', dataArray[3], dataArray[4])
     faceplot = new FacePlot('faceplot', dataArray[0], dataArray[1])
     //barChart = new BarChart('barchart', dataArray[5])
-    
+
     tiktokHistogram = new Histogram("tiktokHist", dataArray[1])
     spotHistogram = new Histogram("spotHist",  dataArray[0])
 
