@@ -1,14 +1,15 @@
 class Histogram{
-    constructor(_parentElement, _data) {
+    constructor(_parentElement, _data, spotify="Spotify") {
         this.parentElement = _parentElement;
         this.data = _data;
+        this.spotify = spotify;
         this.initVis();
     }
     initVis() {
         let vis = this;
         vis.margin = { top: 40, right: 60, bottom: 80, left: 60 };
 
-        console.log(vis.parentElement)
+        //console.log(vis.parentElement)
 
         vis.width = document.getElementById(vis.parentElement).getBoundingClientRect().width - vis.margin.left - vis.margin.right;
         vis.height = document.getElementById(vis.parentElement).getBoundingClientRect().height - vis.margin.top - vis.margin.bottom;
@@ -44,6 +45,24 @@ class Histogram{
             .attr("x", vis.width / 2)
             .attr("y", vis.height + vis.margin.bottom - 20)
             .style("text-anchor", "middle");
+
+
+        vis.bartitle= "";
+        if (vis.spotify == "Spotify"){
+            vis.bartitle = 'Spotify Stats';
+        } else {
+            vis.bartitle = 'Tiktok Stats';
+
+        }
+
+
+        // add title
+        vis.svg.append('g')
+            .attr('class', 'title bar-title')
+            .append('text')
+            .text(vis.bartitle)
+            .attr('transform', `translate(${vis.width / 2}, -10)`); // Rotate the text labels by -45 degrees;
+
 
         vis.updateVis(); // Initial rendering
     }

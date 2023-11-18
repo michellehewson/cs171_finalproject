@@ -1,7 +1,8 @@
 class ScatterChart {
-    constructor(parentElement, data) {
+    constructor(parentElement, data, spotify) {
         this.parentElement = parentElement;
         this.data = data;
+        this.spotify = spotify;
         this.initVis();
         this.updateVis();
     }
@@ -39,6 +40,22 @@ class ScatterChart {
 
         vis.svg.append("g")
             .attr("class", "y-axis");
+
+        vis.bartitle= "";
+        if (vis.spotify == "Spotify"){
+            vis.bartitle = 'Spotify Stats';
+        } else {
+            vis.bartitle = 'Tiktok Stats';
+
+        }
+
+
+        // add title
+        vis.svg.append('g')
+            .attr('class', 'title bar-title')
+            .append('text')
+            .text(vis.bartitle)
+            .attr('transform', `translate(${vis.width / 2}, -10)`); // Rotate the text labels by -45 degrees;
 
 
         //vis.updateVis(); // Initial rendering
