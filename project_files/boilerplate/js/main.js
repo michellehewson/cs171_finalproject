@@ -134,10 +134,12 @@ function initMainPage(dataArray) {
     pianoChart = new Piano('piano', dataArray[3], dataArray[4])
     faceplot = new FacePlot('faceplot', dataArray[0], dataArray[1])
     //barChart = new BarChart('barchart', dataArray[5])
-    console.log(dataArray[0])
+
     tiktokHistogram = new Histogram("tiktokHist", dataArray[1])
     spotHistogram = new Histogram("spotHist",  dataArray[0])
+
     TikscatterChart = new ScatterChart("tikScatterDiv", dataArray[1] )
+    console.log(dataArray[0])
     SpotscatterChart = new ScatterChart("spotScatterDiv",dataArray[0])
 }
 
