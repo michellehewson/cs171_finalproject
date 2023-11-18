@@ -79,11 +79,13 @@
 		<div class="column-container" style="position: relative;">
 			<div class="column fixed-column" style="position: sticky; top: 20px; height: 716.79px; width: 375px;">
 				<div class="button-container">
+					<div id="button-box">
 					<h2> Do you use TikTok?</h2>
 					<div class="button-group">
 						<button id="yesButton" class="yes-button">Yes</button>
 						<button id="noButton" class="no-button">No</button>
 					</div>
+				</div>
 				</div>
 				<h2 id="response-text" style="display: none;"></h2>
 				<div class="fade-in-tiktok-text1">
@@ -109,14 +111,23 @@
 			<div class="column-container">
 				<div class="column-left">
 					<h3>Let's explore the artists who dominated the TikTok and Spotify charts in 2022.</h3>
-					<p>Hover over the legend to learn about the filtering and sizing.</p>
+					<p id="legend-description">Hover over the legend to learn about the filtering and sizing.</p>
 					<div id="legend"></div>
 					<div id="popupRectangle" class="popup-rectangle">
 
-						<button id="together-button">Together</button>
-						<button id="separate-button">Separate</button>
-						<button id="everyone-button">Everyone</button>
-						<button id="one-hit-wonders-button">One Hit Wonders</button>
+						<div>
+							<input type="radio" id="together-radio" name="cluster-type" value="together" checked>
+							<label for="together-radio">Together</label>
+
+							<input type="radio" id="separate-radio" name="cluster-type" value="separate">
+							<label for="separate-radio">Separate</label>
+
+							<input type="radio" id="one-hit-wonders-radio" name="cluster-type" value="one-hit-wonders">
+							<label for="one-hit-wonders-radio">One Hit Wonders</label>
+
+							<input type="radio" id="most-songs-radio" name="cluster-type" value="top-artists">
+							<label for="most-songs-radio">Top Artists</label>
+						</div>
 
 
 						<h4>Was your favorite artist at the top of the charts?</h4>
@@ -128,7 +139,6 @@
 					</div>
 				</div>
 				<div class="column">
-					<h3>Visualizing Top Artists on TikTok and Spotify</h3>
 					<div id="bubblechart"></div>
 				</div>
 
@@ -308,16 +318,22 @@
 
 <script>
 	document.addEventListener('DOMContentLoaded', function() {
+		const buttonBox = document.getElementById('button-box');
+		const buttonContainer = document.querySelector('.button-container');
 		const yesButton = document.querySelector('.yes-button');
 		const noButton = document.querySelector('.no-button');
 		const responseText = document.getElementById('response-text');
 
 		yesButton.addEventListener('click', function() {
+			buttonBox.classList.add('hide');
+			buttonContainer.style.display = 'none';
 			responseText.textContent = 'You are part of a massive community! To date, TikTok has been downloaded over 3.4 billion times!';
 			responseText.style.display = 'block';
 		});
 
 		noButton.addEventListener('click', function() {
+			buttonBox.classList.add('hide');
+			buttonContainer.style.display = 'none';
 			responseText.textContent = 'Consider joining TikTok\'s global community, which has amassed over 3.4 billion downloads, to discover the engaging content that has its users hooked!';
 			responseText.style.display = 'block';
 		});
@@ -354,8 +370,12 @@
 						const fact4 = document.querySelector('.fade-in-fact4');
 						fact4.classList.add('show');
 					}, 6000);
+				} else if (destination.anchor === 'page3') {
+					const buttonBox = document.getElementById('button-box');
+					buttonBox.classList.add('centered');
+					}
 				}
-			}
+
 		});
 	});
 

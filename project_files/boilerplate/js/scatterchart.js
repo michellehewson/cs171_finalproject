@@ -8,6 +8,7 @@ class ScatterChart {
 
     initVis() {
         let vis = this;
+
         vis.margin = { top: 40, right: 60, bottom: 60, left: 60 };
 
         vis.width = document.getElementById(vis.parentElement).getBoundingClientRect().width - vis.margin.left - vis.margin.right;
