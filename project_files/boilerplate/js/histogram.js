@@ -42,7 +42,7 @@ class Histogram{
         // Add axis titles
         vis.svg.append("text")
             .attr("x", vis.width / 2)
-            .attr("y", vis.height + vis.margin.bottom - 10)
+            .attr("y", vis.height + vis.margin.bottom - 20)
             .style("text-anchor", "middle");
 
         vis.updateVis(); // Initial rendering
@@ -59,7 +59,7 @@ class Histogram{
         //console.log(selectedAttribute)
 
         const bins = d3.bin()
-            .thresholds(20)
+            .thresholds(15)
             .value((d) => d[selectedAttribute])(vis.data);
 
 
@@ -76,12 +76,33 @@ class Histogram{
             vis.svg.select(".y-axis").call(vis.yAxis);
 
         // Append x-axis label
-        vis.svg.append("text")
+        vis.xAxisLabel = vis.svg.selectAll(".x-axis-label")
+            .data([selectedAttribute]);
+
+        // Enter
+        vis.xAxisLabel.enter()
+            .append("text")
             .attr("class", "x-axis-label")
             .attr("text-anchor", "middle")
             .attr("x", vis.width / 2)
             .attr("y", vis.height + 30)
+            .style("opacity", 0) // Set initial opacity to 0 for enter transition
+            .text(selectedAttribute)
+            .transition()
+            .duration(500)
+            .style("opacity", 1); // Transition to full opacity
+
+        // Update
+        vis.xAxisLabel
             .text(selectedAttribute);
+
+        // Exit
+        vis.xAxisLabel.exit()
+            .transition()
+            .duration(500)
+            .style("opacity", 0) // Transition to opacity 0 for exit
+            .remove();
+
 
         // Append y-axis label
         vis.svg.append("text")
@@ -103,17 +124,20 @@ class Histogram{
             .append('rect')
             .attr("class", "bar")
             .attr("fill", "steelblue")
-            .attr("x", (d) => vis.x(d.x0))
-            .attr("width", (d) => vis.x(d.x1) - vis.x(d.x0))
+            .attr("x", (d) => vis.x(d.x0)+1)
+            .attr("width", (d) => vis.x(d.x1) - vis.x(d.x0)-2)
             .attr("y", (d) => vis.y(d.length))
             .attr("height", (d) => vis.y(0) - vis.y(d.length));
 
-        // Update
+
+        //Update
         vis.bars
-            .attr("x", (d) => vis.x(d.x0))
-            .attr("width", (d) => vis.x(d.x1) - vis.x(d.x0))
+            .attr("x", (d) => vis.x(d.x0)+1)
+            .attr("width", (d) => vis.x(d.x1) - vis.x(d.x0)-2)
             .attr("y", (d) => vis.y(d.length))
             .attr("height", (d) => vis.y(0) - vis.y(d.length));
+
+
 
         // Exit
         vis.bars.exit().remove();

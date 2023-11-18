@@ -128,9 +128,6 @@ Promise.all(promises)
     });
 
 function initMainPage(dataArray) {
-
-    //console.log(dataArray[0])
-
     bubbleChart = new BubbleGraph('bubblechart', dataArray[0], dataArray[1], dataArray[6])
     spotifyradarChart = new RadarChart('spotifyradarchart', dataArray[0], 'spotify')
     tiktokradarChart = new RadarChart('tiktokradarchart', dataArray[1], 'tiktok')
@@ -138,14 +135,9 @@ function initMainPage(dataArray) {
     faceplot = new FacePlot('faceplot', dataArray[0], dataArray[1])
     //barChart = new BarChart('barchart', dataArray[5])
     console.log(dataArray[0])
-
     tiktokHistogram = new Histogram("tiktokHist", dataArray[1])
-
     spotHistogram = new Histogram("spotHist",  dataArray[0])
-
     TikscatterChart = new ScatterChart("tikScatterDiv", dataArray[1] )
-
-
     SpotscatterChart = new ScatterChart("spotScatterDiv",dataArray[0])
 }
 
