@@ -2,13 +2,13 @@ class Histogram{
     constructor(_parentElement, _data) {
         this.parentElement = _parentElement;
         this.data = _data;
-
         this.initVis();
     }
-
     initVis() {
         let vis = this;
         vis.margin = { top: 40, right: 60, bottom: 60, left: 60 };
+
+        console.log(vis.parentElement)
 
         vis.width = document.getElementById(vis.parentElement).getBoundingClientRect().width - vis.margin.left - vis.margin.right;
         vis.height = document.getElementById(vis.parentElement).getBoundingClientRect().height - vis.margin.top - vis.margin.bottom;
@@ -51,12 +51,12 @@ class Histogram{
     updateVis(){
 
 
-            let vis = this;
+       let vis = this;
 
-        console.log(this.data)
+        //console.log(this.data)
 
            let selectedAttribute =  document.getElementById('categorySelector').value;
-
+        //console.log(selectedAttribute)
             // Filter data based on the selected attribute
             let filteredData = vis.data.map(d => d[selectedAttribute]);
 

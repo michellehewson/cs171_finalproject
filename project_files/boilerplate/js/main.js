@@ -21,6 +21,8 @@ let bubbleChart;
 let pianoChart;
 let spotHistogram;
 let tiktokHistogram;
+let TikscatterChart;
+let SpotscatterChart;
 let promises = [
     d3.csv("data/spotify_clean.csv").then(csv=> {
 
@@ -170,7 +172,24 @@ function showInput(response) {
 
 function categoryChange() {
     //let selectedCategory = document.getElementById('categorySelector').value;
-
+    if (tiktokHistogram ) {
+        tiktokHistogram.updateVis();
+    } else {
+        console.error('Vis object is undefined.');
+    }
     tiktokHistogram.updateVis()
     spotHistogram.updateVis()
+}
+
+
+function XcategoryChange() {
+
+    TikscatterChart.updateVis()
+    SpotscatterChart.updateVis()
+}
+
+function YcategoryChange() {
+
+    TikscatterChart.updateVis()
+    SpotscatterChart.updateVis()
 }
