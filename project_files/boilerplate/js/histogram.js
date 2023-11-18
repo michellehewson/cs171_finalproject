@@ -57,36 +57,37 @@ class Histogram{
 
            let selectedAttribute =  document.getElementById('categorySelector').value;
         //console.log(selectedAttribute)
+
+        const bins = d3.bin()
+            .thresholds(40)
+            .value((d) => d[selectedAttribute])(vis.data);
+
+
             // Filter data based on the selected attribute
             let filteredData = vis.data.map(d => d[selectedAttribute]);
 
+            console.log(filteredData)
+
+        console.log(bins[0])
+
             // Update scales
-            vis.x.domain([0, d3.max(filteredData)]);
-            vis.y.domain([0, d3.max(filteredData, d => d.length)]);
+            vis.x.domain([bins[0].x0, bins[bins.length - 1].x1]);
+            vis.y.domain([0, d3.max(bins, (d) => d.length)]);
 
             // Update axes
             vis.svg.select(".x-axis").call(vis.xAxis);
             vis.svg.select(".y-axis").call(vis.yAxis);
 
-            // Update bars
-            let bars = vis.svg.selectAll(".bar")
-                .data(filteredData);
+            vis.svg.append("g")
+            .attr("fill", "steelblue")
+            .selectAll()
+            .data(bins)
+            .join("rect")
+            .attr("x", (d) => vis.x(d.x0) + 1)
+            .attr("width", (d) => vis.x(d.x1) - vis.x(d.x0) - 1)
+            .attr("y", (d) => vis.y(d.length))
+            .attr("height", (d) => vis.y(0) - vis.y(d.length));
 
-            bars.enter().append("rect")
-                .attr("class", "bar")
-                .merge(bars)
-                .attr("x", d => vis.x(d))
-                .attr("y", d => vis.y(d.length))
-                .attr("width", vis.width / filteredData.length)
-                .attr("height", d => vis.height - vis.y(d.length))
-                .on("mouseover", function (event, d) {
-                    // Add tooltip or other interactivity as needed
-                })
-                .on("mouseout", function (event, d) {
-                    // Hide tooltip or other interactivity as needed
-                });
-
-            bars.exit().remove();
         }
 
 
