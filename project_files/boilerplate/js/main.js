@@ -21,6 +21,8 @@ let bubbleChart;
 let pianoChart;
 let spotHistogram;
 let tiktokHistogram;
+let TikscatterChart;
+let SpotscatterChart;
 let promises = [
     d3.csv("data/spotify_clean.csv").then(csv=> {
 
@@ -148,12 +150,11 @@ function initMainPage(dataArray) {
     faceplot = new FacePlot('faceplot', dataArray[0], dataArray[1])
     //barChart = new BarChart('barchart', dataArray[5])
 
-    TikscatterChart = new ScatterChart("tikScatterDiv", dataArray[1] )
-    SpotscatterChart = new ScatterChart("spotScatterDiv",dataArray[0])
     console.log(dataArray[0])
     tiktokHistogram = new Histogram("tiktokHist", dataArray[1])
-    console.log(dataArray[0])
     spotHistogram = new Histogram("spotHist",  dataArray[0])
+    TikscatterChart = new ScatterChart("tikScatterDiv", dataArray[1] )
+    SpotscatterChart = new ScatterChart("spotScatterDiv",dataArray[0])
 }
 
 /*let carousel = new bootstrap.Carousel(document.getElementById('stateCarousel'), {interval: false})
@@ -185,7 +186,24 @@ function showInput(response) {
 
 function categoryChange() {
     //let selectedCategory = document.getElementById('categorySelector').value;
-
+    if (tiktokHistogram ) {
+        tiktokHistogram.updateVis();
+    } else {
+        console.error('Vis object is undefined.');
+    }
     tiktokHistogram.updateVis()
     spotHistogram.updateVis()
+}
+
+
+function XcategoryChange() {
+
+    TikscatterChart.updateVis()
+    SpotscatterChart.updateVis()
+}
+
+function YcategoryChange() {
+
+    TikscatterChart.updateVis()
+    SpotscatterChart.updateVis()
 }

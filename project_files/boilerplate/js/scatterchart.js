@@ -5,6 +5,7 @@ class ScatterChart {
         this.sizeElement = sizeElement;
 
         this.initVis();
+        this.updateVis();
     }
 
     initVis() {
@@ -41,29 +42,35 @@ class ScatterChart {
         vis.svg.append("g")
             .attr("class", "y-axis");
 
-        // Add axis titles
+
+        //vis.updateVis(); // Initial rendering
+    }
+
+    updateVis() {
+        let vis = this;
+
+        vis.Xcategory = document.getElementById('XcategorySelector').value;
+        vis.Ycategory = document.getElementById('YcategorySelector').value;
+
+
+            // Add axis titles
         vis.svg.append("text")
-            .attr("x", vis.width / 2)
-            .attr("y", vis.height + vis.margin.bottom - 10)
-            .style("text-anchor", "middle")
-            .text("Danceability");
+                .attr("x", vis.width / 2)
+                .attr("y", vis.height + vis.margin.bottom - 10)
+                .style("text-anchor", "middle")
+                .text(vis.Xcategory);
 
         vis.svg.append("text")
             .attr("transform", "rotate(-90)")
             .attr("y", -vis.margin.left + 200)
             .attr("x", -vis.height / 2)
             .style("text-anchor", "middle")
-            .text("Acousticness");
+            .text(vis.Ycategory);
 
-        vis.updateVis(); // Initial rendering
-    }
-
-    updateVis() {
-        let vis = this;
 
         // Set domain for x, y, and legend scales based on the data
-        vis.x.domain([0, d3.max(vis.data, d => d.danceability)]);
-        vis.y.domain([0, d3.max(vis.data, d => d.acousticness)]);
+        vis.x.domain([0, d3.max(vis.data, d => d[vis.Xcategory])]);
+        vis.y.domain([0, d3.max(vis.data, d => d[vis.Ycategory])]);
 
         vis.svg.select(".x-axis")
             .call(vis.xAxis);
@@ -75,10 +82,12 @@ class ScatterChart {
             .data(vis.data);
 
         vis.circles.enter().append("circle")
-            .attr("cx", d => vis.x(d.danceability))
-            .attr("cy", d => vis.y(d.acousticness))
+            .attr("cx", d => vis.x(d[vis.Xcategory]))
+            .attr("cy", d => vis.y(d[vis.Ycategory]))
             .attr("fill", "lightblue") // Set fill color to light blue
             .attr("opacity", 0.7)
+            .attr("stroke", "lightgrey") // Set border
+            .attr("stroke-width", 2) // Set border width to 2 pixels
             .on("mouseover", function (event, d) {
                 // Show tooltip on mouseover
                 vis.tooltip.transition()
