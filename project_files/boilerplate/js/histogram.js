@@ -6,7 +6,7 @@ class Histogram{
     }
     initVis() {
         let vis = this;
-        vis.margin = { top: 40, right: 60, bottom: 60, left: 60 };
+        vis.margin = { top: 40, right: 60, bottom: 80, left: 60 };
 
         console.log(vis.parentElement)
 
@@ -59,16 +59,13 @@ class Histogram{
         //console.log(selectedAttribute)
 
         const bins = d3.bin()
-            .thresholds(40)
+            .thresholds(20)
             .value((d) => d[selectedAttribute])(vis.data);
 
 
             // Filter data based on the selected attribute
             let filteredData = vis.data.map(d => d[selectedAttribute]);
 
-            console.log(filteredData)
-
-        console.log(bins[0])
 
             // Update scales
             vis.x.domain([bins[0].x0, bins[bins.length - 1].x1]);
@@ -78,15 +75,49 @@ class Histogram{
             vis.svg.select(".x-axis").call(vis.xAxis);
             vis.svg.select(".y-axis").call(vis.yAxis);
 
-            vis.svg.append("g")
+        // Append x-axis label
+        vis.svg.append("text")
+            .attr("class", "x-axis-label")
+            .attr("text-anchor", "middle")
+            .attr("x", vis.width / 2)
+            .attr("y", vis.height + 30)
+            .text(selectedAttribute);
+
+        // Append y-axis label
+        vis.svg.append("text")
+            .attr("class", "count")
+            .attr("text-anchor", "middle")
+            .attr("transform", "rotate(-90)")
+            .attr("x", -vis.height / 2)
+            .attr("y", -vis.margin.left + 20)
+            .text("Count");
+
+        // add the bars
+
+        // Update bars
+        vis.bars = vis.svg.selectAll('.bar')
+            .data(bins);
+
+        // Enter
+        vis.bars.enter()
+            .append('rect')
+            .attr("class", "bar")
             .attr("fill", "steelblue")
-            .selectAll()
-            .data(bins)
-            .join("rect")
-            .attr("x", (d) => vis.x(d.x0) + 1)
-            .attr("width", (d) => vis.x(d.x1) - vis.x(d.x0) - 1)
+            .attr("x", (d) => vis.x(d.x0))
+            .attr("width", (d) => vis.x(d.x1) - vis.x(d.x0))
             .attr("y", (d) => vis.y(d.length))
             .attr("height", (d) => vis.y(0) - vis.y(d.length));
+
+        // Update
+        vis.bars
+            .attr("x", (d) => vis.x(d.x0))
+            .attr("width", (d) => vis.x(d.x1) - vis.x(d.x0))
+            .attr("y", (d) => vis.y(d.length))
+            .attr("height", (d) => vis.y(0) - vis.y(d.length));
+
+        // Exit
+        vis.bars.exit().remove();
+
 
         }
 
