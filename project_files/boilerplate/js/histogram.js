@@ -83,7 +83,12 @@ class Histogram{
 
 
             // Filter data based on the selected attribute
-            let filteredData = vis.data.map(d => d[selectedAttribute]);
+            //let filteredData = vis.data.map(d => d[selectedAttribute]);
+
+        // Add a tooltip div
+        const tooltip = d3.select("body").append("div")
+            .attr("class", "tooltip")
+            .style("opacity", 0);
 
 
             // Update scales
@@ -146,7 +151,20 @@ class Histogram{
             .attr("x", (d) => vis.x(d.x0)+1)
             .attr("width", (d) => vis.x(d.x1) - vis.x(d.x0)-2)
             .attr("y", (d) => vis.y(d.length))
-            .attr("height", (d) => vis.y(0) - vis.y(d.length));
+            .attr("height", (d) => vis.y(0) - vis.y(d.length))
+            .on("mouseover", function (event, d) {
+                tooltip.transition()
+                    .duration(200)
+                    .style("opacity", 0.9);
+                tooltip.html("Range: " + d.x0 + " - " + d.x1 + "<br/>Count: " + d.length)
+                    .style("left", (event.pageX) + "px")
+                    .style("top", (event.pageY - 28) + "px");
+            })
+            .on("mouseout", function () {
+                tooltip.transition()
+                    .duration(500)
+                    .style("opacity", 0);
+            });
 
 
         //Update

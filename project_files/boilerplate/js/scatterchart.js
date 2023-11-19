@@ -42,6 +42,7 @@ class ScatterChart {
             .attr("class", "y-axis");
 
         vis.bartitle= "";
+
         if (vis.spotify == "Spotify"){
             vis.bartitle = 'Spotify Stats';
         } else {
@@ -71,8 +72,6 @@ class ScatterChart {
         vis.Xcategory = document.getElementById('XcategorySelector').value;
         vis.Ycategory = document.getElementById('YcategorySelector').value;
 
-
-
         // Set domain for x, y, and legend scales based on the data
         vis.x.domain([0, d3.max(displayData, d => d[vis.Xcategory])]);
         vis.y.domain([0, d3.max(displayData, d => d[vis.Ycategory])]);
@@ -91,7 +90,7 @@ class ScatterChart {
             .attr("cx", d => vis.x(d[vis.Xcategory]))
             .attr("cy", d => vis.y(d[vis.Ycategory]))
             .style('fill', (d) => vis.spotify === 'Spotify' ? '#ff0050' : '#00f2ea')
-            .attr("r", 5) // Set the circle size 
+            .attr("r", 5) // Set the circle size
             .attr("opacity", 0.5) // Initial opacity set to 0 for fade-in effect
             .attr("stroke", "black")
             .attr("stroke-width", 1)
