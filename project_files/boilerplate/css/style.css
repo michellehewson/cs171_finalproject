@@ -327,7 +327,10 @@ h2 {
 }
 
 
-
+.chart-container .bar-label {
+    font-size: 14px; /* Adjust the font size as needed */
+    font-family: "Times New Roman", sans-serif; /* Specify the font family */
+}
 
 .pushable {
     background: hsl(340deg 100% 32%);
