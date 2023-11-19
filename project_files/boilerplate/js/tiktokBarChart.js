@@ -30,7 +30,10 @@ class BarChart {
             .attr("y", (-vis.margin.top * 0.7) + 20)
             .attr("text-anchor", "middle")
             .text("Tracking the Surge of TikTok Downloads")
-            .style("font-weight", "bold")
+            .style('font-style',  'Times New Roman, sans-serif')
+          //  .style("font-weight", "bold")
+            .style("fill", "black")
+         //   .style("stroke", "#00f2ea")
             .style("font-size", "34px");
 
         vis.x = d3.scaleBand()
@@ -47,7 +50,7 @@ class BarChart {
             .scale(vis.y);
 
         vis.tooltip = d3.select("body").append("div")
-            .attr("class", "tooltip")
+            .attr("class", "tooltip2")
             .style("opacity", 0);
 
     }
