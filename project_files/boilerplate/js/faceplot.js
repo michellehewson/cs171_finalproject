@@ -305,7 +305,6 @@ class FacePlot {
             const circle = d3.select(this).select('circle');
 
             if (circle.classed('mouse-out')) {
-                // Remove the filter class and reset the mouse-out class
                 circle.style('filter', null);
                 circle.classed('mouse-out', false);
             }
