@@ -65,6 +65,8 @@ class ScatterChart {
         let vis = this;
 
         let displayData = vis.data;
+        console.log('display')
+        console.log(displayData[0].track_name)
 
         vis.Xcategory = document.getElementById('XcategorySelector').value;
         vis.Ycategory = document.getElementById('YcategorySelector').value;
