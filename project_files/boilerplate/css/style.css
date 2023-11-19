@@ -49,6 +49,7 @@ h2 {
 
 .yes-button, #yesButton {
     padding: 10px 20px;
+    pointer-events: auto;
     margin-right: 10px;
     background-color: #00f2ea;
     color: black;
@@ -58,10 +59,10 @@ h2 {
     transition: background-color 0.3s;
 }
 
-.no-button, #noButton {
+.no-button, #noButton, #showTopArtistsButton {
     padding: 10px 20px;
     background-color: #ff0050;
-    color: black;
+    color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -159,6 +160,15 @@ h2 {
 .tooltip {
     position: absolute;
     background-color: lightgray;
+    padding: 8px;
+    border-radius: 4px;
+    pointer-events: none;
+    font-size: 12px;
+}
+
+.tooltip2 {
+    position: absolute;
+    background-color: #00f2ea;
     padding: 8px;
     border-radius: 4px;
     pointer-events: none;
@@ -453,7 +463,11 @@ h2 {
     padding: 20px;
     text-align: center;
     width: 300px;
-    margin: 0 auto;
+    height: 220px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     border: 2px solid #333333;
     font-family: 'Times New Roman', sans-serif;
 }
@@ -461,6 +475,8 @@ h2 {
 .button-container h2 {
     margin-bottom: 15px;
 }
+
+
 
 .button-group {
     display: flex;
@@ -497,11 +513,11 @@ input[type="radio"]:checked + label {
     flex-direction: column;
     align-items: center;
     height: 400px;
-    width: 400px;
+    width: 100%;
     padding: 20px;
     border: thin solid grey;
     border-radius: 5px;
-    background: beige;
+    background: whitesmoke;
 }
 
 #spotHist {
@@ -509,22 +525,22 @@ input[type="radio"]:checked + label {
     flex-direction: column;
     align-items: center;
     height: 400px;
-    width: 400px;
+    width: 100%;
     padding: 20px;
     border: thin solid grey;
     border-radius: 5px;
-    background: beige;
+    background: whitesmoke;
 }
 #tikScatterDiv {
     display: flex;
     flex-direction: column;
     align-items: center;
     height: 400px;
-    width: 400px;
+    width: 100%;
     padding: 20px;
     border: thin solid grey;
     border-radius: 5px;
-    background: beige;
+    background: whitesmoke;
 }
 
 #spotScatterDiv {
@@ -532,11 +548,11 @@ input[type="radio"]:checked + label {
     flex-direction: column;
     align-items: center;
     height: 400px;
-    width: 400px;
+    width: 100%;
     padding: 20px;
     border: thin solid grey;
     border-radius: 5px;
-    background: beige;
+    background: whitesmoke;
 }
 
 .piano-col {

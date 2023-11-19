@@ -7,7 +7,7 @@ class Histogram{
     }
     initVis() {
         let vis = this;
-        vis.margin = { top: 40, right: 60, bottom: 80, left: 60 };
+        vis.margin = { top: 50, right: 60, bottom: 80, left: 60 };
 
         //console.log(vis.parentElement)
 
@@ -40,29 +40,36 @@ class Histogram{
         vis.svg.append("g")
             .attr("class", "y-axis");
 
+       /*
         // Add axis titles
         vis.svg.append("text")
             .attr("x", vis.width / 2)
             .attr("y", vis.height + vis.margin.bottom - 20)
             .style("text-anchor", "middle");
-
+        */
 
         vis.bartitle= "";
         if (vis.spotify == "Spotify"){
             vis.bartitle = 'Spotify Stats';
         } else {
             vis.bartitle = 'Tiktok Stats';
-
         }
-
 
         // add title
         vis.svg.append('g')
             .attr('class', 'title bar-title')
             .append('text')
             .text(vis.bartitle)
-            .attr('transform', `translate(${vis.width / 2}, -10)`); // Rotate the text labels by -45 degrees;
+            .attr('transform', `translate(${(vis.width - vis.margin.left) / 2}, -20)`); // Rotate the text labels by -45 degrees;
 
+        vis.svg.append('g')
+            .append("text")
+            .attr("class", ".y-axis-label")
+            .attr("text-anchor", "middle")
+            .attr("transform", "rotate(-90)")
+            .attr("x", -vis.height / 2)
+            .attr("y", -vis.margin.left + 20)
+            .text('Count')
 
         vis.updateVis(); // Initial rendering
     }
@@ -81,9 +88,13 @@ class Histogram{
             .thresholds(15)
             .value((d) => d[selectedAttribute])(vis.data);
 
-
             // Filter data based on the selected attribute
-            let filteredData = vis.data.map(d => d[selectedAttribute]);
+            //let filteredData = vis.data.map(d => d[selectedAttribute]);
+
+        // Add a tooltip div
+        const tooltip = d3.select("body").append("div")
+            .attr("class", "tooltip")
+            .style("opacity", 0);
 
 
             // Update scales
@@ -123,15 +134,6 @@ class Histogram{
             .remove();
 
 
-        // Append y-axis label
-        vis.svg.append("text")
-            .attr("class", "count")
-            .attr("text-anchor", "middle")
-            .attr("transform", "rotate(-90)")
-            .attr("x", -vis.height / 2)
-            .attr("y", -vis.margin.left + 20)
-            .text("Count");
-
         // add the bars
 
         // Update bars
@@ -142,11 +144,24 @@ class Histogram{
         vis.bars.enter()
             .append('rect')
             .attr("class", "bar")
-            .attr("fill", "steelblue")
+            .style('fill', (d) => vis.spotify === 'Spotify' ? '#ff0050' : '#00f2ea')
             .attr("x", (d) => vis.x(d.x0)+1)
             .attr("width", (d) => vis.x(d.x1) - vis.x(d.x0)-2)
             .attr("y", (d) => vis.y(d.length))
-            .attr("height", (d) => vis.y(0) - vis.y(d.length));
+            .attr("height", (d) => vis.y(0) - vis.y(d.length))
+            .on("mouseover", function (event, d) {
+                tooltip.transition()
+                    .duration(200)
+                    .style("opacity", 0.9);
+                tooltip.html("Range: " + d.x0 + " - " + d.x1 + "<br/>Count: " + d.length)
+                    .style("left", (event.pageX) + "px")
+                    .style("top", (event.pageY - 28) + "px");
+            })
+            .on("mouseout", function () {
+                tooltip.transition()
+                    .duration(500)
+                    .style("opacity", 0);
+            });
 
 
         //Update

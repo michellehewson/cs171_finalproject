@@ -40,10 +40,10 @@
 					<h2 id="intro-text2">Users can create, share, and discover short videos to distribute to others around the globe.</h2>
 				</div>
 				<div class="fade-in-fact3">
-					<h2 id="intro-text3">Users express themselves through content-creation methods like lip-syncing and dancing to soundtracks. </h2>
+					<h2 id="intro-text3">TikTokers express themselves through methods like lip-syncing, comedy skits, and dancing to soundtracks. </h2>
 				</div>
 				<div class="fade-in-fact4">
-					<h2 id="intro-text4">Its algorithm tailors the content to each users' preferences, contributing to its trendsetting nature.</h2>
+					<h2 id="intro-text4">Its algorithm tailors the content to each users' preferences, thus contributing to its trendsetting nature.</h2>
 				</div>
 			</div>
 			<div class="column">
@@ -79,15 +79,6 @@
 	<div data-anchor="page3" class="section">
 		<div class="column-container" style="position: relative;">
 			<div class="column fixed-column" style="position: sticky; top: 20px; height: 716.79px; width: 375px;">
-				<div class="button-container">
-					<div id="button-box">
-					<h2> Do you use TikTok?</h2>
-					<div class="button-group">
-						<button id="yesButton" class="yes-button">Yes</button>
-						<button id="noButton" class="no-button">No</button>
-					</div>
-				</div>
-				</div>
 				<h2 id="response-text" style="display: none;"></h2>
 				<div class="fade-in-tiktok-text1">
 					<h2>TikTok dominated in 2022 as the most downloaded app on the market, accumulating over <b>800 million</b> downloads.</h2>
@@ -103,7 +94,15 @@
 				<div id="barchart"></div>
 			</div>
 		</div>
-
+		<div class="button-container">
+			<div id="button-box">
+				<h2> Do you use TikTok?</h2>
+				<div class="button-group">
+					<button id="yesButton" class="yes-button">Yes</button>
+					<button id="noButton" class="no-button">No</button>
+				</div>
+			</div>
+		</div>
 
 	</div>
 
@@ -112,7 +111,6 @@
 			<div class="column-container">
 				<div class="column-left">
 					<h3>Explore the artists who dominated the TikTok and Spotify charts in 2022.</h3>
-					<p id="legend-description">Hover over the legend to learn about the filtering and sizing.</p>
 					<div id="legend"></div>
 					<div id="popupRectangle" class="popup-rectangle">
 
@@ -121,7 +119,7 @@
 							<label for="together-radio">Together</label>
 
 							<input type="radio" id="separate-radio" name="cluster-type" value="separate">
-							<label for="separate-radio">Separate</label>
+							<label for="separate-radio">Separate by Platform</label>
 
 							<input type="radio" id="most-songs-radio" name="cluster-type" value="top-artists">
 							<label for="most-songs-radio">Top Artists</label>
@@ -267,14 +265,14 @@
 		<div class="container-fluid">
 			<div class = 'row'>
 				<h6>
-				These two plots shows the comparison between different attributes for the songs over the two platforms.
-				For example, if "Acousticness" is selected on X axis and "Energy" is selected on y,
+				These two plots show the comparisons between different attributes for the songs over the two platforms.
+				For example, if "Acousticness" is selected on X axis and "Energy" is selected on Y-axis,
 				user can see a negative relationship between these two features of the songs.
 				</h6>
 			</div>
 
 			<div class = 'row'>
-				<div class="col-5">
+				<div class="col-3">
 					X Axis:
 					<select id='XcategorySelector' class="custom-select align-self-center" onchange="XcategoryChange()">
 						<option value="danceability" selected>Danceability</option>
@@ -285,7 +283,7 @@
 						<option value="energy">Energy</option>
 					</select>
 				</div>
-				<div class="col-5">
+				<div class="col-3">
 					Y Axis:
 					<select id='YcategorySelector' class="custom-select align-self-center" onchange="YcategoryChange()">
 						<option value="danceability" selected>Danceability</option>

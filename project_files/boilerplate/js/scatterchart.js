@@ -42,6 +42,7 @@ class ScatterChart {
             .attr("class", "y-axis");
 
         vis.bartitle= "";
+
         if (vis.spotify == "Spotify"){
             vis.bartitle = 'Spotify Stats';
         } else {
@@ -55,7 +56,7 @@ class ScatterChart {
             .attr('class', 'title bar-title')
             .append('text')
             .text(vis.bartitle)
-            .attr('transform', `translate(${vis.width / 2}, -10)`); // Rotate the text labels by -45 degrees;
+            .attr('transform', `translate(${(vis.width-vis.margin.left) / 2}, -20)`); // Rotate the text labels by -45 degrees;
 
 
         //vis.updateVis(); // Initial rendering
@@ -65,13 +66,9 @@ class ScatterChart {
         let vis = this;
 
         let displayData = vis.data;
-        console.log('display')
-        console.log(displayData[0].track_name)
 
         vis.Xcategory = document.getElementById('XcategorySelector').value;
         vis.Ycategory = document.getElementById('YcategorySelector').value;
-
-
 
         // Set domain for x, y, and legend scales based on the data
         vis.x.domain([0, d3.max(displayData, d => d[vis.Xcategory])]);
@@ -90,8 +87,8 @@ class ScatterChart {
         vis.circles.enter().append("circle")
             .attr("cx", d => vis.x(d[vis.Xcategory]))
             .attr("cy", d => vis.y(d[vis.Ycategory]))
-            .attr("fill", "lightblue")
-            .attr("r", 3) // Set the circle size to 0.5
+            .style('fill', (d) => vis.spotify === 'Spotify' ? '#ff0050' : '#00f2ea')
+            .attr("r", 5) // Set the circle size
             .attr("opacity", 0.5) // Initial opacity set to 0 for fade-in effect
             .attr("stroke", "black")
             .attr("stroke-width", 1)
@@ -102,6 +99,7 @@ class ScatterChart {
                     .style("opacity", 0.9);
                 vis.tooltip.html(
                     `Artist: ${d.artist_name}<br>
+             Track name: ${d.track_name}<br>
              Danceability: ${d.danceability.toFixed(2)}<br>
              Acousticness: ${d.acousticness.toFixed(2)}<br>
              Speechiness: ${d.speechiness.toFixed(2)}`
