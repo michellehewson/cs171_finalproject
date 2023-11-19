@@ -1,4 +1,6 @@
+//michelle
 // simple bar chart that animates when a user loads the page
+// tooltip is inspired from week 5 homework
 class BarChart {
     constructor(parentElement, tiktokUserData) {
         this.parentElement = parentElement;
@@ -15,7 +17,7 @@ class BarChart {
 
         vis.margin = { top: 70, right: 10, bottom: 60, left: 60 };
         vis.width = 960 - vis.margin.left - vis.margin.right;
-        vis.height = 600 - vis.margin.top - vis.margin.bottom;
+        vis.height = 600;
         vis.svg = d3.select("#" + vis.parentElement)
             .append("svg")
             .attr("width", vis.width + vis.margin.left + vis.margin.right)
@@ -25,11 +27,11 @@ class BarChart {
 
         vis.svg.append("text")
             .attr("x", vis.width / 2)
-            .attr("y", -vis.margin.top * 0.7)
+            .attr("y", (-vis.margin.top * 0.7) + 20)
             .attr("text-anchor", "middle")
             .text("Tracking the Surge of TikTok Downloads")
             .style("font-weight", "bold")
-            .style("font-size", "20px");
+            .style("font-size", "34px");
 
         vis.x = d3.scaleBand()
             .range([0, vis.width])
@@ -43,6 +45,11 @@ class BarChart {
 
         vis.yAxis = d3.axisLeft()
             .scale(vis.y);
+
+        vis.tooltip = d3.select("body").append("div")
+            .attr("class", "tooltip")
+            .style("opacity", 0);
+
     }
 
     animateBars(data) {
@@ -61,7 +68,23 @@ class BarChart {
             .delay((d, i) => i * 100) // this makes the cool animation that makes the bars appear intermittently
             .attr("y", d => vis.y(d.Value))
             .attr("height", d => vis.height - vis.y(d.Value))
-            .duration(1500);
+            .duration(1500)
+
+
+        vis.svg.selectAll(".bar")
+            .on("mouseover", function (event, d) {
+                vis.tooltip.transition()
+                    .duration(200)
+                    .style("opacity", 1);
+                vis.tooltip.html(`${d.Value} million downloads`)
+                    .style("left", (event.pageX) + "px")
+                    .style("top", (event.pageY - 28) + "px");
+            })
+            .on("mouseout", function (d) {
+                vis.tooltip.transition()
+                    .duration(500)
+                    .style("opacity", 0);
+            });
     }
 
     updateVis() {
@@ -100,4 +123,5 @@ class BarChart {
 
         vis.animateBars(vis.tiktokUserData);
     }
+
 }

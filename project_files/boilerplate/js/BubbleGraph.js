@@ -1,3 +1,4 @@
+// michelle
 // https://observablehq.com/@d3/bubble-chart-component and
 // https://gist.github.com/officeofjane/a70f4b44013d06b9c0a973f163d8ab7a
 // for reference for most of the bubble code
@@ -128,6 +129,17 @@ class BubbleGraph {
         vis.drawBubbles(allBubbleData);
     }
 
+    applyTick(simulation, dataset){
+        //change the positions of the bubbles based on the filtering
+        let vis = this;
+        simulation.on('tick', () => {
+            vis.svg.selectAll('.bubble')
+                .filter(d => d.dataset === dataset)
+                .attr('cx', d => d.x)
+                .attr('cy', d => d.y);
+        })
+    }
+
     drawBubbles(data) {
         // this function draws the bubbles initially
         let vis = this;
@@ -138,7 +150,7 @@ class BubbleGraph {
 
         // this moves the bubbles around (collision)
         const simulation = d3.forceSimulation(data)
-            .force('x', d3.forceX(vis.width / 2).strength(0.15))
+            .force('x', d3.forceX(vis.width / 2).strength(0.15)) // this puts the bubbles in the center of the svg
             .force('y', d3.forceY(vis.height / 2).strength(0.15))
             .force('collide', d3.forceCollide(d => radiusScale(d.sizeRatio) + 2));
 
@@ -161,14 +173,12 @@ class BubbleGraph {
                 }
             });
 
-        // call the collision/simulation function
         simulation.on('tick', () => {
             bubbles
                 .attr('cx', d => d.x)
                 .attr('cy', d => d.y);
 
         });
-
 
         //label below the bubbles
         vis.svg.append('text')
@@ -188,19 +198,19 @@ class BubbleGraph {
 
         bubbles.on("mouseover", function (event, d) {
             tooltip.transition().duration(200).style("opacity", 1);
-            let tooltipText = `Artist: ${d.artist_name}, `;
+            let tooltipText = `Artist: ${d.artist_name}`;
 
             if (d.dataset === 'Spotify') {
-                tooltipText += `Songs in Spotify: ${d.count}`;
+                tooltipText += `<br>Top Songs in Spotify: ${d.count}`;
             } else if (d.dataset === 'TikTok') {
-                tooltipText += `Songs in TikTok: ${d.count}`;
+                tooltipText += `<br>Top Songs in TikTok: ${d.count}`;
             } else if (d.dataset === 'Combined') {
                 const spotifyCount = d.count;
                 const tiktokCount = d.count2;
-                tooltipText += `Songs in Spotify: ${spotifyCount}, Songs in TikTok: ${tiktokCount}`;
+                tooltipText += `<br>Top Songs in Spotify: ${spotifyCount}<br>Top Songs in TikTok: ${tiktokCount}`;
             }
 
-            tooltip.text(tooltipText)
+            tooltip.html(tooltipText)
                 .style("left", event.pageX + "px")
                 .style("top", event.pageY - 28 + "px");
         })
@@ -222,7 +232,7 @@ class BubbleGraph {
 
         // collision/simulation
         const simulation = d3.forceSimulation(vis.allBubbleData)
-            .force('x', d3.forceX(vis.width / 2).strength(0.15))
+            .force('x', d3.forceX(vis.width / 2).strength(0.15)) // puts bubbles in center of svg
             .force('y', d3.forceY(vis.height / 2).strength(0.15))
             .force('collide', d3.forceCollide(d => radiusScale(d.sizeRatio) + 2));
 
@@ -256,31 +266,24 @@ class BubbleGraph {
             .domain([0, d3.max(vis.allBubbleData, d => d.sizeRatio)])
             .range([5, 50]);
 
-        // function that moves the bubbles to their respective clusters with collision
-        const separateSimulation = (data, xOffset) => {
-            return d3.forceSimulation(data)
-                .force('x', d3.forceX(vis.width / 2 + xOffset).strength(0.15))
-                .force('y', d3.forceY(vis.height / 2).strength(0.15))
-                .force('collide', d3.forceCollide(d => radiusScale(d.sizeRatio) + 1));
-        };
+        const simulationSpotify = d3.forceSimulation(spotifyData)
+            .force('x', d3.forceX(vis.width / 2 - 400).strength(0.15)) //offset the bubbles by 400 to the left
+            .force('y', d3.forceY(vis.height / 2).strength(0.15))
+            .force('collide', d3.forceCollide(d => radiusScale(d.sizeRatio) + 1));
 
-        const simulationSpotify = separateSimulation(spotifyData, -400);
-        const simulationTikTok = separateSimulation(tiktokData, 400);
-        const simulationCombined = separateSimulation(combinedData, 0);
+        const simulationTikTok = d3.forceSimulation(tiktokData)
+            .force('x', d3.forceX(vis.width / 2 + 400).strength(0.15)) //offset bubbles by 400 to the right
+            .force('y', d3.forceY(vis.height / 2).strength(0.15))
+            .force('collide', d3.forceCollide(d => radiusScale(d.sizeRatio) + 1));
 
-        // function that moves the bubbles to their respective clusters with collision
-        const applyTick = (simulation, dataset) => {
-            simulation.on('tick', () => {
-                vis.svg.selectAll('.bubble')
-                    .filter(d => d.dataset === dataset)
-                    .attr('cx', d => d.x)
-                    .attr('cy', d => d.y);
-            });
-        };
+        const simulationCombined = d3.forceSimulation(combinedData)
+            .force('x', d3.forceX(vis.width / 2 ).strength(0.15))
+            .force('y', d3.forceY(vis.height / 2).strength(0.15))
+            .force('collide', d3.forceCollide(d => radiusScale(d.sizeRatio) + 1));
 
-        applyTick(simulationSpotify, 'Spotify');
-        applyTick(simulationTikTok, 'TikTok');
-        applyTick(simulationCombined, 'Combined');
+        vis.applyTick(simulationSpotify, 'Spotify');
+        vis.applyTick(simulationTikTok, 'TikTok');
+        vis.applyTick(simulationCombined, 'Combined');
 
 
         //labels
@@ -307,46 +310,6 @@ class BubbleGraph {
             .text('Artists with Top Songs on Both Platforms')
             .attr('text-anchor', 'middle')
             .attr('fill', 'black');
-    }
-
-
-    search() {
-        // this function lets the user search to see if their favorite artist is one of the bubbles
-        let vis = this;
-        const searchInput = document.getElementById('searchArtist');
-
-        const searchTerm = (searchInput.value).toLowerCase(); // convert to lowercase or else we might
-        // not find the artist
-
-        const notFoundMessage = document.getElementById('notFoundMessage');
-
-
-        console.log(searchTerm);
-        vis.svg.selectAll('.bubble')
-            .style('fill', d => {
-                if (d.dataset === 'Spotify') {
-                    return '#ff0050';
-                } else if (d.dataset === 'TikTok') {
-                    return '#00f2ea';
-                } else {
-                    return 'black';
-                }
-            });
-
-        const searchedBubble = vis.allBubbleData.find(artist => artist.artist_name.toLowerCase() === searchTerm);
-        //lowercase again
-
-        //if the bubble is someone's favorite artist, turn it yellow!
-        // otherwise, tell the user we didn't find the artist
-        if (searchedBubble) {
-            vis.svg.selectAll('.bubble')
-                .filter(d => d.artist_name === searchedBubble.artist_name)
-                .style('fill', 'yellow');
-            notFoundMessage.style.display = 'none';
-        } else {
-            console.log('artist not found');
-            notFoundMessage.style.display = 'block';
-        }
     }
 
     clusterOneHitWonders() {
@@ -379,18 +342,8 @@ class BubbleGraph {
             .force('collide', d3.forceCollide(d => radiusScale(d.sizeRatio) + 1));
 
 
-        //change the positions of the bubbles based on the filtering
-        const applyTick = (simulation, dataset) => {
-            simulation.on('tick', () => {
-                vis.svg.selectAll('.bubble')
-                    .filter(d => d.dataset === dataset)
-                    .attr('cx', d => d.x)
-                    .attr('cy', d => d.y);
-            });
-        };
-
-        applyTick(oneHitSimulation, 'oneHit');
-        applyTick(aboveOneHitSimulation, 'aboveOneHit');
+        vis.applyTick(oneHitSimulation, 'oneHit');
+        vis.applyTick(aboveOneHitSimulation, 'aboveOneHit');
 
         //labels
         vis.svg.append('text')
@@ -445,18 +398,9 @@ class BubbleGraph {
             .force('y', d3.forceY(vis.height / 2).strength(0.15))
             .force('collide', d3.forceCollide(d => radiusScale(d.sizeRatio) + 1));
 
-        //change bubble positions based on whether they are top artists or not
-        const applyTick = (simulation, dataset) => {
-            simulation.on('tick', () => {
-                vis.svg.selectAll('.bubble')
-                    .filter(d => d.dataset === dataset)
-                    .attr('cx', d => d.x)
-                    .attr('cy', d => d.y);
-            });
-        };
 
-        applyTick(topArtistsSimulation, 'topArtistsData');
-        applyTick(remainingDataSimulation, 'remainingData');
+        vis.applyTick(topArtistsSimulation, 'topArtistsData');
+        vis.applyTick(remainingDataSimulation, 'remainingData');
 
         //labels
         vis.svg.append('text')
@@ -557,6 +501,45 @@ class BubbleGraph {
             .text('More Songs')
             .attr('class', 'legend-label');
 
+    }
+
+    search() {
+        // this function lets the user search to see if their favorite artist is one of the bubbles
+        let vis = this;
+        const searchInput = document.getElementById('searchArtist');
+
+        const searchTerm = (searchInput.value).toLowerCase(); // convert to lowercase or else we might
+        // not find the artist
+
+        const notFoundMessage = document.getElementById('notFoundMessage');
+
+
+        console.log(searchTerm);
+        vis.svg.selectAll('.bubble')
+            .style('fill', d => {
+                if (d.dataset === 'Spotify') {
+                    return '#ff0050';
+                } else if (d.dataset === 'TikTok') {
+                    return '#00f2ea';
+                } else {
+                    return 'black';
+                }
+            });
+
+        const searchedBubble = vis.allBubbleData.find(artist => artist.artist_name.toLowerCase() === searchTerm);
+        //lowercase again
+
+        //if the bubble is someone's favorite artist, turn it yellow!
+        // otherwise, tell the user we didn't find the artist
+        if (searchedBubble) {
+            vis.svg.selectAll('.bubble')
+                .filter(d => d.artist_name === searchedBubble.artist_name)
+                .style('fill', 'yellow');
+            notFoundMessage.style.display = 'none';
+        } else {
+            console.log('artist not found');
+            notFoundMessage.style.display = 'block';
+        }
     }
 
 

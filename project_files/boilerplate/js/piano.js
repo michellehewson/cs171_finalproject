@@ -150,20 +150,20 @@ class Piano {
             vis.textContainer.append("tspan")
                 .text(vis.keyText.keyLtrStr)
                 .attr("x", 218)
-                .attr("dy", "1.2em")
+                .attr("dy", "1.1em")
                 .style("font-size", "36px");
 
             vis.textContainer.append("tspan")
                 .text(vis.keyText.spotifyPercentageStr)
                 .attr("x", 218)
-                .attr("dy", "1.2em")
-                .style("font-size", "12px");
+                .attr("dy", "1.1em")
+                .style("font-size", "16px");
 
             vis.textContainer.append("tspan")
                 .text(vis.keyText.tiktokPercentageStr)
                 .attr("x", 218)
-                .attr("dy", "1.2em")
-                .style("font-size", "12px");
+                .attr("dy", "1.1em")
+                .style("font-size", "16px");
 
             const randomImage = vis.images[Math.floor(Math.random() * vis.images.length)];
 
@@ -198,20 +198,20 @@ class Piano {
             vis.textContainer.append("tspan")
                 .text(vis.keyText.keyLtrStr)
                 .attr("x", 218)
-                .attr("dy", "1.2em")
+                .attr("dy", "1.1em")
                 .style("font-size", "36px");
 
             vis.textContainer.append("tspan")
                 .text(vis.keyText.spotifyPercentageStr)
                 .attr("x", 218)
-                .attr("dy", "1.2em")
-                .style("font-size", "12px");
+                .attr("dy", "1.1em")
+                .style("font-size", "16px");
 
             vis.textContainer.append("tspan")
                 .text(vis.keyText.tiktokPercentageStr)
                 .attr("x", 218)
-                .attr("dy", "1.2em")
-                .style("font-size", "12px");
+                .attr("dy", "1.1em")
+                .style("font-size", "16px");
 
             const randomImage = vis.images[Math.floor(Math.random() * vis.images.length)];
 
@@ -239,15 +239,15 @@ class Piano {
         let spotifyPercentage = vis.spotify_keys[key].percentage;
         let tiktokPercentage = vis.tiktok_keys[key].percentage;
 
-        if (vis.whiteKeys.includes(parseInt(key))) {
+        if (vis.whiteKeys.includes(parseInt(key))) { //check if the key is a white key
             vis.keyLtr = vis.whiteKeysDict[key];
             return {
                 tiktokPercentageStr: tiktokPercentage + '% of top songs on TikTok',
                 spotifyPercentageStr: spotifyPercentage + '% of top songs on Spotify',
                 keyLtrStr: vis.keyLtr
             };
-        } else if (vis.blackKeys.includes(parseInt(key))) {
-            vis.keyLtr = vis.blackKeysDict[key] || '';
+        } else if (vis.blackKeys.includes(parseInt(key))) {//check if the key is a black key
+            vis.keyLtr = vis.blackKeysDict[key];
       //    console.log(vis.keyLtr)
             return {
                 tiktokPercentageStr: tiktokPercentage + '% of top songs on TikTok',
