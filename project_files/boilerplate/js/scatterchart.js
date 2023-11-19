@@ -90,8 +90,8 @@ class ScatterChart {
         vis.circles.enter().append("circle")
             .attr("cx", d => vis.x(d[vis.Xcategory]))
             .attr("cy", d => vis.y(d[vis.Ycategory]))
-            .attr("fill", "lightblue")
-            .attr("r", 3) // Set the circle size to 0.5
+            .style('fill', (d) => vis.spotify === 'Spotify' ? '#ff0050' : '#00f2ea')
+            .attr("r", 5) // Set the circle size 
             .attr("opacity", 0.5) // Initial opacity set to 0 for fade-in effect
             .attr("stroke", "black")
             .attr("stroke-width", 1)

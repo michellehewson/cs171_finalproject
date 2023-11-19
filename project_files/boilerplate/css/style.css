@@ -513,11 +513,11 @@ input[type="radio"]:checked + label {
     flex-direction: column;
     align-items: center;
     height: 400px;
-    width: 400px;
+    width: 100%;
     padding: 20px;
     border: thin solid grey;
     border-radius: 5px;
-    background: beige;
+    background: whitesmoke;
 }
 
 #spotHist {
@@ -525,22 +525,22 @@ input[type="radio"]:checked + label {
     flex-direction: column;
     align-items: center;
     height: 400px;
-    width: 400px;
+    width: 100%;
     padding: 20px;
     border: thin solid grey;
     border-radius: 5px;
-    background: beige;
+    background: whitesmoke;
 }
 #tikScatterDiv {
     display: flex;
     flex-direction: column;
     align-items: center;
     height: 400px;
-    width: 400px;
+    width: 100%;
     padding: 20px;
     border: thin solid grey;
     border-radius: 5px;
-    background: beige;
+    background: whitesmoke;
 }
 
 #spotScatterDiv {
@@ -548,11 +548,11 @@ input[type="radio"]:checked + label {
     flex-direction: column;
     align-items: center;
     height: 400px;
-    width: 400px;
+    width: 100%;
     padding: 20px;
     border: thin solid grey;
     border-radius: 5px;
-    background: beige;
+    background: whitesmoke;
 }
 
 .piano-col {

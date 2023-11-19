@@ -142,7 +142,7 @@ class Histogram{
         vis.bars.enter()
             .append('rect')
             .attr("class", "bar")
-            .attr("fill", "steelblue")
+            .style('fill', (d) => vis.spotify === 'Spotify' ? '#ff0050' : '#00f2ea')
             .attr("x", (d) => vis.x(d.x0)+1)
             .attr("width", (d) => vis.x(d.x1) - vis.x(d.x0)-2)
             .attr("y", (d) => vis.y(d.length))
