@@ -7,7 +7,7 @@ class Histogram{
     }
     initVis() {
         let vis = this;
-        vis.margin = { top: 40, right: 60, bottom: 80, left: 60 };
+        vis.margin = { top: 50, right: 60, bottom: 80, left: 60 };
 
         //console.log(vis.parentElement)
 
@@ -40,29 +40,36 @@ class Histogram{
         vis.svg.append("g")
             .attr("class", "y-axis");
 
+       /*
         // Add axis titles
         vis.svg.append("text")
             .attr("x", vis.width / 2)
             .attr("y", vis.height + vis.margin.bottom - 20)
             .style("text-anchor", "middle");
-
+        */
 
         vis.bartitle= "";
         if (vis.spotify == "Spotify"){
             vis.bartitle = 'Spotify Stats';
         } else {
             vis.bartitle = 'Tiktok Stats';
-
         }
-
 
         // add title
         vis.svg.append('g')
             .attr('class', 'title bar-title')
             .append('text')
             .text(vis.bartitle)
-            .attr('transform', `translate(${vis.width / 2}, -10)`); // Rotate the text labels by -45 degrees;
+            .attr('transform', `translate(${(vis.width - vis.margin.left) / 2}, -20)`); // Rotate the text labels by -45 degrees;
 
+        vis.svg.append('g')
+            .append("text")
+            .attr("class", ".y-axis-label")
+            .attr("text-anchor", "middle")
+            .attr("transform", "rotate(-90)")
+            .attr("x", -vis.height / 2)
+            .attr("y", -vis.margin.left + 20)
+            .text('Count')
 
         vis.updateVis(); // Initial rendering
     }
@@ -80,7 +87,6 @@ class Histogram{
         const bins = d3.bin()
             .thresholds(15)
             .value((d) => d[selectedAttribute])(vis.data);
-
 
             // Filter data based on the selected attribute
             //let filteredData = vis.data.map(d => d[selectedAttribute]);
@@ -127,15 +133,6 @@ class Histogram{
             .style("opacity", 0) // Transition to opacity 0 for exit
             .remove();
 
-
-        // Append y-axis label
-        vis.svg.append("text")
-            .attr("class", "count")
-            .attr("text-anchor", "middle")
-            .attr("transform", "rotate(-90)")
-            .attr("x", -vis.height / 2)
-            .attr("y", -vis.margin.left + 20)
-            .text("Count");
 
         // add the bars
 
