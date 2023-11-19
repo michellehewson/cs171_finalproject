@@ -209,6 +209,13 @@
 		<div class = "container-fluid">
 			<div class = "row">
 				<div class="col-md-5">
+					<h6>In this part we show the distributions of the number of songs regarding their different attributes.</h6>
+					<h6>Some insights are: the distributions of songs categorized by attributes are similar across Tiktok and Spotify.</h6>
+					<h6>Songs are normally distributed across the feature "danceability" and "energy", while more songs are ranked on the "lesser" side over other features.</h6>
+				</div>
+
+				<div class="col-md-5">
+					Feature to compare:
 					<select id='categorySelector' class="custom-select align-self-center" onchange="categoryChange()">
 						<option value="danceability" selected>Danceability</option>
 						<option value="acousticness">Acousticness</option>
@@ -218,9 +225,11 @@
 						<option value="energy">Energy</option>
 					</select>
 				</div>
+
+
 			</div>
 
-			<div class = "container">
+			<div class = "container-fluid">
 				<div class = "row">
 					<div class="col-md-6">
 						<div id="tiktokHist">
@@ -253,8 +262,16 @@
 	</div>
 
 	<div data-anchor="page12" class="section">
-		<h2>The scatter plot of different attributes</h2>
+		<h2>The comparison of different attributes</h2>
 		<div class="container-fluid">
+			<div class = 'row'>
+				<h6>
+				These two plots shows the comparison between different attributes for the songs over the two platforms.
+				For example, if "Acousticness" is selected on X axis and "Energy" is selected on y,
+				user can see a negative relationship between these two features of the songs.
+				</h6>
+			</div>
+
 			<div class = 'row'>
 				<div class="col-5">
 					X Axis:

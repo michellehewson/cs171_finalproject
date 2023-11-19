@@ -155,7 +155,7 @@ function initMainPage(dataArray) {
     spotHistogram = new Histogram("spotHist",  dataArray[0], "Spotify")
 
     TikscatterChart = new ScatterChart("tikScatterDiv", dataArray[1] , "Tiktok")
-    console.log(dataArray[0])
+    //console.log(dataArray[0])
     SpotscatterChart = new ScatterChart("spotScatterDiv",dataArray[0], "Spotify")
 }
 
