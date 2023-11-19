@@ -57,7 +57,7 @@ class FacePlot {
             .attr('transform', (d, i) => {
                 const colIndex = i % vis.cols;
                 const rowIndex = Math.floor(i / vis.cols);
-                const translateX = colIndex * vis.cellSize.width + vis.cellSize.width / 2;
+                const translateX = colIndex * (vis.cellSize.width + 50) + vis.cellSize.width / 2;
                 const translateY = rowIndex * vis.cellSize.height + vis.cellSize.height / 2;
                 return `translate(${translateX},${translateY})`;
             });
@@ -120,7 +120,6 @@ class FacePlot {
                 const endIndex = startIndex + vis.numDisplayedArtists;
                 vis.subset = vis.uniqueArtists.slice(startIndex, endIndex);
 
-                // Update the visualization
                 vis.updateVis();
 
                 // Get the artist name at the center of the subset (or adjust as needed)
@@ -130,42 +129,57 @@ class FacePlot {
                 vis.scrollbar.attr('y', scrollPosition);
             }));
 
-        const tracksContainerHeight = d3.select('#artist-name-container').node().getBoundingClientRect().height || 0;
-        console.log(tracksContainerHeight)
-// Add the height of the face plot and some extra space for tracks
-  //      const tracksHeight = 200; // Adjust as needed
-       // const rightColumnHeight = vis.cellSize.height * rows;
-        vis.barChartGroup = vis.svg.append("g")
-            .attr("id", "bar-chart")
-            .attr("transform", "translate(" + vis.margin.left + "," + (vis.margin.top + tracksContainerHeight) + ")");
+        vis.svgBar = d3.select('#bar-chart')
+            .append("svg")
+            .attr("width", 350)
+            .attr("height", 350);
 
 
         vis.updateVis();
     }
 
     drawBarChart(averageValues) {
-        d3.select('#artist-name-container')
         let vis = this;
         const attributes = ['Danceability', 'Energy', 'Acousticness'];
-        const barWidth = 50;
-        const barHeightScale = d3.scaleLinear()
-            .domain([0, 1]) // Assuming values are in the range [0, 1]
-            .range([0, 100]); // Adjust the range based on your preference
+        const barWidth = 75;
 
-        // Remove existing bars
-        vis.barChartGroup.selectAll(".bar").remove();
+        // Calculate the maximum height based on the height of #tracks-container
+        const maxBarHeight = parseInt(d3.select('#tracks-container').style('max-height'));
+
+        const barHeightScale = d3.scaleLinear()
+            .domain([0, 1])
+            .range([0, maxBarHeight]); // Adjust the range to fit within the height of #tracks-container
+
+        // Clear existing elements in the SVG container
+        vis.svgBar.selectAll('*').remove();
+
+        // Create a container for the bar chart
+        const chartContainer = vis.svgBar.append("g")
+            .attr("class", "chart-container");
 
         // Append new bars
-        vis.barChartGroup.selectAll(".bar")
+        chartContainer.selectAll(".bar")
             .data(attributes)
             .enter()
             .append("rect")
             .attr("class", "bar")
             .attr("x", (d, i) => i * (barWidth + 10))
-            .attr("y", 0)
+            .attr("y", d => maxBarHeight - barHeightScale(averageValues[d])) // Adjust the y attribute
             .attr("width", barWidth)
-            .attr("height", d => barHeightScale(averageValues[d])); // Use the actual values from your data
+            .attr("height", d => barHeightScale(averageValues[d]));
+
+        // Append labels for each bar
+        chartContainer.selectAll(".bar-label")
+            .data(attributes)
+            .enter()
+            .append("text")
+            .attr("class", "bar-label")
+            .attr("x", (d, i) => i * (barWidth + 10) + barWidth / 2)
+            .attr("y", maxBarHeight + 20) // Adjust the y attribute for label positioning
+            .attr("text-anchor", "middle")
+            .text(d => d);
     }
+
 
     showTracksForArtist(selectedArtist) {
         let vis = this
