@@ -332,6 +332,19 @@ h2 {
     font-family: "Times New Roman", sans-serif; /* Specify the font family */
 }
 
+#artist-name-container {
+    overflow: hidden;
+}
+
+.scrollbar {
+    overflow-y: scroll;
+    width: 12px; /* Set the width of the scrollbar */
+}
+
+.handle {
+    background-color: #888;
+    cursor: pointer;
+}
 .pushable {
     background: hsl(340deg 100% 32%);
     border: none;
