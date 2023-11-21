@@ -152,10 +152,10 @@ function initMainPage(dataArray) {
     //barChart = new BarChart('barchart', dataArray[5])
 
     tiktokHistogram = new Histogram("tiktokHist", dataArray[1], "Tiktok")
+    console.log('Hi')
     spotHistogram = new Histogram("spotHist",  dataArray[0], "Spotify")
 
     TikscatterChart = new ScatterChart("tikScatterDiv", dataArray[1] , "Tiktok")
-    //console.log(dataArray[0])
     SpotscatterChart = new ScatterChart("spotScatterDiv",dataArray[0], "Spotify")
 }
 

@@ -1,5 +1,5 @@
 class Histogram{
-    constructor(_parentElement, _data, spotify="Spotify") {
+    constructor(_parentElement, _data, spotify) {
         this.parentElement = _parentElement;
         this.data = _data;
         this.spotify = spotify;
@@ -7,7 +7,7 @@ class Histogram{
     }
     initVis() {
         let vis = this;
-        vis.margin = { top: 50, right: 60, bottom: 80, left: 60 };
+        vis.margin = { top: 50, right: 60, bottom: 90, left: 60 };
 
         //console.log(vis.parentElement)
 
@@ -40,13 +40,6 @@ class Histogram{
         vis.svg.append("g")
             .attr("class", "y-axis");
 
-       /*
-        // Add axis titles
-        vis.svg.append("text")
-            .attr("x", vis.width / 2)
-            .attr("y", vis.height + vis.margin.bottom - 20)
-            .style("text-anchor", "middle");
-        */
 
         vis.bartitle= "";
         if (vis.spotify == "Spotify"){
@@ -79,19 +72,19 @@ class Histogram{
 
        let vis = this;
 
-       let displaydata = vis.data;
-
         //console.log(this.data)
 
-           let selectedAttribute =  document.getElementById('categorySelector').value;
-        //console.log(selectedAttribute)
+        let selectedAttribute =  document.getElementById('categorySelector').value;
 
+        console.log(selectedAttribute)
+
+        let filteredData = vis.data.map(d => d[selectedAttribute]);
         const bins = d3.bin()
-            .thresholds(10)
-            .value((d) => d[selectedAttribute])(displaydata);
+            .thresholds(14)
+            .value((d) => d)(filteredData);
 
             // Filter data based on the selected attribute
-            //let filteredData = vis.data.map(d => d[selectedAttribute]);
+            //
 
         // Add a tooltip div
         const tooltip = d3.select("body").append("div")
@@ -104,7 +97,11 @@ class Histogram{
             vis.y.domain([0, d3.max(bins, (d) => d.length)]);
 
             // Update axes
-            vis.svg.select(".x-axis").call(vis.xAxis);
+            vis.svg.select(".x-axis").call(vis.xAxis)
+                .selectAll("text") // select all the text elements in the x-axis
+                .attr("transform", "rotate(-30)") // rotate the text 90 degrees
+                .attr("text-anchor", "end") // set the text-anchor to end for proper alignment
+                .attr("dy", "0.5em"); // adjust the position of the text;
             vis.svg.select(".y-axis").call(vis.yAxis);
 
         // Append x-axis label
@@ -117,7 +114,7 @@ class Histogram{
             .attr("class", "x-axis-label")
             .attr("text-anchor", "middle")
             .attr("x", vis.width / 2)
-            .attr("y", vis.height + 30)
+            .attr("y", vis.height + 45)
             .style("opacity", 0) // Set initial opacity to 0 for enter transition
             .text(selectedAttribute)
             .transition()
