@@ -168,11 +168,7 @@ function switchView() {
 
 function categoryChange() {
     //let selectedCategory = document.getElementById('categorySelector').value;
-    if (tiktokHistogram ) {
-        tiktokHistogram.updateVis();
-    } else {
-        console.error('Vis object is undefined.');
-    }
+
     tiktokHistogram.updateVis()
     spotHistogram.updateVis()
 }

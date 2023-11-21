@@ -206,12 +206,7 @@
 		<h2>Histograms on attributes </h2>
 		<div class = "container-fluid">
 			<div class = "row">
-				<div class="col-md-5">
-					<h6>In this part we show the distributions of the number of songs regarding their different attributes.</h6>
-					<h6>Some insights are: the distributions of songs categorized by attributes are similar across Tiktok and Spotify.</h6>
-					<h6>Songs are normally distributed across the feature "danceability" and "energy", while more songs are ranked on the "lesser" side over other features.</h6>
-				</div>
-
+				<div class="col-md-5"></div>
 				<div class="col-md-5">
 					Feature to compare:
 					<select id='categorySelector' class="custom-select align-self-center" onchange="categoryChange()">
@@ -229,12 +224,21 @@
 
 			<div class = "container-fluid">
 				<div class = "row">
-					<div class="col-md-6">
+					<div class = "col-md-4">
+
+						<h4>
+							In this part we show the distributions of the number of songs regarding their different attributes.
+						Some insights are: the distributions of songs categorized by attributes are similar across Tiktok and Spotify.
+						Songs are normally distributed across the feature "danceability" and "energy", while more songs are ranked on the "lesser" side over other features.
+						</h4>
+
+					</div>
+					<div class="col-md-4">
 						<div id="tiktokHist">
 						</div>
 					</div>
 
-					<div class="col-md-6" >
+					<div class="col-md-4" >
 						<div id="spotHist">
 						</div>
 					</div>
@@ -264,14 +268,7 @@
 		<h2>The comparison of different attributes</h2>
 		<div class="container-fluid">
 			<div class = 'row'>
-				<h6>
-				These two plots show the comparisons between different attributes for the songs over the two platforms.
-				For example, if "Acousticness" is selected on X axis and "Energy" is selected on Y-axis,
-				user can see a negative relationship between these two features of the songs.
-				</h6>
-			</div>
-
-			<div class = 'row'>
+				<div class = 'col-4'></div>
 				<div class="col-3">
 					X Axis:
 					<select id='XcategorySelector' class="custom-select align-self-center" onchange="XcategoryChange()">
@@ -296,11 +293,19 @@
 				</div>
 			</div>
 			<div class = 'row'>
-				<div class="col-md-6">
+				<div class = "col-md-4">
+					<h4>
+						These two plots show the comparisons between different attributes for the songs over the two platforms.
+						For example, if "Acousticness" is selected on X axis and "Energy" is selected on Y-axis,
+						user can see a negative relationship between these two features of the songs.
+					</h4>
+
+				</div>
+				<div class="col-md-4">
 					<div id="tikScatterDiv">
 					</div>
 				</div>
-				<div class="col-md-6">
+				<div class="col-md-4">
 						<div id="spotScatterDiv">
 						</div>
 					</div>

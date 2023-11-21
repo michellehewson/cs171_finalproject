@@ -79,14 +79,16 @@ class Histogram{
 
        let vis = this;
 
+       let displaydata = vis.data;
+
         //console.log(this.data)
 
            let selectedAttribute =  document.getElementById('categorySelector').value;
         //console.log(selectedAttribute)
 
         const bins = d3.bin()
-            .thresholds(15)
-            .value((d) => d[selectedAttribute])(vis.data);
+            .thresholds(10)
+            .value((d) => d[selectedAttribute])(displaydata);
 
             // Filter data based on the selected attribute
             //let filteredData = vis.data.map(d => d[selectedAttribute]);
@@ -148,7 +150,6 @@ class Histogram{
             .attr("x", (d) => vis.x(d.x0)+1)
             .attr("width", (d) => vis.x(d.x1) - vis.x(d.x0)-2)
             .attr("y", (d) => vis.y(d.length))
-            .attr("height", (d) => vis.y(0) - vis.y(d.length))
             .on("mouseover", function (event, d) {
                 tooltip.transition()
                     .duration(200)
@@ -161,11 +162,16 @@ class Histogram{
                 tooltip.transition()
                     .duration(500)
                     .style("opacity", 0);
-            });
+            })
+            .transition() // Add transition to the enter selection
+            .duration(500) // Set the duration of the transition
+            .attr("height", (d) => vis.y(0) - vis.y(d.length));
 
 
         //Update
         vis.bars
+            .transition() // Add transition to the update selection
+            .duration(500) // Set the duration of the transition
             .attr("x", (d) => vis.x(d.x0)+1)
             .attr("width", (d) => vis.x(d.x1) - vis.x(d.x0)-2)
             .attr("y", (d) => vis.y(d.length))
@@ -174,7 +180,11 @@ class Histogram{
 
 
         // Exit
-        vis.bars.exit().remove();
+        vis.bars.exit()
+            .transition() // Add transition to the exit selection
+            .duration(500) // Set the duration of the transition
+            .attr("height", 0)
+            .remove();
 
 
         }
