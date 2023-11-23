@@ -220,11 +220,14 @@ class RadarChart {
             endLabel = document.getElementById("end-label-t");
         }
 
-        let minValue = 0; // Adjust as needed
-        let maxValue = Math.min(10, vis.chartData.length - 1); // Set the maximum value to 5 or the length of the data, whichever is smaller
+        startLabel.textContent = 1;
+        endLabel.textContent = 1;
+
+        let minValue = 0;
+        let maxValue = Math.min(10, vis.chartData.length - 1);
 
         noUiSlider.create(slider, {
-            start: [0, 0], // Set initial range to show only the first song
+            start: [0, 0],
             connect: true,
             step: 1,
             range: {
@@ -234,20 +237,16 @@ class RadarChart {
             behaviour: 'drag',
         });
 
-        // Set initial labels
-        startLabel.textContent = 0;
-        endLabel.textContent = 0;
 
-        // Update the subset and visualization for the initial values
         vis.chartSubset = vis.chartData.slice(0, 1);
         vis.updateVisualization();
 
         slider.noUiSlider.on('slide', function (values) {
             const [start, end] = values.map(value => parseInt(value, 10));
-            startLabel.textContent = start;
-            endLabel.textContent = end;
 
-            // Clear the existing content of the track-names div
+            startLabel.textContent = start + 1;
+            endLabel.textContent = end + 1;
+
             d3.select("#" + vis.sortingCriteria + "-track-names").html("");
 
             // Update the subset of Spotify or TikTok data based on the slider values
@@ -259,7 +258,6 @@ class RadarChart {
                     .attr("class", "track-name");
             })
 
-            // Update the visualization
             vis.updateVisualization();
         });
     }
@@ -269,11 +267,9 @@ class RadarChart {
         // Clear the existing chart
         vis.g.selectAll("*").remove();
 
-        // Redraw the chart with the updated subset of data
         vis.generateAndDrawLines(vis.NUM_OF_SIDES);
         vis.generateAndDrawLevels(vis.NUM_OF_LEVEL, vis.NUM_OF_SIDES);
 
-        // Update the visualization with the new subset of data
         vis.chartSubset.forEach((row, i) => {
             const points = [];
             vis.desiredColumns.forEach((attribute, j) => {
@@ -289,19 +285,10 @@ class RadarChart {
                     .attr("cy", point.y)
                     .attr("r", 4)
                     .attr("fill", vis.colorScale(row.track_name))
-                    .on("mouseenter", () => {
-                        // Add any tooltip or interaction logic here
-                 //       console.log(`Mouse entered: ${row.track_name}`);
-                    })
-                    .on("mouseleave", () => {
-                        // Add any tooltip or interaction logic here
-                //        console.log(`Mouse left: ${row.track_name}`);
-                    });
 
                 points.push(point);
             });
 
-            // Draw the radar shape
             const pathGroup = vis.g.append("g").attr("class", "shape");
             const color = vis.colorScale(row.track_name);
             vis.drawPath([...points, points[0]], pathGroup, "black", color, 0.5);

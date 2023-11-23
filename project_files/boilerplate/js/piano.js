@@ -14,7 +14,7 @@ class Piano {
         this.blackKeysDict = {1:"C#", 3:"D#", 6:"F#", 8:"G#", 10:"A#"};
         this.spotify_keys = spotify_keys;
         this.tiktok_keys = tiktok_keys;
-        this.images = ['/img/note1.png', '/img/note2.png', '/img/note3.png']; //images for the music notes
+        this.images = ['img/note1.png', 'img/note2.png', 'img/note3.png']; //images for the music notes
 
         this.initVis()
     }

@@ -5,6 +5,8 @@ class FacePlot {
         this.tiktokData = tiktokData;
         this.currentArtist = null; // Initialize the currently displayed artist
         this.initVis();
+        this.initScrollbar();
+
     }
 
     initVis() {
@@ -90,6 +92,11 @@ class FacePlot {
                 circle.style('filter', null);
             });
 
+        if (vis.uniqueArtists.length > vis.numDisplayedArtists) {
+            // Adjust the number of displayed artists
+            vis.numDisplayedArtists = vis.uniqueArtists.length;
+        }
+
         vis.svg.append('defs')
             .append('filter')
             .attr('id', 'drop-shadow')
@@ -98,36 +105,51 @@ class FacePlot {
             .attr('dy', 4)
             .attr('stdDeviation', 4);
 
-        vis.scrollbarHeight = 50; // Adjust the height of the scrollbar
-        vis.numDisplayedArtists = 9; // Number of artists to display in the visualization
+        vis.artistNameContainer = d3.select('#artist-name-container');
+        vis.artistNameContainer.style('max-height', '200px'); // Set the maximum height for the container
+        vis.artistNameContainer.style('overflow-y', 'auto'); // Enable vertical scrolling
 
 
-        vis.scrollbar = vis.svg.append('rect')
-            .attr('class', 'scrollbar')
-            .attr('x', vis.width ) // Position the scrollbar at the right edge of the SVG, considering container width
-            .attr('y', 0)
-            .attr('width', 10)
-            .attr('height', vis.scrollbarHeight) // Set the height to cover the #artist-name-container
-            .style('fill', 'lightgray')
-            .call(d3.drag().on('drag', function () {
-                // Handle drag events
-                const mouseY = d3.event.y;
-                const scrollPosition = Math.max(0, Math.min(vis.scrollbarHeight, mouseY));
-                const percentScrolled = scrollPosition / vis.scrollbarHeight;
-                // Update the subset of songs based on the scrollbar position
-                const totalSongs = vis.uniqueArtists.length;
-                const startIndex = Math.floor(percentScrolled * (totalSongs - vis.numDisplayedArtists));
-                const endIndex = startIndex + vis.numDisplayedArtists;
-                vis.subset = vis.uniqueArtists.slice(startIndex, endIndex);
+// Add a scrollbar to the tracks container
+        vis.scrollbar = d3.select("#artist-name-container")
+            .append("div")
+            .attr("class", "scrollbar");
 
-                vis.updateVis();
+// Set the initial height of the scrollbar dynamically
+        vis.scrollbar.style("height", vis.artistNameContainer.style("max-height"));
 
-                // Get the artist name at the center of the subset (or adjust as needed)
-                const centerIndex = Math.floor(vis.subset.length / 2);
-                const selectedArtist = vis.subset[centerIndex];
-                vis.showTracksForArtist(selectedArtist);
-                vis.scrollbar.attr('y', scrollPosition);
-            }));
+        vis.scrollbar.append("div")
+            .attr("class", "handle")
+            .style("height", "50px");
+
+// Select the handle inside the updateVis method
+        vis.handle = vis.scrollbar.select(".handle");
+
+        vis.handle.style("top", "0px")
+            .on("mousedown", function () {
+                const scrollbarHeight = parseInt(vis.scrollbar.style("height"));
+                const handleHeight = parseInt(vis.handle.style("height"));
+                const containerHeight = parseInt(vis.artistNameContainer.style("max-height"));
+                const containerScrollHeight = vis.artistNameContainer.node().scrollHeight;
+
+                d3.select(window)
+                    .on("mousemove.scrollbar", function () {
+                        const y = d3.pointer(event)[1];
+                        const newPosition = y - handleHeight / 2;
+
+                        if (newPosition >= 0 && newPosition + handleHeight <= scrollbarHeight) {
+                            const percentage = newPosition / (scrollbarHeight - handleHeight);
+                            const scrollTop = percentage * (containerScrollHeight - containerHeight);
+                            vis.artistNameContainer.property("scrollTop", scrollTop);
+                            vis.handle.style("top", newPosition + "px");
+                        }
+                    })
+                    .on("mouseup.scrollbar", function () {
+                        d3.select(window).on("mousemove.scrollbar", null).on("mouseup.scrollbar", null);
+                    });
+            });
+
+
 
         vis.svgBar = d3.select('#bar-chart')
             .append("svg")
@@ -135,7 +157,9 @@ class FacePlot {
             .attr("height", 350);
 
 
-        vis.updateVis();
+        window.onload = () => {
+            this.updateVis();
+        };
     }
 
     drawBarChart(averageValues) {
@@ -143,13 +167,10 @@ class FacePlot {
         const attributes = ['Danceability', 'Energy', 'Acousticness'];
         const barWidth = 75;
 
-        // Calculate the maximum height based on the height of #tracks-container
-        const maxBarHeight = parseInt(d3.select('#tracks-container').style('max-height'));
-
+        const maxBarHeight = 200
         const barHeightScale = d3.scaleLinear()
             .domain([0, 1])
-            .range([0, maxBarHeight]); // Adjust the range to fit within the height of #tracks-container
-
+            .range([0, maxBarHeight]);
         // Clear existing elements in the SVG container
         vis.svgBar.selectAll('*').remove();
 
@@ -201,9 +222,6 @@ class FacePlot {
             d3.select('#artist-name-container')
                 .html(`<h4>Tracks for ${selectedArtist} (from ${source}):</h4>`)
                 .append('div')
-                .attr('id', 'tracks-container')
-                .style('max-height', '200px') // Set the maximum height for the container
-                .style('overflow-y', 'auto') // Enable vertical scrolling
                 .html(tracksHtml);
             vis.currentArtist = selectedArtist;
         }
@@ -248,10 +266,43 @@ class FacePlot {
         console.log(vis.subset)
     }
 
+    handleMouseEvents() {
+        let vis = this;
+
+        // Select all circles within newCells
+        vis.newCells.selectAll('circle')
+            .on('mouseover', function (event, d) {
+                d3.select(this).style('filter', 'url(#drop-shadow)'); // Apply shadow filter
+                vis.showTracksForArtist(d);
+            })
+            .on('mouseleave', function () {
+                const circle = d3.select(this);
+                circle.style('filter', null);
+            });
+    }
+
+    initScrollbar() {
+        this.scrollbar = d3.select("#artist-name-container")
+            .append("div")
+            .attr("class", "scrollbar");
+
+        // Set the initial height of the scrollbar dynamically
+        this.scrollbar.style("height", this.artistNameContainer.style("max-height"));
+
+        this.scrollbar.append("div")
+            .attr("class", "handle")
+            .style("height", "50px");
+
+        // Select the handle inside the updateVis method
+        this.handle = this.scrollbar.select(".handle");
+
+        this.handle.style("top", "0px")
+            .on("mousedown", () => this.handleMouseDown());
+    }
+
+
     updateVis() {
         let vis = this;
-        vis.scrollbar.attr('height',20);
-
         // Update the data binding for cells
         const cells = vis.svg.selectAll('.cell')
             .data(vis.subset);
@@ -262,20 +313,19 @@ class FacePlot {
             .duration(500) // Set the duration of the transition in milliseconds
             .remove();
 
-        const newCells = cells.enter()
+         vis.newCells = cells.enter()
             .append('g')
             .merge(cells) // Merge the enter and update selections
             .attr('class', 'cell')
             .attr('transform', (d, i) => {
                 const colIndex = i % vis.cols;
                 const rowIndex = Math.floor(i / vis.cols);
-                const translateX = colIndex * vis.cellSize.width + vis.cellSize.width / 2;
+                const translateX = colIndex * (vis.cellSize.width + 50);
                 const translateY = rowIndex * vis.cellSize.height + vis.cellSize.height / 2;
-
                 return `translate(${translateX},${translateY})`;
             });
 
-        const patterns = newCells.selectAll('.pattern')
+        const patterns = vis.newCells.selectAll('.pattern')
             .data(d => [d]);
 
         patterns.exit().remove(); // Remove unnecessary patterns
@@ -291,20 +341,10 @@ class FacePlot {
             .select('image')
             .attr('xlink:href', d => `img/${d}.png`);
 
-        newCells.select('circle')
+        vis.newCells.select('circle')
             .style('fill', (d, i) => `url(#pattern-${i})`)
             .style('stroke', 'black')
-            .style('stroke-width', '2')
-            .on('mouseover', function (event, d) {
-                d3.select(this)
-                    .style('filter', 'url(#drop-shadow)'); // Apply shadow filter
-                vis.showTracksForArtist(d);
-            })
-            .on('mouseout', function () {
-                const circle = d3.select(this);
-                circle.style('filter', null);
-
-            });
+            .style('stroke-width', '2');
 
         vis.svg.append('defs')
             .append('filter')
@@ -315,7 +355,7 @@ class FacePlot {
             .attr('dy', 4)
             .attr('stdDeviation', 4);
 
-        newCells.each(function () {
+        vis.newCells.each(function () {
             const circle = d3.select(this).select('circle');
 
             if (circle.classed('mouse-out')) {
@@ -323,6 +363,37 @@ class FacePlot {
                 circle.classed('mouse-out', false);
             }
         });
+
+
+
+        vis.scrollbar.style("height", vis.artistNameContainer.style("max-height"));
+
+        const containerScrollTop = this.artistNameContainer.property("scrollTop");
+        const containerHeight = parseInt(this.artistNameContainer.style("max-height"));
+        const containerScrollHeight = this.artistNameContainer.node().scrollHeight;
+
+        this.scrollbar.style("height", this.artistNameContainer.style("max-height"));
+
+        const hasOverflow = containerScrollHeight > containerHeight;
+
+        if (hasOverflow) {
+            // Show the scrollbar
+            this.scrollbar.style("display", "block");
+        } else {
+            // Hide the scrollbar
+            this.scrollbar.style("display", "none");
+        }
+
+        const percentageScrolled = containerScrollTop / (containerScrollHeight - containerHeight);
+        const scrollbarHeight = parseInt(this.scrollbar.style("height"));
+        const handleHeight = parseInt(this.handle.style("height"));
+
+        this.handle.style("top", percentageScrolled * (scrollbarHeight - handleHeight) + "px");
+
+        vis.handleMouseEvents();
+
+
+
     }
 
 
