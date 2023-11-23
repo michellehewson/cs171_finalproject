@@ -11,7 +11,7 @@
 // tiktok_keys -- how many songs on tiktok are in each key (count, percentage)
 // spotify_keys -- how many songs on spotify are in each key (count, percentage)
 // tiktok_user_stats -- tiktok download statistics via https://www.statista.com/statistics/1377008/tiktok-worldwide-downloads-quarterly/
-// common_artists -- dataset that has all of the artists that are in both the spotify and tiktok datasets. also has the count of how many songs of theirs are in the spotify dataset
+// combined_artists -- dataset that has all of the artists that are in both the spotify and tiktok datasets. also has the count of how many songs of theirs are in the spotify dataset
 
 
 
@@ -109,7 +109,21 @@ let promises = [
         return csv;
     }),
 
-    d3.csv("data/common_artists.csv").then(csv => {
+    d3.csv("data/combined_artists.csv").then(csv => {
+        csv.forEach(function(d) {
+        //    artist_name,count_spotify,count_tiktok,spotify_count,tiktok_count,sizeratio,data_src
+            d.artist_name = d.artist_name;
+            d.count_spotify = + d.count_spotify;
+            d.count_tiktok = + d.count_tiktok;
+            d.spotify_count = + d.spotify_count;
+            d.tiktok_count = + d.tiktok_count;
+            d.sizeratio = + d.sizeratio;
+            d.data_src = d.data_src;
+        });
+        return csv;
+    }),
+
+    d3.csv("data/spotify_artist_counts.csv").then(csv => {
         csv.forEach(function(d) {
             d.count = + d.count;
         });
@@ -121,15 +135,7 @@ let promises = [
             d.count = + d.count;
         });
         return csv;
-    }),
-
-    d3.csv("data/spotify_artist_counts.csv").then(csv => {
-        csv.forEach(function(d) {
-            d.count = + d.count;
-        });
-        return csv;
     })
-
 
 ]
 
@@ -144,7 +150,7 @@ Promise.all(promises)
 
 function initMainPage(dataArray) {
 
-    bubbleChart = new BubbleGraph('bubblechart', dataArray[0], dataArray[1], dataArray[7], dataArray[8])
+    bubbleChart = new BubbleGraph('bubblechart', dataArray[6], dataArray[7], dataArray[8])
     spotifyradarChart = new RadarChart('spotifyradarchart', dataArray[0], 'spotify')
     tiktokradarChart = new RadarChart('tiktokradarchart', dataArray[1], 'tiktok')
     pianoChart = new Piano('piano', dataArray[3], dataArray[4])

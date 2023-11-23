@@ -168,7 +168,7 @@ h2 {
 
 .tooltip2 {
     position: absolute;
-    background-color: #00f2ea;
+    background-color: lightgray;
     padding: 8px;
     border-radius: 4px;
     pointer-events: none;
