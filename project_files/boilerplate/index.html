@@ -23,7 +23,6 @@
 	<div data-anchor="page1" class="section">
 		<h1>From Tiktok Trends to Playlist Picks</h1>
 		<h2>Exploring Musical Trends Across Spotify and TikTok</h2>
-		<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/3F5CgOj3wFlRv51JsHbxhe?utm_source=generator&theme=0" width="40%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
 	</div>
 	<div data-anchor="page2" class="section">
 		<div class="column-container">
@@ -148,6 +147,19 @@
 		<h2>What makes an artist popular on tiktok vs spotify</h2>
 	</div>
 	<div data-anchor="page6" class="section">
+		<h2>Take Away:</h2>
+		<div class = "row">
+		<div class="col-md-2"></div>
+		<div class="col-md-8">
+		<h4>From the bubble chart, we can see that most of the popular artists dominated these platforms with one featured song,
+			while a few of them have multi songs. Around 30% of artists have songs on both platform's popular lists.
+			But who are the most popular artists exactly?</h4>
+		</div>
+		<div class="col-md-2"></div>
+		</div>
+	</div>
+
+	<div data-anchor="page7" class="section">
 		<div class="col-auto">
 			<h2> Let's Take a Closer Look at the Top Artists</h2>
 			<button id="showTopArtistsButton">Show Spotify Data</button>
@@ -164,15 +176,12 @@
 			</div>
 		</div>
 	</div>
-	<div data-anchor="page7" class="section">
-		<h2>take away</h2>
-	</div>
+
 	<div data-anchor="page8" class="section">
 		<h2>What makes a song popular on these platforms?</h2>
 	</div>
 	<div data-anchor="page9" class="section">
 		<h2>Radar chart</h2>
-		<div class="container-fluid">
 			<div class="row">
 				<div class="col-md-6">
 					<div class="slider-container">
@@ -199,20 +208,15 @@
 					<div id="tiktok-track-names" class="track-names"></div>
 				</div>
 			</div>
-		</div>
+
 	</div>
 
 	<div data-anchor="page10" class="section">
 		<h2>Histograms on attributes </h2>
-		<div class = "container-fluid">
-			<div class = "row">
-				<div class="col-md-5">
-					<h6>In this part we show the distributions of the number of songs regarding their different attributes.</h6>
-					<h6>Some insights are: the distributions of songs categorized by attributes are similar across Tiktok and Spotify.</h6>
-					<h6>Songs are normally distributed across the feature "danceability" and "energy", while more songs are ranked on the "lesser" side over other features.</h6>
-				</div>
 
-				<div class="col-md-5">
+				<div class = "row">
+					<div class = "col-md-4"></div>
+					<div class = "col-md-4">
 					Feature to compare:
 					<select id='categorySelector' class="custom-select align-self-center" onchange="categoryChange()">
 						<option value="danceability" selected>Danceability</option>
@@ -223,24 +227,31 @@
 						<option value="energy">Energy</option>
 					</select>
 				</div>
+				</div>
 
-
-			</div>
-
-			<div class = "container-fluid">
 				<div class = "row">
-					<div class="col-md-6">
+					<div class = "col-md-4">
+
+
+						<h4>
+							In this part we show the distributions of the number of songs regarding their different attributes.
+						Some insights are: the distributions of songs categorized by attributes are similar across Tiktok and Spotify.
+						Songs are normally distributed across the feature "danceability" and "energy", while more songs are ranked on the "lesser" side over other features.
+						</h4>
+
+					</div>
+					<div class="col-md-4">
 						<div id="tiktokHist">
 						</div>
 					</div>
 
-					<div class="col-md-6" >
+					<div class="col-md-4" >
 						<div id="spotHist">
 						</div>
 					</div>
 				</div>
-			</div>
-		</div>
+
+
 
 	</div>
 
@@ -262,16 +273,9 @@
 
 	<div data-anchor="page12" class="section">
 		<h2>The comparison of different attributes</h2>
-		<div class="container-fluid">
-			<div class = 'row'>
-				<h6>
-				These two plots show the comparisons between different attributes for the songs over the two platforms.
-				For example, if "Acousticness" is selected on X axis and "Energy" is selected on Y-axis,
-				user can see a negative relationship between these two features of the songs.
-				</h6>
-			</div>
 
 			<div class = 'row'>
+				<div class = 'col-4'></div>
 				<div class="col-3">
 					X Axis:
 					<select id='XcategorySelector' class="custom-select align-self-center" onchange="XcategoryChange()">
@@ -296,16 +300,24 @@
 				</div>
 			</div>
 			<div class = 'row'>
-				<div class="col-md-6">
+				<div class = "col-md-4">
+					<h4>
+						These two plots show the comparisons between different attributes for the songs over the two platforms.
+						For example, if "Acousticness" is selected on X axis and "Energy" is selected on Y-axis,
+						user can see a negative relationship between these two features of the songs.
+					</h4>
+
+				</div>
+				<div class="col-md-4">
 					<div id="tikScatterDiv">
 					</div>
 				</div>
-				<div class="col-md-6">
+				<div class="col-md-4">
 						<div id="spotScatterDiv">
 						</div>
 					</div>
 				</div>
-			</div>
+
 
 	</div>
 		<div data-anchor="page13" class="section">
