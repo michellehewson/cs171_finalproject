@@ -5,6 +5,8 @@ class FacePlot {
         this.tiktokData = tiktokData;
         this.currentArtist = null; // Initialize the currently displayed artist
         this.initVis();
+        this.initScrollbar();
+
     }
 
     initVis() {
@@ -111,14 +113,18 @@ class FacePlot {
 // Add a scrollbar to the tracks container
         vis.scrollbar = d3.select("#artist-name-container")
             .append("div")
-            .attr("class", "scrollbar")
-            .style("height", "200px"); // Set the height of the scrollbar
+            .attr("class", "scrollbar");
+
+// Set the initial height of the scrollbar dynamically
+        vis.scrollbar.style("height", vis.artistNameContainer.style("max-height"));
 
         vis.scrollbar.append("div")
             .attr("class", "handle")
-            .style("height", "50px"); // Set the height of the handle
+            .style("height", "50px");
 
+// Select the handle inside the updateVis method
         vis.handle = vis.scrollbar.select(".handle");
+
         vis.handle.style("top", "0px")
             .on("mousedown", function () {
                 const scrollbarHeight = parseInt(vis.scrollbar.style("height"));
@@ -128,7 +134,7 @@ class FacePlot {
 
                 d3.select(window)
                     .on("mousemove.scrollbar", function () {
-                        const y = d3.mouse(vis.scrollbar.node())[1];
+                        const y = d3.pointer(event)[1];
                         const newPosition = y - handleHeight / 2;
 
                         if (newPosition >= 0 && newPosition + handleHeight <= scrollbarHeight) {
@@ -151,7 +157,9 @@ class FacePlot {
             .attr("height", 350);
 
 
-        vis.updateVis();
+        window.onload = () => {
+            this.updateVis();
+        };
     }
 
     drawBarChart(averageValues) {
@@ -273,6 +281,25 @@ class FacePlot {
             });
     }
 
+    initScrollbar() {
+        this.scrollbar = d3.select("#artist-name-container")
+            .append("div")
+            .attr("class", "scrollbar");
+
+        // Set the initial height of the scrollbar dynamically
+        this.scrollbar.style("height", this.artistNameContainer.style("max-height"));
+
+        this.scrollbar.append("div")
+            .attr("class", "handle")
+            .style("height", "50px");
+
+        // Select the handle inside the updateVis method
+        this.handle = this.scrollbar.select(".handle");
+
+        this.handle.style("top", "0px")
+            .on("mousedown", () => this.handleMouseDown());
+    }
+
 
     updateVis() {
         let vis = this;
@@ -337,16 +364,35 @@ class FacePlot {
             }
         });
 
-        const containerScrollTop = vis.artistNameContainer.property("scrollTop");
-        const containerHeight = parseInt(vis.artistNameContainer.style("max-height"));
-        const containerScrollHeight = vis.artistNameContainer.node().scrollHeight;
+
+
+        vis.scrollbar.style("height", vis.artistNameContainer.style("max-height"));
+
+        const containerScrollTop = this.artistNameContainer.property("scrollTop");
+        const containerHeight = parseInt(this.artistNameContainer.style("max-height"));
+        const containerScrollHeight = this.artistNameContainer.node().scrollHeight;
+
+        this.scrollbar.style("height", this.artistNameContainer.style("max-height"));
+
+        const hasOverflow = containerScrollHeight > containerHeight;
+
+        if (hasOverflow) {
+            // Show the scrollbar
+            this.scrollbar.style("display", "block");
+        } else {
+            // Hide the scrollbar
+            this.scrollbar.style("display", "none");
+        }
 
         const percentageScrolled = containerScrollTop / (containerScrollHeight - containerHeight);
-        const scrollbarHeight = parseInt(vis.scrollbar.style("height"));
-        const handleHeight = parseInt(vis.handle.style("height"));
+        const scrollbarHeight = parseInt(this.scrollbar.style("height"));
+        const handleHeight = parseInt(this.handle.style("height"));
 
-        vis.handle.style("top", percentageScrolled * (scrollbarHeight - handleHeight) + "px");
+        this.handle.style("top", percentageScrolled * (scrollbarHeight - handleHeight) + "px");
+
         vis.handleMouseEvents();
+
+
 
     }
 
