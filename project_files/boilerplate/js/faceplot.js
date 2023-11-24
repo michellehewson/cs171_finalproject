@@ -5,7 +5,6 @@ class FacePlot {
         this.tiktokData = tiktokData;
         this.currentArtist = null; // Initialize the currently displayed artist
         this.initVis();
-        this.initScrollbar();
 
     }
 
@@ -106,48 +105,7 @@ class FacePlot {
             .attr('stdDeviation', 4);
 
         vis.artistNameContainer = d3.select('#artist-name-container');
-        vis.artistNameContainer.style('max-height', '200px'); // Set the maximum height for the container
-        vis.artistNameContainer.style('overflow-y', 'auto'); // Enable vertical scrolling
 
-
-// Add a scrollbar to the tracks container
-        vis.scrollbar = d3.select("#artist-name-container")
-            .append("div")
-            .attr("class", "scrollbar");
-
-// Set the initial height of the scrollbar dynamically
-        vis.scrollbar.style("height", vis.artistNameContainer.style("max-height"));
-
-        vis.scrollbar.append("div")
-            .attr("class", "handle")
-            .style("height", "50px");
-
-// Select the handle inside the updateVis method
-        vis.handle = vis.scrollbar.select(".handle");
-
-        vis.handle.style("top", "0px")
-            .on("mousedown", function () {
-                const scrollbarHeight = parseInt(vis.scrollbar.style("height"));
-                const handleHeight = parseInt(vis.handle.style("height"));
-                const containerHeight = parseInt(vis.artistNameContainer.style("max-height"));
-                const containerScrollHeight = vis.artistNameContainer.node().scrollHeight;
-
-                d3.select(window)
-                    .on("mousemove.scrollbar", function () {
-                        const y = d3.pointer(event)[1];
-                        const newPosition = y - handleHeight / 2;
-
-                        if (newPosition >= 0 && newPosition + handleHeight <= scrollbarHeight) {
-                            const percentage = newPosition / (scrollbarHeight - handleHeight);
-                            const scrollTop = percentage * (containerScrollHeight - containerHeight);
-                            vis.artistNameContainer.property("scrollTop", scrollTop);
-                            vis.handle.style("top", newPosition + "px");
-                        }
-                    })
-                    .on("mouseup.scrollbar", function () {
-                        d3.select(window).on("mousemove.scrollbar", null).on("mouseup.scrollbar", null);
-                    });
-            });
 
         vis.svgBar = d3.select('#bar-chart')
             .append("svg")
@@ -166,8 +124,6 @@ class FacePlot {
         const barWidth = 75;
 
         const maxBarHeight = 200;
-
-        // Clear existing elements in the SVG container
         vis.svgBar.selectAll('*').remove();
 
         // Create a container for the bar chart
@@ -278,25 +234,6 @@ class FacePlot {
             });
     }
 
-    initScrollbar() {
-        this.scrollbar = d3.select("#artist-name-container")
-            .append("div")
-            .attr("class", "scrollbar");
-
-        // Set the initial height of the scrollbar dynamically
-        this.scrollbar.style("height", this.artistNameContainer.style("max-height"));
-
-        this.scrollbar.append("div")
-            .attr("class", "handle")
-            .style("height", "50px");
-
-        // Select the handle inside the updateVis method
-        this.handle = this.scrollbar.select(".handle");
-
-        this.handle.style("top", "0px")
-            .on("mousedown", () => this.handleMouseDown());
-    }
-
 
     updateVis() {
         let vis = this;
@@ -360,32 +297,6 @@ class FacePlot {
                 circle.classed('mouse-out', false);
             }
         });
-
-
-
-        vis.scrollbar.style("height", vis.artistNameContainer.style("max-height"));
-
-        const containerScrollTop = this.artistNameContainer.property("scrollTop");
-        const containerHeight = parseInt(this.artistNameContainer.style("max-height"));
-        const containerScrollHeight = this.artistNameContainer.node().scrollHeight;
-
-        this.scrollbar.style("height", this.artistNameContainer.style("max-height"));
-
-        const hasOverflow = containerScrollHeight > containerHeight;
-
-        if (hasOverflow) {
-            // Show the scrollbar
-            this.scrollbar.style("display", "block");
-        } else {
-            // Hide the scrollbar
-            this.scrollbar.style("display", "none");
-        }
-
-        const percentageScrolled = containerScrollTop / (containerScrollHeight - containerHeight);
-        const scrollbarHeight = parseInt(this.scrollbar.style("height"));
-        const handleHeight = parseInt(this.handle.style("height"));
-
-        this.handle.style("top", percentageScrolled * (scrollbarHeight - handleHeight) + "px");
 
         vis.handleMouseEvents();
 
