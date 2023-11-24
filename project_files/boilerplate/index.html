@@ -382,11 +382,11 @@
 
 <script>
 	// this script is how we get the text/visualizations to fade in based on what page the user is on
-	// we do this with fullpage.js
 	document.addEventListener('DOMContentLoaded', function() {
 		new fullpage('#fullPage', {
 			autoScrolling: true,
 			navigation: true,
+			normalScrollElements: '#artist-name-container',
 			licenseKey: 'gplv3-license',
 			afterLoad: function(origin, destination) {
 				if (destination.anchor === 'page2') { //fade-ins for page2

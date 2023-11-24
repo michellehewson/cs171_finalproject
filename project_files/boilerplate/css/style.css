@@ -87,11 +87,6 @@ h2 {
 }
 
 
-#artist-name-container {
-    max-height: 200px; /* Set the maximum height for the container */
-    overflow-y: auto; /* Enable vertical scrolling */
-}
-
 .section {
     display: block;
     padding: 20px;
@@ -352,23 +347,12 @@ h2 {
     font-family: "Times New Roman", sans-serif; /* Specify the font family */
 }
 
+
 #artist-name-container {
-    overflow: hidden;
+    height: 200px; /* Set the maximum height for the container */
+    overflow-y: scroll ; /* Enable vertical scrolling */
 }
 
-.scrollbar {
-    width: 12px;
-    display: none;
-    background-color: #f5f5f5;
-    overflow-y: scroll;
-}
-
-.handle {
-    width: 10px;
-    background-color: #007bff;
-    cursor: pointer;
-    border-radius: 6px;
-}
 
 .pushable {
     background: hsl(340deg 100% 32%);
@@ -408,7 +392,7 @@ h2 {
 
 .track-names{
     max-height: 200px;
-    overflow-y: auto;
+    overflow-y: scroll;
 }
 
 .section {
