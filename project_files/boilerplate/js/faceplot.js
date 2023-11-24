@@ -149,8 +149,6 @@ class FacePlot {
                     });
             });
 
-
-
         vis.svgBar = d3.select('#bar-chart')
             .append("svg")
             .attr("width", 350)
@@ -167,10 +165,8 @@ class FacePlot {
         const attributes = ['Danceability', 'Energy', 'Acousticness'];
         const barWidth = 75;
 
-        const maxBarHeight = 200
-        const barHeightScale = d3.scaleLinear()
-            .domain([0, 1])
-            .range([0, maxBarHeight]);
+        const maxBarHeight = 200;
+
         // Clear existing elements in the SVG container
         vis.svgBar.selectAll('*').remove();
 
@@ -185,9 +181,10 @@ class FacePlot {
             .append("rect")
             .attr("class", "bar")
             .attr("x", (d, i) => i * (barWidth + 10))
-            .attr("y", d => maxBarHeight - barHeightScale(averageValues[d])) // Adjust the y attribute
+            .attr("y", d => maxBarHeight - (maxBarHeight * averageValues[d])) // Calculate y position based on average values
             .attr("width", barWidth)
-            .attr("height", d => barHeightScale(averageValues[d]));
+            .attr("height", d => maxBarHeight * averageValues[d])
+            .style("fill", (d, i) => (vis.isShowingTikTok ? '#ff0050' : '#00f2ea')); // Red for TikTok, Green for Spotify
 
         // Append labels for each bar
         chartContainer.selectAll(".bar-label")
@@ -196,7 +193,7 @@ class FacePlot {
             .append("text")
             .attr("class", "bar-label")
             .attr("x", (d, i) => i * (barWidth + 10) + barWidth / 2)
-            .attr("y", maxBarHeight + 20) // Adjust the y attribute for label positioning
+            .attr("y", maxBarHeight + 20)
             .attr("text-anchor", "middle")
             .text(d => d);
     }
