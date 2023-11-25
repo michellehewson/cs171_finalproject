@@ -120,28 +120,21 @@ h2 {
     position: relative;
 }
 
-.slider-labels {
-    position: absolute;
-    top: 50%;
-    display: flex;
-    justify-content: space-between;
-    width: 80%; /* Adjust as needed */
-    margin: auto; /* Center the labels */
-    transform: translateY(-50%);
-}
-
 .slider-label {
-    margin: 0 5%; /* Adjust as needed */
+    position: relative;
+    width: 41%;
+    margin: auto;
 }
 
-#start-label-s,
-#start-label-t {
-    margin-left: 20%; /* Adjust as needed */
+.slider-label-right, .slider-label-left {
+    position: absolute;
 }
 
-#end-label-s,
-#end-label-t {
-    right: 50%; /* Adjust as needed */
+ .slider-label-left {
+    left: 0;
+}
+.slider-label-right{
+    right: 0;
 }
 
 
