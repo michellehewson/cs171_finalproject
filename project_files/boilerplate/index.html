@@ -27,8 +27,6 @@
 	<div data-anchor="page2" class="section">
 		<div class="column-container">
 			<div class="column">
-
-
 				<div class="fade-in-title">
 					<h1 id="intro-text">What is <img src="img/tiktok.png" alt="TikTok logo" width="416" height="121">?</h1>
 				</div>
@@ -97,8 +95,8 @@
 			<div id="button-box">
 				<h2> Do you use TikTok?</h2>
 				<div class="button-group">
-					<button id="yesButton" class="yes-button">Yes</button>
-					<button id="noButton" class="no-button">No</button>
+					<button id="yesButton" class="button">Yes</button>
+					<button id="noButton" class="button">No</button>
 				</div>
 			</div>
 		</div>
@@ -364,8 +362,8 @@
 	document.addEventListener('DOMContentLoaded', function() {
 		const buttonBox = document.getElementById('button-box');
 		const buttonContainer = document.querySelector('.button-container');
-		const yesButton = document.querySelector('.yes-button');
-		const noButton = document.querySelector('.no-button');
+		const yesButton = document.querySelector('#yesButton');
+		const noButton = document.querySelector('#noButton');
 		const responseText = document.getElementById('response-text');
 
 		yesButton.addEventListener('click', function() {
