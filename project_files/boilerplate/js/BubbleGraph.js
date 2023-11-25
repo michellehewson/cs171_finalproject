@@ -447,5 +447,45 @@ class BubbleGraph {
         })
     }
 
+    search(data) {
+        // this function lets the user search to see if their favorite artist is one of the bubbles
+        let vis = this;
+        const searchInput = document.getElementById('searchArtist');
+
+        const searchTerm = (searchInput.value).toLowerCase(); // convert to lowercase or else we might
+        // not find the artist
+
+        const notFoundMessage = document.getElementById('notFoundMessage');
+
+
+        console.log(searchTerm);
+        vis.svg.selectAll('.bubble')
+            .style('fill', d => {
+                if (d.data_src === 'spotify') {
+                    return '#ff0050';
+                } else if (d.data_src === 'tiktok') {
+                    return '#00f2ea';
+                } else if (d.data_src === 'both') {
+                    return 'black';
+                }
+            });
+
+        const searchedBubble = data.find(artist => artist.artist_name.toLowerCase() === searchTerm);
+        //lowercase again
+
+        //if the bubble is someone's favorite artist, turn it yellow!
+        // otherwise, tell the user we didn't find the artist
+        if (searchedBubble) {
+            vis.svg.selectAll('.bubble')
+                .filter(d => d.artist_name === searchedBubble.artist_name)
+                .style('fill', 'yellow');
+            notFoundMessage.style.display = 'none';
+        } else {
+            console.log('artist not found');
+            notFoundMessage.style.display = 'block';
+        }
+    }
+
+
 
 }
