@@ -21,8 +21,23 @@ class RadarChart {
         this.desiredColumns = ['danceability', 'energy', 'speechiness', 'acousticness', 'liveness'];
 
         this.dataset = [];
-        this.colorScale = d3.scaleOrdinal(d3.schemeCategory10); // Move colorScale here
 
+        this.customColors = [
+            "#00f2ea",
+            "#18ccc6",
+            "#0e807c",
+            "#095c59",
+            "#072423",
+            "#ff0050",
+            "#ff5e91",
+            "#bd315d",
+            "#6b0a29",
+            "#662b3e",
+            "#edabc0"
+        ];
+
+// Create a custom color scale with the defined colors
+        this.colorScale = d3.scaleOrdinal().range(this.customColors);
 
 
         this.chartSubset.forEach(row => {
