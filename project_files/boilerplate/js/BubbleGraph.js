@@ -419,7 +419,7 @@ class BubbleGraph {
         sizeLegend.append('text')
             .attr('x', 20)
             .attr('y', 10)
-            .text('Less Songs')
+            .text('Less Songs Featured')
             .attr('class', 'legend-label');
 
         sizeLegend.append('circle')
@@ -432,7 +432,7 @@ class BubbleGraph {
         sizeLegend.append('text')
             .attr('x', 20)
             .attr('y', 50)
-            .text('More Songs')
+            .text('More Songs Featured')
             .attr('class', 'legend-label');
 
     }
