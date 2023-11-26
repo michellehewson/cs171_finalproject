@@ -120,7 +120,7 @@ class BubbleGraph {
 
         bubbles.on("mouseover", function (event, d) {
             tooltip.transition().duration(200).style("opacity", 1);
-            let tooltipText = `Artist: ${d.artist_name}`;
+            let tooltipText = `<strong>${d.artist_name}</strong>`;
 
             if (d.data_src === 'spotify') {
                 tooltipText += `<br>Top Songs in Spotify: ${d.count_spotify}`;
@@ -134,7 +134,9 @@ class BubbleGraph {
 
             tooltip.html(tooltipText)
                 .style("left", event.pageX + "px")
-                .style("top", event.pageY - 28 + "px");
+                .style("top", event.pageY - 28 + "px")
+                .style('font-size', 18)
+                .style("font-family", "Times New Roman, sans-serif");
         })
             .on("mouseout", function () {
                 tooltip.transition().duration(500).style("opacity", 0);
@@ -419,7 +421,7 @@ class BubbleGraph {
         sizeLegend.append('text')
             .attr('x', 20)
             .attr('y', 10)
-            .text('Less Songs')
+            .text('Less Songs Featured')
             .attr('class', 'legend-label');
 
         sizeLegend.append('circle')
@@ -432,7 +434,7 @@ class BubbleGraph {
         sizeLegend.append('text')
             .attr('x', 20)
             .attr('y', 50)
-            .text('More Songs')
+            .text('More Songs Featured')
             .attr('class', 'legend-label');
 
     }
@@ -446,6 +448,46 @@ class BubbleGraph {
                 .attr('cy', d => d.y);
         })
     }
+
+    search(data) {
+        // this function lets the user search to see if their favorite artist is one of the bubbles
+        let vis = this;
+        const searchInput = document.getElementById('searchArtist');
+
+        const searchTerm = (searchInput.value).toLowerCase(); // convert to lowercase or else we might
+        // not find the artist
+
+        const notFoundMessage = document.getElementById('notFoundMessage');
+
+
+        console.log(searchTerm);
+        vis.svg.selectAll('.bubble')
+            .style('fill', d => {
+                if (d.data_src === 'spotify') {
+                    return '#ff0050';
+                } else if (d.data_src === 'tiktok') {
+                    return '#00f2ea';
+                } else if (d.data_src === 'both') {
+                    return 'black';
+                }
+            });
+
+        const searchedBubble = data.find(artist => artist.artist_name.toLowerCase() === searchTerm);
+        //lowercase again
+
+        //if the bubble is someone's favorite artist, turn it yellow!
+        // otherwise, tell the user we didn't find the artist
+        if (searchedBubble) {
+            vis.svg.selectAll('.bubble')
+                .filter(d => d.artist_name === searchedBubble.artist_name)
+                .style('fill', 'yellow');
+            notFoundMessage.style.display = 'none';
+        } else {
+            console.log('artist not found');
+            notFoundMessage.style.display = 'block';
+        }
+    }
+
 
 
 }
