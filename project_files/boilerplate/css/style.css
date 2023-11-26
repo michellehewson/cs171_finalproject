@@ -541,9 +541,8 @@ input[type="radio"]:checked + label {
     height: 400px;
     width: 100%;
     padding: 20px;
-    border: thin solid grey;
     border-radius: 5px;
-    background: whitesmoke;
+    background: white;
 }
 
 #spotHist {
@@ -553,9 +552,8 @@ input[type="radio"]:checked + label {
     height: 400px;
     width: 100%;
     padding: 20px;
-    border: thin solid grey;
     border-radius: 5px;
-    background: whitesmoke;
+    background: white;
 }
 #tikScatterDiv {
     display: flex;
@@ -564,9 +562,8 @@ input[type="radio"]:checked + label {
     height: 400px;
     width: 100%;
     padding: 20px;
-    border: thin solid grey;
     border-radius: 5px;
-    background: whitesmoke;
+    background: white;
 }
 
 #spotScatterDiv {
@@ -576,9 +573,8 @@ input[type="radio"]:checked + label {
     height: 400px;
     width: 100%;
     padding: 20px;
-    border: thin solid grey;
     border-radius: 5px;
-    background: whitesmoke;
+    background: white;
 }
 
 .piano-col {
@@ -615,4 +611,56 @@ h5 {
 
 h3 {
     font-size: 36px;
+}
+
+.centered-h4-title {
+    text-align: center;
+    font-size: 40px;
+    font-family: 'Times New Roman', sans-serif;
+    font-weight: bold;
+
+}
+
+
+.h2-subtitle {
+    text-align: center;
+    font-size: 30px;
+    font-family: 'Times New Roman', sans-serif;
+    font-weight: bold;
+    margin-top: 100px;
+}
+
+#spotifyradarchart,
+#tiktokradarchart {
+    margin: 0 auto;
+    display: block;
+    text-align: center;
+}
+
+.h4-title {
+    text-align: center;
+    font-size: 40px;
+    font-family: 'Times New Roman', sans-serif;
+    font-weight: bold;
+    margin-bottom: 30px;
+
+
+}
+
+.h4-subtitle {
+    text-align: center;
+    font-size: 33px;
+    font-family: 'Times New Roman', sans-serif;
+    font-weight: bold;
+    margin-top: 30px;
+
+
+}
+
+.main-title {
+    text-align: center;
+    font-family: 'Times New Roman', sans-serif;
+    color: black;
+    margin-top: 10px;
+
 }
