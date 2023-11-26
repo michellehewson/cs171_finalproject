@@ -120,7 +120,7 @@ class BubbleGraph {
 
         bubbles.on("mouseover", function (event, d) {
             tooltip.transition().duration(200).style("opacity", 1);
-            let tooltipText = `Artist: ${d.artist_name}`;
+            let tooltipText = `<strong>${d.artist_name}</strong>`;
 
             if (d.data_src === 'spotify') {
                 tooltipText += `<br>Top Songs in Spotify: ${d.count_spotify}`;
@@ -134,7 +134,9 @@ class BubbleGraph {
 
             tooltip.html(tooltipText)
                 .style("left", event.pageX + "px")
-                .style("top", event.pageY - 28 + "px");
+                .style("top", event.pageY - 28 + "px")
+                .style('font-size', 18)
+                .style("font-family", "Times New Roman, sans-serif");
         })
             .on("mouseout", function () {
                 tooltip.transition().duration(500).style("opacity", 0);

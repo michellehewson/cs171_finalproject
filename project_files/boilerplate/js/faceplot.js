@@ -140,7 +140,7 @@ class FacePlot {
             .attr("y", d => maxBarHeight - (maxBarHeight * averageValues[d])) // Calculate y position based on average values
             .attr("width", barWidth)
             .attr("height", d => maxBarHeight * averageValues[d])
-            .style("fill", (d, i) => (vis.isShowingTikTok ? '#ff0050' : '#00f2ea')); // Red for TikTok, Green for Spotify
+            .style("fill", (d, i) => (vis.isShowingTikTok ? '#ff0050' : '#00f2ea'));
 
         // Append labels for each bar
         chartContainer.selectAll(".bar-label")
@@ -152,6 +152,18 @@ class FacePlot {
             .attr("y", maxBarHeight + 20)
             .attr("text-anchor", "middle")
             .text(d => d);
+
+        //append the values for each bar
+        chartContainer.selectAll(".bar-value")
+            .data(attributes)
+            .enter()
+            .append("text")
+            .attr("class", "bar-value")
+            .attr("x", (d, i) => i * (barWidth + 10) + barWidth / 2)
+            .attr("y", d => maxBarHeight - (maxBarHeight * averageValues[d]) - 5)
+            .attr("text-anchor", "middle")
+            .style("fill", "black")
+            .text(d => Math.round(averageValues[d] * 100) / 100);
     }
 
 

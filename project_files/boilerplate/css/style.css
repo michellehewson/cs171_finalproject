@@ -588,12 +588,12 @@ input[type="radio"]:checked + label {
 .imagecontainer {
     position: relative;
     width: 100%;
-    height: 100vh;
+    height: 20vh;
 }
 
 .bouncing-image {
     position: absolute;
-    animation: animate 4s linear 0s infinite alternate;
+    animation: animate 8s linear 0s infinite alternate;
 }
 
 /* https://stackoverflow.com/questions/22076732/move-image-around-browser-window-and-bounce-back-on-striking-side-wall */
@@ -607,3 +607,12 @@ input[type="radio"]:checked + label {
     }
 }
 
+h5 {
+    font-family: 'Times New Roman', sans-serif;
+    color: black;
+    font-size: 19px;
+}
+
+h3 {
+    font-size: 36px;
+}
