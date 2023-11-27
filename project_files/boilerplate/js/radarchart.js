@@ -176,7 +176,6 @@ class RadarChart {
         };
 
 
-
         vis.generateAndDrawLines = (sideCount) => {
             const group = vis.g.append("g").attr("class", "grid-lines");
             for (let vertex = 1; vertex <= sideCount; vertex++) {
