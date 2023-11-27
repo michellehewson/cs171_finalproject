@@ -12,18 +12,14 @@ class RadarChart {
                 } else {
                     return b.weeks_on_chart - a.weeks_on_chart;
                 }
-            } else {
-                return 0;
             }
         });
 
-        this.chartSubset = this.chartData.slice(0, 10);
+        this.chartSubset = this.chartData.slice(0, 9);
         this.desiredColumns = ['danceability', 'energy', 'speechiness', 'acousticness', 'liveness'];
 
         this.dataset = [];
         this.colorScale = d3.scaleOrdinal(d3.schemeCategory10); // Move colorScale here
-
-
 
         this.chartSubset.forEach(row => {
             const data = {
@@ -48,9 +44,7 @@ class RadarChart {
                 .attr("stroke", strokeColor);
         };
 
-
         this.initVis();
-
 
     }
 
@@ -71,9 +65,6 @@ class RadarChart {
             .domain([0, 1])
             .range([0, this.r_0]);
 
-
-
-
         const dataset = [];
 
         // Iterate over each attribute and create the dataset
@@ -87,7 +78,6 @@ class RadarChart {
             };
             dataset.push(data);
         });
-
 
         // Generate ticks for chart levels
         const genTicks = levels => {
@@ -164,7 +154,6 @@ class RadarChart {
                 const angle = vertex * polyangle;
                 const label = vis.desiredColumns[vertex];
                 const point = vis.generatePoint({ length: 0.9 * (size / 2), angle });
-
                 vis.drawText(label, point, false, groupL);
 
             }
@@ -220,7 +209,7 @@ class RadarChart {
             endLabel = document.getElementById("end-label-t");
         }
 
-        startLabel.textContent = 1;
+        startLabel.textContent = 0;
         endLabel.textContent = 1;
 
         let minValue = 0;
@@ -294,8 +283,6 @@ class RadarChart {
             vis.drawPath([...points, points[0]], pathGroup, "black", color, 0.5);
         });
 
-        // Draw labels
         vis.drawLabels(vis.chartSubset, vis.NUM_OF_SIDES);
     }
-
 }

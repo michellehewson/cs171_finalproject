@@ -339,10 +339,6 @@
 </div>
 
 
-
-
-
-
 <!-- embedding JS libraries -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
 
@@ -388,7 +384,7 @@
 		new fullpage('#fullPage', {
 			autoScrolling: true,
 			navigation: true,
-			normalScrollElements: '#artist-name-container',
+			normalScrollElements: '#artist-name-container, .track-names',
 			licenseKey: 'gplv3-license',
 			afterLoad: function(origin, destination) {
 				if (destination.anchor === 'page2') { //fade-ins for page2
