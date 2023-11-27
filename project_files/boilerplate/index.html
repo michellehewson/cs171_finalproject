@@ -88,40 +88,49 @@
 	</div>
 
 	<div data-anchor="page3" class="section">
-		<div class="column-container" style="position: relative;">
-			<div class="column fixed-column" style="position: sticky; top: 20px; height: 716.79px; width: 375px;">
-				<h2 id="response-text" style="display: none;"></h2>
-				<div class="fade-in-tiktok-text1">
-					<h2 style="margin-top: 90px;">TikTok dominated in 2022 as the most downloaded app on the market, accumulating over <b>800 million</b> downloads.</h2>
+		<div class="container-fluid">
+			<div class="row no-gutters">
+				<div class="col-md-4" style="padding-left: 20px;">
+					<h2 id="response-text" style="display: none; text-align: left;"></h2>
+					<div class="fade-in-tiktok-text1">
+						<h2 style="margin-top: 100px; text-align: left;">TikTok dominated in 2022 as the most downloaded app on the market, accumulating over <b>800 million</b> downloads.</h2>
+					</div>
+					<div class="fade-in-tiktok-text2">
+						<h2 style="margin-top: 100px; text-align: left;" id="tiktok-text2">This rise in popularity is a testament to TikTok's capability to shape current trends and culture.</h2>
+					</div>
+					<div class="fade-in-tiktok-text3">
+						<h2 style="margin-top: 100px; text-align: left;" id="tiktok-text3"><b>Let's explore music trends in 2022 and whether TikTok's immense popularity had any influence on them.</b></h2>
+					</div>
 				</div>
-				<div class="fade-in-tiktok-text2">
-					<h2 style="margin-top: 90px;" id="tiktok-text2">This rise in popularity is a testament to TikTok's capability to shape current trends and culture.</h2>
-				</div>
-				<div class="fade-in-tiktok-text3">
-					<h2 style="margin-top: 90px;" id="tiktok-text3"><b>Let's explore music trends in 2022 and whether TikTok's immense popularity had any influence on them.</b></h2>
-				</div>
-			</div>
-			<div class="column fixed-column" style="position: sticky; top: 20px; height: 716.79px; width: 350px;">
-				<div id="barchart"></div>
-			</div>
-		</div>
-		<div class="button-container">
-			<div id="button-box">
-				<h2> Do you use TikTok?</h2>
-				<div class="button-group">
-					<button id="yesButton" class="button">Yes</button>
-					<button id="noButton" class="button">No</button>
-				</div>
-			</div>
-		</div>
+				<div class="col-md-1">
 
+				</div>
+				<div class="col-md-7 d-flex align-items-center justify-content-center">
+					<div id="barchart"></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="button-container">
+						<div id="button-box">
+							<h2 class="button-text"> Do you use TikTok?</h2>
+							<div class="button-group">
+								<button id="yesButton" class="button" style="font-size: 28px;">Yes</button>
+								<button id="noButton" class="button" style="font-size: 28px;">No</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
+
 
 
 	<div data-anchor="page4" class="section">
 		<div class="column-container">
 			<div class="column-left">
-				<h3>Explore the artists who dominated the TikTok and Spotify charts in 2022.</h3>
+				<h3 id="piano-title2">Explore the artists who dominated the TikTok and Spotify charts in 2022.</h3>
 				<h5>Hover over a bubble to learn more information about an artist.</h5>
 				<div id="legend"></div>
 				<div id="popupRectangle" class="popup-rectangle">
@@ -130,7 +139,7 @@
 
 					<div>
 						<input type="radio" id="together-radio" name="cluster-type" value="together" checked>
-						<label for="together-radio">Together</label>
+						<label for="together-radio">All Artists</label>
 
 						<input type="radio" id="separate-radio" name="cluster-type" value="separate">
 						<label for="separate-radio">Separate by Platform</label>
@@ -143,7 +152,7 @@
 					</div>
 
 
-					<h4>Was your favorite artist at the top of the charts?</h4>
+					<h4 style="margin-top: 30px;">Search for your favorite artist!</h4>
 					<form id="form">
 						<input type="search" id="searchArtist" name="q" placeholder="Search...">
 						<button id="searchButton">Search</button>
@@ -151,7 +160,7 @@
 					</form>
 				</div>
 			</div>
-			<div class="column">
+			<div class="column" style="display: flex; align-items: center; justify-content: center;">
 				<div id="bubblechart"></div>
 			</div>
 
@@ -173,7 +182,7 @@
 
 	<div data-anchor="page7" class="section">
 		<div class="col-auto">
-			<h3>Let's take a closer look at the top artists on both platforms!</h3>
+			<h3 id="piano-title2">Let's take a closer look at the top artists on both platforms!</h3>
 			<h5>Both platforms have a unique way of ranking top artists. </h5>
 			<h5>On TikTok, artists were ranked based on the duration of time their tracks spent on the top charts.</h5>
 			<h5>Artists on Spotify were ranked by Spotify's unique artist popularity metric &ndash; it's measured by their number of streams.</h5>
@@ -185,11 +194,8 @@
 					<div id="faceplot" style="width: 80%;"></div>
 				</div>
 				<div class="col-md-5">
-					<div id="artist-name-container">
-					</div>
-					<div id="bar-chart">
-
-					</div>
+					<div id="artist-name-container"></div>
+					<div id="spotify-music-embed"></div>
 				</div>
 			</div>
 		</div>
@@ -206,7 +212,7 @@
 	<div data-anchor="page9" class="section">
 		<div class="row">
 			<div class="col-md-4 ">
-				<h3 style="margin-top: 250px;">Explore the distribution of attributes across both platforms.</h3>
+				<h3 id="piano-title2" style="margin-top: 250px;">Explore the distribution of attributes across both platforms.</h3>
 				<h5>
 					Select a trait from the dropdown list to see the distribution of all songs across the scale of this trait.
 				</h5>
@@ -245,7 +251,7 @@
 			</div>
 			<div class="col-md-4 d-flex align-items-center">
 				<div>
-					<h3>Investigate the possible relationships between attributes.</h3>
+					<h3 id="piano-title2">Investigate the possible relationships between attributes.</h3>
 					<h5>
 						Select an attribute from the dropdown list for the X axis and another trait for the Y axis
 						to <br> examine the relationship between the two traits of all the songs on TikTok and Spotify.
@@ -288,7 +294,7 @@
 		<div class="row">
 			<div class="col-md-2">
 				<div class="justify-content-center">
-					<h3 class="radar-title">How do the Top Songs Overlap?</h3>
+					<h3 id="piano-title2">How do the Top Songs Overlap?</h3>
 					<h5>Every song has a unique fingerprint, as shown in the radar charts below. Different values for different attributes allow us to see which types of songs make it into the top charts for Spotify vs TikTok.</h5>
 					<h5>Drag the bar to view the distribution of the top songs from Spotify and TikTok!</h5>
 				</div>
@@ -362,18 +368,7 @@
 				<h4>conclusion</h4>
 			</div>
 
-			<div class="text-container">
-				<div class="rectangle">
-					<h6 class="centered-h6-title">
-						From the statistics we can see that for songs on both Tiktok and Spotify, songs that are the most popular<br>
-						tend to have high energy, medium to high danceability, low acousticness, low liveness and low speechiness.<br>
-						These traits indicate that a typical popular song would be fast, easy to dance with, composed with<br>
-						electronic instruments rather than acoustic instruments; studio-recorded and produced rather than on a live<br>
-						performance, and consists of music rather than pure spoken words.<br>
-						In addition, these traits of popular songs are consistent on both Tiktok and Spotify.
-					</h6>
-				</div>
-			</div>
+
 		</div>
 	</div>
 
@@ -456,12 +451,12 @@
 					setTimeout(function() {
 						const fact3 = document.querySelector('.fade-in-fact3');
 						fact3.classList.add('show');
-					}, 4000);
+					}, 3000);
 
 					setTimeout(function() {
 						const fact4 = document.querySelector('.fade-in-fact4');
 						fact4.classList.add('show');
-					}, 6000);
+					}, 4000);
 				} else if (destination.anchor === 'page3') { // fade-ins for page3
 					const buttonBox = document.getElementById('button-box');
 					buttonBox.classList.add('centered');
@@ -495,19 +490,19 @@
 			// https://developer.mozilla.org/en-US/docs/Web/API/setTimeout
 			setTimeout(function() {
 				const barChart = new BarChart('barchart', tiktokUserData);
-			}, 4000);
+			}, 1500);
 
 			setTimeout(function() {
 				text1.classList.add('show');
-			}, 2000);
+			}, 500);
 
 			setTimeout(function() {
 				text2.classList.add('show');
-			}, 8000);
+			}, 2000);
 
 			setTimeout(function() {
 				text3.classList.add('show');
-			}, 10000);
+			}, 3000);
 
 		});
 
@@ -515,19 +510,19 @@
 			setTimeout(function() {
 				//more time delays if the user pressed no
 				const barChart = new BarChart('barchart', tiktokUserData);
-			}, 4000);
+			}, 1500);
 
 			setTimeout(function() {
 				text1.classList.add('show');
-			}, 2000);
+			}, 500);
 
 			setTimeout(function() {
 				text2.classList.add('show');
-			}, 8000);
+			}, 2000);
 
 			setTimeout(function() {
 				text3.classList.add('show');
-			}, 10000);
+			}, 3000);
 		});
 	});
 </script>
