@@ -3,7 +3,7 @@ class FacePlot {
         this.parentElement = parentElement;
         this.spotifyData = spotifyData;
         this.tiktokData = tiktokData;
-        this.currentArtist = null; // Initialize the currently displayed artist
+        this.currentArtist = null;
         this.initVis();
 
     }
@@ -26,6 +26,7 @@ class FacePlot {
         };
 
         d3.select('#showTopArtistsButton').text('Top Spotify Artists');
+
 
         d3.select('#showTopArtistsButton').on('click', function () {
             if (vis.isShowingTikTok) {
@@ -92,7 +93,6 @@ class FacePlot {
             });
 
         if (vis.uniqueArtists.length > vis.numDisplayedArtists) {
-            // Adjust the number of displayed artists
             vis.numDisplayedArtists = vis.uniqueArtists.length;
         }
 
@@ -106,16 +106,12 @@ class FacePlot {
 
         vis.artistNameContainer = d3.select('#artist-name-container');
 
-
         vis.svgBar = d3.select('#bar-chart')
             .append("svg")
             .attr("width", 350)
             .attr("height", 350);
 
-
-        window.onload = () => {
-            this.updateVis();
-        };
+        vis.updateVis();
     }
 
     drawBarChart(averageValues) {
@@ -126,11 +122,9 @@ class FacePlot {
         const maxBarHeight = 200;
         vis.svgBar.selectAll('*').remove();
 
-        // Create a container for the bar chart
         const chartContainer = vis.svgBar.append("g")
             .attr("class", "chart-container");
 
-        // Append new bars
         chartContainer.selectAll(".bar")
             .data(attributes)
             .enter()
@@ -142,7 +136,6 @@ class FacePlot {
             .attr("height", d => maxBarHeight * averageValues[d])
             .style("fill", (d, i) => (vis.isShowingTikTok ? '#ff0050' : '#00f2ea'));
 
-        // Append labels for each bar
         chartContainer.selectAll(".bar-label")
             .data(attributes)
             .enter()
@@ -179,11 +172,9 @@ class FacePlot {
         let source;
 
         if (vis.isShowingTikTok) {
-            // If currently showing TikTok data, use TikTok data
             artistTracks = vis.tiktokData.filter(entry => entry.artist_name === selectedArtist);
             source = 'TikTok';
         } else {
-            // If currently showing Spotify data, use Spotify data
             artistTracks = vis.spotifyData.filter(entry => entry.artist_name === selectedArtist);
             source = 'Spotify';
         }
@@ -239,8 +230,6 @@ class FacePlot {
 
     handleMouseEvents() {
         let vis = this;
-
-        // Select all circles within newCells
         vis.newCells.selectAll('circle')
             .on('mouseover', function (event, d) {
                 d3.select(this).style('filter', 'url(#drop-shadow)'); // Apply shadow filter
@@ -255,14 +244,23 @@ class FacePlot {
 
     updateVis() {
         let vis = this;
-        // Update the data binding for cells
         const cells = vis.svg.selectAll('.cell')
             .data(vis.subset);
 
-        // Exit
+        d3.select('#showTopArtistsButton').on('click', function () {
+            if (vis.isShowingTikTok) {
+                vis.getTopArtistsFromSpotify();
+                d3.select(this).text('Show TikTok Data'); // Change button text
+            } else {
+                vis.getTopArtistsFromTiktok();
+                d3.select(this).text('Show Spotify Data'); // Change button text
+            }
+            vis.updateVis();
+        });
+
         cells.exit()
-            .transition() // Add transition for exit
-            .duration(500) // Set the duration of the transition in milliseconds
+            .transition()
+            .duration(500)
             .remove();
 
          vis.newCells = cells.enter()
@@ -317,10 +315,5 @@ class FacePlot {
         });
 
         vis.handleMouseEvents();
-
-
-
     }
-
-
 }

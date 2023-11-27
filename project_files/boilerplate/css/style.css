@@ -46,29 +46,26 @@ h2 {
     margin-top: 20px;
 }
 
-.yes-button, #yesButton {
+.button {
     padding: 10px 20px;
     pointer-events: auto;
     margin-right: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#yesButton {
     background-color: #00f2ea;
     color: black;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
 }
 
-.no-button, #noButton, #showTopArtistsButton {
-    padding: 10px 20px;
+#noButton, #showTopArtistsButton {
     background-color: #ff0050;
     color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    margin-bottom: 20px; /* Adjust the margin as needed */
-
 }
+
 
 .yes-button:hover, #yesButton:hover,
 .no-button:hover, #noButton:hover {
@@ -501,7 +498,6 @@ h2 {
 .button-container h2 {
     margin-bottom: 15px;
 }
-
 
 
 .button-group {
