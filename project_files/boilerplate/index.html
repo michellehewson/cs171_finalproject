@@ -174,15 +174,19 @@
 
 	<div data-anchor="page7" class="section">
 		<div class="col-auto">
-			<h2> Let's Take a Closer Look at the Top Artists!</h2>
-			<button id="showTopArtistsButton">Show Spotify Data</button>
+			<h3>Let's take a closer look at the top artists on both platforms!</h3>
+			<h5>Both platforms have a unique way of ranking top artists. </h5>
+			<h5>On TikTok, artists were ranked based on the duration of time their tracks spent on the top charts.</h5>
+			<h5>Artists on Spotify were ranked by Spotify's unique artist popularity metric &ndash; it's measured by their number of streams.</h5>
+			<h5 class="h5-info">These artists hold the highest ranking across both platforms, showcasing their widespread influence in the music industry.</h5>
+			<h5>Hover over an artist to view their top tracks!</h5>
+				<button id="showTopArtistsButton">Top Spotify Artists</button>
 			<div class="row">
-				<div class="col-md-8">
-					<div id="faceplot"></div>
+				<div class="col-md-7">
+					<div id="faceplot" style="width: 80%;"></div>
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-5">
 					<div id="artist-name-container">
-						<p> Hover over an artist to view their top tracks!</p>
 					</div>
 					<div id="bar-chart">
 
@@ -285,42 +289,57 @@
 	</div>
 
 	<div data-anchor="page11" class="section">
-		<h2>How do the Top Songs Overlap?</h2>
 		<div class="row">
-			<div class="col-md-6">
-				<div class="slider-container">
-					<div id="spotify-slider"></div>
-					<div class="slider-label">
-						<span id="start-label-s" class = "slider-label-left"></span>
-						<span id="end-label-s"  class="slider-label-right"></span>
+			<div class="col-md-2">
+				<div class="justify-content-center">
+					<h3 class="radar-title">How do the Top Songs Overlap?</h3>
+					<h5>Every song has a unique fingerprint, as shown in the radar charts below. Different values for different attributes can mean ... idk</h5>
+					<h5>Explain how to use viz</h5>
+				</div>
+			</div>
+			<div class="col-md-5">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="slider-container">
+							<div id="spotify-slider"></div>
+							<div class="slider-label">
+								<span id="start-label-s" class="slider-label-left"></span>
+								<span id="end-label-s" class="slider-label-right"></span>
+							</div>
+						</div>
+						<div id="spotifyradarchart"></div>
 					</div>
 				</div>
-
-				<div id="spotifyradarchart"></div>
-			</div>
-			<div class="col-md-6">
-				<div class="slider-container">
-					<div id="tiktok-slider"></div>
-					<div class="slider-label">
-						<span id="start-label-t" class = "slider-label-left"></span>
-						<span id="end-label-t"  class="slider-label-right"></span>
+				<div class="row">
+					<div class="col-md-12">
+						<h2> Songs on Spotify Chart:</h2>
+						<div id="spotify-track-names" class="track-names"></div>
 					</div>
 				</div>
-				<div id="tiktokradarchart"></div>
+			</div>
+			<div class="col-md-5">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="slider-container">
+							<div id="tiktok-slider"></div>
+							<div class="slider-label">
+								<span id="start-label-t" class="slider-label-left"></span>
+								<span id="end-label-t" class="slider-label-right"></span>
+							</div>
+						</div>
+						<div id="tiktokradarchart"></div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<h2> Songs on Tiktok Chart:</h2>
+						<div id="tiktok-track-names" class="track-names"></div>
+					</div>
+				</div>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-md-6">
-				<h3> Songs on Spotify Chart:</h3>
-				<div id="spotify-track-names" class="track-names"></div>
-			</div>
-			<div class="col-md-6">
-				<h3> Songs on Tiktok Chart:</h3>
-				<div id="tiktok-track-names" class="track-names"></div>
-			</div>
-		</div>
-
 	</div>
+
 
 
 	<div data-anchor="page12" class="section">
@@ -329,7 +348,7 @@
 				<h3 id="piano-title2">Playing with the Distribution of Keys Among Top Songs</h3>
 				<h4 class="piano-description">In music theory, the key of a song is its central pitch. There are 12 keys that a song can be recorded in.</h4>
 				<h4 class="piano-description">Each key represent 1 of the 12 pitches within an octave.</h4>
-				<h4 class="piano-description">Try investigating the 12 key distribution of the top songs on Spotify and TikTok in 2022!</h4>			</div>
+				<h4 class="piano-description">Try investigating the 12 key distribution of the top songs on Spotify and TikTok in 2022 by playing the piano!</h4>			</div>
 			<div class="right-column">
 				<!--
 				<h1 id="piano-title">Playing with the Distribution of Keys Among Top Songs</h1>
