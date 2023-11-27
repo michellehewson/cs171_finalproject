@@ -675,3 +675,20 @@ h3 {
 .radar-title {
     margin-bottom: 30px;
 }
+
+.select-title{
+    font-family: 'Times New Roman', sans-serif;
+    color: black;
+}
+.custom-select{
+    background-color: #ff0050;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+.custom-select option:checked{
+    background-color: lightgrey;
+    color: white;
+}
