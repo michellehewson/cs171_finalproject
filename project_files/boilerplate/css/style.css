@@ -18,7 +18,7 @@
 h1 {
     text-align: center;
     font-family: 'Times New Roman', sans-serif;
-    color: #333;
+    color: black;
     margin-top: 50px;
 }
 
@@ -186,13 +186,21 @@ h2 {
 }
 
 .rectangle {
-    margin-bottom: 20px; /* Adjust the spacing between rectangles */
+    margin-bottom: 20px;
     padding: 20px;
-    border-radius: 15px; /* Adjust the border-radius for soft edges */
-    background-color: #ff0050; /* Set the background color of the rectangle */
-    color: white; /* Set the text color */
-    text-align: center; /* Center the text */
+    border-radius: 15px;
+    background-color: white;
+    color: black;
+    text-align: center;
+    display: inline-block;
+    border: 3px solid black;
+    line-height: 1.2;
 }
+
+.text-container {
+    text-align: center;
+}
+
 
 .rectangle h2 {
     margin-bottom: 10px; /* Adjust the spacing between the title and the paragraph */
@@ -529,9 +537,8 @@ input[type="radio"]:checked + label {
     height: 400px;
     width: 100%;
     padding: 20px;
-    border: thin solid grey;
     border-radius: 5px;
-    background: whitesmoke;
+    background: white;
 }
 
 #spotHist {
@@ -541,9 +548,8 @@ input[type="radio"]:checked + label {
     height: 400px;
     width: 100%;
     padding: 20px;
-    border: thin solid grey;
     border-radius: 5px;
-    background: whitesmoke;
+    background: white;
 }
 #tikScatterDiv {
     display: flex;
@@ -552,9 +558,8 @@ input[type="radio"]:checked + label {
     height: 400px;
     width: 100%;
     padding: 20px;
-    border: thin solid grey;
     border-radius: 5px;
-    background: whitesmoke;
+    background: white;
 }
 
 #spotScatterDiv {
@@ -564,11 +569,122 @@ input[type="radio"]:checked + label {
     height: 400px;
     width: 100%;
     padding: 20px;
-    border: thin solid grey;
     border-radius: 5px;
-    background: whitesmoke;
+    background: white;
 }
 
 .piano-col {
     margin-left: 0px;
+}
+
+.imagecontainer {
+    position: relative;
+    width: 100%;
+    height: 20vh;
+}
+
+.bouncing-image {
+    position: absolute;
+    animation: animate 8s linear 0s infinite alternate;
+}
+
+/* https://stackoverflow.com/questions/22076732/move-image-around-browser-window-and-bounce-back-on-striking-side-wall */
+
+@keyframes animate {
+    0%, 100% {
+        left: calc(85% - 100px);
+    }
+    50% {
+        left: 0;
+    }
+}
+
+h5 {
+    font-family: 'Times New Roman', sans-serif;
+    color: black;
+    font-size: 19px;
+}
+
+h3 {
+    font-family: 'Times New Roman', sans-serif;
+    font-weight: bold;
+
+    font-size: 36px;
+}
+
+.centered-h4-title {
+    text-align: center;
+    font-size: 40px;
+    font-family: 'Times New Roman', sans-serif;
+    font-weight: bold;
+
+}
+
+
+.h2-subtitle {
+    text-align: center;
+    font-size: 30px;
+    font-family: 'Times New Roman', sans-serif;
+    font-weight: bold;
+    margin-top: 100px;
+}
+
+#spotifyradarchart,
+#tiktokradarchart {
+    margin: 0 auto;
+    display: block;
+    text-align: center;
+}
+
+.h4-title {
+    text-align: center;
+    font-size: 40px;
+    font-family: 'Times New Roman', sans-serif;
+    font-weight: bold;
+    margin-bottom: 30px;
+
+
+}
+
+.h4-subtitle {
+    text-align: center;
+    font-size: 33px;
+    font-family: 'Times New Roman', sans-serif;
+    font-weight: bold;
+    margin-top: 30px;
+
+
+}
+
+.main-title {
+    text-align: center;
+    font-family: 'Times New Roman', sans-serif;
+    color: black;
+    margin-top: 10px;
+
+}
+
+.h5-info {
+    margin-top: 30px;
+}
+
+.radar-title {
+    margin-bottom: 30px;
+}
+
+.select-title{
+    font-family: 'Times New Roman', sans-serif;
+    color: black;
+}
+.custom-select{
+    background-color: #ff0050;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+.custom-select option:checked{
+    background-color: lightgrey;
+    color: white;
 }

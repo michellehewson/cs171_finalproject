@@ -43,9 +43,9 @@ class Histogram{
 
         vis.bartitle= "";
         if (vis.spotify == "Spotify"){
-            vis.bartitle = 'Spotify Stats';
+            vis.bartitle = 'Spotify Song Distribution';
         } else {
-            vis.bartitle = 'Tiktok Stats';
+            vis.bartitle = 'Tiktok Song Distribution';
         }
 
         // add title
@@ -53,6 +53,9 @@ class Histogram{
             .attr('class', 'title bar-title')
             .append('text')
             .text(vis.bartitle)
+            .style("font-size", "24px")
+            .style("font-weight", "bold")
+            .style('font-family', 'Times New Roman, sans-serif')
             .attr('transform', `translate(${(vis.width - vis.margin.left) / 2}, -20)`); // Rotate the text labels by -45 degrees;
 
         vis.svg.append('g')
@@ -74,7 +77,8 @@ class Histogram{
 
         //console.log(this.data)
 
-        let selectedAttribute =  document.getElementById('categorySelector').value;
+        let selectedAttributeName =  document.getElementById('categorySelector').value;
+        let selectedAttribute =  (document.getElementById('categorySelector').value).toLowerCase();;
 
         console.log(selectedAttribute)
 
@@ -106,7 +110,7 @@ class Histogram{
 
         // Append x-axis label
         vis.xAxisLabel = vis.svg.selectAll(".x-axis-label")
-            .data([selectedAttribute]);
+            .data([selectedAttributeName]);
 
         // Enter
         vis.xAxisLabel.enter()
@@ -116,14 +120,14 @@ class Histogram{
             .attr("x", vis.width / 2)
             .attr("y", vis.height + 45)
             .style("opacity", 0) // Set initial opacity to 0 for enter transition
-            .text(selectedAttribute)
+            .text(selectedAttributeName)
             .transition()
             .duration(500)
             .style("opacity", 1); // Transition to full opacity
 
         // Update
         vis.xAxisLabel
-            .text(selectedAttribute);
+            .text(selectedAttributeName);
 
         // Exit
         vis.xAxisLabel.exit()

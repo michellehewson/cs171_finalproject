@@ -155,7 +155,6 @@ function initMainPage(dataArray) {
     tiktokradarChart = new RadarChart('tiktokradarchart', dataArray[1], 'tiktok')
     pianoChart = new Piano('piano', dataArray[3], dataArray[4])
     faceplot = new FacePlot('faceplot', dataArray[0], dataArray[1])
-    //barChart = new BarChart('barchart', dataArray[5])
 
     tiktokHistogram = new Histogram("tiktokHist", dataArray[1], "Tiktok")
     console.log('Hi')
@@ -163,6 +162,8 @@ function initMainPage(dataArray) {
 
     TikscatterChart = new ScatterChart("tikScatterDiv", dataArray[1] , "Tiktok")
     SpotscatterChart = new ScatterChart("spotScatterDiv",dataArray[0], "Spotify")
+    songCharacteristics = new SongCharacteristics('songcharacteristics')
+
 }
 
 /*let carousel = new bootstrap.Carousel(document.getElementById('stateCarousel'), {interval: false})

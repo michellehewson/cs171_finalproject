@@ -21,9 +21,23 @@
 <!-- we can add each page here -->
 <div id="fullPage">
 	<div data-anchor="page1" class="section">
-		<h1>From Tiktok Trends to Playlist Picks</h1>
-		<h2>Exploring Musical Trends Across Spotify and TikTok</h2>
+		<div class="text-container">
+			<div class="rectangle">
+				<h1 class="main-title">From Tiktok Trends to Playlist Picks</h1>
+				<h2>Exploring Musical Trends Across Spotify and TikTok</h2>
+			</div>
+		</div>
+		<!--
+		<marquee behavior="alternate" scrollamount="30">
+			<img src="img/tiktok.png">
+		</marquee>
+ -->
+
 	</div>
+
+
+
+
 	<div data-anchor="page2" class="section">
 		<div class="column-container">
 			<div class="column">
@@ -84,7 +98,7 @@
 					<h2 id="tiktok-text2">This rise in popularity is a testament to TikTok's capability to shape current trends and culture.</h2>
 				</div>
 				<div class="fade-in-tiktok-text3">
-					<h2 id="tiktok-text3"><b>Let's explore whether TikTok's immense popularity in 2022 influenced music trends during that period.</b></h2>
+					<h2 id="tiktok-text3"><b>Let's explore music trends in 2022 and whether TikTok's immense popularity had any influence on them.</b></h2>
 				</div>
 			</div>
 			<div class="column fixed-column" style="position: sticky; top: 20px; height: 716.79px; width: 350px;">
@@ -108,8 +122,11 @@
 		<div class="column-container">
 			<div class="column-left">
 				<h3>Explore the artists who dominated the TikTok and Spotify charts in 2022.</h3>
+				<h5>Hover over a bubble to learn more information about an artist.</h5>
 				<div id="legend"></div>
 				<div id="popupRectangle" class="popup-rectangle">
+
+					<h5>Select a button to filter the artists.</h5>
 
 					<div>
 						<input type="radio" id="together-radio" name="cluster-type" value="together" checked>
@@ -142,33 +159,32 @@
 	</div>
 
 	<div data-anchor="page5" class="section">
-		<div class="circle-container">
+
+		<div class="text-container">
 			<div class="rectangle">
-				<h2>What makes an artist popular on TikTok vs Spotify?</h2>
-			</div>
-			<div class="rectangle">
-				<h4>From the bubble chart, we can see that most of the popular artists dominated these platforms with one featured song,
-					while a few of them have multi songs. Around 30% of artists have songs on both platform's popular lists.
-					But who are the most popular artists exactly?</h4>
-			</div>
-		</div>
+		<h4 class="h4-title">In 2022, the top music charts on Spotify and TikTok featured over 400 musical artists.</h4>
+				<h4>The above bubble chart shows that about 30% of these artists secured top-ranking songs on both platforms. <br>Further, each chart was mostly dominated by one-hit-wonders &ndash; artists who left their mark with just a single impactful release.</h4>
+		<h4>But among the many chart-topping artists and plentiful one-hit-wonders, only a few truly stood out.</h4>
+				<h4 class="h4-subtitle"><strong>Who were these top artists that grabbed everyone's attention the most on Spotify and TikTok?</strong></h4>
 	</div>
-
-	<div data-anchor="page6" class="section">
-
+			</div>
 	</div>
 
 	<div data-anchor="page7" class="section">
 		<div class="col-auto">
-			<h2> Let's Take a Closer Look at the Top Artists!</h2>
-			<button id="showTopArtistsButton">Show Spotify Data</button>
+			<h3>Let's take a closer look at the top artists on both platforms!</h3>
+			<h5>Both platforms have a unique way of ranking top artists. </h5>
+			<h5>On TikTok, artists were ranked based on the duration of time their tracks spent on the top charts.</h5>
+			<h5>Artists on Spotify were ranked by Spotify's unique artist popularity metric &ndash; it's measured by their number of streams.</h5>
+			<h5 class="h5-info">These artists hold the highest ranking across both platforms, showcasing their widespread influence in the music industry.</h5>
+			<h5>Hover over an artist to view their top tracks!</h5>
+				<button id="showTopArtistsButton">Top Spotify Artists</button>
 			<div class="row">
-				<div class="col-md-8">
-					<div id="faceplot"></div>
+				<div class="col-md-7">
+					<div id="faceplot" style="width: 80%;"></div>
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-5">
 					<div id="artist-name-container">
-						<p> Hover over an artist to view their top tracks!</p>
 					</div>
 					<div id="bar-chart">
 
@@ -179,117 +195,68 @@
 	</div>
 
 	<div data-anchor="page8" class="section">
-		<div class="circle-container">
-			<div class="rectangle">
-				<h2>What makes a song popular on these platforms?</h2>
-			</div>
-		</div>
+		<h4 class="centered-h4-title">Now that we have explored the top artists that were featured on 2022's top charts, <br>it's time to dive deeper into the songs themselves.</h4>
+		<div id="songcharacteristics"></div>
+		<h2 class="h2-subtitle">How do these attributes contribute to a song's popularity in TikTok or Spotify?</h2>
+
 	</div>
+
+
+
+
 	<div data-anchor="page9" class="section">
-		<h2>Radar chart</h2>
 		<div class="row">
-			<div class="col-md-6">
-				<div class="slider-container">
-					<div id="spotify-slider"></div>
-					<div class="slider-label">
-					<span id="start-label-s" class = "slider-label-left"></span>
-					<span id="end-label-s"  class="slider-label-right"></span>
-					</div>
-					</div>
-
-				<div id="spotifyradarchart"></div>
-			</div>
-			<div class="col-md-6">
-				<div class="slider-container">
-					<div id="tiktok-slider"></div>
-					<div class="slider-label">
-					<span id="start-label-t" class = "slider-label-left"></span>
-					<span id="end-label-t"  class="slider-label-right"></span>
-					</div>
-				</div>
-				<div id="tiktokradarchart"></div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-6">
-				<h3> Songs on Spotify Chart:</h3>
-				<div id="spotify-track-names" class="track-names"></div>
-			</div>
-			<div class="col-md-6">
-				<h3> Songs on Tiktok Chart:</h3>
-				<div id="tiktok-track-names" class="track-names"></div>
-			</div>
-		</div>
-
-	</div>
-
-	<div data-anchor="page10" class="section">
-		<h2>Histograms on attributes </h2>
-
-		<div class = "row">
-			<div class = "col-md-4"></div>
-			<div class = "col-md-4">
-				Feature to compare:
-				<select id='categorySelector' class="custom-select align-self-center" onchange="categoryChange()">
-					<option value="danceability" selected>Danceability</option>
-					<option value="acousticness">Acousticness</option>
-					<option value="speechiness">Speechiness</option>
-					<option value="tempo">Tempo</option>
-					<option value="liveness">Liveness</option>
-					<option value="energy">Energy</option>
-				</select>
-			</div>
-		</div>
-
-		<div class = "row">
-			<div class = "col-md-4">
-
-
-				<h4>
-					In this part we show the distributions of the number of songs regarding their different attributes.
+			<div class="col-md-4">
+				<h3>Explore the Distribution of Attributes Across Both Platforms</h3>
+				<h5>
+					In this part, we show the distributions of the number of songs regarding their different attributes.
 					Some insights are: the distributions of songs categorized by attributes are similar across Tiktok and Spotify.
 					Songs are normally distributed across the feature "danceability" and "energy", while more songs are ranked on the "lesser" side over other features.
-				</h4>
-
+					<br> How to use this vis:
+					Select a trait from the dropdown list for the axis,
+					and you can see the distribution of all the songs on TikTok and Spotify across the scale of this trait.
+				</h5>
+				<h4 class="select-title">Feature to compare:</h4>
+				<select id='categorySelector' class="custom-select align-self-center" onchange="categoryChange()">
+					<option value="Danceability" selected>Danceability</option>
+					<option value="Acousticness">Acousticness</option>
+					<option value="Speechiness">Speechiness</option>
+					<option value="Tempo">Tempo</option>
+					<option value="Liveness">Liveness</option>
+					<option value="Energy">Energy</option>
+				</select>
 			</div>
+
+			<div class="col-md-8">
+
+					<div class="col-md-6">
+
+					</div>
+
+				<div class="row">
+					<div class="col-md-6" id="tiktokHist"></div>
+					<div class="col-md-6" id="spotHist"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<div data-anchor="page10" class="section">
+		<div class="row">
 			<div class="col-md-4">
-				<div id="tiktokHist">
-				</div>
-			</div>
+				<h3>The comparison of different attributes</h3>
+				<h5>
+					These two plots show the comparisons between different attributes for the songs over the two platforms.
+					For example, if "Acousticness" is selected on X-axis and "Energy" is selected on Y-axis,
+					user can see a negative relationship between these two features of the songs.
+					<br> How to use this vis:
+					Select a trait from the dropdown list for X and another trait for Y axis,
+					and you can see the relationship between the two traits of all the songs on TikTok and Spotify.
 
-			<div class="col-md-4" >
-				<div id="spotHist">
-				</div>
-			</div>
-		</div>
-
-
-
-	</div>
-
-	<div data-anchor="page11" class="section">
-		<div class="container-piano">
-			<div class="left-column">
-				<h3 id="piano-title2">Playing with the Distribution of Keys Among Top Songs</h3>
-				<h4 class="piano-description">In music theory, the key of a song is its central pitch. There are 12 keys that a song can be recorded in.</h4>
-				<h4 class="piano-description">Each key represent 1 of the 12 pitches within an octave.</h4>
-				<h4 class="piano-description">Try investigating the 12 key distribution of the top songs on Spotify and TikTok in 2022!</h4>			</div>
-			<div class="right-column">
-				<!--
-				<h1 id="piano-title">Playing with the Distribution of Keys Among Top Songs</h1>
-				-->
-				<div id="piano"></div>
-			</div>
-		</div>
-	</div>
-
-	<div data-anchor="page12" class="section">
-		<h2>The comparison of different attributes</h2>
-
-		<div class = 'row'>
-			<div class = 'col-4'></div>
-			<div class="col-3">
-				X Axis:
+				</h5>
+				<h4 class="select-title">X Axis:</h4>
 				<select id='XcategorySelector' class="custom-select align-self-center" onchange="XcategoryChange()">
 					<option value="danceability" selected>Danceability</option>
 					<option value="acousticness">Acousticness</option>
@@ -298,9 +265,7 @@
 					<option value="liveness">Liveness</option>
 					<option value="energy">Energy</option>
 				</select>
-			</div>
-			<div class="col-3">
-				Y Axis:
+				<h4 class="select-title">Y Axis:</h4>
 				<select id='YcategorySelector' class="custom-select align-self-center" onchange="YcategoryChange()">
 					<option value="danceability" selected>Danceability</option>
 					<option value="acousticness">Acousticness</option>
@@ -310,30 +275,123 @@
 					<option value="energy">Energy</option>
 				</select>
 			</div>
-		</div>
-		<div class = 'row'>
-			<div class = "col-md-4">
-				<h4>
-					These two plots show the comparisons between different attributes for the songs over the two platforms.
-					For example, if "Acousticness" is selected on X axis and "Energy" is selected on Y-axis,
-					user can see a negative relationship between these two features of the songs.
-				</h4>
 
-			</div>
-			<div class="col-md-4">
-				<div id="tikScatterDiv">
+			<div class="col-md-8">
+
+				<div class="col-md-6">
+
 				</div>
-			</div>
-			<div class="col-md-4">
-				<div id="spotScatterDiv">
+
+				<div class="row">
+					<div class="col-md-6" id="tikScatterDiv"></div>
+					<div class="col-md-6" id="spotScatterDiv"></div>
 				</div>
 			</div>
 		</div>
-
 
 	</div>
+
+	<div data-anchor="page11" class="section">
+		<div class="row">
+			<div class="col-md-2">
+				<div class="justify-content-center">
+					<h3 class="radar-title">How do the Top Songs Overlap?</h3>
+					<h5>Every song has a unique fingerprint, as shown in the radar charts below. Different values for different attributes can mean ... idk</h5>
+					<h5>Explain how to use viz</h5>
+				</div>
+			</div>
+			<div class="col-md-5">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="slider-container">
+							<div id="spotify-slider"></div>
+							<div class="slider-label">
+								<span id="start-label-s" class="slider-label-left"></span>
+								<span id="end-label-s" class="slider-label-right"></span>
+							</div>
+						</div>
+						<div id="spotifyradarchart"></div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<h2> Songs on Spotify Chart:</h2>
+						<div id="spotify-track-names" class="track-names"></div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-5">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="slider-container">
+							<div id="tiktok-slider"></div>
+							<div class="slider-label">
+								<span id="start-label-t" class="slider-label-left"></span>
+								<span id="end-label-t" class="slider-label-right"></span>
+							</div>
+						</div>
+						<div id="tiktokradarchart"></div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<h2> Songs on Tiktok Chart:</h2>
+						<div id="tiktok-track-names" class="track-names"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<div data-anchor="page12" class="section">
+		<div class="container-piano">
+			<div class="left-column">
+				<h3 id="piano-title2">Playing with the Distribution of Keys Among Top Songs</h3>
+				<h4 class="piano-description">In music theory, the key of a song is its central pitch. There are 12 keys that a song can be recorded in.</h4>
+				<h4 class="piano-description">Each key represent 1 of the 12 pitches within an octave.</h4>
+				<h4 class="piano-description">Try investigating the 12 key distribution of the top songs on Spotify and TikTok in 2022 by playing the piano!</h4>			</div>
+			<div class="right-column">
+				<!--
+				<h1 id="piano-title">Playing with the Distribution of Keys Among Top Songs</h1>
+				-->
+				<div id="piano"></div>
+			</div>
+		</div>
+	</div>
+
 	<div data-anchor="page13" class="section">
-		<h2>conclusion</h2>
+
+
+		<div class="text-container">
+			<div class="rectangle">
+				<h4>conclusion</h4>
+			</div>
+
+			<div class="text-container">
+				<div class="rectangle">
+					<h6 class="centered-h6-title">
+						From the statistics we can see that for songs on both Tiktok and Spotify, songs that are the most popular<br>
+						tend to have high energy, medium to high danceability, low acousticness, low liveness and low speechiness.<br>
+						These traits indicate that a typical popular song would be fast, easy to dance with, composed with<br>
+						electronic instruments rather than acoustic instruments; studio-recorded and produced rather than on a live<br>
+						performance, and consists of music rather than pure spoken words.<br>
+						In addition, these traits of popular songs are consistent on both Tiktok and Spotify.
+					</h6>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div data-anchor="page14" class="section">
+
+		<div class="text-container">
+			<div class="rectangle">
+				<h4>references</h4>
+			</div>
+		</div>
+
 	</div>
 
 </div>
@@ -490,6 +548,7 @@
 <script src="js/tiktokBarChart.js"></script>
 <script src="js/histogram.js"></script>
 <script src="js/scatterchart.js"></script>
+<script src="js/songCharacteristics.js"></script>
 <script src="js/main.js"></script>
 
 
