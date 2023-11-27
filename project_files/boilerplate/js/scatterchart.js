@@ -44,9 +44,9 @@ class ScatterChart {
         vis.bartitle= "";
 
         if (vis.spotify == "Spotify"){
-            vis.bartitle = 'Spotify Stats';
+            vis.bartitle = 'Spotify Songs';
         } else {
-            vis.bartitle = 'Tiktok Stats';
+            vis.bartitle = 'Tiktok Songs';
 
         }
 
@@ -56,6 +56,9 @@ class ScatterChart {
             .attr('class', 'title bar-title')
             .append('text')
             .text(vis.bartitle)
+            .style("font-size", "24px")
+            .style("font-weight", "bold")
+            .style('font-family', 'Times New Roman, sans-serif')
             .attr('transform', `translate(${(vis.width-vis.margin.left) / 2}, -20)`); // Rotate the text labels by -45 degrees;
 
 

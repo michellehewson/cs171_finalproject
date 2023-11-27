@@ -92,13 +92,13 @@
 			<div class="column fixed-column" style="position: sticky; top: 20px; height: 716.79px; width: 375px;">
 				<h2 id="response-text" style="display: none;"></h2>
 				<div class="fade-in-tiktok-text1">
-					<h2>TikTok dominated in 2022 as the most downloaded app on the market, accumulating over <b>800 million</b> downloads.</h2>
+					<h2 style="margin-top: 90px;">TikTok dominated in 2022 as the most downloaded app on the market, accumulating over <b>800 million</b> downloads.</h2>
 				</div>
 				<div class="fade-in-tiktok-text2">
-					<h2 id="tiktok-text2">This rise in popularity is a testament to TikTok's capability to shape current trends and culture.</h2>
+					<h2 style="margin-top: 90px;" id="tiktok-text2">This rise in popularity is a testament to TikTok's capability to shape current trends and culture.</h2>
 				</div>
 				<div class="fade-in-tiktok-text3">
-					<h2 id="tiktok-text3"><b>Let's explore music trends in 2022 and whether TikTok's immense popularity had any influence on them.</b></h2>
+					<h2 style="margin-top: 90px;" id="tiktok-text3"><b>Let's explore music trends in 2022 and whether TikTok's immense popularity had any influence on them.</b></h2>
 				</div>
 			</div>
 			<div class="column fixed-column" style="position: sticky; top: 20px; height: 716.79px; width: 350px;">
@@ -163,9 +163,10 @@
 		<div class="text-container">
 			<div class="rectangle">
 		<h4 class="h4-title">In 2022, the top music charts on Spotify and TikTok featured over 400 musical artists.</h4>
-				<h4>The above bubble chart shows that about 30% of these artists secured top-ranking songs on both platforms. <br>Further, each chart was mostly dominated by one-hit-wonders &ndash; artists who left their mark with just a single impactful release.</h4>
-		<h4>But among the many chart-topping artists and plentiful one-hit-wonders, only a few truly stood out.</h4>
-				<h4 class="h4-subtitle"><strong>Who were these top artists that grabbed everyone's attention the most on Spotify and TikTok?</strong></h4>
+				<h4 style="margin-top: 30px;">The above bubble chart shows that about 30% of these artists secured top-ranking songs on both platforms.</h4>
+				<h4><br>Further, each chart was mostly dominated by one-hit-wonders &ndash; artists who left their mark with just a single impactful release.</h4>
+		<h4 style="margin-top: 30px;">But among the many chart-topping artists and plentiful one-hit-wonders, a few truly stood out.</h4>
+				<h4 class="h4-subtitle" style="margin-top: 30px;"><strong>Who were these top artists that grabbed everyone's attention on Spotify and TikTok?</strong></h4>
 	</div>
 			</div>
 	</div>
@@ -202,19 +203,12 @@
 	</div>
 
 
-
-
 	<div data-anchor="page9" class="section">
 		<div class="row">
-			<div class="col-md-4">
-				<h3>Explore the Distribution of Attributes Across Both Platforms</h3>
+			<div class="col-md-4 ">
+				<h3 style="margin-top: 250px;">Explore the distribution of attributes across both platforms.</h3>
 				<h5>
-					In this part, we show the distributions of the number of songs regarding their different attributes.
-					Some insights are: the distributions of songs categorized by attributes are similar across Tiktok and Spotify.
-					Songs are normally distributed across the feature "danceability" and "energy", while more songs are ranked on the "lesser" side over other features.
-					<br> How to use this vis:
-					Select a trait from the dropdown list for the axis,
-					and you can see the distribution of all the songs on TikTok and Spotify across the scale of this trait.
+					Select a trait from the dropdown list to see the distribution of all songs across the scale of this trait.
 				</h5>
 				<h4 class="select-title">Feature to compare:</h4>
 				<select id='categorySelector' class="custom-select align-self-center" onchange="categoryChange()">
@@ -245,51 +239,50 @@
 
 	<div data-anchor="page10" class="section">
 		<div class="row">
-			<div class="col-md-4">
-				<h3>The comparison of different attributes</h3>
-				<h5>
-					These two plots show the comparisons between different attributes for the songs over the two platforms.
-					For example, if "Acousticness" is selected on X-axis and "Energy" is selected on Y-axis,
-					user can see a negative relationship between these two features of the songs.
-					<br> How to use this vis:
-					Select a trait from the dropdown list for X and another trait for Y axis,
-					and you can see the relationship between the two traits of all the songs on TikTok and Spotify.
-
-				</h5>
-				<h4 class="select-title">X Axis:</h4>
-				<select id='XcategorySelector' class="custom-select align-self-center" onchange="XcategoryChange()">
-					<option value="danceability" selected>Danceability</option>
-					<option value="acousticness">Acousticness</option>
-					<option value="speechiness">Speechiness</option>
-					<option value="tempo">Tempo</option>
-					<option value="liveness">Liveness</option>
-					<option value="energy">Energy</option>
-				</select>
-				<h4 class="select-title">Y Axis:</h4>
-				<select id='YcategorySelector' class="custom-select align-self-center" onchange="YcategoryChange()">
-					<option value="danceability" selected>Danceability</option>
-					<option value="acousticness">Acousticness</option>
-					<option value="speechiness">Speechiness</option>
-					<option value="tempo">Tempo</option>
-					<option value="liveness">Liveness</option>
-					<option value="energy">Energy</option>
-				</select>
-			</div>
-
 			<div class="col-md-8">
+				<div id="tikScatterDiv"></div>
+				<div id="spotScatterDiv"></div>
+			</div>
+			<div class="col-md-4 d-flex align-items-center">
+				<div>
+					<h3>Investigate the possible relationships between attributes.</h3>
+					<h5>
+						Select an attribute from the dropdown list for the X axis and another trait for the Y axis
+						to <br> examine the relationship between the two traits of all the songs on TikTok and Spotify.
+					</h5>
 
-				<div class="col-md-6">
-
-				</div>
-
-				<div class="row">
-					<div class="col-md-6" id="tikScatterDiv"></div>
-					<div class="col-md-6" id="spotScatterDiv"></div>
+					<div class="d-flex flex-column">
+						<div class="d-flex flex-row">
+							<div class="mr-3">
+								<h4 class="select-title">X Axis:</h4>
+								<select id='XcategorySelector' class="custom-select" onchange="XcategoryChange()">
+									<option value="danceability" selected>Danceability</option>
+									<option value="acousticness">Acousticness</option>
+									<option value="speechiness">Speechiness</option>
+									<option value="tempo">Tempo</option>
+									<option value="liveness">Liveness</option>
+									<option value="energy">Energy</option>
+								</select>
+							</div>
+							<div>
+								<h4 class="select-title">Y Axis:</h4>
+								<select id='YcategorySelector' class="custom-select" onchange="YcategoryChange()">
+									<option value="danceability" selected>Danceability</option>
+									<option value="acousticness">Acousticness</option>
+									<option value="speechiness">Speechiness</option>
+									<option value="tempo">Tempo</option>
+									<option value="liveness">Liveness</option>
+									<option value="energy">Energy</option>
+								</select>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
-
 	</div>
+
+
 
 	<div data-anchor="page11" class="section">
 		<div class="row">

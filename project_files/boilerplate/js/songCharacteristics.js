@@ -64,7 +64,7 @@ class SongCharacteristics {
             .attr("text-anchor", "middle")
             .style("font-size", "29px")
             .style('font-family', 'Times New Roman, sans-serif')
-            .text("Songs on Spotify are characterized by various attributes that contribute to their individuality. Hover over the characteristics to learn more.");
+            .text("Songs on Spotify are characterized by various attributes that contribute to their individuality. Hover over the icons to learn more.");
 
         vis.images.forEach((image, index) => {
             let circle = vis.svg.append("circle")
