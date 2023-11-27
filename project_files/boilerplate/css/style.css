@@ -439,6 +439,7 @@ h2 {
     text-align: left;
     font-size: 30px;
     font-weight: normal;
+    font-family: 'Times New Roman', sans-serif;
 
 
 }
@@ -675,6 +676,8 @@ h3 {
 .select-title{
     font-family: 'Times New Roman', sans-serif;
     color: black;
+    font-weight: bold;
+
 }
 .custom-select{
     background-color: #ff0050;
