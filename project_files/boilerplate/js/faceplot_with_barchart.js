@@ -1,3 +1,5 @@
+// in case we dont want to keep the embedded spotify songs, this is the code that has the barcharts of the average values for each artist
+
 class FacePlot {
     constructor(parentElement, spotifyData, tiktokData) {
         this.parentElement = parentElement;
@@ -6,31 +8,10 @@ class FacePlot {
         this.currentArtist = null;
         this.initVis();
 
-
     }
 
     initVis() {
         let vis = this;
-
-        vis.music_embed = {
-            'Harry Styles': '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/4Dvkj6JhhA12EX05fT7y2e?utm_source=generator&theme=0" width="60%" height="200" frameBorder="0" allowFullScreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>',
-            'Ed Sheeran': '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/7qiZfU4dY1lWllzX7mPBI3?utm_source=generator&theme=0" width="60%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>',
-            'Shawn Mendes': '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/0TK2YIli7K1leLovkQiNik?utm_source=generator&theme=0" width="60%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>',
-            '24kGoldn': '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/4jPy3l0RUwlUI9T5XHBW2m?utm_source=generator&theme=0" width="60%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>',
-            'Post Malone': '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/3KkXRkHbMCARz0aVfEt68P?utm_source=generator&theme=0" width="60%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>',
-            'The Weeknd': '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/0VjIjW4GlUZAMYd2vXMi3b?utm_source=generator&theme=0" width="60%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>',
-            'Ariana Grande': '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/35mvY5S1H3J2QZyna3TFe0?utm_source=generator&theme=0" width="60%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>',
-            'Tones And I': '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/2XU0oxnq2qxCpomAAuJY8K?utm_source=generator&theme=0" width="60%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>',
-            'Kendrick Lamar': '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/7KXjTSCq5nL1LoYtL7XAwS?utm_source=generator&theme=0" width="60%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>',
-            'Drake': '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/3F5CgOj3wFlRv51JsHbxhe?utm_source=generator&theme=0" width="60%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>',
-            'Justin Bieber': '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/4iJyoBOLtHqaGxP12qzhQI?utm_source=generator&theme=0" width="60%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>',
-            'Rauw Alejandro': '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/4fSIb4hdOQ151TILNsSEaF?utm_source=generator&theme=0" width="60%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>',
-            'Bad Bunny': '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/47EiUVwUp4C9fGccaPuUCS?utm_source=generator&theme=0" width="60%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>',
-            'Doja Cat': '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/6Uj1ctrBOjOas8xZXGqKk4?utm_source=generator&theme=0" width="60%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>',
-            'Imagine Dragons': '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/1r9xUipOqoNwggBpENDsvJ?utm_source=generator&theme=0" width="60%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>'
-        }
-
-
         vis.margin = { top: 40, right: 10, bottom: 60, left: 60 };
         vis.width = 900;
         vis.height = 500;
@@ -127,12 +108,68 @@ class FacePlot {
 
         vis.artistNameContainer = d3.select('#artist-name-container');
 
+        vis.svgBar = d3.select('#bar-chart')
+            .append("svg")
+            .attr("width", 350)
+            .attr("height", 350);
+
         vis.updateVis();
+    }
+
+    drawBarChart(averageValues) {
+        let vis = this;
+        const attributes = ['Danceability', 'Energy', 'Acousticness'];
+        const barWidth = 75;
+
+        const maxBarHeight = 200;
+        vis.svgBar.selectAll('*').remove();
+
+        const chartContainer = vis.svgBar.append("g")
+            .attr("class", "chart-container");
+
+        chartContainer.selectAll(".bar")
+            .data(attributes)
+            .enter()
+            .append("rect")
+            .attr("class", "bar")
+            .attr("x", (d, i) => i * (barWidth + 10))
+            .attr("y", d => maxBarHeight - (maxBarHeight * averageValues[d])) // Calculate y position based on average values
+            .attr("width", barWidth)
+            .attr("height", d => maxBarHeight * averageValues[d])
+            .style("fill", (d, i) => (vis.isShowingTikTok ? '#ff0050' : '#00f2ea'));
+
+        chartContainer.selectAll(".bar-label")
+            .data(attributes)
+            .enter()
+            .append("text")
+            .attr("class", "bar-label")
+            .attr("x", (d, i) => i * (barWidth + 10) + barWidth / 2)
+            .attr("y", maxBarHeight + 20)
+            .attr("text-anchor", "middle")
+            .text(d => d);
+
+        //append the values for each bar
+        chartContainer.selectAll(".bar-value")
+            .data(attributes)
+            .enter()
+            .append("text")
+            .attr("class", "bar-value")
+            .attr("x", (d, i) => i * (barWidth + 10) + barWidth / 2)
+            .attr("y", d => maxBarHeight - (maxBarHeight * averageValues[d]) - 5)
+            .attr("text-anchor", "middle")
+            .style("fill", "black")
+            .text(d => Math.round(averageValues[d] * 100) / 100);
+
+        chartContainer.append("text")
+            .attr("x", (barWidth * attributes.length) / 2)
+            .attr("y", maxBarHeight + 50)
+            .attr("text-anchor", "middle")
+            .text("Average Song Attributes");
     }
 
 
     showTracksForArtist(selectedArtist) {
-        let vis = this;
+        let vis = this
         let artistTracks;
         let source;
 
@@ -144,30 +181,30 @@ class FacePlot {
             source = 'Spotify';
         }
 
-        const spotifyEmbed = vis.generateSpotifyEmbed(selectedArtist);
-
         if (selectedArtist !== vis.currentArtist) {
-            const tracksHtml = artistTracks.map(entry => `<p>${entry.track_name}</p>`).join(''); //chatgpt helped me create this
-            const tracksContainer = d3.select('#artist-name-container');
-            const spotifyEmbedContainer = d3.select('#spotify-music-embed');
-
-
-            tracksContainer.html('');
-            spotifyEmbedContainer.html('');
-
-
-            tracksContainer.append('h4')
-                .text(`Tracks for ${selectedArtist} (from ${source}):`);
-
-            tracksContainer.append('div')
+            const tracksHtml = artistTracks.map(entry => `<p>${entry.track_name}</p>`).join('');
+            d3.select('#artist-name-container')
+                .html(`<h4>Tracks for ${selectedArtist} (from ${source}):</h4>`)
+                .append('div')
                 .html(tracksHtml);
-
-            spotifyEmbedContainer.append('div')
-                .attr('class', 'spotify-embed')
-                .html(spotifyEmbed);
-
             vis.currentArtist = selectedArtist;
         }
+
+        const averageValues = vis.calculateAverageValues(artistTracks);
+        this.drawBarChart(averageValues);
+    }
+
+    calculateAverageValues(tracks) {
+        const numTracks = tracks.length;
+        const sumDanceability = tracks.reduce((sum, track) => sum + track.danceability, 0);
+        const sumEnergy = tracks.reduce((sum, track) => sum + track.energy, 0);
+        const sumAcousticness = tracks.reduce((sum, track) => sum + track.acousticness, 0);
+
+        return {
+            Danceability: sumDanceability / numTracks,
+            Energy: sumEnergy / numTracks,
+            Acousticness: sumAcousticness / numTracks
+        };
     }
 
     getTopArtistsFromTiktok() {
@@ -228,7 +265,7 @@ class FacePlot {
             .duration(500)
             .remove();
 
-         vis.newCells = cells.enter()
+        vis.newCells = cells.enter()
             .append('g')
             .merge(cells) // Merge the enter and update selections
             .attr('class', 'cell')
@@ -281,11 +318,4 @@ class FacePlot {
 
         vis.handleMouseEvents();
     }
-
-    generateSpotifyEmbed(artistName) {
-        let vis = this;
-        vis.embedHTML = this.music_embed[artistName]; //dictionary of the embedded songs from Spotify (click share on a song and you can embed it)
-        return `<div class="spotify-embed">${vis.embedHTML}</div>`;
-        }
-
 }
