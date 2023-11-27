@@ -199,8 +199,6 @@
 	<div data-anchor="page8" class="section">
 		<h4 class="centered-h4-title">Now that we have explored the top artists that were featured on 2022's top charts, <br>it's time to dive deeper into the songs themselves.</h4>
 		<div id="songcharacteristics"></div>
-
-
 		<h2 class="h2-subtitle">How do these attributes contribute to a song's popularity in TikTok or Spotify?</h2>
 
 	</div>
@@ -216,6 +214,9 @@
 					In this part, we show the distributions of the number of songs regarding their different attributes.
 					Some insights are: the distributions of songs categorized by attributes are similar across Tiktok and Spotify.
 					Songs are normally distributed across the feature "danceability" and "energy", while more songs are ranked on the "lesser" side over other features.
+					<br> How to use this vis:
+					Select a trait from the dropdown list for the axis,
+					and you can see the distribution of all the songs on TikTok and Spotify across the scale of this trait.
 				</h5>
 				Feature to compare:
 				<select id='categorySelector' class="custom-select align-self-center" onchange="categoryChange()">
@@ -250,8 +251,12 @@
 				<h3>The comparison of different attributes</h3>
 				<h5>
 					These two plots show the comparisons between different attributes for the songs over the two platforms.
-					For example, if "Acousticness" is selected on X axis and "Energy" is selected on Y-axis,
+					For example, if "Acousticness" is selected on X-axis and "Energy" is selected on Y-axis,
 					user can see a negative relationship between these two features of the songs.
+					<br> How to use this vis:
+					Select a trait from the dropdown list for X and another trait for Y axis,
+					and you can see the relationship between the two traits of all the songs on TikTok and Spotify.
+
 				</h5>
 				X Axis:
 				<select id='XcategorySelector' class="custom-select align-self-center" onchange="XcategoryChange()">
