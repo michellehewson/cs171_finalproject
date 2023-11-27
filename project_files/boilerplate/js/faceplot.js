@@ -12,7 +12,7 @@ class FacePlot {
         let vis = this;
         vis.margin = { top: 40, right: 10, bottom: 60, left: 60 };
         vis.width = 900;
-        vis.height = 690;
+        vis.height = 500;
         vis.svg = d3.select("#" + vis.parentElement).append("svg")
             .attr("width", vis.width + vis.margin.left + vis.margin.right)
             .attr("height", vis.height + vis.margin.top + vis.margin.bottom)
@@ -59,8 +59,8 @@ class FacePlot {
             .attr('transform', (d, i) => {
                 const colIndex = i % vis.cols;
                 const rowIndex = Math.floor(i / vis.cols);
-                const translateX = colIndex * (vis.cellSize.width + 50) + vis.cellSize.width / 2;
-                const translateY = rowIndex * (vis.cellSize.height + 20 )+ vis.cellSize.height / 2;
+                const translateX = colIndex * (vis.cellSize.width ) + vis.cellSize.width / 2;
+                const translateY = rowIndex * (vis.cellSize.height)+ vis.cellSize.height / 2;
                 return `translate(${translateX},${translateY})`;
             });
 
@@ -73,12 +73,12 @@ class FacePlot {
             .append('image')
             .attr('x', 0)
             .attr('y', 0)
-            .attr('width', 200)
-            .attr('height', 200)
+            .attr('width', 150)
+            .attr('height', 150)
             .attr('xlink:href', d => `img/${d}.png`);
 
         cells.append('circle')
-            .attr('r', 90) // Adjust the radius as needed
+            .attr('r', 70) // Adjust the radius as needed
             .style('fill', (d, i) => `url(#pattern-${i})`)
             .style('stroke', 'black')
             .style('stroke-width', '2')
@@ -270,8 +270,8 @@ class FacePlot {
             .attr('transform', (d, i) => {
                 const colIndex = i % vis.cols;
                 const rowIndex = Math.floor(i / vis.cols);
-                const translateX = colIndex * (vis.cellSize.width + 50) + vis.cellSize.width / 2;
-                const translateY = rowIndex * (vis.cellSize.height +20 )+ vis.cellSize.height / 2;
+                const translateX = colIndex * (vis.cellSize.width ) + vis.cellSize.width / 2;
+                const translateY = rowIndex * (vis.cellSize.height )+ vis.cellSize.height / 2;
                 return `translate(${translateX},${translateY})`;
             });
 

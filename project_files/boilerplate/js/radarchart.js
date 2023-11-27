@@ -155,12 +155,9 @@ class RadarChart {
                 points.push(vis.generatePoint({ length: len, angle: theta }));
             });
 
-            // Draw the chart with the points
             const pathGroup = vis.g.append("g").attr("class", "shape");
             const color = vis.colorScale(dataset[i].track);
             vis.drawPath([...points, points[0]], pathGroup, "black", color, 0.5);
-
-
         });
 
         vis.drawLabels = (dataset, sideCount) => {
@@ -174,7 +171,6 @@ class RadarChart {
 
             }
         };
-
 
 
         vis.generateAndDrawLines = (sideCount) => {
