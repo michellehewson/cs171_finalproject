@@ -610,6 +610,9 @@ h5 {
 }
 
 h3 {
+    font-family: 'Times New Roman', sans-serif;
+    font-weight: bold;
+
     font-size: 36px;
 }
 
@@ -663,4 +666,12 @@ h3 {
     color: black;
     margin-top: 10px;
 
+}
+
+.h5-info {
+    margin-top: 30px;
+}
+
+.radar-title {
+    margin-bottom: 30px;
 }
