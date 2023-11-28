@@ -62,7 +62,6 @@ h2 {
     margin-top: 90px;
     font-size: 48px;
     font-family: 'Times New Roman', sans-serif;
-
 }
 
 .slider-text {
@@ -73,6 +72,7 @@ h2 {
 
 
 }
+
 
 #yesButton {
     background-color: #00f2ea;
@@ -87,7 +87,7 @@ h2 {
 }
 
 .showTopArtistsButton{
-    font-size: 24px;
+    font-size: 20px;
     margin-top: 45px;
     pointer-events: auto;
     margin-right: 10px;
@@ -97,6 +97,7 @@ h2 {
     background-color: #ff0050;
     color: white;
     transition: background-color 0.3s;
+    font-family: 'Times New Roman', sans-serif;
 }
 
 .yes-button:hover, #yesButton:hover,
@@ -588,6 +589,7 @@ h2 {
     transform: translate(-50%, -50%);
     border: 2px solid #333333;
     font-family: 'Times New Roman', sans-serif;
+    font-size: 24px;
 }
 
 .button-container h2 {
