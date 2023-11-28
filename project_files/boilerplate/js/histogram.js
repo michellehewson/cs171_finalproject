@@ -1,8 +1,18 @@
 class Histogram{
-    constructor(_parentElement, _data, spotify) {
+    constructor(_parentElement, tiktokdata, spotifydata, spotify) {
         this.parentElement = _parentElement;
-        this.data = _data;
+        this.data = tiktokdata;
+        this.otherdata = spotifydata;
         this.spotify = spotify;
+
+        if (this.spotify == "Spotify"){
+            this.data = spotifydata;
+            this.otherdata = tiktokdata;
+        }
+
+
+
+
         this.initVis();
     }
     initVis() {
@@ -82,10 +92,36 @@ class Histogram{
 
         console.log(selectedAttribute)
 
+        // Combine data from both sources based on the selected attribute
+        let combinedData = vis.data.map(d => d[selectedAttribute]).concat(vis.otherdata.map(d => d[selectedAttribute]));
+
+        const combinedbins = d3.bin()
+            .thresholds(15) // Use 15 bins
+            .value((d) => d)(combinedData);
+
         let filteredData = vis.data.map(d => d[selectedAttribute]);
+
         const bins = d3.bin()
-            .thresholds(14)
+            .thresholds(15)
             .value((d) => d)(filteredData);
+
+        let filtered_otherData = vis.otherdata.map(d => d[selectedAttribute]);
+
+        const otherbins = d3.bin()
+            .thresholds(15)
+            .value((d) => d)(filtered_otherData);
+
+        //console.log(bins)
+
+        const ymax = Math.max(d3.max(bins, (d) => d.length), d3.max(otherbins, (d) => d.length));
+
+        //console.log(ymax);
+        // Update scales
+        vis.x.domain([combinedbins[0].x0, combinedbins[combinedbins.length - 1].x1]);
+        vis.y.domain([0, ymax]);
+
+
+
 
             // Filter data based on the selected attribute
             //
@@ -96,9 +132,6 @@ class Histogram{
             .style("opacity", 0);
 
 
-            // Update scales
-            vis.x.domain([bins[0].x0, bins[bins.length - 1].x1]);
-            vis.y.domain([0, d3.max(bins, (d) => d.length)]);
 
             // Update axes
             vis.svg.select(".x-axis").call(vis.xAxis)
@@ -106,7 +139,8 @@ class Histogram{
                 .attr("transform", "rotate(-30)") // rotate the text 90 degrees
                 .attr("text-anchor", "end") // set the text-anchor to end for proper alignment
                 .attr("dy", "0.5em"); // adjust the position of the text;
-            vis.svg.select(".y-axis").call(vis.yAxis);
+
+        vis.svg.select(".y-axis").call(vis.yAxis);
 
         // Append x-axis label
         vis.xAxisLabel = vis.svg.selectAll(".x-axis-label")

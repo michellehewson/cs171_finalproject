@@ -156,9 +156,9 @@ function initMainPage(dataArray) {
     pianoChart = new Piano('piano', dataArray[3], dataArray[4])
     faceplot = new FacePlot('faceplot', dataArray[0], dataArray[1])
 
-    tiktokHistogram = new Histogram("tiktokHist", dataArray[1], "Tiktok")
-    console.log('Hi')
-    spotHistogram = new Histogram("spotHist",  dataArray[0], "Spotify")
+    tiktokHistogram = new Histogram("tiktokHist", dataArray[1], dataArray[0], "Tiktok")
+
+    spotHistogram = new Histogram("spotHist",  dataArray[1], dataArray[0], "Spotify")
 
     TikscatterChart = new ScatterChart("tikScatterDiv", dataArray[1] , "Tiktok")
     SpotscatterChart = new ScatterChart("spotScatterDiv",dataArray[0], "Spotify")
@@ -166,12 +166,6 @@ function initMainPage(dataArray) {
 
 }
 
-/*let carousel = new bootstrap.Carousel(document.getElementById('stateCarousel'), {interval: false})
-function switchView() {
-    carousel.next();
-    document.getElementById('switchView').innerHTML === 'tiktok view' ? document.getElementById('switchView').innerHTML = 'spotify view' : document.getElementById('switchView').innerHTML = 'tiktok view';
-}
-*/
 
 function categoryChange() {
     //let selectedCategory = document.getElementById('categorySelector').value;
