@@ -1,3 +1,4 @@
+
 .fade-in-title {
     text-align: left;
     padding: 20px;
@@ -39,13 +40,11 @@ h2 {
 }
 
 .tiktok-video {
-    width: calc(30% - 10px);
-    box-sizing: border-box;
+    width: 10px;
 }
 
 .button-group {
     text-align: center;
-    margin-top: 20px;
 }
 
 .button {
@@ -61,7 +60,7 @@ h2 {
 
 .button-text {
     margin-top: 90px;
-    font-size: 60px;
+    font-size: 48px;
     font-family: 'Times New Roman', sans-serif;
 
 }
@@ -73,13 +72,27 @@ h2 {
 #yesButton {
     background-color: #00f2ea;
     color: black;
+
 }
 
-#noButton, .showTopArtistsButton {
+#noButton {
     background-color: #ff0050;
     color: white;
+
 }
 
+.showTopArtistsButton{
+    font-size: 24px;
+    margin-top: 45px;
+    pointer-events: auto;
+    margin-right: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #ff0050;
+    color: white;
+    transition: background-color 0.3s;
+}
 
 .yes-button:hover, #yesButton:hover,
 .no-button:hover, #noButton:hover {
@@ -237,12 +250,18 @@ h2 {
 
 .column-left {
     width: 400px;
-    padding-left: 60px;
+    padding-left: 40px;
+    padding-top: 20px;
 }
 
 .column {
     flex: 1;
     width: 400px;
+}
+
+.column-page2 {
+    flex: 1;
+    width: 200px;
 }
 
 .tiktok-title h1 {
@@ -301,30 +320,34 @@ h2 {
 }
 
 #intro-text {
-    padding: 20px;
+    text-align: center;
 }
 
 #intro-text1 {
     padding: 20px;
     text-align: left;
+    font-size: 24px;
 
 }
 
 #intro-text2 {
     padding: 20px;
     text-align: left;
+    font-size: 24px;
 
 }
 
 #intro-text3 {
     padding: 20px;
     text-align: left;
+    font-size: 24px;
 
 }
 
 #intro-text4 {
     padding: 20px;
     text-align: left;
+    font-size: 24px;
 
 }
 
@@ -411,6 +434,7 @@ h2 {
     justify-content: space-between;
 }
 
+
 .track-names{
     max-height: 200px;
     overflow-y: scroll;
@@ -451,6 +475,54 @@ h2 {
 
 }
 
+#radar-title {
+    text-align: left;
+    font-size: 48px;
+    margin-top: 75px;
+}
+
+#radar-info {
+    text-align: left;
+    font-size: 26px;
+    margin-top: 30px;
+}
+
+#radar-info2 {
+    text-align: left;
+    font-size: 26px;
+    margin-top: 40px;
+}
+
+#histogram-title {
+    text-align: left;
+    font-size: 48px;
+    margin-top: 150px;
+}
+
+#histogram-info {
+    text-align: left;
+    font-size: 26px;
+    margin-top: 30px;
+}
+
+#scatter-title {
+    text-align: left;
+    font-size: 48px;
+    margin-top: 75px;
+}
+
+.scatter-info {
+    text-align: left;
+    font-size: 26px;
+    margin-top: 30px;
+}
+
+#bubble-title{
+    text-align: left;
+    font-size: 33px;
+
+}
+
 .piano-description {
     padding-top: 50px;
     padding-bottom: 20px;
@@ -471,7 +543,6 @@ h2 {
 
 #searchArtist {
     width: 200px;
-    padding: 8px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px;
@@ -480,7 +551,6 @@ h2 {
 
 #searchArtist {
     width: 200px;
-    padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px;
@@ -488,7 +558,6 @@ h2 {
 }
 
 #searchButton {
-    padding: 10px 20px;
     background-color: #ff0050;
     color: white;
     border: none;
@@ -506,8 +575,8 @@ h2 {
     border-radius: 10px;
     padding: 20px;
     text-align: center;
-    width: 600px;
-    height: 440px;
+    width: 500px;
+    height: 340px;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -548,6 +617,7 @@ input[type="radio"]:checked + label {
     background-color: #ff0050;
     color: white;
 }
+
 
 
 
@@ -697,6 +767,7 @@ h3 {
     font-family: 'Times New Roman', sans-serif;
     color: black;
     font-weight: bold;
+    margin-top: 30px;
 
 }
 .custom-select{
@@ -743,3 +814,8 @@ h3 {
     text-align: center;
     color: white;
 }
+
+#XcategorySelector{
+    margin-right: 30px;
+}
+
