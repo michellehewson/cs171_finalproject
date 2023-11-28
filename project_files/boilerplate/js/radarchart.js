@@ -68,7 +68,7 @@ class RadarChart {
         let vis = this;
         vis.NUM_OF_SIDES = 5;
         vis.NUM_OF_LEVEL = 4;
-        const size = 500;
+        const size = 450;
         const offset = Math.PI;
         const polyangle = (Math.PI * 2) / vis.NUM_OF_SIDES;
         const r = 0.8 * size;
@@ -146,19 +146,7 @@ class RadarChart {
         }
 
         // Initialize points array with the first song data
-        vis.chartSubset.forEach((row, i) => {
-            const points = [];
-            vis.desiredColumns.forEach((attribute, j) => {
-                const attributeValue = row[attribute];
-                const theta = j * polyangle;
-                const len = vis.scale(attributeValue);
-                points.push(vis.generatePoint({ length: len, angle: theta }));
-            });
 
-            const pathGroup = vis.g.append("g").attr("class", "shape");
-            const color = vis.colorScale(dataset[i].track);
-            vis.drawPath([...points, points[0]], pathGroup, "black", color, 0.5);
-        });
 
         vis.drawLabels = (dataset, sideCount) => {
             const groupL = vis.g.append("g").attr("class", "labels");
@@ -238,10 +226,6 @@ class RadarChart {
             behaviour: 'drag',
         });
 
-
-        vis.chartSubset = vis.chartData.slice(0, 1);
-        vis.updateVisualization();
-
         slider.noUiSlider.on('slide', function (values) {
             const [start, end] = values.map(value => parseInt(value, 10));
 
@@ -259,8 +243,11 @@ class RadarChart {
                     .attr("class", "track-name");
             })
 
+            // Call the method to update visualization when the slider is moved
             vis.updateVisualization();
         });
+
+        // Initial drawing will happen only when the slider is moved for the first time
     }
 
     updateVisualization() {
@@ -270,31 +257,33 @@ class RadarChart {
 
         vis.generateAndDrawLines(vis.NUM_OF_SIDES);
         vis.generateAndDrawLevels(vis.NUM_OF_LEVEL, vis.NUM_OF_SIDES);
+        if (vis.chartSubset.length > 0) {
 
-        vis.chartSubset.forEach((row, i) => {
-            const points = [];
-            vis.desiredColumns.forEach((attribute, j) => {
-                const attributeValue = row[attribute];
-                const theta = j * (2 * Math.PI / vis.NUM_OF_SIDES);
-                const len = vis.scale(attributeValue);
-                const point = vis.generatePoint({ length: len, angle: theta });
+            vis.chartSubset.forEach((row, i) => {
+                const points = [];
+                vis.desiredColumns.forEach((attribute, j) => {
+                    const attributeValue = row[attribute];
+                    const theta = j * (2 * Math.PI / vis.NUM_OF_SIDES);
+                    const len = vis.scale(attributeValue);
+                    const point = vis.generatePoint({length: len, angle: theta});
 
-                // Draw a circle at each point
-                const circleGroup = vis.g.append("g").attr("class", "circle-group");
-                circleGroup.append("circle")
-                    .attr("cx", point.x)
-                    .attr("cy", point.y)
-                    .attr("r", 4)
-                    .attr("fill", vis.colorScale(row.track_name))
+                    // Draw a circle at each point
+                    const circleGroup = vis.g.append("g").attr("class", "circle-group");
+                    circleGroup.append("circle")
+                        .attr("cx", point.x)
+                        .attr("cy", point.y)
+                        .attr("r", 4)
+                        .attr("fill", vis.colorScale(row.track_name))
 
-                points.push(point);
+                    points.push(point);
+                });
+
+                const pathGroup = vis.g.append("g").attr("class", "shape");
+                const color = vis.colorScale(row.track_name);
+                vis.drawPath([...points, points[0]], pathGroup, "black", color, 0.5);
             });
 
-            const pathGroup = vis.g.append("g").attr("class", "shape");
-            const color = vis.colorScale(row.track_name);
-            vis.drawPath([...points, points[0]], pathGroup, "black", color, 0.5);
-        });
-
-        vis.drawLabels(vis.chartSubset, vis.NUM_OF_SIDES);
+            vis.drawLabels(vis.chartSubset, vis.NUM_OF_SIDES);
+        }
     }
 }

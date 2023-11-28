@@ -71,7 +71,7 @@ h2 {
     color: black;
 }
 
-#noButton, #showTopArtistsButton {
+#noButton, .showTopArtistsButton {
     background-color: #ff0050;
     color: white;
 }
@@ -86,11 +86,31 @@ h2 {
 #button-box.hide {
     display: none;
 }
-
+.button-selected {
+    background-color: #00f2ea;
+    color: black;
+    cursor: pointer;
+}
 
 
 #input-container {
     text-align: center;
+}
+
+
+.track-names {
+    /* Set styles for the track names */
+    /* You can adjust this based on your design */
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    height: 150px; /* Set a fixed maximum height for the track names container */
+    overflow-y: auto;
+}
+
+/* Additional styling for other elements to prevent collapsing */
+.col-md-5 {
+    min-height: 300px; /* Set a minimum height for the container to prevent collapsing */
 }
 
 
