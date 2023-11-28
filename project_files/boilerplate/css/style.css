@@ -69,13 +69,27 @@ h2 {
 #yesButton {
     background-color: #00f2ea;
     color: black;
+
 }
 
-#noButton, .showTopArtistsButton {
+#noButton {
     background-color: #ff0050;
     color: white;
+
 }
 
+.showTopArtistsButton{
+    font-size: 24px;
+    margin-top: 45px;
+    pointer-events: auto;
+    margin-right: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #ff0050;
+    color: white;
+    transition: background-color 0.3s;
+}
 
 .yes-button:hover, #yesButton:hover,
 .no-button:hover, #noButton:hover {

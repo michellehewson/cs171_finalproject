@@ -84,7 +84,7 @@ class SongCharacteristics {
                 .attr("width", vis.imageWidth)
                 .attr("height", vis.imageHeight)
                 .on("mouseover", function () {
-                    const tooltip = vis.svg.append("text")
+                    let tooltip = vis.svg.append("text")
                         .attr("id", "tooltip")
                         .attr("x", vis.width / 2)
                         .attr("y", (vis.height + vis.imageHeight) / 2 + 150)
