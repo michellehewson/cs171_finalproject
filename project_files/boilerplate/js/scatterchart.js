@@ -105,7 +105,12 @@ class ScatterChart {
              Track name: ${d.track_name}<br>
              Danceability: ${d.danceability.toFixed(2)}<br>
              Acousticness: ${d.acousticness.toFixed(2)}<br>
+             Tempo: ${d.tempo.toFixed(2)}<br>
+             Energy: ${d.energy.toFixed(2)}<br>
+             Liveness: ${d.liveness.toFixed(2)}<br>
              Speechiness: ${d.speechiness.toFixed(2)}`
+
+
                 )
                     .style("left", (event.pageX + 5) + "px")
                     .style("top", (event.pageY - 28) + "px");
