@@ -14,15 +14,13 @@ class Piano {
         this.blackKeysDict = {1:"C#", 3:"D#", 6:"F#", 8:"G#", 10:"A#"};
         this.spotify_keys = spotify_keys;
         this.tiktok_keys = tiktok_keys;
-        this.images = ['img/note1.png', 'img/note2.png', 'img/note3.png']; //images for the music notes
-
         this.initVis()
     }
     initVis() {
         let vis = this;
 
         // necessary variables and function for playing sounds
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        let audioContext = new (window.AudioContext || window.webkitAudioContext)();
         let soundFiles = {
             0: 'sounds/C.wav',
             1: 'sounds/C2.wav',
@@ -40,6 +38,8 @@ class Piano {
 
 
         //function for playing the sounds
+        // https://developer.mozilla.org/en-US/docs/Web/API/Response/arrayBuffer for this function
+
         function playSound(key) {
             let source = audioContext.createBufferSource();
             let soundFile = soundFiles[key]
@@ -138,8 +138,8 @@ class Piano {
         vis.pianoWhiteKeys.on("click", function (d) {
             let key = d3.select(this).attr("key");
          //   console.log(key)
-            const x = event.offsetX || event.clientX - parseInt(event.target.getBoundingClientRect().left);
-            const y = event.offsetY || event.clientY - parseInt(event.target.getBoundingClientRect().top);
+            let x = event.offsetX || event.clientX - parseInt(event.target.getBoundingClientRect().left);
+            let y = event.offsetY || event.clientY - parseInt(event.target.getBoundingClientRect().top);
 
 
             playSound(key);
@@ -165,28 +165,14 @@ class Piano {
                 .attr("dy", "1.1em")
                 .style("font-size", "16px");
 
-            const randomImage = vis.images[Math.floor(Math.random() * vis.images.length)];
-
-            const image = vis.svgPiano.append('image')
-                .attr('xlink:href', randomImage)
-                .attr('x', x + Math.floor(Math.random() * 10) + 1)
-                .attr('y', y + Math.floor(Math.random() * 10) + 1)
-                .attr('width', '50px')
-                .attr('height', '50px')
-                .style('opacity', 1);
-
-            image.transition()
-                .duration(1000)
-                .style('opacity', 0)
-                .remove();
         });
 
         //playing black key sounds
         vis.pianoBlackKeys.on("click", function (d) {
             let key = d3.select(this).attr("key");
       //    console.log(key)
-            const x = event.offsetX || event.clientX - parseInt(event.target.getBoundingClientRect().left);
-            const y = event.offsetY || event.clientY - parseInt(event.target.getBoundingClientRect().top);
+            let x = event.offsetX || event.clientX - parseInt(event.target.getBoundingClientRect().left);
+            let y = event.offsetY || event.clientY - parseInt(event.target.getBoundingClientRect().top);
 
 
 
@@ -212,21 +198,6 @@ class Piano {
                 .attr("x", 218)
                 .attr("dy", "1.1em")
                 .style("font-size", "16px");
-
-            const randomImage = vis.images[Math.floor(Math.random() * vis.images.length)];
-
-            const image = vis.svgPiano.append('image')
-                .attr('xlink:href', randomImage)
-                .attr('x', x + Math.floor(Math.random() * 10) + 1)
-                .attr('y', y + Math.floor(Math.random() * 10) + 1)
-                .attr('width', '50px')
-                .attr('height', '50px')
-                .style('opacity', 1);
-
-            image.transition()
-                .duration(1000)
-                .style('opacity', 0)
-                .remove();
         });
 
 
