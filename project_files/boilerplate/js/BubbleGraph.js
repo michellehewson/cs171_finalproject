@@ -18,7 +18,7 @@ class BubbleGraph {
     initVis() {
         let vis = this;
         vis.width = 1100;
-        vis.height = 700;
+        vis.height = 800;
 
         vis.svg = d3.select("#" + vis.parentElement)
             .append("svg")
