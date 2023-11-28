@@ -66,6 +66,10 @@ h2 {
 
 }
 
+.slider-text {
+    text-align: center;
+}
+
 #yesButton {
     background-color: #00f2ea;
     color: black;
