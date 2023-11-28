@@ -237,9 +237,12 @@ class RadarChart {
             // Update the subset of Spotify or TikTok data based on the slider values
             vis.chartSubset = vis.chartData.slice(start, end + 1);
             const trackNamesDiv = d3.select("#" + vis.sortingCriteria + "-track-names");
+            trackNamesDiv.style("text-align", "center");
+
             vis.chartSubset.forEach((row) => {
-                trackNamesDiv.append("p")
+                trackNamesDiv.append("h4")
                     .text(row.track_name)
+
                     .attr("class", "track-name");
             })
 
