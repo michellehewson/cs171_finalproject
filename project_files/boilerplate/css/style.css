@@ -722,3 +722,17 @@ h3 {
     background-color: lightgrey;
     color: white;
 }
+.marquee-container {
+    position: absolute;
+    transform: translateY(-50%);
+    width: 100%;
+    overflow: hidden;
+}
+
+.marquee img {
+    display: inline-block;
+    height: 100px; /* Set the height according to your needs */
+    width: auto;
+}
+
+

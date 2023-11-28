@@ -6,6 +6,15 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>TikTok's Influence on Music</title>
 
+	<style>
+		.wrapper {
+			background: url('img/background1.png') center/cover no-repeat fixed;
+			height: 100vh;
+			display: flex;
+			flex-direction: column;
+		}
+	</style>
+
 	<!-- Load CSS libraries -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
 	<link rel="stylesheet" href="css/style.css">
@@ -21,19 +30,25 @@
 <!-- we can add each page here -->
 <div id="fullPage">
 	<div data-anchor="page1" class="section">
+
+		<div class="wrapper">
 		<div class="text-container">
 			<div class="rectangle">
 				<h1 class="main-title">From Tiktok Trends to Playlist Picks</h1>
 				<h2>Exploring Musical Trends Across Spotify and TikTok</h2>
 			</div>
 		</div>
-		<!--
-		<marquee behavior="alternate" scrollamount="30">
-			<img src="img/tiktok.png">
-		</marquee>
- -->
+		<div class="marquee-container">
+			<marquee behavior="alternate" scrollamount="5" class="marquee">
+				<img src="img/spotifylogo.png" id="spotify-img">
+			</marquee>
+			<marquee behavior="alternate" scrollamount="5" class="marquee">
+				<img src="img/tiktoklogo.png" id="tiktok-img">
+			</marquee>
+		</div>
 
 	</div>
+		</div>
 
 
 	<div data-anchor="page2" class="section">
