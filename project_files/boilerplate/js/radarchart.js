@@ -213,7 +213,7 @@ class RadarChart {
         endLabel.textContent = 1;
 
         let minValue = 0;
-        let maxValue = Math.min(10, vis.chartData.length - 1);
+        let maxValue = Math.min(9, vis.chartData.length - 1);
 
         noUiSlider.create(slider, {
             start: [0, 0],

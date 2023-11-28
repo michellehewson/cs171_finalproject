@@ -116,8 +116,6 @@ h2 {
 
 
 .track-names {
-    /* Set styles for the track names */
-    /* You can adjust this based on your design */
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
@@ -132,12 +130,9 @@ h2 {
 
 
 .section {
-    display: block;
     padding: 20px;
     background-color: white;
-    max-height: 100vh;
 }
-
 
 .pianoTextInit {
     font-family: "Press Start 2P", sans-serif;
@@ -229,7 +224,6 @@ h2 {
     flex-direction: column; /* Align items in a column */
     align-items: center; /* Center horizontally */
     padding: 20px; /* Adjust padding as needed */
-
 }
 
 .rectangle {
@@ -401,9 +395,6 @@ h2 {
     opacity: 1;
 }
 
-
-
-
 .chart-container .bar-label {
     font-size: 14px; /* Adjust the font size as needed */
     font-family: "Times New Roman", sans-serif; /* Specify the font family */
@@ -438,9 +429,6 @@ h2 {
     transform: translateY(-2px);
 }
 
-
-
-
 .container {
     display: flex;
     justify-content: space-between;
@@ -452,9 +440,6 @@ h2 {
     overflow-y: scroll;
 }
 
-.section {
-    width: 100%;
-}
 
 .container-fluid {
     height: 90%;
