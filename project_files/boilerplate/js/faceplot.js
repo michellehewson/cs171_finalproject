@@ -46,17 +46,17 @@ class FacePlot {
             height: vis.height / rows
         };
 
-        d3.select('#showTopArtistsButton').text('Top Spotify Artists');
+        d3.select('#showSpotifyButton').on('click', function () {
+            vis.getTopArtistsFromSpotify();
+            d3.select('#showSpotifyButton').text('Top Spotify Artists');
+            d3.select('#showTiktokButton').text('Show TikTok Artists');
+            vis.updateVis();
+        });
 
-
-        d3.select('#showTopArtistsButton').on('click', function () {
-            if (vis.isShowingTikTok) {
-                vis.getTopArtistsFromSpotify();
-                d3.select(this).text('Top TikTok Artists'); // Change button text
-            } else {
-                vis.getTopArtistsFromTiktok();
-                d3.select(this).text('Top Spotify Artists'); // Change button text
-            }
+        d3.select('#showTiktokButton').on('click', function () {
+            vis.getTopArtistsFromTiktok();
+            d3.select('#showTiktokButton').text('Top TikTok Artists');
+            d3.select('#showSpotifyButton').text('Show Spotify Artists');
             vis.updateVis();
         });
 
@@ -212,16 +212,27 @@ class FacePlot {
         const cells = vis.svg.selectAll('.cell')
             .data(vis.subset);
 
-        d3.select('#showTopArtistsButton').on('click', function () {
-            if (vis.isShowingTikTok) {
+        d3.select('#showSpotifyButton')
+            .on('click', function () {
+                d3.select(this)
+                    .classed('button-selected', true); // Add the selected class
+                d3.select('#showTiktokButton')
+                    .classed('button-selected', false); // Remove the selected class from the other button
+
                 vis.getTopArtistsFromSpotify();
-                d3.select(this).text('Show TikTok Data'); // Change button text
-            } else {
+                vis.updateVis();
+            });
+
+        d3.select('#showTiktokButton')
+            .on('click', function () {
+                d3.select(this)
+                    .classed('button-selected', true); // Add the selected class
+                d3.select('#showSpotifyButton')
+                    .classed('button-selected', false); // Remove the selected class from the other button
+
                 vis.getTopArtistsFromTiktok();
-                d3.select(this).text('Show Spotify Data'); // Change button text
-            }
-            vis.updateVis();
-        });
+                vis.updateVis();
+            });
 
         cells.exit()
             .transition()
