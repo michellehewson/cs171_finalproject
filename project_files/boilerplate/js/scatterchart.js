@@ -1,8 +1,14 @@
 class ScatterChart {
-    constructor(parentElement, data, spotify) {
+    constructor(parentElement, tiktokdata, spotifydata, spotify) {
         this.parentElement = parentElement;
-        this.data = data;
+        this.data = tiktokdata;
+        this.otherdata = spotifydata;
         this.spotify = spotify;
+
+        if (this.spotify == "Spotify"){
+            this.data = spotifydata;
+            this.otherdata = tiktokdata;
+        }
         this.initVis();
         this.updateVis();
     }
@@ -10,7 +16,7 @@ class ScatterChart {
     initVis() {
         let vis = this;
 
-        vis.margin = { top: 40, right: 60, bottom: 60, left: 60 };
+        vis.margin = { top: 50, right: 60, bottom: 90, left: 60 };
 
         vis.width = document.getElementById(vis.parentElement).getBoundingClientRect().width - vis.margin.left - vis.margin.right;
         vis.height = document.getElementById(vis.parentElement).getBoundingClientRect().height - vis.margin.top - vis.margin.bottom;
@@ -72,10 +78,12 @@ class ScatterChart {
 
         vis.Xcategory = document.getElementById('XcategorySelector').value;
         vis.Ycategory = document.getElementById('YcategorySelector').value;
+        let combinedXData = vis.data.map(d => d[vis.Xcategory]).concat(vis.otherdata.map(d => d[vis.Xcategory]));
+        let combinedYData = vis.data.map(d => d[vis.Ycategory]).concat(vis.otherdata.map(d => d[vis.Ycategory]));
 
         // Set domain for x, y, and legend scales based on the data
-        vis.x.domain([0, d3.max(displayData, d => d[vis.Xcategory])]);
-        vis.y.domain([0, d3.max(displayData, d => d[vis.Ycategory])]);
+        vis.x.domain([0, d3.max(combinedXData)]);
+        vis.y.domain([0, d3.max(combinedYData)]);
 
         vis.svg.select(".x-axis")
             .call(vis.xAxis);
@@ -140,6 +148,64 @@ class ScatterChart {
             .remove();
 
 
+        let XselectedAttributeName =  document.getElementById('XcategorySelector').value;
+        let YselectedAttributeName =  document.getElementById('YcategorySelector').value;
+//add the axis labels:
+        // Append x-axis label
+        vis.xAxisLabel = vis.svg.selectAll(".x-axis-label")
+            .data([XselectedAttributeName]);
+
+        // Enter
+        vis.xAxisLabel.enter()
+            .append("text")
+            .attr("class", "x-axis-label")
+            .attr("text-anchor", "middle")
+            .attr("x", vis.width / 2)
+            .attr("y", vis.height + 45)
+            .style("opacity", 0) // Set initial opacity to 0 for enter transition
+            .text(XselectedAttributeName)
+            .transition()
+            .duration(500)
+            .style("opacity", 1); // Transition to full opacity
+
+        // Update
+        vis.xAxisLabel
+            .text(XselectedAttributeName);
+
+        // Exit
+        vis.xAxisLabel.exit()
+            .transition()
+            .duration(500)
+            .style("opacity", 0) // Transition to opacity 0 for exit
+            .remove();
+
+        vis.yAxisLabel = vis.svg.selectAll(".y-axis-label")
+            .data([YselectedAttributeName]);
+
+        // Enter
+        vis.yAxisLabel.enter()
+            .append("text")
+            .attr("class", "y-axis-label")
+            .attr("text-anchor", "middle")
+            .attr("transform", "rotate(-90)")
+            .attr("x", -vis.height / 2)
+            .attr("y", -vis.margin.left + 20)
+            .style("opacity", 0) // Set initial opacity to 0 for enter transition
+            .text(YselectedAttributeName)
+            .transition()
+            .duration(500)
+            .style("opacity", 1); // Transition to full opacity
+
+        // Update
+        vis.yAxisLabel
+            .text(YselectedAttributeName);
+
+        // Exit
+        vis.yAxisLabel.exit()
+            .transition()
+            .duration(500)
+            .style("opacity", 0) // Transition to opacity 0 for exit
+            .remove();
 
     }
 }

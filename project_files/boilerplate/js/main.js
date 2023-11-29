@@ -160,18 +160,18 @@ function initMainPage(dataArray) {
 
     spotHistogram = new Histogram("spotHist",  dataArray[1], dataArray[0], "Spotify")
 
-    TikscatterChart = new ScatterChart("tikScatterDiv", dataArray[1] , "Tiktok")
-    SpotscatterChart = new ScatterChart("spotScatterDiv",dataArray[0], "Spotify")
+    TikscatterChart = new ScatterChart("tikScatterDiv", dataArray[1] , dataArray[0], "Tiktok")
+    SpotscatterChart = new ScatterChart("spotScatterDiv",dataArray[1], dataArray[0], "Spotify")
     songCharacteristics = new SongCharacteristics('songcharacteristics')
 
 }
 
 
-function categoryChange() {
+function categoryChange(button) {
     //let selectedCategory = document.getElementById('categorySelector').value;
-
-    tiktokHistogram.updateVis()
-    spotHistogram.updateVis()
+    let selectedCategory = button.getAttribute('id');
+    tiktokHistogram.updateVis(selectedCategory)
+    spotHistogram.updateVis(selectedCategory)
 }
 
 

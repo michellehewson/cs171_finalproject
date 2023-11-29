@@ -790,9 +790,12 @@ h3 {
     color: white;
 }
 .marquee-container {
-    position: absolute;
-    transform: translateY(-50%);
-    width: 100%;
+    z-index: 1;
+    position: fixed;
+    top: 25%;
+    left: 10%;
+    right: 10%;
+    bottom: 25%;
     overflow: hidden;
 }
 

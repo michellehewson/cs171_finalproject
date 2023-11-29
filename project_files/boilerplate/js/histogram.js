@@ -71,18 +71,18 @@ class Histogram{
             .attr("y", -vis.margin.left + 20)
             .text('Count')
 
-        vis.updateVis(); // Initial rendering
+        vis.updateVis('Danceability'); // Initial rendering
     }
 
-    updateVis(){
+    updateVis(selectedCategory){
 
 
        let vis = this;
 
         //console.log(this.data)
 
-        let selectedAttributeName =  document.getElementById('categorySelector').value;
-        let selectedAttribute =  (document.getElementById('categorySelector').value).toLowerCase();;
+        let selectedAttributeName =  selectedCategory;
+        let selectedAttribute =  selectedAttributeName.toLowerCase();
 
         console.log(selectedAttribute)
 
