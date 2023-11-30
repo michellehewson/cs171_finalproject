@@ -706,7 +706,7 @@ input[type="radio"]:checked + label {
 h5 {
     font-family: 'Times New Roman', sans-serif;
     color: black;
-    font-size: 19px;
+    font-size: 25px;
 }
 
 h3 {
@@ -789,6 +789,7 @@ h3 {
 }
 
 .h5-info {
+
     margin-top: 30px;
 }
 
@@ -831,10 +832,13 @@ h3 {
     width: auto;
 }
 
-
+html, body {
+    height: 100%;
+    margin: 0;
+}
 .wrapper {
-    background: url(../img/earbud.png) center/cover no-repeat fixed;
-    height: 100vh;
+    background: url(../img/earbud.png) center/cover no-repeat;
+    height: 95vh;
     display: flex;
     flex-direction: column;
 
