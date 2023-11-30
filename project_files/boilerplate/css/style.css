@@ -88,7 +88,6 @@ h2 {
 
 .showTopArtistsButton{
     font-size: 20px;
-    margin-top: 45px;
     pointer-events: auto;
     margin-right: 10px;
     border: none;
@@ -98,6 +97,11 @@ h2 {
     color: white;
     transition: background-color 0.3s;
     font-family: 'Times New Roman', sans-serif;
+}
+
+.faceplotbuttonContainer {
+    margin-left: 275px;
+    margin-top: 10px;
 }
 
 .yes-button:hover, #yesButton:hover,
@@ -538,8 +542,6 @@ h2 {
     font-size: 30px;
     font-weight: normal;
     font-family: 'Times New Roman', sans-serif;
-
-
 }
 
 
@@ -596,6 +598,10 @@ h2 {
     margin-bottom: 15px;
 }
 
+.p {
+    font-size: 20px;
+    font-family: "Times New Roman", sans-serif;
+}
 
 .button-group {
     display: flex;
@@ -700,7 +706,7 @@ input[type="radio"]:checked + label {
 h5 {
     font-family: 'Times New Roman', sans-serif;
     color: black;
-    font-size: 19px;
+    font-size: 25px;
 }
 
 h3 {
@@ -712,7 +718,7 @@ h3 {
 
 .centered-h4-title {
     text-align: center;
-    font-size: 40px;
+    font-size: 32px;
     font-family: 'Times New Roman', sans-serif;
     font-weight: bold;
 
@@ -736,12 +742,17 @@ h3 {
 
 .h4-title {
     text-align: center;
-    font-size: 40px;
+    font-size: 36px;
     font-family: 'Times New Roman', sans-serif;
     font-weight: bold;
     margin-bottom: 30px;
 
+}
 
+.h4-subtext {
+    text-align: center;
+    font-size: 24px;
+    font-family: 'Times New Roman', sans-serif;
 }
 
 .h4-subtitle {
@@ -754,6 +765,21 @@ h3 {
 
 }
 
+.radar-text {
+    text-align: left;
+    font-size: 18px;
+    font-family: 'Times New Roman', sans-serif;
+}
+
+.radar-text2 {
+    font-size: 18px;
+    font-family: 'Times New Roman', sans-serif;
+    margin-top: 30px;
+    margin-left: 280px;
+    font-weight: bold;
+
+}
+
 .main-title {
     text-align: center;
     font-family: 'Times New Roman', sans-serif;
@@ -763,6 +789,7 @@ h3 {
 }
 
 .h5-info {
+
     margin-top: 30px;
 }
 
@@ -789,6 +816,8 @@ h3 {
     background-color: lightgrey;
     color: white;
 }
+
+
 .marquee-container {
     z-index: 1;
     position: fixed;
@@ -805,14 +834,15 @@ h3 {
     width: auto;
 }
 
-
+html, body {
+    height: 100%;
+    margin: 0;
+}
 .wrapper {
-    background: url(../img/earbud.png) center/cover no-repeat fixed;
-    height: 100vh;
+    background: url(../img/earbud.png) center/cover no-repeat;
+    height: 95vh;
     display: flex;
     flex-direction: column;
-
-
 }
 
 .container-frontpage {
@@ -825,7 +855,43 @@ h3 {
     color: white;
 }
 
-#XcategorySelector{
-    margin-right: 30px;
+.category-button,
+.Xcategory-button,
+.Ycategory-button{
+    background-color: #ff0050;
+    border: 2px solid #333333;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
 }
 
+.category-button.selected,
+.Xcategory-button.selected,
+.Ycategory-button.selected{
+    background-color: #00f2ea;
+}
+
+
+.bounce {
+    z-index: 1;
+    position:fixed;
+    left:50%;
+    bottom:0;
+    margin-top:25px;
+    margin-left:25px;
+    height:50px;
+    width:50px;
+    -webkit-animation:bounce 1s infinite;
+}
+
+@-webkit-keyframes bounce {
+    0%       { bottom:90%; }
+
+    50%      { bottom:50%; }
+    100%     {bottom:10%;}
+}

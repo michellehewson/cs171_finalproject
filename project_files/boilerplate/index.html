@@ -31,15 +31,22 @@
 			</div>
 		</div>
 			<!--make the two imgs bounce on the first page-->
+			<div class = bounce>
+				<img src="img/spotifylogo.png" id="spotify-img">
+			</div>
 
-		<div class="marquee-container">
+			<div class = bounce>
+				<img src="img/tiktokicon.png" id="tiktok-img">
+
+			</div>
+		<!--<div class="marquee-container">
 			<marquee behavior="alternate" scrollamount="10" class="marquee" >
 				<img src="img/spotifylogo.png" id="spotify-img">
 			</marquee>
 			<marquee behavior="alternate" scrollamount="10" class="marquee" >
 				<img src="img/tiktoklogo.png" id="tiktok-img">
 			</marquee>
-		</div>
+		</div>    -->
 
 	</div>
 		</div>
@@ -151,7 +158,7 @@
 
 					<h4>Select a button to filter the artists.</h4>
 
-					<div class="radio-container">
+					<div class="radio-container" style="margin-left: -10px">
 						<div class="row">
 							<div class="col-md-6">
 								<input type="radio" id="one-hit-wonders-radio" name="cluster-type" value="one-hit-wonders">
@@ -159,7 +166,7 @@
 							</div>
 							<div class="col-md-6">
 								<input type="radio" id="separate-radio" name="cluster-type" value="separate">
-								<label for="separate-radio">Separate by Platform</label>
+								<label for="separate-radio">By Platform</label>
 							</div>
 							<div class="col-md-6">
 								<input type="radio" id="most-songs-radio" name="cluster-type" value="top-artists">
@@ -193,9 +200,9 @@
 		<div class="text-container">
 			<div class="rectangle">
 				<h4 class="h4-title">In 2022, the top music charts on Spotify and TikTok featured over 400 musical artists.</h4>
-				<h4 style="margin-top: 30px;">The above bubble chart shows that about 30% of these artists secured top-ranking songs on both platforms.</h4>
-				<h4><br>Further, each chart was mostly dominated by one-hit-wonders &ndash; artists who left their mark with just a single impactful release.</h4>
-				<h4 style="margin-top: 30px;">But among the many chart-topping artists and plentiful one-hit-wonders, a few truly stood out.</h4>
+				<h4 class="h4-subtext" style="margin-top: 30px;">The bubble chart showed that about 30% of these artists secured top-ranking songs on both platforms.</h4>
+				<h4 class="h4-subtext" ><br>Further, each chart was mostly dominated by one-hit-wonders &ndash; artists who left their mark with just a single impactful release.</h4>
+				<h4 class="h4-subtext"  style="margin-top: 30px;">But among the many chart-topping artists and plentiful one-hit-wonders, a few truly stood out.</h4>
 				<h4 class="h4-subtitle" style="margin-top: 30px;"><strong>Who were these top artists that grabbed everyone's attention on Spotify and TikTok?</strong></h4>
 			</div>
 		</div>
@@ -204,13 +211,19 @@
 	<div data-anchor="page7" class="section">
 		<div class="col-auto">
 			<h3>Let's take a closer look at the top artists on both platforms!</h3>
-			<h4>Both platforms have a unique way of ranking top artists. </h4>
-			<h4>On TikTok, artists were ranked based on the duration of time their tracks spent on the top charts.</h4>
-			<h4>Artists on Spotify were ranked by Spotify's unique artist popularity metric &ndash; it's measured by their number of streams.</h4>
-			<h4 class="h5-info">These artists hold the highest ranking across both platforms, showcasing their widespread influence in the music industry.</h4>
-			<h5>Hover over an artist to view their top tracks!</h5>
-			<button class = "showTopArtistsButton" id="showSpotifyButton">Top Spotify Artists</button>
-			<button class = "showTopArtistsButton" id="showTiktokButton">Top TikTok Artists</button>
+			<h4 class="radar-text">Both platforms have a unique way of ranking top artists. </h4>
+
+			<h4 class="radar-text">On TikTok, artists were ranked based on the duration of time their tracks spent on the top charts.</h4>
+			<h4 class="radar-text">Artists on Spotify were ranked by Spotify's unique artist popularity metric &ndash; it's measured by their number of streams.</h4>
+
+			<h4 class="radar-text">These artists hold the highest ranking across both platforms, showcasing their widespread influence in the music industry.</h4>
+
+			<h5 class="radar-text2">Hover over an artist to view their top tracks!</h5>
+			<div class="faceplotbuttonContainer">
+				<button class="showTopArtistsButton" id="showSpotifyButton">Top Spotify Artists</button>
+				<button class="showTopArtistsButton" id="showTiktokButton">Top TikTok Artists</button>
+			</div>
+
 			<div class="row">
 				<div class="col-md-7">
 					<div id="faceplot"></div>
@@ -235,10 +248,10 @@
 			<div class="col-md-6 ">
 				<h3 id="histogram-title">Explore the distribution of attributes across both platforms.</h3>
 				<h5 id="histogram-info">
-					Select a trait from the dropdown list to see the distribution of all songs across the scale of this trait.
+					Select a trait from the list of buttons to see the distribution of all songs across the scale of this trait.
 				</h5>
-				<h4 class="select-title">Feature to compare:</h4>
-				<div >
+				<h4 class="select-title">The feature to dive into:</h4>
+				<div>
 					<button onclick="categoryChange(this)" class="category-button" id="Danceability">Danceability</button>
 					<button onclick="categoryChange(this)" class="category-button" id="Acousticness">Acousticness</button>
 					<button onclick="categoryChange(this)" class="category-button" id="Speechiness">Speechiness</button>
@@ -274,33 +287,37 @@
 				<div>
 					<h3 id="scatter-title">Investigate the possible relationships between attributes.</h3>
 					<h5 class="scatter-info">
-						Select an attribute from the dropdown list for the X <br> axis and another for the Y axis
+						Select an attribute from the list of buttons for the X <br> axis and another for the Y axis
 						to <br> examine the relationship between the two traits<br> of all the songs on TikTok and Spotify.
 					</h5>
 
 					<div class="d-flex flex-column">
 						<div class="d-flex flex-row">
 							<div class="mr-3">
+								<div class = "flex-row">
 								<h4 class="select-title">X Axis</h4>
-								<select id='XcategorySelector' class="custom-select" onchange="XcategoryChange()">
-									<option value="danceability" selected>Danceability</option>
-									<option value="acousticness">Acousticness</option>
-									<option value="speechiness">Speechiness</option>
-									<option value="tempo">Tempo</option>
-									<option value="liveness">Liveness</option>
-									<option value="energy">Energy</option>
-								</select>
+								<div>
+									<button onclick="XcategoryChange(this)" class="Xcategory-button" value="Danceability">Danceability</button>
+									<button onclick="XcategoryChange(this)" class="Xcategory-button" value="Acousticness">Acousticness</button>
+									<button onclick="XcategoryChange(this)" class="Xcategory-button" value="Speechiness">Speechiness</button>
+									<button onclick="XcategoryChange(this)" class="Xcategory-button" value="Tempo">Tempo</button>
+									<button onclick="XcategoryChange(this)" class="Xcategory-button" value="Liveness">Liveness</button>
+									<button onclick="XcategoryChange(this)" class="Xcategory-button" value="Energy">Energy</button>
+								</div>
+							</div>
 							</div>
 							<div>
+								<div class = "flex-row">
 								<h4 class="select-title">Y Axis</h4>
-								<select id='YcategorySelector' class="custom-select" onchange="YcategoryChange()">
-									<option value="danceability" selected>Danceability</option>
-									<option value="acousticness">Acousticness</option>
-									<option value="speechiness">Speechiness</option>
-									<option value="tempo">Tempo</option>
-									<option value="liveness">Liveness</option>
-									<option value="energy">Energy</option>
-								</select>
+								<div>
+									<button onclick="YcategoryChange(this)" class="Ycategory-button" value="Danceability">Danceability</button>
+									<button onclick="YcategoryChange(this)" class="Ycategory-button" value="Acousticness">Acousticness</button>
+									<button onclick="YcategoryChange(this)" class="Ycategory-button" value="Speechiness">Speechiness</button>
+									<button onclick="YcategoryChange(this)" class="Ycategory-button" value="Tempo">Tempo</button>
+									<button onclick="YcategoryChange(this)" class="Ycategory-button" value="Liveness">Liveness</button>
+									<button onclick="YcategoryChange(this)" class="Ycategory-button" value="Energy">Energy</button>
+								</div>
+									</div>
 							</div>
 						</div>
 					</div>
@@ -417,13 +434,13 @@
 
 
 				<h2>Visualization Resources:</h2>
-				<a href=https://gist.github.com/officeofjane/a70f4b44013d06b9c0a973f163d8ab7a>Bubble Chart Reference Code</a><br>
+				<a href=https://gist.github.com/officeofjane/a70f4b44013d06b9c0a973f163d8ab7a>Bubble Chart Reference Code</a>
 				<a href=https://vallandingham.me//bubble_charts_with_d3v4.html>Bubble Chart Simulation Reference Code</a><br>
 				<a href= https://developer.mozilla.org/en-US/docs/Web/API/setTimeout>Fade-in Text</a><br>
-				<a href=https://developer.mozilla.org/en-US/docs/Web/API/Response/arrayBuffer>Piano Sounds 1</a><br>
+				<a href=https://developer.mozilla.org/en-US/docs/Web/API/Response/arrayBuffer>Piano Sounds 1</a>
 				<a href=https://developer.mozilla.org/en-US/docs/Web/API/AudioContext>Piano Sounds 2</a><br>
-				<a href="https://plotly.com/javascript/radar-chart/">Radar Plot Reference Code</a>
-				<a href=https://support.spotify.com/us/artists/article/embedded-players/>Spotify Track Embeds</a><br>
+				<a href="https://plotly.com/javascript/radar-chart/">Radar Plot Reference Code</a><br>
+				<a href=https://support.spotify.com/us/artists/article/embedded-players/>Spotify Track Embeds</a>
 				<a href=https://developers.tiktok.com/doc/embed-videos/>TikTok Video Embeds</a>
 
 				<h2>Shoutouts!</h2>

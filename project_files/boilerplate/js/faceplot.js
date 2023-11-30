@@ -101,16 +101,19 @@ class FacePlot {
         cells.append('circle')
             .attr('r', 70) // Adjust the radius as needed
             .style('fill', (d, i) => `url(#pattern-${i})`)
-            .style('stroke', 'black')
-            .style('stroke-width', '2')
+            .style('stroke', '#ff0050')
+            .style('stroke-width', '4')
             .on('mouseover', function (event, d) {
                 d3.select(this)
-                    .style('filter', 'url(#drop-shadow)'); // Apply shadow filter
+                    .style('stroke', '#00f2ea')
+                   // .style('filter', 'url(#drop-shadow)'); // Apply shadow filter
                 vis.showTracksForArtist(d);
             })
             .on('mouseout', function () {
                 const circle = d3.select(this);
+                circle.style('stroke', '#ff0050')
                 circle.style('filter', null);
+
             });
 
         if (vis.uniqueArtists.length > vis.numDisplayedArtists) {
@@ -157,7 +160,11 @@ class FacePlot {
 
 
             tracksContainer.append('h4')
-                .text(`Tracks for ${selectedArtist} (from ${source}):`);
+                .text(`Tracks for ${selectedArtist} (from ${source}):`)
+                .style('font-weight', 'bold')
+                .style('font-size', 24)
+                .style('font-family', 'Times New Roman, sans-serif');
+
 
             tracksContainer.append('div')
                 .html(tracksHtml);
@@ -197,8 +204,11 @@ class FacePlot {
         let vis = this;
         vis.newCells.selectAll('circle')
             .on('mouseover', function (event, d) {
-                d3.select(this).style('filter', 'url(#drop-shadow)'); // Apply shadow filter
+            //    d3.select(this).style('filter', 'url(#drop-shadow)'); // Apply shadow filter
                 vis.showTracksForArtist(d);
+                const circle = d3.select(this);
+                circle.style('stroke', '#00f2ea')
+
             })
             .on('mouseleave', function () {
                 const circle = d3.select(this);
@@ -269,8 +279,8 @@ class FacePlot {
 
         vis.newCells.select('circle')
             .style('fill', (d, i) => `url(#pattern-${i})`)
-            .style('stroke', 'black')
-            .style('stroke-width', '2');
+            .style('stroke', '#ff0050')
+            .style('stroke-width', '4');
 
         vis.svg.append('defs')
             .append('filter')
