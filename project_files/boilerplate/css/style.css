@@ -816,6 +816,8 @@ h3 {
     background-color: lightgrey;
     color: white;
 }
+
+
 .marquee-container {
     z-index: 1;
     position: fixed;
@@ -841,8 +843,6 @@ html, body {
     height: 95vh;
     display: flex;
     flex-direction: column;
-
-
 }
 
 .container-frontpage {
@@ -874,4 +874,23 @@ html, body {
 .Xcategory-button.selected,
 .Ycategory-button.selected{
     background-color: #00f2ea;
+}
+
+
+.bounce {
+    position:fixed;
+    left:50%;
+    bottom:0;
+    margin-top:25px;
+    margin-left:25px;
+    height:50px;
+    width:50px;
+    -webkit-animation:bounce 1s infinite;
+}
+
+@-webkit-keyframes bounce {
+    0%       { bottom:100px; }
+    25%, 75% { bottom:50px; }
+    50%      { bottom:20px; }
+    100%     {bottom:50%;}
 }

@@ -222,6 +222,7 @@ const imageSize = 100; // Set the size according to your needs
 spotifyImg.style.height = `${imageSize}px`;
 tiktokImg.style.height = `${imageSize}px`;
 
+/*
 // Bouncing animation
 const bounce = (element) => {
     let direction = 1;
@@ -236,4 +237,4 @@ const bounce = (element) => {
 };
 
 bounce(spotifyImg);
-bounce(tiktokImg);
+bounce(tiktokImg);  */
