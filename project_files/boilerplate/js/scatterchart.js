@@ -10,7 +10,7 @@ class ScatterChart {
             this.otherdata = tiktokdata;
         }
         this.initVis();
-        this.updateVis();
+        this.updateVis('Danceability', 'Danceability');
     }
 
     initVis() {
@@ -68,16 +68,16 @@ class ScatterChart {
             .attr('transform', `translate(${(vis.width-vis.margin.left) / 2}, -20)`); // Rotate the text labels by -45 degrees;
 
 
-        //vis.updateVis(); // Initial rendering
+
     }
 
-    updateVis() {
+    updateVis(selectedX, selectedY) {
         let vis = this;
-
         let displayData = vis.data;
 
-        vis.Xcategory = document.getElementById('XcategorySelector').value;
-        vis.Ycategory = document.getElementById('YcategorySelector').value;
+        vis.Xcategory = selectedX.toLowerCase();
+        vis.Ycategory = selectedY.toLowerCase();
+
         let combinedXData = vis.data.map(d => d[vis.Xcategory]).concat(vis.otherdata.map(d => d[vis.Xcategory]));
         let combinedYData = vis.data.map(d => d[vis.Ycategory]).concat(vis.otherdata.map(d => d[vis.Ycategory]));
 
@@ -148,8 +148,8 @@ class ScatterChart {
             .remove();
 
 
-        let XselectedAttributeName =  document.getElementById('XcategorySelector').value;
-        let YselectedAttributeName =  document.getElementById('YcategorySelector').value;
+        let XselectedAttributeName =  selectedX;
+        let YselectedAttributeName =  selectedY;
 //add the axis labels:
         // Append x-axis label
         vis.xAxisLabel = vis.svg.selectAll(".x-axis-label")

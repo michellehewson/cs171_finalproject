@@ -542,8 +542,6 @@ h2 {
     font-size: 30px;
     font-weight: normal;
     font-family: 'Times New Roman', sans-serif;
-
-
 }
 
 
@@ -853,7 +851,23 @@ h3 {
     color: white;
 }
 
-#XcategorySelector{
-    margin-right: 30px;
+.category-button,
+.Xcategory-button,
+.Ycategory-button{
+    background-color: #ff0050;
+    border: 2px solid #333333;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
 }
 
+.category-button.selected,
+.Xcategory-button.selected,
+.Ycategory-button.selected{
+    background-color: #00f2ea;
+}

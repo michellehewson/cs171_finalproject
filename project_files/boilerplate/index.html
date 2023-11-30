@@ -244,7 +244,7 @@
 					Select a trait from the dropdown list to see the distribution of all songs across the scale of this trait.
 				</h5>
 				<h4 class="select-title">Feature to compare:</h4>
-				<div >
+				<div>
 					<button onclick="categoryChange(this)" class="category-button" id="Danceability">Danceability</button>
 					<button onclick="categoryChange(this)" class="category-button" id="Acousticness">Acousticness</button>
 					<button onclick="categoryChange(this)" class="category-button" id="Speechiness">Speechiness</button>
@@ -287,26 +287,30 @@
 					<div class="d-flex flex-column">
 						<div class="d-flex flex-row">
 							<div class="mr-3">
+								<div class = "flex-row">
 								<h4 class="select-title">X Axis</h4>
-								<select id='XcategorySelector' class="custom-select" onchange="XcategoryChange()">
-									<option value="danceability" selected>Danceability</option>
-									<option value="acousticness">Acousticness</option>
-									<option value="speechiness">Speechiness</option>
-									<option value="tempo">Tempo</option>
-									<option value="liveness">Liveness</option>
-									<option value="energy">Energy</option>
-								</select>
+								<div>
+									<button onclick="XcategoryChange(this)" class="Xcategory-button" value="Danceability">Danceability</button>
+									<button onclick="XcategoryChange(this)" class="Xcategory-button" value="Acousticness">Acousticness</button>
+									<button onclick="XcategoryChange(this)" class="Xcategory-button" value="Speechiness">Speechiness</button>
+									<button onclick="XcategoryChange(this)" class="Xcategory-button" value="Tempo">Tempo</button>
+									<button onclick="XcategoryChange(this)" class="Xcategory-button" value="Liveness">Liveness</button>
+									<button onclick="XcategoryChange(this)" class="Xcategory-button" value="Energy">Energy</button>
+								</div>
+							</div>
 							</div>
 							<div>
+								<div class = "flex-row">
 								<h4 class="select-title">Y Axis</h4>
-								<select id='YcategorySelector' class="custom-select" onchange="YcategoryChange()">
-									<option value="danceability" selected>Danceability</option>
-									<option value="acousticness">Acousticness</option>
-									<option value="speechiness">Speechiness</option>
-									<option value="tempo">Tempo</option>
-									<option value="liveness">Liveness</option>
-									<option value="energy">Energy</option>
-								</select>
+								<div>
+									<button onclick="YcategoryChange(this)" class="Ycategory-button" value="Danceability">Danceability</button>
+									<button onclick="YcategoryChange(this)" class="Ycategory-button" value="Acousticness">Acousticness</button>
+									<button onclick="YcategoryChange(this)" class="Ycategory-button" value="Speechiness">Speechiness</button>
+									<button onclick="YcategoryChange(this)" class="Ycategory-button" value="Tempo">Tempo</button>
+									<button onclick="YcategoryChange(this)" class="Ycategory-button" value="Liveness">Liveness</button>
+									<button onclick="YcategoryChange(this)" class="Ycategory-button" value="Energy">Energy</button>
+								</div>
+									</div>
 							</div>
 						</div>
 					</div>

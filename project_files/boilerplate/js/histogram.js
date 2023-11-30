@@ -84,7 +84,6 @@ class Histogram{
         let selectedAttributeName =  selectedCategory;
         let selectedAttribute =  selectedAttributeName.toLowerCase();
 
-        console.log(selectedAttribute)
 
         // Combine data from both sources based on the selected attribute
         let combinedData = vis.data.map(d => d[selectedAttribute]).concat(vis.otherdata.map(d => d[selectedAttribute]));

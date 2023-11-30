@@ -172,19 +172,43 @@ function categoryChange(button) {
     let selectedCategory = button.getAttribute('id');
     tiktokHistogram.updateVis(selectedCategory)
     spotHistogram.updateVis(selectedCategory)
+
+    var buttons = document.getElementsByClassName('category-button');
+    for (var i = 0; i < buttons.length; i++) {
+        buttons[i].classList.remove('selected');
+    }
+
+    // Add 'selected' class to the clicked button
+    button.classList.add('selected');
 }
 
+let XselectedCategory='Danceability';
+let YselectedCategory = 'Danceability';
+function XcategoryChange(button) {
 
-function XcategoryChange() {
+    XselectedCategory = button.getAttribute('value');
+    TikscatterChart.updateVis(selectedX = XselectedCategory, selectedY = YselectedCategory);
+    SpotscatterChart.updateVis(selectedX = XselectedCategory, selectedY = YselectedCategory);
+    var buttons = document.getElementsByClassName('Xcategory-button');
+    for (var i = 0; i < buttons.length; i++) {
+        buttons[i].classList.remove('selected');
+    }
 
-    TikscatterChart.updateVis()
-    SpotscatterChart.updateVis()
+    // Add 'selected' class to the clicked button
+    button.classList.add('selected');
 }
 
-function YcategoryChange() {
+function YcategoryChange(button) {
+    YselectedCategory = button.getAttribute('value');
+    TikscatterChart.updateVis(selectedX = XselectedCategory, selectedY = YselectedCategory);
+    SpotscatterChart.updateVis(selectedX = XselectedCategory, selectedY = YselectedCategory);
+    var buttons = document.getElementsByClassName('Ycategory-button');
+    for (var i = 0; i < buttons.length; i++) {
+        buttons[i].classList.remove('selected');
+    }
 
-    TikscatterChart.updateVis()
-    SpotscatterChart.updateVis()
+    // Add 'selected' class to the clicked button
+    button.classList.add('selected');
 }
 
 //add bouncing effect to the front page:
