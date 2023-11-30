@@ -151,7 +151,7 @@
 
 					<h4>Select a button to filter the artists.</h4>
 
-					<div class="radio-container">
+					<div class="radio-container" style="margin-left: -10px">
 						<div class="row">
 							<div class="col-md-6">
 								<input type="radio" id="one-hit-wonders-radio" name="cluster-type" value="one-hit-wonders">
@@ -159,7 +159,7 @@
 							</div>
 							<div class="col-md-6">
 								<input type="radio" id="separate-radio" name="cluster-type" value="separate">
-								<label for="separate-radio">Separate by Platform</label>
+								<label for="separate-radio">By Platform</label>
 							</div>
 							<div class="col-md-6">
 								<input type="radio" id="most-songs-radio" name="cluster-type" value="top-artists">
@@ -193,9 +193,9 @@
 		<div class="text-container">
 			<div class="rectangle">
 				<h4 class="h4-title">In 2022, the top music charts on Spotify and TikTok featured over 400 musical artists.</h4>
-				<h4 style="margin-top: 30px;">The above bubble chart shows that about 30% of these artists secured top-ranking songs on both platforms.</h4>
-				<h4><br>Further, each chart was mostly dominated by one-hit-wonders &ndash; artists who left their mark with just a single impactful release.</h4>
-				<h4 style="margin-top: 30px;">But among the many chart-topping artists and plentiful one-hit-wonders, a few truly stood out.</h4>
+				<h4 class="h4-subtext" style="margin-top: 30px;">The bubble chart showed that about 30% of these artists secured top-ranking songs on both platforms.</h4>
+				<h4 class="h4-subtext" ><br>Further, each chart was mostly dominated by one-hit-wonders &ndash; artists who left their mark with just a single impactful release.</h4>
+				<h4 class="h4-subtext"  style="margin-top: 30px;">But among the many chart-topping artists and plentiful one-hit-wonders, a few truly stood out.</h4>
 				<h4 class="h4-subtitle" style="margin-top: 30px;"><strong>Who were these top artists that grabbed everyone's attention on Spotify and TikTok?</strong></h4>
 			</div>
 		</div>
@@ -204,13 +204,19 @@
 	<div data-anchor="page7" class="section">
 		<div class="col-auto">
 			<h3>Let's take a closer look at the top artists on both platforms!</h3>
-			<h4>Both platforms have a unique way of ranking top artists. </h4>
-			<h4>On TikTok, artists were ranked based on the duration of time their tracks spent on the top charts.</h4>
-			<h4>Artists on Spotify were ranked by Spotify's unique artist popularity metric &ndash; it's measured by their number of streams.</h4>
-			<h4 class="h5-info">These artists hold the highest ranking across both platforms, showcasing their widespread influence in the music industry.</h4>
-			<h5>Hover over an artist to view their top tracks!</h5>
-			<button class = "showTopArtistsButton" id="showSpotifyButton">Top Spotify Artists</button>
-			<button class = "showTopArtistsButton" id="showTiktokButton">Top TikTok Artists</button>
+			<h4 class="radar-text">Both platforms have a unique way of ranking top artists. </h4>
+
+			<h4 class="radar-text">On TikTok, artists were ranked based on the duration of time their tracks spent on the top charts.</h4>
+			<h4 class="radar-text">Artists on Spotify were ranked by Spotify's unique artist popularity metric &ndash; it's measured by their number of streams.</h4>
+
+			<h4 class="radar-text">These artists hold the highest ranking across both platforms, showcasing their widespread influence in the music industry.</h4>
+
+			<h5 class="radar-text2">Hover over an artist to view their top tracks!</h5>
+			<div class="faceplotbuttonContainer">
+				<button class="showTopArtistsButton" id="showSpotifyButton">Top Spotify Artists</button>
+				<button class="showTopArtistsButton" id="showTiktokButton">Top TikTok Artists</button>
+			</div>
+
 			<div class="row">
 				<div class="col-md-7">
 					<div id="faceplot"></div>
@@ -417,13 +423,13 @@
 
 
 				<h2>Visualization Resources:</h2>
-				<a href=https://gist.github.com/officeofjane/a70f4b44013d06b9c0a973f163d8ab7a>Bubble Chart Reference Code</a><br>
+				<a href=https://gist.github.com/officeofjane/a70f4b44013d06b9c0a973f163d8ab7a>Bubble Chart Reference Code</a>
 				<a href=https://vallandingham.me//bubble_charts_with_d3v4.html>Bubble Chart Simulation Reference Code</a><br>
 				<a href= https://developer.mozilla.org/en-US/docs/Web/API/setTimeout>Fade-in Text</a><br>
-				<a href=https://developer.mozilla.org/en-US/docs/Web/API/Response/arrayBuffer>Piano Sounds 1</a><br>
+				<a href=https://developer.mozilla.org/en-US/docs/Web/API/Response/arrayBuffer>Piano Sounds 1</a>
 				<a href=https://developer.mozilla.org/en-US/docs/Web/API/AudioContext>Piano Sounds 2</a><br>
-				<a href="https://plotly.com/javascript/radar-chart/">Radar Plot Reference Code</a>
-				<a href=https://support.spotify.com/us/artists/article/embedded-players/>Spotify Track Embeds</a><br>
+				<a href="https://plotly.com/javascript/radar-chart/">Radar Plot Reference Code</a><br>
+				<a href=https://support.spotify.com/us/artists/article/embedded-players/>Spotify Track Embeds</a>
 				<a href=https://developers.tiktok.com/doc/embed-videos/>TikTok Video Embeds</a>
 
 				<h2>Shoutouts!</h2>

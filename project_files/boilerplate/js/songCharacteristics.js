@@ -46,7 +46,7 @@ class SongCharacteristics {
 
         vis.tooltiptext = [
             "Acousticness describes whether the song uses primarily acoustic instruments or electronic and electric instruments.\nA value of 1.0 indicates that a song is purely acoustic.",
-            "Danceability describes how suitable a track is for dancing based on a combination of musical elements including tempo, rhythm stability, beat strength, and overall regularity.\nA value of 0.0 is least danceable and 1.0 is most danceable.",
+            "Danceability describes how suitable a track is for dancing based on a combination of musical\n elements including tempo, rhythm stability, beat strength, and overall regularity.\nA value of 0.0 is least danceable and 1.0 is most danceable.",
             "Energy represents a measure of intensity and activity. Typically, energetic tracks feel fast, loud, and noisy.\nFor example, death metal has high energy, while a Bach prelude has lower energy.",
             "Liveness is the measure of a presence of an audience in the recording.\nHigher liveness values represent an increased probability that the track was performed live.\nA value above 0.8 provides strong likelihood that the track is live.",
             "Speechiness detects the presence of spoken words in a track.\nValues above 0.66 describe tracks that are probably made entirely of spoken words.\nValues between 0.33 and 0.66 describe tracks that may contain both music and speech, like rap music.",

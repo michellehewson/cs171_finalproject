@@ -88,7 +88,6 @@ h2 {
 
 .showTopArtistsButton{
     font-size: 20px;
-    margin-top: 45px;
     pointer-events: auto;
     margin-right: 10px;
     border: none;
@@ -98,6 +97,11 @@ h2 {
     color: white;
     transition: background-color 0.3s;
     font-family: 'Times New Roman', sans-serif;
+}
+
+.faceplotbuttonContainer {
+    margin-left: 275px;
+    margin-top: 10px;
 }
 
 .yes-button:hover, #yesButton:hover,
@@ -596,6 +600,10 @@ h2 {
     margin-bottom: 15px;
 }
 
+.p {
+    font-size: 20px;
+    font-family: "Times New Roman", sans-serif;
+}
 
 .button-group {
     display: flex;
@@ -712,7 +720,7 @@ h3 {
 
 .centered-h4-title {
     text-align: center;
-    font-size: 40px;
+    font-size: 32px;
     font-family: 'Times New Roman', sans-serif;
     font-weight: bold;
 
@@ -736,12 +744,17 @@ h3 {
 
 .h4-title {
     text-align: center;
-    font-size: 40px;
+    font-size: 36px;
     font-family: 'Times New Roman', sans-serif;
     font-weight: bold;
     margin-bottom: 30px;
 
+}
 
+.h4-subtext {
+    text-align: center;
+    font-size: 24px;
+    font-family: 'Times New Roman', sans-serif;
 }
 
 .h4-subtitle {
@@ -751,6 +764,21 @@ h3 {
     font-weight: bold;
     margin-top: 30px;
 
+
+}
+
+.radar-text {
+    text-align: left;
+    font-size: 18px;
+    font-family: 'Times New Roman', sans-serif;
+}
+
+.radar-text2 {
+    font-size: 18px;
+    font-family: 'Times New Roman', sans-serif;
+    margin-top: 30px;
+    margin-left: 280px;
+    font-weight: bold;
 
 }
 
