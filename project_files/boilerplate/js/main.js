@@ -217,24 +217,8 @@ const spotifyImg = document.getElementById('spotify-img');
 const tiktokImg = document.getElementById('tiktok-img');
 
 // Assuming both images should be the same size
-const imageSize = 100; // Set the size according to your needs
+const imageSize = 20; // Set the size according to your needs
 
-spotifyImg.style.height = `${imageSize}px`;
-tiktokImg.style.height = `${imageSize}px`;
+spotifyImg.style.height = `${imageSize}vh`;
+tiktokImg.style.height = `${imageSize}vh`;
 
-/*
-// Bouncing animation
-const bounce = (element) => {
-    let direction = 1;
-    setInterval(() => {
-        const currentPosition = parseInt(element.style.top) || 0;
-        element.style.top = currentPosition + direction + 'px';
-
-        if (currentPosition <= 0 || currentPosition >= window.innerHeight - imageSize) {
-            direction *= -1;
-        }
-    }, 16);
-};
-
-bounce(spotifyImg);
-bounce(tiktokImg);  */
