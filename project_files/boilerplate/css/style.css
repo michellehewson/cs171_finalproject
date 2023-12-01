@@ -77,12 +77,20 @@ h2 {
 #yesButton {
     background-color: #00f2ea;
     color: black;
+    width: 50px;
+    height: 50px;
+    font-size:30px;
 
 }
 
 #noButton {
     background-color: #ff0050;
     color: white;
+    width: 50px;
+    height: 50px;
+    font-size: 30px;
+    text-align: center;
+
 
 }
 
@@ -139,9 +147,12 @@ h2 {
 }
 
 
+
 .section {
-    padding: 20px;
+    /* padding: 20px; */
     background-color: white;
+    margin-top: 0;
+
 }
 
 .pianoTextInit {
@@ -452,6 +463,7 @@ h2 {
 
 
 .container-fluid {
+    margin-top: 0px;
     height: 90%;
     width: 100%;
     padding-right: 0;
@@ -606,6 +618,9 @@ h2 {
 .button-group {
     display: flex;
     justify-content: space-around;
+    font-size: 30px;
+    text-align: center;
+
 }
 
 input[type="radio"] {
@@ -877,21 +892,36 @@ html, body {
 }
 
 
-.bounce {
+.bounce_spot,
+.bounce_tik{
     z-index: 1;
     position:fixed;
-    left:50%;
     bottom:0;
-    margin-top:25px;
-    margin-left:25px;
-    height:50px;
-    width:50px;
-    -webkit-animation:bounce 1s infinite;
+    -webkit-animation:bounce 3s infinite;
+}
+.bounce_spot{
+    left: 5%;
+
 }
 
+.bounce_tik{
+    left: 85%;
+}
 @-webkit-keyframes bounce {
-    0%       { bottom:90%; }
-
+    0%       { bottom:5%; }
+    25%       { bottom:25%;}
     50%      { bottom:50%; }
     100%     {bottom:10%;}
+}
+
+#iphone {
+    width: 450px;
+    height: auto;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 30px;
+    75%      { bottom:75%;}
+    100%     {bottom:95%;}
 }
