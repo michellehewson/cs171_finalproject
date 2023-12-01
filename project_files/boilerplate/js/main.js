@@ -217,8 +217,8 @@ const spotifyImg = document.getElementById('spotify-img');
 const tiktokImg = document.getElementById('tiktok-img');
 
 // Assuming both images should be the same size
-const imageSize = 200; // Set the size according to your needs
+const imageSize = 20; // Set the size according to your needs
 
-spotifyImg.style.height = `${imageSize}px`;
-tiktokImg.style.height = `${imageSize}px`;
+spotifyImg.style.height = `${imageSize}vh`;
+tiktokImg.style.height = `${imageSize}vh`;
 
