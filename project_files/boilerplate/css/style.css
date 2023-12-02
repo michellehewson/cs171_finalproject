@@ -855,7 +855,7 @@ html, body {
 }
 .wrapper {
     background: url(../img/earbud.png) center/cover no-repeat;
-    height: 95vh;
+    height: 100vh;
     display: flex;
     flex-direction: column;
 }
