@@ -109,7 +109,7 @@ class ScatterChart {
                     .duration(200)
                     .style("opacity", 0.9);
                 vis.tooltip.html(
-                    `Artist: ${d.artist_name}<br>
+                    `<div style="font-size: 16px;">Artist: ${d.artist_name}<br>
              Track name: ${d.track_name}<br>
              Danceability: ${d.danceability.toFixed(2)}<br>
              Acousticness: ${d.acousticness.toFixed(2)}<br>
