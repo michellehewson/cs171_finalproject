@@ -32,8 +32,6 @@ class FacePlot {
 
 
         vis.margin = { top: 40, right: 10, bottom: 60, left: 60 };
-
-
         vis.width = 900;
         vis.height = 440;
         vis.svg = d3.select("#" + vis.parentElement).append("svg")
