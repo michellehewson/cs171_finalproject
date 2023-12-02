@@ -114,10 +114,6 @@
 	</div>
 
 
-
-
-
-
 	<div data-anchor="page4" class="section">
 		<div class="column-container">
 			<div class="column-left">
@@ -222,7 +218,7 @@
 				</h5>
 				<h4 class="select-title">The feature to dive into:</h4>
 				<div>
-					<button onclick="categoryChange(this)" class="category-button" id="Danceability">Danceability</button>
+					<button onclick="categoryChange(this)" class="category-button selected" id="Danceability">Danceability</button>
 					<button onclick="categoryChange(this)" class="category-button" id="Acousticness">Acousticness</button>
 					<button onclick="categoryChange(this)" class="category-button" id="Speechiness">Speechiness</button>
 					<button onclick="categoryChange(this)" class="category-button" id="Tempo">Tempo</button>
@@ -259,15 +255,16 @@
 					<h5 class="scatter-info">
 						Select an attribute from the list of buttons for the X <br> axis and another for the Y axis
 						to <br> examine the relationship between the two traits<br> of all the songs on TikTok and Spotify.
+						<br> Hover over a spot to see the details of the song.
 					</h5>
 
-					<div class="d-flex flex-column">
+					<div class="d-flex flex-column col-md-3">
 						<div class="d-flex flex-row">
 							<div class="mr-3">
 								<div class = "flex-row">
 								<h4 class="select-title">X Axis</h4>
 								<div>
-									<button onclick="XcategoryChange(this)" class="Xcategory-button" value="Danceability">Danceability</button>
+									<button onclick="XcategoryChange(this)" class="Xcategory-button selected" value="Danceability">Danceability</button>
 									<button onclick="XcategoryChange(this)" class="Xcategory-button" value="Acousticness">Acousticness</button>
 									<button onclick="XcategoryChange(this)" class="Xcategory-button" value="Speechiness">Speechiness</button>
 									<button onclick="XcategoryChange(this)" class="Xcategory-button" value="Tempo">Tempo</button>
@@ -277,16 +274,22 @@
 							</div>
 							</div>
 							<div>
+								<div class="d-flex flex-column col-md-3">
+									<div class="d-flex flex-row">
+										<div class="mr-3">
 								<div class = "flex-row">
 								<h4 class="select-title">Y Axis</h4>
 								<div>
-									<button onclick="YcategoryChange(this)" class="Ycategory-button" value="Danceability">Danceability</button>
+									<button onclick="YcategoryChange(this)" class="Ycategory-button selected" value="Danceability">Danceability</button>
 									<button onclick="YcategoryChange(this)" class="Ycategory-button" value="Acousticness">Acousticness</button>
 									<button onclick="YcategoryChange(this)" class="Ycategory-button" value="Speechiness">Speechiness</button>
 									<button onclick="YcategoryChange(this)" class="Ycategory-button" value="Tempo">Tempo</button>
 									<button onclick="YcategoryChange(this)" class="Ycategory-button" value="Liveness">Liveness</button>
 									<button onclick="YcategoryChange(this)" class="Ycategory-button" value="Energy">Energy</button>
 								</div>
+									</div>
+											</div>
+										</div>
 									</div>
 							</div>
 						</div>

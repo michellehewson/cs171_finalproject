@@ -182,7 +182,9 @@ class Histogram{
                 tooltip.transition()
                     .duration(200)
                     .style("opacity", 0.9);
-                tooltip.html("Range: " + d.x0 + " - " + d.x1 + "<br/>Count: " + d.length)
+                tooltip.html(
+                    `<div style="font-size: 16px;">Range: ${d.x0} - ${d.x1}<br/>Count: ${d.length}</div>`
+                )
                     .style("left", (event.pageX) + "px")
                     .style("top", (event.pageY - 28) + "px");
             })
