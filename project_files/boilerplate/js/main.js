@@ -172,12 +172,10 @@ function categoryChange(button) {
     let selectedCategory = button.getAttribute('id');
     tiktokHistogram.updateVis(selectedCategory)
     spotHistogram.updateVis(selectedCategory)
-
     var buttons = document.getElementsByClassName('category-button');
     for (var i = 0; i < buttons.length; i++) {
         buttons[i].classList.remove('selected');
     }
-
     // Add 'selected' class to the clicked button
     button.classList.add('selected');
 }
@@ -193,7 +191,6 @@ function XcategoryChange(button) {
     for (var i = 0; i < buttons.length; i++) {
         buttons[i].classList.remove('selected');
     }
-
     // Add 'selected' class to the clicked button
     button.classList.add('selected');
 }
