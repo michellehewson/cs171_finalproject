@@ -146,6 +146,17 @@ h2 {
     min-height: 300px; /* Set a minimum height for the container to prevent collapsing */
 }
 
+.faceplotbuttonContainer {
+    display: flex;
+    align-items: center; /* Center items vertically within the container */
+}
+
+#tiktokLogo, #spotifyLogo {
+    width: 50px; /* Adjust the width as needed */
+    height: 50px; /* Adjust the height as needed */
+    object-fit: contain;
+    margin-right: 10px; /* Adjust the margin as needed to create space between logos and buttons */
+}
 
 
 .section {
