@@ -210,6 +210,7 @@ function YcategoryChange(button) {
 
 //add bouncing effect to the front page:
 
+
 const spotifyImg = document.getElementById('spotify-img');
 const tiktokImg = document.getElementById('tiktok-img');
 

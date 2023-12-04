@@ -874,16 +874,16 @@ html, body {
 .category-button,
 .Xcategory-button,
 .Ycategory-button{
-    background-color: #ff0050;
-    border: 2px solid #333333;
-    color: white;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
+    font-size: 20px;
+    pointer-events: auto;
+    margin-right: 10px;
+    border-color: #333333;
+    border-radius: 5px;
     cursor: pointer;
+    background-color: #ff0050;
+    color: white;
+    transition: background-color 0.3s;
+    font-family: 'Times New Roman', sans-serif;
 }
 
 .category-button.selected,
@@ -894,26 +894,50 @@ html, body {
 }
 
 
-.bounce_spot,
-.bounce_tik{
+.bounce_spot_up,
+.bounce_tik_up{
     z-index: 1;
     position:fixed;
     bottom:0;
-    -webkit-animation:bounce 3s infinite;
+    -webkit-animation:bounce_up 3s infinite;
 }
-.bounce_spot{
+
+.bounce_spot_down,
+.bounce_tik_down{
+    z-index: 1;
+    position:fixed;
+    bottom:0;
+    -webkit-animation:bounce_down 3s infinite;
+}
+.bounce_spot_up{
     left: 5%;
-
+}
+.bounce_spot_down{
+    left: 15%;
 }
 
-.bounce_tik{
+.bounce_tik_up{
     left: 85%;
 }
-@-webkit-keyframes bounce {
+.bounce_tik_down{
+    left: 75%;
+}
+@-webkit-keyframes bounce_up {
     0%       { bottom:5%; }
     25%       { bottom:25%;}
     50%      { bottom:50%; }
     100%     {bottom:10%;}
+}
+
+@-webkit-keyframes bounce_down {
+    0%       { bottom:95%; }
+    25%       { bottom:75%;}
+    50%      { bottom:50%; }
+    100%     {bottom:90%;}
+}
+.spotify-img,
+.tiktok-img {
+    height: 20vh; /* Set the size according to your needs */
 }
 
 #iphone {

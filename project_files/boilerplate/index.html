@@ -23,25 +23,27 @@
 <div id="fullPage">
 	<div data-anchor="page1" class="section">
 
-		<div class="wrapper">
 		<div class="text-container container-frontpage">
 			<div class="rectangle">
 				<h1 class="main-title">From Tiktok Trends to Playlist Picks</h1>
 				<h2>Exploring Musical Trends Across Spotify and TikTok</h2>
 			</div>
 		</div>
-			<!--make the two imgs bounce on the first page-->
-			<div class = bounce_spot>
-				<img src="img/spotifylogo.png" id="spotify-img">
+			<!--make the imgs bounce on the first page-->
+			<div class = bounce_spot_up>
+				<img src="img/spotifylogo.png" class="spotify-img">
 			</div>
-
-			<div class = bounce_tik>
-				<img src="img/tiktokicon.png" id="tiktok-img">
-
+			<div class = bounce_spot_down>
+				<img src="img/spotifylogo.png" class="spotify-img">
+			</div>
+			<div class = bounce_tik_up>
+				<img src="img/tiktokicon.png" class="tiktok-img">
+			</div>
+			<div class = bounce_tik_down>
+				<img src="img/tiktokicon.png" class="tiktok-img">
 			</div>
 
 	</div>
-		</div>
 
 
 	<div data-anchor="page2" class="section">
@@ -211,7 +213,7 @@
 
 	<div data-anchor="page9" class="section">
 		<div class="row">
-			<div class="col-md-6 ">
+			<div class="col-md-4">
 				<h3 id="histogram-title">Explore the distribution of attributes across both platforms.</h3>
 				<h5 id="histogram-info">
 					Select a trait from the list of buttons to see the distribution of all songs across the scale of this trait.
@@ -234,8 +236,8 @@
 				</div>
 
 				<div class="row">
-					<div class="col-md-6" id="tiktokHist"></div>
-					<div class="col-md-6" id="spotHist"></div>
+					<div class="col-md-8" id="tiktokHist"></div>
+					<div class="col-md-8" id="spotHist"></div>
 				</div>
 			</div>
 		</div>
@@ -245,11 +247,11 @@
 
 	<div data-anchor="page10" class="section">
 		<div class="row">
-			<div class="col-md-6">
+			<div class="col-md-8">
 				<div id="tikScatterDiv"></div>
 				<div id="spotScatterDiv"></div>
 			</div>
-			<div class="col-md-6 d-flex align-items-center">
+			<div class="col-md-4 d-flex align-items-center">
 				<div>
 					<h3 id="scatter-title">Investigate the possible relationships between attributes.</h3>
 					<h5 class="scatter-info">
