@@ -20,22 +20,31 @@ class RadarChart {
 
         this.dataset = [];
 
-        this.customColors = [
+        this.spotifyColors = [
+            "#00f2ea",
             "#00f2ea",
             "#18ccc6",
             "#0e807c",
-            "#095c59",
-            "#072423",
+            "#05807a",
+            "#1c7c7b"
+        ];
+
+        this.tiktokColors = [
             "#ff0050",
             "#ff5e91",
             "#bd315d",
             "#6b0a29",
             "#662b3e",
             "#edabc0"
-        ];
+        ]
 
 // Create a custom color scale with the defined colors
-        this.colorScale = d3.scaleOrdinal().range(this.customColors);
+        if (this.sortingCriteria === 'spotify') {
+            this.colorScale = d3.scaleOrdinal().range(this.spotifyColors);
+        } else {
+            this.colorScale = d3.scaleOrdinal().range(this.tiktokColors);
+        }
+
 
         this.chartSubset.forEach(row => {
             const data = {
@@ -283,7 +292,7 @@ class RadarChart {
 
                 const pathGroup = vis.g.append("g").attr("class", "shape");
                 const color = vis.colorScale(row.track_name);
-                vis.drawPath([...points, points[0]], pathGroup, "black", color, 0.5);
+                vis.drawPath([...points, points[0]], pathGroup, "black", color, 0.3);
             });
 
             vis.drawLabels(vis.chartSubset, vis.NUM_OF_SIDES);

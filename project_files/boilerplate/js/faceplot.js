@@ -46,21 +46,39 @@ class FacePlot {
             height: vis.height / rows
         };
 
+
+        d3.select("#displayType")
+            .append("img")
+            .attr("src", "img/tiktokicon.png")
+            .attr("id", "tiktokLogo")
+            .style("display", "none");
+
+        // Add Spotify logo to the displayType div
+        d3.select("#displayType")
+            .append("img")
+            .attr("src", "img/spotifylogo.png")
+            .attr("id", "spotifyLogo")
+            .style("display", "none");
+
+
         d3.select('#showSpotifyButton').on('click', function () {
+            vis.showSpotifyLogo();
             vis.getTopArtistsFromSpotify();
-            d3.select('#showSpotifyButton').text('Top Spotify Artists');
-            d3.select('#showTiktokButton').text('Show TikTok Artists');
             vis.updateVis();
         });
 
         d3.select('#showTiktokButton').on('click', function () {
+            vis.showTikTokLogo();
+
             vis.getTopArtistsFromTiktok();
-            d3.select('#showTiktokButton').text('Top TikTok Artists');
-            d3.select('#showSpotifyButton').text('Show Spotify Artists');
             vis.updateVis();
         });
 
         vis.getTopArtistsFromTiktok();
+        vis.showTikTokLogo();
+        d3.select('#showTiktokButton').classed('button-selected', true);
+
+
 
         vis.defs = vis.svg.append('defs');
 
@@ -131,6 +149,17 @@ class FacePlot {
         vis.artistNameContainer = d3.select('#artist-name-container');
 
         vis.updateVis();
+    }
+
+    showTikTokLogo() {
+        d3.select("#tiktokLogo").style("display", "inline-block");
+        d3.select("#spotifyLogo").style("display", "none");
+    }
+
+    // Function to show Spotify logo and hide TikTok logo
+    showSpotifyLogo() {
+        d3.select("#tiktokLogo").style("display", "none");
+        d3.select("#spotifyLogo").style("display", "inline-block");
     }
 
 
@@ -224,6 +253,7 @@ class FacePlot {
 
         d3.select('#showSpotifyButton')
             .on('click', function () {
+                vis.showSpotifyLogo();
                 d3.select(this)
                     .classed('button-selected', true); // Add the selected class
                 d3.select('#showTiktokButton')
@@ -235,6 +265,7 @@ class FacePlot {
 
         d3.select('#showTiktokButton')
             .on('click', function () {
+                vis.showTikTokLogo();
                 d3.select(this)
                     .classed('button-selected', true); // Add the selected class
                 d3.select('#showSpotifyButton')
