@@ -7,12 +7,11 @@ class SongCharacteristics {
 
     initVis() {
         let vis = this;
-        vis.width = 1650;
+        vis.width = 1500;
         vis.height = 700;
         vis.imageWidth = 250;
-        vis.imageHeight = 180;
-        vis.imageHeight = 180;
-        vis.circleRadius = 120;
+        vis.imageHeight = 160;
+        vis.circleRadius = 110;
 
         vis.svg = d3.select("#" + vis.parentElement)
             .append("svg")
@@ -54,7 +53,7 @@ class SongCharacteristics {
         ];
 
         vis.totalWidth = vis.imageWidth * vis.images.length;
-        vis.startX = (vis.width - vis.totalWidth) / 2 - 90;
+        vis.startX = (vis.width - vis.totalWidth) / 2 - 70;
         vis.topMargin = 20;
 
 
