@@ -6,7 +6,6 @@ class FacePlot {
         this.currentArtist = null;
         this.initVis();
 
-
     }
 
     initVis() {
@@ -29,7 +28,6 @@ class FacePlot {
             'Doja Cat': '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/6Uj1ctrBOjOas8xZXGqKk4?utm_source=generator&theme=0" width="60%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>',
             'Imagine Dragons': '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/1r9xUipOqoNwggBpENDsvJ?utm_source=generator&theme=0" width="60%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>'
         }
-
 
         vis.margin = { top: 40, right: 10, bottom: 60, left: 60 };
         vis.width = 900;
@@ -234,19 +232,16 @@ class FacePlot {
         let vis = this;
         vis.newCells.selectAll('circle')
             .on('mouseover', function (event, d) {
-                // Reset the color of all circles to red
                 vis.svg.selectAll('.cell circle')
                     .style('stroke', '#ff0050');
 
                 const circle = d3.select(this);
                 if (!circle.classed('tracks-displayed')) {
-                    // Change the color of the hovered circle to blue
                     circle.style('stroke', '#00f2ea');
                 }
                 vis.showTracksForArtist(d);
             })
             .on('mouseout', function () {
-                // Do nothing on mouse leave, the border will stay blue
             });
 
     }
