@@ -15,8 +15,6 @@
 
 
 
-// https://www.codespeedy.com/display-html-element-after-n-seconds/
-
 let bubbleChart;
 let pianoChart;
 let spotHistogram;
@@ -24,11 +22,9 @@ let tiktokHistogram;
 let TikscatterChart;
 let SpotscatterChart;
 let promises = [
-    // LOADING IN THE DATA
     d3.csv("data/spotify_clean.csv").then(csv=> {
 
         csv.forEach(function(d){
-            // numerical values
             d.acousticness = +d.acousticness;
             d.danceability = +d.danceability;
             d.duration_ms = +d.duration_ms;
@@ -44,14 +40,11 @@ let promises = [
             d.time_signature = +d.time_signature;
             d.weeks_on_chart = +d.weeks_on_chart;
         });
-     //   console.log(csv);
         return csv;
     }),
 
     d3.csv("data/tiktok_clean.csv").then(csv=> {
-
         csv.forEach(function(d){
-            // numerical values
             d.acousticness = +d.acousticness;
             d.danceability = +d.danceability;
             d.duration_ms = +d.duration_ms;
@@ -67,13 +60,11 @@ let promises = [
             d.track_pop = +d.track_pop;
             d.valence = +d.valence;
         });
-    //    console.log(csv);
         return csv;
 
     }),
 
     d3.csv("data/tiktok_spotify_merged.csv").then(csv=> {
-    //    console.log("merged", csv)
         return csv;
         }),
 
@@ -84,7 +75,6 @@ let promises = [
             d.count = +d.count;
             d.percentage = Math.round(+d.percentage);
         });
-    //    console.log(csv);
         return csv;
     }),
 
@@ -95,7 +85,6 @@ let promises = [
             d.count = +d.count;
             d.percentage = Math.round(+d.percentage);
         });
-    //    console.log(csv);
         return csv;
     }),
 
@@ -103,15 +92,12 @@ let promises = [
         csv.forEach(function(d) {
             let time = d['Time'];
             let value = parseFloat(d['Value']);
-        //    console.log("Time:", time);
-        //    console.log("Value:", value);
         });
         return csv;
     }),
 
     d3.csv("data/combined_artists.csv").then(csv => {
         csv.forEach(function(d) {
-        //    artist_name,count_spotify,count_tiktok,spotify_count,tiktok_count,sizeratio,data_src
             d.artist_name = d.artist_name;
             d.count_spotify = + d.count_spotify;
             d.count_tiktok = + d.count_tiktok;
@@ -155,20 +141,15 @@ function initMainPage(dataArray) {
     tiktokradarChart = new RadarChart('tiktokradarchart', dataArray[1], 'tiktok')
     pianoChart = new Piano('piano', dataArray[3], dataArray[4])
     faceplot = new FacePlot('faceplot', dataArray[0], dataArray[1])
-
     tiktokHistogram = new Histogram("tiktokHist", dataArray[1], dataArray[0], "Tiktok")
-
     spotHistogram = new Histogram("spotHist",  dataArray[1], dataArray[0], "Spotify")
-
     TikscatterChart = new ScatterChart("tikScatterDiv", dataArray[1] , dataArray[0], "Tiktok")
     SpotscatterChart = new ScatterChart("spotScatterDiv",dataArray[1], dataArray[0], "Spotify")
     songCharacteristics = new SongCharacteristics('songcharacteristics')
-
 }
 
 
 function categoryChange(button) {
-    //let selectedCategory = document.getElementById('categorySelector').value;
     let selectedCategory = button.getAttribute('id');
     tiktokHistogram.updateVis(selectedCategory)
     spotHistogram.updateVis(selectedCategory)
@@ -176,7 +157,6 @@ function categoryChange(button) {
     for (var i = 0; i < buttons.length; i++) {
         buttons[i].classList.remove('selected');
     }
-    // Add 'selected' class to the clicked button
     button.classList.add('selected');
 }
 
@@ -191,7 +171,6 @@ function XcategoryChange(button) {
     for (var i = 0; i < buttons.length; i++) {
         buttons[i].classList.remove('selected');
     }
-    // Add 'selected' class to the clicked button
     button.classList.add('selected');
 }
 
@@ -203,20 +182,6 @@ function YcategoryChange(button) {
     for (var i = 0; i < buttons.length; i++) {
         buttons[i].classList.remove('selected');
     }
-
-    // Add 'selected' class to the clicked button
     button.classList.add('selected');
 }
-
-//add bouncing effect to the front page:
-
-
-const spotifyImg = document.getElementById('spotify-img');
-const tiktokImg = document.getElementById('tiktok-img');
-
-// Assuming both images should be the same size
-const imageSize = 20; // Set the size according to your needs
-
-//potifyImg.style.height = `${imageSize}vh`;
-//tiktokImg.style.height = `${imageSize}vh`;
 

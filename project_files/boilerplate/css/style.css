@@ -48,7 +48,7 @@ h2 {
 }
 
 .button {
-    margin-top: 45px;
+    margin-top: 50px;
     padding: 30px 60px;
     pointer-events: auto;
     margin-right: 10px;
@@ -69,8 +69,6 @@ h2 {
     font-family: 'Times New Roman', sans-serif;
     font-weight: bold;
     font-size: 24px;
-
-
 }
 
 
@@ -80,7 +78,7 @@ h2 {
     width: 50px;
     height: 50px;
     font-size:30px;
-
+    margin-left: 20px;
 }
 
 #noButton {
@@ -90,7 +88,7 @@ h2 {
     height: 50px;
     font-size: 30px;
     text-align: center;
-
+    margin-right: 20px;
 
 }
 
@@ -117,6 +115,9 @@ h2 {
     background-color: #555;
 }
 
+#button-box {
+    z-index: 2;
+}
 
 #button-box.hide {
     display: none;
@@ -160,11 +161,9 @@ h2 {
 
 
 .section {
-    /* padding: 20px; */
     background-color: white;
-    margin-top: 0;
-    margin-left: 20px;
-
+    padding: 5vh;
+    font-family: 'Times New Roman', sans-serif;
 }
 
 .pianoTextInit {
@@ -485,6 +484,9 @@ h2 {
 .row {
     margin-right: 0;
     margin-left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .col-md-4 {
@@ -542,7 +544,6 @@ h2 {
 #scatter-title {
     text-align: left;
     font-size: 48px;
-    margin-top: 75px;
 }
 
 .scatter-info {
@@ -551,10 +552,10 @@ h2 {
     margin-top: 30px;
 }
 
-#bubble-title{
+.page-title{
     text-align: left;
     font-size: 33px;
-
+    font-weight: bold;
 }
 
 .piano-description {
@@ -629,7 +630,7 @@ h2 {
 
 .button-group {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     font-size: 30px;
     text-align: center;
 
@@ -658,7 +659,9 @@ input[type="radio"]:checked + label {
     color: white;
 }
 
-
+.radio-container {
+    margin-left: -10px;
+}
 
 
 #tiktokHist {
@@ -731,24 +734,16 @@ input[type="radio"]:checked + label {
 }
 
 h5 {
-    font-family: 'Times New Roman', sans-serif;
     color: black;
     font-size: 25px;
 }
 
-h3 {
-    font-family: 'Times New Roman', sans-serif;
-    font-weight: bold;
-
-    font-size: 36px;
-}
 
 .centered-h4-title {
     text-align: center;
     font-size: 32px;
     font-family: 'Times New Roman', sans-serif;
     font-weight: bold;
-
 }
 
 
@@ -780,6 +775,7 @@ h3 {
     text-align: center;
     font-size: 24px;
     font-family: 'Times New Roman', sans-serif;
+    margin-top: 30px;
 }
 
 .h4-subtitle {
@@ -798,7 +794,7 @@ h3 {
     font-family: 'Times New Roman', sans-serif;
 }
 
-.radar-text2 {
+.subtext {
     font-size: 18px;
     font-family: 'Times New Roman', sans-serif;
     margin-top: 30px;
@@ -948,10 +944,11 @@ html, body {
 }
 .spotify-img,
 .tiktok-img {
-    height: 20vh; /* Set the size according to your needs */
+    height: 20vh;
 }
 
 #iphone {
+    z-index: 0;
     width: 450px;
     height: auto;
     position: absolute;
