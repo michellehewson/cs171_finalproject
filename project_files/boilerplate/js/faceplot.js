@@ -117,21 +117,18 @@ class FacePlot {
             .attr('xlink:href', d => `img/${d}.png`);
 
         cells.append('circle')
-            .attr('r', 70) // Adjust the radius as needed
+            .attr('r', 70)
             .style('fill', (d, i) => `url(#pattern-${i})`)
             .style('stroke', '#ff0050')
             .style('stroke-width', '4')
-            .on('mouseover', function (event, d) {
-                d3.select(this)
-                    .style('stroke', '#00f2ea')
-                   // .style('filter', 'url(#drop-shadow)'); // Apply shadow filter
+            .on('mouseenter', function (event, d) {
+                const circle = d3.select(this);
+                if (!circle.classed('tracks-displayed')) {
+                    circle.style('stroke', '#00f2ea');
+                }
                 vis.showTracksForArtist(d);
             })
-            .on('mouseout', function () {
-                const circle = d3.select(this);
-                circle.style('stroke', '#ff0050')
-                circle.style('filter', null);
-
+            .on('mouseleave', function () {
             });
 
         if (vis.uniqueArtists.length > vis.numDisplayedArtists) {
@@ -179,21 +176,18 @@ class FacePlot {
         const spotifyEmbed = vis.generateSpotifyEmbed(selectedArtist);
 
         if (selectedArtist !== vis.currentArtist) {
-            const tracksHtml = artistTracks.map(entry => `<p>${entry.track_name}</p>`).join(''); //chatgpt helped me create this
+            const tracksHtml = artistTracks.map(entry => `<p>${entry.track_name}</p>`).join('');
             const tracksContainer = d3.select('#artist-name-container');
             const spotifyEmbedContainer = d3.select('#spotify-music-embed');
 
-
             tracksContainer.html('');
             spotifyEmbedContainer.html('');
-
 
             tracksContainer.append('h4')
                 .text(`Tracks for ${selectedArtist} (from ${source}):`)
                 .style('font-weight', 'bold')
                 .style('font-size', 24)
                 .style('font-family', 'Times New Roman, sans-serif');
-
 
             tracksContainer.append('div')
                 .html(tracksHtml);
@@ -203,6 +197,13 @@ class FacePlot {
                 .html(spotifyEmbed);
 
             vis.currentArtist = selectedArtist;
+
+            // Set a class on the circle to indicate that tracks are being displayed
+            vis.svg.selectAll('.cell circle')
+                .classed('tracks-displayed', false);
+
+            vis.svg.select(`.cell circle[data-artist="${selectedArtist}"]`)
+                .classed('tracks-displayed', true);
         }
     }
 
@@ -233,16 +234,21 @@ class FacePlot {
         let vis = this;
         vis.newCells.selectAll('circle')
             .on('mouseover', function (event, d) {
-            //    d3.select(this).style('filter', 'url(#drop-shadow)'); // Apply shadow filter
-                vis.showTracksForArtist(d);
-                const circle = d3.select(this);
-                circle.style('stroke', '#00f2ea')
+                // Reset the color of all circles to red
+                vis.svg.selectAll('.cell circle')
+                    .style('stroke', '#ff0050');
 
-            })
-            .on('mouseleave', function () {
                 const circle = d3.select(this);
-                circle.style('filter', null);
+                if (!circle.classed('tracks-displayed')) {
+                    // Change the color of the hovered circle to blue
+                    circle.style('stroke', '#00f2ea');
+                }
+                vis.showTracksForArtist(d);
+            })
+            .on('mouseout', function () {
+                // Do nothing on mouse leave, the border will stay blue
             });
+
     }
 
 
