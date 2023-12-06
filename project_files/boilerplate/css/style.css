@@ -23,6 +23,7 @@ h1 {
     font-family: 'Times New Roman', sans-serif;
     color: black;
     margin-top: 50px;
+    font-weight: bold;
 }
 
 
@@ -755,6 +756,11 @@ h5 {
     margin-top: 100px;
 }
 
+.h2 {
+    text-align: center;
+    font-size: 28px;
+}
+
 #spotifyradarchart,
 #tiktokradarchart {
     margin: 0 auto;
@@ -778,15 +784,6 @@ h5 {
     margin-top: 30px;
 }
 
-.h4-subtitle {
-    text-align: center;
-    font-size: 33px;
-    font-family: 'Times New Roman', sans-serif;
-    font-weight: bold;
-    margin-top: 30px;
-
-
-}
 
 .radar-text {
     text-align: left;
@@ -800,7 +797,6 @@ h5 {
     margin-top: 30px;
     margin-left: 280px;
     font-weight: bold;
-
 }
 
 .main-title {
