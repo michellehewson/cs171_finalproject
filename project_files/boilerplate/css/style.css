@@ -79,7 +79,11 @@ h2 {
     width: 50px;
     height: 50px;
     font-size:30px;
-    margin-left: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 400px;
+    margin-left: 650px;
 }
 
 #noButton {
@@ -89,7 +93,11 @@ h2 {
     height: 50px;
     font-size: 30px;
     text-align: center;
-    margin-right: 20px;
+    margin-top: 400px;
+    margin-right: 650px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
 }
 
@@ -509,6 +517,8 @@ h2 {
 #piano-title2 {
     text-align: left;
     font-size: 48px;
+    font-weight: bold;
+
 
 }
 
@@ -516,6 +526,8 @@ h2 {
     text-align: left;
     font-size: 48px;
     margin-top: 75px;
+    font-weight: bold;
+
 }
 
 #radar-info {
@@ -534,6 +546,12 @@ h2 {
     text-align: left;
     font-size: 48px;
     margin-top: 150px;
+    font-weight: bold;
+
+}
+
+#extraspace{
+    margin-top: 200px;
 }
 
 #histogram-info {
@@ -545,6 +563,8 @@ h2 {
 #scatter-title {
     text-align: left;
     font-size: 48px;
+    font-weight: bold;
+
 }
 
 .scatter-info {
@@ -572,7 +592,7 @@ h2 {
 
 
 #form {
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 #searchArtist {
@@ -814,6 +834,8 @@ h5 {
 
 .radar-title {
     margin-bottom: 30px;
+    font-weight: bold;
+
 }
 
 .select-title{
@@ -877,15 +899,16 @@ html, body {
 .category-button,
 .Xcategory-button,
 .Ycategory-button{
+    border: none;
     font-size: 20px;
     pointer-events: auto;
     margin-right: 10px;
-    border-color: #333333;
+    margin-top: 10px;
     border-radius: 5px;
     cursor: pointer;
     background-color: #ff0050;
     color: white;
-    transition: background-color 0.3s;
+    transition: background-color 0.1s;
     font-family: 'Times New Roman', sans-serif;
 }
 
@@ -954,4 +977,27 @@ html, body {
     margin-top: 30px;
     75%      { bottom:75%;}
     100%     {bottom:95%;}
+}
+
+.column.fixed-column {
+    position: sticky;
+    top: 20px;
+    height: 716.79px;
+    width: 375px;
+}
+
+.fade-in-tiktok-text1 h2,
+.fade-in-tiktok-text2 h2,
+.fade-in-tiktok-text3 h2 {
+    text-align: left;
+}
+
+.fade-in-tiktok-text1 h2{
+    margin-top: 150px;
+}
+
+
+.fade-in-tiktok-text2 h2{
+    margin-top: 100px;
+    margin-bottom: 100px;
 }

@@ -2,15 +2,27 @@
 // simple bar chart that animates when a user loads the page
 // tooltip is inspired from week 5 homework
 class BarChart {
-    constructor(parentElement, tiktokUserData) {
+    constructor(parentElement) {
         this.parentElement = parentElement;
-        this.tiktokUserData = tiktokUserData.map(d => ({
-            Time: d['Time'],
-            Value: parseFloat(d['Value'])
-        }))
         this.initVis();
-        this.updateVis();
+        this.loadData();
+
     };
+
+    loadData() {
+        let vis = this;
+
+        d3.csv("data/tiktok_user_stats.csv").then(csv => {
+            console.log('untouched')
+            console.log(csv)
+            vis.tiktokUserData = csv.map(d => ({
+                Time: d['2018 Q1'],
+                Value: parseFloat(d['113.87'])
+            }));
+        console.log(vis.tiktokUserData)
+            vis.updateVis();
+        });
+    }
 
     initVis() {
         let vis = this;
