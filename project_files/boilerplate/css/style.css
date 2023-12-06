@@ -7,13 +7,8 @@
 
 .section {
     background-color: white;
-
     font-family: 'Times New Roman', sans-serif;
-}
-.section {
-    background-color: white;
-    padding: 5vh;
-    font-family: 'Times New Roman', sans-serif;
+    padding-left: 25px;
 }
 
 
@@ -947,14 +942,7 @@ h2 {
 .fade-in-tiktok-text2 h2,
 .fade-in-tiktok-text3 h2 {
     text-align: left;
-}
+    margin-top: 80px;
+    margin-bottom: 80px;
 
-.fade-in-tiktok-text1 h2{
-    margin-top: 150px;
-}
-
-
-.fade-in-tiktok-text2 h2{
-    margin-top: 100px;
-    margin-bottom: 100px;
 }
