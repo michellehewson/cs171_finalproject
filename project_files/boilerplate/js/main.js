@@ -96,6 +96,7 @@ let promises = [
         return csv;
     }),
 
+
     d3.csv("data/combined_artists.csv").then(csv => {
         csv.forEach(function(d) {
             d.artist_name = d.artist_name;

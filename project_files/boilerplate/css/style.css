@@ -81,7 +81,11 @@ h1 {
     width: 50px;
     height: 50px;
     font-size:30px;
-    margin-left: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 400px;
+    margin-left: 650px;
 }
 
 #noButton {
@@ -91,7 +95,11 @@ h1 {
     height: 50px;
     font-size: 30px;
     text-align: center;
-    margin-right: 20px;
+    margin-top: 400px;
+    margin-right: 650px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
 }
 
@@ -487,11 +495,85 @@ h1 {
 #piano-title2 {
     text-align: left;
     font-size: 48px;
+    font-weight: bold;
+
 
 }
 
+<<<<<<< HEAD
+=======
+#radar-title {
+    text-align: left;
+    font-size: 48px;
+    margin-top: 75px;
+    font-weight: bold;
+
+}
+
+#radar-info {
+    text-align: left;
+    font-size: 26px;
+    margin-top: 30px;
+}
+
+#radar-info2 {
+    text-align: left;
+    font-size: 26px;
+    margin-top: 40px;
+}
+
+#histogram-title {
+    text-align: left;
+    font-size: 48px;
+    margin-top: 150px;
+    font-weight: bold;
+
+}
+
+#extraspace{
+    margin-top: 200px;
+}
+
+#histogram-info {
+    text-align: left;
+    font-size: 26px;
+    margin-top: 30px;
+}
+
+#scatter-title {
+    text-align: left;
+    font-size: 48px;
+    font-weight: bold;
+
+}
+
+.scatter-info {
+    text-align: left;
+    font-size: 26px;
+    margin-top: 30px;
+}
+
+.page-title{
+    text-align: left;
+    font-size: 33px;
+    font-weight: bold;
+}
+
+.piano-description {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    justify-content: center;
+    align-items: center;
+    text-align: left;
+    font-size: 30px;
+    font-weight: normal;
+    font-family: 'Times New Roman', sans-serif;
+}
+
+
+>>>>>>> b464a395b50e57cebe13167c1a84e952d5370961
 #form {
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 #searchArtist {
@@ -677,6 +759,17 @@ h2 {
 }
 
 
+<<<<<<< HEAD
+=======
+    margin-top: 30px;
+}
+
+.radar-title {
+    margin-bottom: 30px;
+    font-weight: bold;
+
+}
+>>>>>>> b464a395b50e57cebe13167c1a84e952d5370961
 
 .select-title{
     font-family: 'Times New Roman', sans-serif;
@@ -735,15 +828,16 @@ h2 {
 .category-button,
 .Xcategory-button,
 .Ycategory-button{
+    border: none;
     font-size: 20px;
     pointer-events: auto;
     margin-right: 10px;
-    border-color: #333333;
+    margin-top: 10px;
     border-radius: 5px;
     cursor: pointer;
     background-color: #ff0050;
     color: white;
-    transition: background-color 0.3s;
+    transition: background-color 0.1s;
     font-family: 'Times New Roman', sans-serif;
 }
 
@@ -812,4 +906,27 @@ h2 {
     margin-top: 30px;
     75%      { bottom:75%;}
     100%     {bottom:95%;}
+}
+
+.column.fixed-column {
+    position: sticky;
+    top: 20px;
+    height: 716.79px;
+    width: 375px;
+}
+
+.fade-in-tiktok-text1 h2,
+.fade-in-tiktok-text2 h2,
+.fade-in-tiktok-text3 h2 {
+    text-align: left;
+}
+
+.fade-in-tiktok-text1 h2{
+    margin-top: 150px;
+}
+
+
+.fade-in-tiktok-text2 h2{
+    margin-top: 100px;
+    margin-bottom: 100px;
 }
