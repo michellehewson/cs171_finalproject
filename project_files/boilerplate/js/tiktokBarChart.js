@@ -16,8 +16,8 @@ class BarChart {
             console.log('untouched')
             console.log(csv)
             vis.tiktokUserData = csv.map(d => ({
-                Time: d['2018 Q1'],
-                Value: parseFloat(d['113.87'])
+                Time: d['Time'],
+                Value: parseFloat(d['Value'])
             }));
         console.log(vis.tiktokUserData)
             vis.updateVis();
