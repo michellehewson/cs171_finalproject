@@ -203,12 +203,12 @@ class BubbleGraph {
         let combinedData = data.filter(d => d.data_src === 'both');
 
         let simulationSpotify = d3.forceSimulation(spotifyData)
-            .force('x', d3.forceX(vis.width / 2 - 400).strength(0.15)) //offset the bubbles by 400 to the left
+            .force('x', d3.forceX(vis.width / 2 - 350).strength(0.15)) //offset the bubbles by 400 to the left
             .force('y', d3.forceY(vis.height / 2).strength(0.15))
             .force('collide', d3.forceCollide(d => vis.radiusScale(d.sizeratio) + 1));
 
         let simulationTikTok = d3.forceSimulation(tiktokData)
-            .force('x', d3.forceX(vis.width / 2 + 400).strength(0.15)) //offset bubbles by 400 to the right
+            .force('x', d3.forceX(vis.width / 2 + 350).strength(0.15)) //offset bubbles by 400 to the right
             .force('y', d3.forceY(vis.height / 2).strength(0.15))
             .force('collide', d3.forceCollide(d => vis.radiusScale(d.sizeratio) + 1));
 
@@ -507,8 +507,7 @@ class BubbleGraph {
         vis.searchTerm = (vis.searchInput.value).toLowerCase(); // convert to lowercase or else we might
         // not find the artist
 
-        vis.notFoundMessage = document.getElementById('vis.notFoundMessage');
-
+        vis.notFoundMessage = document.getElementById('notFoundMessage');
 
         console.log(vis.searchTerm);
         vis.svg.selectAll('.bubble')

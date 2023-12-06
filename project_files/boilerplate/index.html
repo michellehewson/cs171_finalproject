@@ -101,12 +101,28 @@
 
 	<div data-anchor="page3" class="section">
 		<div class="row">
-			<img src="img/iphone1.png" id="iphone" alt="iPhone Image">
-			<div id="button-box">
+			<img src="img/iphone1.png" id="iphone" alt="iPhone Image" style="z-index: 0;">
+			<div id="button-box" style="z-index: 2;">
 				<div class="button-group">
 					<button id="yesButton" class="button">Yes</button>
 					<button id="noButton" class="button">No</button>
 				</div>
+			</div>
+		</div>
+		<div class="column-container" style="position: relative;">
+			<div class="column fixed-column">
+				<div class="fade-in-tiktok-text1">
+					<h2>TikTok dominated in 2022 as the most downloaded app on the market, accumulating over <b>800 million</b> downloads.</h2>
+				</div>
+				<div class="fade-in-tiktok-text2">
+					<h2 id="tiktok-text2">This rise in popularity is a testament to TikTok's capability to shape current trends and culture.</h2>
+				</div>
+				<div class="fade-in-tiktok-text3">
+					<h2 id="tiktok-text3"><b>Let's explore whether TikTok's immense popularity in 2022 influenced music trends during that period.</b></h2>
+				</div>
+			</div>
+			<div class="column fixed-column" style="position: sticky; top: 20px; height: 716.79px; width: 350px;">
+				<div id="barchart"></div>
 			</div>
 		</div>
 	</div>
@@ -142,7 +158,7 @@
 							</div>
 						</div>
 					</div>
-					<h4 style="margin-top: 30px;">Search for your favorite artist!</h4>
+					<h4>Search for your favorite artist!</h4>
 					<form id="form">
 						<input type="search" id="searchArtist" name="q" placeholder="Search...">
 						<button id="searchButton">Search</button>
@@ -185,8 +201,8 @@
 					<img src="img/tiktokicon.png" id="tiktokLogo" style="display: none;">
 					<img src="img/spotifylogo.png" id="spotifyLogo" style="display: none;">
 				</div>
-				<button class="showTopArtistsButton" id="showSpotifyButton">Top Spotify Artists</button>
 				<button class="showTopArtistsButton" id="showTiktokButton">Top TikTok Artists</button>
+				<button class="showTopArtistsButton" id="showSpotifyButton">Top Spotify Artists</button>
 			</div>
 
 			<div class="row">
@@ -209,8 +225,8 @@
 
 
 	<div data-anchor="page9" class="section">
-		<div class="row">
-			<div class="col-md-4">
+		<div class="row align-items-center">
+			<div class="col-md-4 align-items-center">
 				<h3 id="histogram-title">Explore the distribution of attributes across both platforms.</h3>
 				<h5 id="histogram-info">
 					Select a trait from the list of buttons to see the distribution of all songs across the scale of this trait.
@@ -224,6 +240,7 @@
 					<button onclick="categoryChange(this)" class="category-button" id="Liveness">Liveness</button>
 					<button onclick="categoryChange(this)" class="category-button" id="Energy">Energy</button>
 				</div>
+				<p id="extraspace"></p>
 			</div>
 
 			<div class="col-md-6">
@@ -305,7 +322,7 @@
 			<div class="col-md-2">
 				<div class="justify-content-center">
 					<h3 id="radar-title">How do the Top Songs Overlap?</h3>
-					<h5 id="radar-info">Every song has a unique fingerprint, as shown in the radar charts. Different values for different attributes allow us to see which types of songs make it into the top charts for Spotify vs TikTok.</h5>
+					<h5 id="radar-info">Every song has a unique fingerprint, as shown in the radar charts. <br><br> Different values for different attributes allow us to see characteristics are prevalent in top songs on the Spotify and TikTok charts.</h5>
 
 				</div>
 			</div>
@@ -359,7 +376,7 @@
 	<div data-anchor="page12" class="section">
 		<div class="container-piano">
 			<div class="left-column">
-				<h3 id="piano-title2">Playing with the Distribution of Keys Among Top Songs</h3>
+				<h3 id="piano-title2">Playing with the Distribution of Keys Among Top Songs!</h3>
 				<h4 class="piano-description">In music theory, the key of a song is its central pitch. There are 12 keys that a song can be recorded in.</h4>
 				<h4 class="piano-description">Each key represent 1 of the 12 pitches within an octave.</h4>
 				<h4 class="piano-description">Try investigating the 12 key distribution of the top songs on Spotify and TikTok in 2022 by playing the piano!</h4>			</div>
@@ -445,27 +462,104 @@
 	// this script waits for the user to press the yes/no buttons on page3 and then returns a message based on what
 	// button they chose
 	document.addEventListener('DOMContentLoaded', function() {
-		const buttonBox = document.getElementById('button-box');
-		const buttonContainer = document.querySelector('.button-container');
-		const yesButton = document.querySelector('#yesButton');
-		const noButton = document.querySelector('#noButton');
-		const responseText = document.getElementById('response-text');
+		let buttonBox = document.getElementById('button-box');
+		let yesButton = document.querySelector('#yesButton');
+		let noButton = document.querySelector('#noButton');
+		let picture = document.getElementById('iphone');
 
-		yesButton.addEventListener('click', function() {
+
+		yesButton.addEventListener('click', function() { // more time delays if the user pressed yes
+			// https://developer.mozilla.org/en-US/docs/Web/API/setTimeout
 			buttonBox.classList.add('hide');
-			buttonContainer.style.display = 'none'; //get rid of the yes/no buttons and box
-			responseText.textContent = 'You are part of a massive community! To date, TikTok has been downloaded over 3.4 billion times!';
-			responseText.style.display = 'block'; //show the text
+			picture.src = 'img/iphone2.png'; // change iphone pic
+
+			setTimeout(function() {
+				picture.src = 'img/iphone_yes1.png';
+			}, 1000);
+
+			setTimeout(function() {
+				picture.src = 'img/iphone_yes2.png';
+			}, 2000);
+
+			setTimeout(function() {
+				picture.src = 'img/iphone_yes3.png';
+			}, 3000);
+
+			setTimeout(function() {
+				picture.style.display = 'none';
+			}, 4500);
+
+			setTimeout(function() {
+				const barChart = new BarChart('barchart');
+			}, 4600);
+
+			setTimeout(function() {
+				// https://developer.mozilla.org/en-US/docs/Web/API/setTimeout
+				const fact1 = document.querySelector('.fade-in-tiktok-text1');
+				fact1.classList.add('show');
+			}, 5000);
+
+			setTimeout(function() {
+				// https://developer.mozilla.org/en-US/docs/Web/API/setTimeout
+				const fact2 = document.querySelector('.fade-in-tiktok-text2');
+				fact2.classList.add('show');
+			}, 5500);
+
+			setTimeout(function() {
+				// https://developer.mozilla.org/en-US/docs/Web/API/setTimeout
+				const fact3 = document.querySelector('.fade-in-tiktok-text3');
+				fact3.classList.add('show');
+			}, 6000);
+
 		});
 
 		noButton.addEventListener('click', function() {
 			buttonBox.classList.add('hide');
-			buttonContainer.style.display = 'none'; //get rid of the yes/no buttons and box
-			responseText.textContent = 'Consider joining TikTok\'s global community, which has amassed over 3.4 billion downloads, to discover the engaging content that has its users hooked!';
-			responseText.style.display = 'block'; //show the text
+			picture.src = 'img/iphone3.png'; // change iphone pic
+
+			setTimeout(function() {
+				picture.src = 'img/iphone_no1.png';
+			}, 1000);
+
+			setTimeout(function() {
+				picture.src = 'img/iphone_no2.png';
+			}, 2000);
+
+			setTimeout(function() {
+				picture.src = 'img/iphone_no3.png';
+			}, 3000);
+
+			setTimeout(function() {
+				picture.style.display = 'none';
+			}, 4500);
+
+			setTimeout(function() {
+				const barChart = new BarChart('barchart');
+			}, 4600);
+
+			setTimeout(function() {
+				// https://developer.mozilla.org/en-US/docs/Web/API/setTimeout
+				const fact1 = document.querySelector('.fade-in-tiktok-text1');
+				fact1.classList.add('show');
+			}, 5000);
+
+			setTimeout(function() {
+				// https://developer.mozilla.org/en-US/docs/Web/API/setTimeout
+				const fact2 = document.querySelector('.fade-in-tiktok-text2');
+				fact2.classList.add('show');
+			}, 5500);
+
+			setTimeout(function() {
+				// https://developer.mozilla.org/en-US/docs/Web/API/setTimeout
+				const fact3 = document.querySelector('.fade-in-tiktok-text3');
+				fact3.classList.add('show');
+			}, 6000);
 		});
 	});
+
 </script>
+
+
 
 <script>
 	// this script is how we get the text/visualizations to fade in based on what page the user is on
@@ -511,64 +605,6 @@
 
 </script>
 
-<script>
-	//this script draws the bar chart and the rest of the text after the yes/no button is pushed
-	// (this follows the above script)
-	let tiktokUserData;
-
-	d3.csv("data/tiktok_user_stats.csv").then(csv => {
-		tiktokUserData = csv.map(d => ({
-			Time: d['Time'],
-			Value: parseFloat(d['Value'])
-		}));
-
-		const yesButton = document.getElementById('yesButton');
-		const noButton = document.getElementById('noButton');
-		const text1 = document.querySelector('.fade-in-tiktok-text1');
-		const text2 = document.querySelector('.fade-in-tiktok-text2');
-		const text3 = document.querySelector('.fade-in-tiktok-text3');
-
-		yesButton.addEventListener('click', function() {
-			// more time delays if the user pressed yes
-			// https://developer.mozilla.org/en-US/docs/Web/API/setTimeout
-			setTimeout(function() {
-				const barChart = new BarChart('barchart', tiktokUserData);
-			}, 1500);
-
-			setTimeout(function() {
-				text1.classList.add('show');
-			}, 500);
-
-			setTimeout(function() {
-				text2.classList.add('show');
-			}, 2000);
-
-			setTimeout(function() {
-				text3.classList.add('show');
-			}, 3000);
-
-		});
-
-		noButton.addEventListener('click', function() {
-			setTimeout(function() {
-				//more time delays if the user pressed no
-				const barChart = new BarChart('barchart', tiktokUserData);
-			}, 1500);
-
-			setTimeout(function() {
-				text1.classList.add('show');
-			}, 500);
-
-			setTimeout(function() {
-				text2.classList.add('show');
-			}, 2000);
-
-			setTimeout(function() {
-				text3.classList.add('show');
-			}, 3000);
-		});
-	});
-</script>
 
 
 <!-- own js files -->
