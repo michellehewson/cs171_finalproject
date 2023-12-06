@@ -49,7 +49,7 @@
 		<div class="row">
 			<div class="col-md-4">
 				<div class="fade-in-title">
-					<h1 id="intro-text">What is <img src="img/tiktok.png" alt="TikTok logo" width="213" height="60">?</h1>
+					<h1 id="intro-text" style="display: flex; align-items: flex-start;">What is <img src="img/tiktok.png" alt="TikTok logo" width="213" height="60" style="margin-top: -5px;">?</h1>
 				</div>
 				<div class="fade-in-fact1">
 					<h2 id="intro-text1">TikTok is a social media platform that has taken the world by storm.</h2>
@@ -141,6 +141,10 @@
 					<div class="radio-container">
 						<div class="row">
 							<div class="col-md-6">
+								<input type="radio" id="together-radio" name="cluster-type" value="together" checked>
+								<label for="together-radio">All Artists</label>
+							</div>
+							<div class="col-md-6">
 								<input type="radio" id="one-hit-wonders-radio" name="cluster-type" value="one-hit-wonders">
 								<label for="one-hit-wonders-radio">One Hit Wonders</label>
 							</div>
@@ -152,10 +156,7 @@
 								<input type="radio"  id="most-songs-radio" name="cluster-type" value="top-artists">
 								<label for="most-songs-radio">Top Artists</label>
 							</div>
-							<div class="col-md-6">
-								<input type="radio" id="together-radio" name="cluster-type" value="together" checked>
-								<label for="together-radio">All Artists</label>
-							</div>
+
 						</div>
 					</div>
 					<h4>Search for your favorite artist!</h4>
@@ -177,9 +178,9 @@
 		<div class="text-container">
 			<div class="rectangle">
 				<div class="page-title">In 2022, the top music charts on Spotify and TikTok featured over 400 musical artists.</div>
-				<h4 class="h4-subtext">The bubble chart showed that about 30% of these artists secured top-ranking songs on both platforms.</h4>
-				<h4 class="h4-subtext" >Further, each chart was mostly dominated by one-hit-wonders &ndash; artists who left their mark with just a single impactful release.</h4>
-				<h4 class="h4-subtext" >But among the many chart-topping artists and plentiful one-hit-wonders, a few truly stood out.</h4>
+				<h4 class="h4-subtext">About 30% of these artists secured top-ranking songs on both platforms.</h4>
+				<h4 class="h4-subtext" >Each chart was mostly dominated by one-hit-wonders &ndash; artists who left their mark with just a single impactful release.</h4>
+				<h4 class="h4-subtext" style="margin-bottom: 20px">But among the many chart-topping artists and plentiful one-hit-wonders, a few truly stood out.</h4>
 				<div class="page-title">Who were these top artists that grabbed everyone's attention on Spotify and TikTok?</div>
 			</div>
 		</div>
@@ -237,10 +238,11 @@
 				<div>
 					<button onclick="categoryChange(this)" class="category-button selected" id="Danceability">Danceability</button>
 					<button onclick="categoryChange(this)" class="category-button" id="Acousticness">Acousticness</button>
+					<button onclick="categoryChange(this)" class="category-button" id="Tempo">Tempo</button><br>
 					<button onclick="categoryChange(this)" class="category-button" id="Speechiness">Speechiness</button>
-					<button onclick="categoryChange(this)" class="category-button" id="Tempo">Tempo</button>
 					<button onclick="categoryChange(this)" class="category-button" id="Liveness">Liveness</button>
 					<button onclick="categoryChange(this)" class="category-button" id="Energy">Energy</button>
+
 				</div>
 				<p id="extraspace"></p>
 			</div>
