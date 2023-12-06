@@ -4,10 +4,16 @@
     padding: 20px;
 }
 
+
+.section {
+    background-color: white;
+    padding: 5vh;
+    font-family: 'Times New Roman', sans-serif;
+}
+
 #intro-text {
     font-family: 'Times New Roman', sans-serif;
     text-align: left;
-
     font-size: 36px;
     color: #333;
 }
@@ -26,12 +32,10 @@ h1 {
     font-weight: bold;
 }
 
-
-h2 {
+.title-center {
+    font-size: 34px;
     text-align: center;
-    font-family: 'Times New Roman', sans-serif;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    font-weight: bold;
 }
 
 .video-container {
@@ -62,12 +66,10 @@ h2 {
 .button-text {
     margin-top: 90px;
     font-size: 48px;
-    font-family: 'Times New Roman', sans-serif;
 }
 
 .slider-text {
     text-align: center;
-    font-family: 'Times New Roman', sans-serif;
     font-weight: bold;
     font-size: 24px;
 }
@@ -103,7 +105,6 @@ h2 {
     background-color: #ff0050;
     color: white;
     transition: background-color 0.3s;
-    font-family: 'Times New Roman', sans-serif;
 }
 
 .faceplotbuttonContainer {
@@ -129,11 +130,9 @@ h2 {
     cursor: pointer;
 }
 
-
 #input-container {
     text-align: center;
 }
-
 
 .track-names {
     padding: 10px;
@@ -141,11 +140,6 @@ h2 {
     border-radius: 5px;
     height: 150px; /* Set a fixed maximum height for the track names container */
     overflow-y: auto;
-}
-
-/* Additional styling for other elements to prevent collapsing */
-.col-md-5 {
-    min-height: 300px; /* Set a minimum height for the container to prevent collapsing */
 }
 
 .faceplotbuttonContainer {
@@ -158,13 +152,6 @@ h2 {
     height: 50px; /* Adjust the height as needed */
     object-fit: contain;
     margin-right: 10px; /* Adjust the margin as needed to create space between logos and buttons */
-}
-
-
-.section {
-    background-color: white;
-    padding: 5vh;
-    font-family: 'Times New Roman', sans-serif;
 }
 
 .pianoTextInit {
@@ -207,13 +194,6 @@ h2 {
 }
 .slider-label-right{
     right: 0;
-}
-
-
-#radarchart {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 
 .tooltip {
@@ -265,7 +245,6 @@ h2 {
     border-radius: 15px;
     background-color: white;
     color: black;
-    text-align: center;
     display: inline-block;
     border: 3px solid black;
     line-height: 1.2;
@@ -275,8 +254,7 @@ h2 {
     text-align: center;
 }
 
-
-.rectangle h2 {
+.rectangle{
     margin-bottom: 10px; /* Adjust the spacing between the title and the paragraph */
 }
 
@@ -512,76 +490,9 @@ h2 {
 
 }
 
-#radar-title {
-    text-align: left;
-    font-size: 48px;
-    margin-top: 75px;
-}
-
-#radar-info {
-    text-align: left;
-    font-size: 26px;
-    margin-top: 30px;
-}
-
-#radar-info2 {
-    text-align: left;
-    font-size: 26px;
-    margin-top: 40px;
-}
-
-#histogram-title {
-    text-align: left;
-    font-size: 48px;
-    margin-top: 150px;
-}
-
-#histogram-info {
-    text-align: left;
-    font-size: 26px;
-    margin-top: 30px;
-}
-
-#scatter-title {
-    text-align: left;
-    font-size: 48px;
-}
-
-.scatter-info {
-    text-align: left;
-    font-size: 26px;
-    margin-top: 30px;
-}
-
-.page-title{
-    text-align: left;
-    font-size: 33px;
-    font-weight: bold;
-}
-
-.piano-description {
-    padding-top: 50px;
-    padding-bottom: 20px;
-    justify-content: center;
-    align-items: center;
-    text-align: left;
-    font-size: 30px;
-    font-weight: normal;
-    font-family: 'Times New Roman', sans-serif;
-}
-
-
 #form {
     margin-top: 20px;
 }
-
-#searchArtist {
-    width: 200px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-}
-
 
 #searchArtist {
     width: 200px;
@@ -708,10 +619,6 @@ input[type="radio"]:checked + label {
     background: white;
 }
 
-.piano-col {
-    margin-left: 0px;
-}
-
 .imagecontainer {
     position: relative;
     width: 100%;
@@ -734,31 +641,18 @@ input[type="radio"]:checked + label {
     }
 }
 
-h5 {
+h3 {
     color: black;
-    font-size: 25px;
-}
-
-
-.centered-h4-title {
-    text-align: center;
-    font-size: 32px;
-    font-family: 'Times New Roman', sans-serif;
-    font-weight: bold;
-}
-
-
-.h2-subtitle {
-    text-align: center;
-    font-size: 30px;
-    font-family: 'Times New Roman', sans-serif;
-    font-weight: bold;
-    margin-top: 100px;
-}
-
-.h2 {
-    text-align: center;
     font-size: 28px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+
+h2 {
+    font-size: 34px;
+    text-align: left;
+    font-weight: bold;
 }
 
 #spotifyradarchart,
@@ -768,53 +662,21 @@ h5 {
     text-align: center;
 }
 
-.h4-title {
+.centered-subtext {
+    font-size: 28px;
+    margin-bottom: 20px;
     text-align: center;
-    font-size: 36px;
-    font-family: 'Times New Roman', sans-serif;
-    font-weight: bold;
-    margin-bottom: 30px;
-
-}
-
-.h4-subtext {
-    text-align: center;
-    font-size: 24px;
-    font-family: 'Times New Roman', sans-serif;
-    margin-top: 30px;
-}
-
-
-.radar-text {
-    text-align: left;
-    font-size: 18px;
-    font-family: 'Times New Roman', sans-serif;
-}
-
-.subtext {
-    font-size: 18px;
-    font-family: 'Times New Roman', sans-serif;
-    margin-top: 30px;
-    margin-left: 280px;
-    font-weight: bold;
 }
 
 .main-title {
     text-align: center;
     font-family: 'Times New Roman', sans-serif;
     color: black;
-    margin-top: 10px;
-
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
-.h5-info {
 
-    margin-top: 30px;
-}
-
-.radar-title {
-    margin-bottom: 30px;
-}
 
 .select-title{
     font-family: 'Times New Roman', sans-serif;
@@ -853,10 +715,6 @@ h5 {
     width: auto;
 }
 
-html, body {
-    height: 100%;
-    margin: 0;
-}
 .wrapper {
     background: url(../img/earbud.png) center/cover no-repeat;
     height: 100vh;
