@@ -500,8 +500,6 @@ h1 {
 
 }
 
-<<<<<<< HEAD
-=======
 #radar-title {
     text-align: left;
     font-size: 48px;
@@ -570,8 +568,6 @@ h1 {
     font-family: 'Times New Roman', sans-serif;
 }
 
-
->>>>>>> b464a395b50e57cebe13167c1a84e952d5370961
 #form {
     margin-top: 10px;
 }
@@ -758,19 +754,11 @@ h2 {
     margin-bottom: 20px;
 }
 
-
-<<<<<<< HEAD
-=======
-    margin-top: 30px;
-}
-
 .radar-title {
     margin-bottom: 30px;
     font-weight: bold;
 
 }
->>>>>>> b464a395b50e57cebe13167c1a84e952d5370961
-
 .select-title{
     font-family: 'Times New Roman', sans-serif;
     color: black;
@@ -904,8 +892,16 @@ h2 {
     left: 50%;
     transform: translateX(-50%);
     margin-top: 30px;
-    75%      { bottom:75%;}
-    100%     {bottom:95%;}
+}
+
+@keyframes iphoneAnimation {
+    75% {
+        bottom: 75%;
+    }
+
+    100% {
+        bottom: 95%;
+    }
 }
 
 .column.fixed-column {
