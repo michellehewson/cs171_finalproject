@@ -8,7 +8,7 @@ class SongCharacteristics {
     initVis() {
         let vis = this;
         vis.width = 1500;
-        vis.height = 700;
+        vis.height = 550;
         vis.imageWidth = 250;
         vis.imageHeight = 160;
         vis.circleRadius = 110;
@@ -54,31 +54,12 @@ class SongCharacteristics {
 
         vis.totalWidth = vis.imageWidth * vis.images.length;
         vis.startX = (vis.width - vis.totalWidth) / 2 - 70;
-        vis.topMargin = 20;
-
-
-        vis.svg.append("text")
-            .attr("x", vis.width / 2)
-            .attr("y", vis.topMargin + 50)
-            .attr("text-anchor", "middle")
-            .style("font-size", "29px")
-            .style('font-family', 'Times New Roman, sans-serif')
-            .text("Songs on Spotify are characterized by various attributes that contribute to their individuality. Hover over the icons to learn more.");
-
-        vis.svg.append("text")
-            .attr("x", vis.width / 2)
-            .attr("y", (vis.height - 13))
-            .attr("text-anchor", "middle")
-            .style("font-size", "24px")
-            .style("font-weight", "bold")
-            .style('font-family', 'Times New Roman, sans-serif')
-            .text('How do these attributes contribute to a song\'s popularity in TikTok or Spotify?');
-
+        vis.topMargin = 0;
 
         vis.images.forEach((image, index) => {
             let circle = vis.svg.append("circle")
                 .attr("cx", vis.startX + vis.imageWidth / 2 + index * vis.imageWidth + 60)
-                .attr("cy", (vis.height / 2) - 30)
+                .attr("cy", (vis.height / 2) - 100)
                 .attr("r", vis.circleRadius)
                 .attr("fill", "none")
                 .attr("stroke", "#ff0050")
@@ -89,14 +70,14 @@ class SongCharacteristics {
             vis.svg.append("image")
                 .attr("xlink:href", image)
                 .attr("x", vis.startX + index * vis.imageWidth + 60)
-                .attr("y", ((vis.height - vis.imageHeight) / 2) - 30)
+                .attr("y", ((vis.height - vis.imageHeight) / 2) - 100)
                 .attr("width", vis.imageWidth)
                 .attr("height", vis.imageHeight)
                 .on("mouseover", function () {
                     let tooltip = vis.svg.append("text")
                         .attr("id", "tooltip")
                         .attr("x", vis.width / 2)
-                        .attr("y", (vis.height + vis.imageHeight) / 2 + 150)
+                        .attr("y", (vis.height + vis.imageHeight) / 2 + 60)
                         .attr("text-anchor", "middle")
                         .style('font-family', 'Times New Roman, sans-serif')
                         .style("font-size", "24px");
@@ -117,7 +98,7 @@ class SongCharacteristics {
 
             vis.svg.append("text")
                 .attr("x", vis.startX + index * vis.imageWidth + 60 + vis.imageWidth / 2)
-                .attr("y", (vis.height + vis.imageHeight) / 2 + 60)
+                .attr("y", (vis.height + vis.imageHeight) / 2 -20)
                 .attr("text-anchor", "middle")
                 .style("font-weight", "bold")
                 .text(vis.labels[index]);
