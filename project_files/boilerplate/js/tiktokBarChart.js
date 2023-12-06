@@ -38,7 +38,7 @@ class BarChart {
             .attr("transform", "translate(" + vis.margin.left + "," + vis.margin.top + ")");
 
         vis.svg.append("text")
-            .attr("x", vis.width / 2)
+            .attr("x", vis.width / 2 - 40)
             .attr("y", (-vis.margin.top * 0.7) + 20)
             .attr("text-anchor", "middle")
             .text("Tracking the Surge of TikTok Downloads")

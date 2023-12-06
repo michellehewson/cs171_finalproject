@@ -14,7 +14,7 @@
 #intro-text {
     font-family: 'Times New Roman', sans-serif;
     text-align: left;
-    font-size: 36px;
+    font-size: 48px;
     color: #333;
 }
 
@@ -907,7 +907,7 @@ h2 {
 .column.fixed-column {
     position: sticky;
     top: 20px;
-    height: 716.79px;
+    height: 700px;
     width: 375px;
 }
 
