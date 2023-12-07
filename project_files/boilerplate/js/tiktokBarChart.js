@@ -28,7 +28,7 @@ class BarChart {
         let vis = this;
 
         vis.margin = { top: 70, right: 10, bottom: 60, left: 60 };
-        vis.width = 960 - vis.margin.left - vis.margin.right;
+        vis.width = 900 - vis.margin.left - vis.margin.right;
         vis.height = 600;
         vis.svg = d3.select("#" + vis.parentElement)
             .append("svg")
