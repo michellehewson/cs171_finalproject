@@ -255,11 +255,9 @@ class RadarChart {
                     .attr("class", "track-name");
             })
 
-            // Call the method to update visualization when the slider is moved
             vis.updateVisualization();
         });
 
-        // Initial drawing will happen only when the slider is moved for the first time
     }
 
     updateVisualization() {
@@ -278,8 +276,6 @@ class RadarChart {
                     const theta = j * (2 * Math.PI / vis.NUM_OF_SIDES);
                     const len = vis.scale(attributeValue);
                     const point = vis.generatePoint({length: len, angle: theta});
-
-                    // Draw a circle at each point
                     const circleGroup = vis.g.append("g").attr("class", "circle-group");
                     circleGroup.append("circle")
                         .attr("cx", point.x)
@@ -289,7 +285,6 @@ class RadarChart {
 
                     points.push(point);
                 });
-
                 const pathGroup = vis.g.append("g").attr("class", "shape");
                 const color = vis.colorScale(row.track_name);
                 vis.drawPath([...points, points[0]], pathGroup, "black", color, 0.3);

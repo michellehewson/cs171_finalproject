@@ -8,7 +8,8 @@
 .section {
     background-color: white;
     font-family: 'Times New Roman', sans-serif;
-    padding-left: 25px;
+    padding-left: 8vh;
+    padding-right: 8vh;
 }
 
 
@@ -378,51 +379,12 @@ h1 {
 
 }
 
-.fade-in-tiktok-text1 {
-    opacity: 0;
-    transition: opacity 1s ease-in-out;
-    text-align: left;
 
-}
 
-.fade-in-tiktok-text1.show {
+#tiktok-text1.show #tiktok-text2.show #tiktok-text3.show{
     opacity: 1;
 }
 
-.fade-in-tiktok-text2 {
-    opacity: 0;
-    font-weight: normal;
-
-    transition: opacity 1s ease-in-out;
-    text-align: left;
-
-}
-
-.fade-in-tiktok-text2.show {
-    opacity: 1;
-}
-
-.fade-in-tiktok-text3 {
-    opacity: 0;
-    transition: opacity 1s ease-in-out;
-    text-align: left;
-
-}
-
-.fade-in-tiktok-text3.show {
-    opacity: 1;
-}
-
-.fade-in-tiktok-text4 {
-    opacity: 0;
-    transition: opacity 1s ease-in-out;
-    text-align: left;
-
-}
-
-.fade-in-tiktok-text4.show {
-    opacity: 1;
-}
 
 .chart-container .bar-label {
     font-size: 14px; /* Adjust the font size as needed */
@@ -481,9 +443,7 @@ h1 {
 .row {
     margin-right: 0;
     margin-left: 0;
-    display: flex;
     align-items: center;
-    justify-content: center;
 }
 
 .col-md-4 {
@@ -559,12 +519,6 @@ h1 {
     text-align: left;
     font-size: 26px;
     margin-top: 30px;
-}
-
-.page-title{
-    text-align: left;
-    font-size: 33px;
-    font-weight: bold;
 }
 
 .piano-description {
@@ -745,8 +699,8 @@ input[type="radio"]:checked + label {
 h3 {
     color: black;
     font-size: 28px;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-top: 40px;
+    margin-bottom: 40px;
 }
 
 
@@ -938,11 +892,14 @@ h2 {
     width: 375px;
 }
 
-.fade-in-tiktok-text1 h2,
-.fade-in-tiktok-text2 h2,
-.fade-in-tiktok-text3 h2 {
+.fade-in-tiktok-text {
     text-align: left;
     margin-top: 80px;
     margin-bottom: 80px;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
 
+.fade-in-tiktok-text.show {
+    opacity: 1;
 }
