@@ -77,7 +77,7 @@ class RadarChart {
         let vis = this;
         vis.NUM_OF_SIDES = 5;
         vis.NUM_OF_LEVEL = 4;
-        const size = 450;
+        const size = 400;
         const offset = Math.PI;
         const polyangle = (Math.PI * 2) / vis.NUM_OF_SIDES;
         const r = 0.8 * size;
