@@ -427,7 +427,7 @@ class BubbleGraph {
         let svgLegend = d3.select("#legend")
             .append("svg")
             .attr("width", 400)
-            .attr("height", 250);
+            .attr("height", 230);
 
         let legend = svgLegend.append('g')
             .attr('class', 'legend')
