@@ -337,7 +337,9 @@ class FacePlot {
     generateSpotifyEmbed(artistName) {
         let vis = this;
         vis.embedHTML = this.music_embed[artistName]; //dictionary of the embedded songs from Spotify (click share on a song and you can embed it)
-        return `<div class="spotify-embed">${vis.embedHTML}</div>`;
+        let textBelowEmbed = 'Listen to ' + artistName +'\'s top track!';
+        return `<div class="spotify-embed">${vis.embedHTML}</div>
+            <div class="text-below-embed">${textBelowEmbed}</div>`;
         }
 
 }
