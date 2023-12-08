@@ -102,20 +102,12 @@ class Histogram{
             .thresholds(15)
             .value((d) => d)(filtered_otherData);
 
-        //console.log(bins)
-
         const ymax = Math.max(d3.max(bins, (d) => d.length), d3.max(otherbins, (d) => d.length));
 
-        //console.log(ymax);
         // Update scales
         vis.x.domain([combinedbins[0].x0, combinedbins[combinedbins.length - 1].x1]);
         vis.y.domain([0, ymax]);
-
-
-
-
-            // Filter data based on the selected attribute
-            //
+        // Filter data based on the selected attribute
 
         // Add a tooltip div
         const tooltip = d3.select("body").append("div")
@@ -124,12 +116,12 @@ class Histogram{
 
 
 
-            // Update axes
-            vis.svg.select(".x-axis").call(vis.xAxis)
-                .selectAll("text") // select all the text elements in the x-axis
-                .attr("transform", "rotate(-30)") // rotate the text 90 degrees
-                .attr("text-anchor", "end") // set the text-anchor to end for proper alignment
-                .attr("dy", "0.5em"); // adjust the position of the text;
+        // Update axes
+        vis.svg.select(".x-axis").call(vis.xAxis)
+            .selectAll("text") // select all the text elements in the x-axis
+            .attr("transform", "rotate(-30)") // rotate the text 90 degrees
+            .attr("text-anchor", "end") // set the text-anchor to end for proper alignment
+            .attr("dy", "0.5em"); // adjust the position of the text;
 
         vis.svg.select(".y-axis").call(vis.yAxis);
 
@@ -200,6 +192,7 @@ class Histogram{
         vis.bars
             .transition() // Add transition to the update selection
             .duration(500) // Set the duration of the transition
+            .delay((d, i) => i * 100) // this makes the cool animation that makes the bars appear intermittently
             .attr("x", (d) => vis.x(d.x0)+1)
             .attr("width", (d) => vis.x(d.x1) - vis.x(d.x0)-2)
             .attr("y", (d) => vis.y(d.length))
