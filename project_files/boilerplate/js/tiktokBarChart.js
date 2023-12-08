@@ -58,7 +58,7 @@ class BarChart {
             .scale(vis.y);
 
         vis.tooltip = d3.select("body").append("div")
-            .attr("class", "tooltip2")
+            .attr("class", "tooltip")
             .style("opacity", 0);
 
     }
