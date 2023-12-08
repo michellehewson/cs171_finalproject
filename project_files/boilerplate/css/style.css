@@ -10,6 +10,13 @@
     padding-right: 7vh;
 }
 
+.title-page {
+    background-color: white;
+    font-family: 'DejaVu Sans Mono', Monospace;
+    margin: 0;
+    padding: 0;
+}
+
 #intro-text {
     text-align: left;
     color: #333;
@@ -32,6 +39,23 @@ h1 {
 .title-center {
     font-size: 35px;
     text-align: center;
+    font-weight: bolder;
+}
+
+.subtitle-center {
+    margin-top: 30px;
+    font-size: 35px;
+    text-align: center;
+    font-weight: normal;
+}
+
+.shoutouts {
+    font-size: 20px;
+    text-align: center;
+    font-weight: normal;
+}
+
+.sources {
     font-weight: bold;
 }
 
@@ -101,8 +125,11 @@ h1 {
     transition: background-color 0.3s;
 }
 
+#showSpotifyButton{
+}
+
 .faceplotbuttonContainer {
-    margin-left: 275px;
+    margin-left: 180px;
     margin-top: 10px;
 }
 
@@ -193,7 +220,6 @@ h1 {
 
 .tiktok-slider .noUi-connect {
     background: #ff0050;
-}
 
 .tooltip {
     position: absolute;
@@ -201,7 +227,7 @@ h1 {
     padding: 8px;
     border-radius: 4px;
     pointer-events: none;
-    font-size: 12px;
+    font-size: 20px;
     margin: 10px;
 }
 
@@ -614,6 +640,12 @@ h2 {
     text-align: center;
 }
 
+.centered-subtext {
+    font-size: 18px;
+    padding: 20px;
+    text-align: center;
+}
+
 .main-title {
     text-align: center;
     color: black;
@@ -640,6 +672,7 @@ h2 {
 
 .right-bottom-image {
     right: 0;
+    margin-bottom: 10px;
 }
 
 .first-text {
@@ -754,6 +787,7 @@ https://codepen.io/tystrong/pen/ewByaG
     position: absolute;
 
 }
+
 .bounce-tik {
     animation: hori 4s linear alternate infinite,
     verti 4s linear alternate infinite;
@@ -806,7 +840,25 @@ https://codepen.io/tystrong/pen/ewByaG
 
 @keyframes hori {
     from {
-        left:5%;
+        left: 0%;
+    }
+    to {
+        left: 95%;
+    }
+}
+
+@keyframes hori2 {
+    from {
+        left: 95%;
+    }
+    to {
+        left: 5%;
+    }
+}
+
+@keyframes hori3 {
+    from {
+        left: 5%;
     }
     to {
         left: 95%;
@@ -851,23 +903,6 @@ https://codepen.io/tystrong/pen/ewByaG
     }
 }
 
-@keyframes hori2 {
-    from {
-        left:15%;
-    }
-    to {
-        left: 85%;
-    }
-}
-
-@keyframes hori3 {
-    from {
-        left:50%;
-    }
-    to {
-        left: 100%;
-    }
-}
 
 
 
@@ -909,4 +944,11 @@ https://codepen.io/tystrong/pen/ewByaG
 
 .fade-in-tiktok-text.show {
     opacity: 1;
+}
+
+.image-container {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
 }
