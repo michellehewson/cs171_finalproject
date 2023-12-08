@@ -185,7 +185,6 @@ class FacePlot {
                 .text(`Tracks for ${selectedArtist} (from ${source}):`)
                 .style('font-weight', 'bold')
                 .style('font-size', 24)
-                .style('font-family', 'Times New Roman, sans-serif');
 
             tracksContainer.append('div')
                 .html(tracksHtml);
