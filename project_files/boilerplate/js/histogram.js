@@ -58,7 +58,6 @@ class Histogram{
             .text(vis.bartitle)
             .style("font-size", "24px")
             .style("font-weight", "bold")
-            .style('font-family', 'Times New Roman, sans-serif')
             .attr('transform', `translate(${(vis.width - vis.margin.left) / 2}, -20)`); // Rotate the text labels by -45 degrees;
 
         vis.svg.append('g')
