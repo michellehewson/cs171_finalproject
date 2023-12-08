@@ -657,24 +657,42 @@ h2 {
 
 }
 
-.left-bottom-image, .right-bottom-image, .right-bottom-gif {
+.left-bottom-image, .right-bottom-image {
     position: absolute;
     bottom: 0;
     max-width: 275px
 }
 
-.img-fluid.right-bottom-gif {
-    transform: scaleX(-1);
-    right:0;
-}
-
 .left-bottom-image {
     left: 0;
+}
+#right-music-note{
+    width:200px
 }
 
 .right-bottom-image {
     right: 0;
     margin-bottom: 10px;
+}
+
+#music-gif{
+    filter: grayscale(100%);
+    transform: scale(2.5);
+}
+
+#music-gif2{
+    filter: grayscale(100%);
+    transform: scale(2.5);
+    margin-bottom: 10px;
+
+}
+#spotify-gif{
+    transform: scale(.8);
+}
+
+#tiktok-gif{
+    transform: scale(.8);
+    margin-bottom: 20px;
 }
 
 .first-text {
