@@ -761,28 +761,6 @@ h2 {
 }
 
 
-.marquee-container {
-    z-index: 1;
-    position: fixed;
-    top: 25%;
-    left: 10%;
-    right: 10%;
-    bottom: 25%;
-    overflow: hidden;
-}
-
-.marquee img {
-    display: inline-block;
-    height: 100px; /* Set the height according to your needs */
-    width: auto;
-}
-
-.wrapper {
-    background: url(../img/earbud.png) center/cover no-repeat;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
 
 .container-frontpage {
     position: fixed;
@@ -817,7 +795,7 @@ h2 {
     color: black;
 }
 
-
+/*
 .bounce_spot_up,
 .bounce_tik_up{
     z-index: 1;
@@ -847,10 +825,10 @@ h2 {
     left: 75%;
 }
 @-webkit-keyframes bounce_up {
-    0%       { bottom:5%; }
-    25%       { bottom:25%;}
-    50%      { bottom:50%; }
-    100%     {bottom:10%;}
+    0%       { left: 5%; bottom:5%; }
+    25%       { left: 25% ; bottom:25%;}
+    50%      { left: 50%; bottom:50%; }
+    100%     {left: 10%; bottom:10%;}
 }
 
 @-webkit-keyframes bounce_down {
@@ -859,9 +837,68 @@ h2 {
     50%      { bottom:50%; }
     100%     {bottom:90%;}
 }
+
+
+ */
+
+
 .spotify-img,
 .tiktok-img {
+    z-index: 2;
     height: 20vh;
+    width: 20vh;
+    position: absolute;
+
+}
+.bounce-tik {
+    animation: hori 10s linear alternate infinite,
+    verti 5s linear alternate infinite;
+
+}
+
+.bounce-spot {
+    animation: hori-spot 10s linear alternate infinite,
+    verti-spot 5s linear alternate infinite;
+}
+
+@keyframes verti {
+    from {
+        top: 5%;
+        transform: translateY(-50%);
+    }
+    to {
+        top: 95%;
+        transform: translateY(-50%) rotate(360deg);
+    }
+}
+
+@keyframes hori {
+    from {
+        left:5%;
+    }
+    to {
+        left: 95%;
+    }
+}
+
+@keyframes verti-spot {
+    from {
+        top: 95%;
+        transform: translateY(-50%);
+    }
+    to {
+        top: 5%;
+        transform: translateY(-50%) rotate(360deg);
+    }
+}
+
+@keyframes hori-spot {
+    from {
+        left:95%;
+    }
+    to {
+        left: 5%;
+    }
 }
 
 #iphone {
