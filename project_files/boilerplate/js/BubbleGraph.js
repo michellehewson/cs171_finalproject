@@ -226,29 +226,42 @@ class BubbleGraph {
         vis.svg.append('text')
             .attr('class', 'cluster-label')
             .attr('x', vis.width / 2 - 400)
-            .attr('y', vis.height - 20)
-            .text('Artists with Top Songs on Spotify')
+            .attr('y', vis.height - 40)
             .attr('text-anchor', 'middle')
             .style("font-size", "21px")
-            .attr('fill', 'black');
+            .attr('fill', 'black')
+            .text('Artists with Top Songs')
+            .append('tspan')
+            .attr('x', vis.width / 2 - 400)
+            .attr('dy', '1.2em')
+            .text('on Spotify');
 
         vis.svg.append('text')
             .attr('class', 'cluster-label')
             .attr('x', vis.width / 2 + 400)
-            .attr('y', vis.height - 20)
-            .text('Artists with Top Songs on TikTok')
+            .attr('y', vis.height - 40)
             .attr('text-anchor', 'middle')
             .style("font-size", "21px")
-            .attr('fill', 'black');
+            .attr('fill', 'black')
+            .text('Artists with Top Songs')
+            .append('tspan')
+            .attr('x', vis.width / 2 + 400)
+            .attr('dy', '1.2em')
+            .text('on TikTok');
 
         vis.svg.append('text')
             .attr('class', 'cluster-label')
             .attr('x', vis.width / 2)
-            .attr('y', vis.height - 20)
-            .text('Artists with Top Songs on Both Platforms')
+            .attr('y', vis.height - 40)
             .attr('text-anchor', 'middle')
             .style("font-size", "21px")
-            .attr('fill', 'black');
+            .attr('fill', 'black')
+            .text('Artists with Top Songs')
+            .append('tspan')
+            .attr('x', vis.width / 2)
+            .attr('dy', '1.2em')
+            .text('on Both Platforms');
+
 
         vis.svg.selectAll('.bubble')
             .style('fill', d => {
@@ -413,7 +426,7 @@ class BubbleGraph {
 
         let svgLegend = d3.select("#legend")
             .append("svg")
-            .attr("width", 200)
+            .attr("width", 400)
             .attr("height", 250);
 
         let legend = svgLegend.append('g')

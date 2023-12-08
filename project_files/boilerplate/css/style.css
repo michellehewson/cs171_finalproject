@@ -127,8 +127,6 @@ h1 {
 
 .track-names {
     padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
     height: 150px;
     overflow-y: auto;
 }
@@ -233,7 +231,8 @@ h1 {
 }
 
 .rectangle{
-    margin-bottom: 10px; /* Adjust the spacing between the title and the paragraph */
+    margin-bottom: 10px;
+    z-index: 2;
 }
 
 
@@ -739,14 +738,42 @@ https://codepen.io/tystrong/pen/ewByaG
 
 }
 .bounce-tik {
-    animation: hori 10s linear alternate infinite,
+    animation: hori 4s linear alternate infinite,
+    verti 4s linear alternate infinite;
+    z-index: 1;
+
+}
+
+.bounce-tik2 {
+    animation: hori2 5s linear alternate infinite,
     verti 5s linear alternate infinite;
+    z-index: 1;
+
+}
+
+.bounce-tik3 {
+    animation: hori3 7s linear alternate infinite,
+    verti 7s linear alternate infinite;
+    z-index: 1;
 
 }
 
 .bounce-spot {
-    animation: hori-spot 10s linear alternate infinite,
+    animation: hori-spot 7s linear alternate infinite,
     verti-spot 5s linear alternate infinite;
+    z-index: 1;
+}
+
+.bounce-spot2 {
+    animation: hori-spot2 5s linear alternate infinite,
+    verti-spot 5s linear alternate infinite;
+    z-index: 1;
+}
+
+.bounce-spot3 {
+    animation: hori-spot3 4s linear alternate infinite,
+    verti-spot 3s linear alternate infinite;
+    z-index: 1;
 }
 
 @keyframes verti {
@@ -788,6 +815,44 @@ https://codepen.io/tystrong/pen/ewByaG
         left: 5%;
     }
 }
+
+@keyframes hori-spot2 {
+    from {
+        left:10%;
+    }
+    to {
+        left: 90%;
+    }
+}
+
+@keyframes hori-spot3 {
+    from {
+        left:75%;
+    }
+    to {
+        left: 45%;
+    }
+}
+
+@keyframes hori2 {
+    from {
+        left:15%;
+    }
+    to {
+        left: 85%;
+    }
+}
+
+@keyframes hori3 {
+    from {
+        left:50%;
+    }
+    to {
+        left: 100%;
+    }
+}
+
+
 
 #iphone {
     z-index: 0;
