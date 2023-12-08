@@ -44,6 +44,7 @@ class SongCharacteristics {
         ];
 
         vis.tooltiptext = [
+
             "Acousticness describes whether the song uses primarily acoustic instruments or electronic\n and electric instruments.A value of 1.0 indicates that a song is purely acoustic.",
             "Danceability describes how suitable a track is for dancing based on a combination of musical\n elements including tempo, rhythm stability, beat strength, and overall regularity.\nA value of 0.0 is least danceable and 1.0 is most danceable.",
             "Energy represents a measure of intensity and activity.\nTypically, energetic tracks feel fast, loud, and noisy.\nFor example, death metal has high energy, while a Bach prelude has lower energy.",

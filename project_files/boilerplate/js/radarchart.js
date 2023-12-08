@@ -139,18 +139,14 @@ class RadarChart {
                     .attr("y", point.y + 5)
                     .html(text)
                     .style("text-anchor", "middle")
-                    .attr("fill", "darkgrey")
                     .style("font-size", "12px")
-                    .style("font-family", "sans-serif");
             } else {
                 group.append("text")
                     .attr("x", point.x)
                     .attr("y", point.y)
                     .html(text)
                     .style("text-anchor", "middle")
-                    .attr("fill", "darkgrey")
                     .style("font-size", "12px")
-                    .style("font-family", "sans-serif");
             }
         }
 
@@ -159,7 +155,6 @@ class RadarChart {
 
         vis.drawLabels = (dataset, sideCount) => {
             const groupL = vis.g.append("g").attr("class", "labels");
-
             for (let vertex = 0; vertex < sideCount; vertex++) {
                 const angle = vertex * polyangle;
                 const label = vis.desiredColumns[vertex];
@@ -216,6 +211,8 @@ class RadarChart {
             slider = document.getElementById("tiktok-slider");
             startLabel = document.getElementById("start-label-t");
             endLabel = document.getElementById("end-label-t");
+            slider.classList.add('tiktok-slider');
+
         }
 
         startLabel.textContent = 0;
@@ -223,6 +220,7 @@ class RadarChart {
 
         let minValue = 0;
         let maxValue = Math.min(9, vis.chartData.length - 1);
+
 
         noUiSlider.create(slider, {
             start: [0, 0],
@@ -242,14 +240,11 @@ class RadarChart {
             endLabel.textContent = end + 1;
 
             d3.select("#" + vis.sortingCriteria + "-track-names").html("");
-
-            // Update the subset of Spotify or TikTok data based on the slider values
             vis.chartSubset = vis.chartData.slice(start, end + 1);
             const trackNamesDiv = d3.select("#" + vis.sortingCriteria + "-track-names");
             trackNamesDiv.style("text-align", "center");
-
             vis.chartSubset.forEach((row) => {
-                trackNamesDiv.append("h4")
+                trackNamesDiv.append("h5")
                     .text(row.track_name)
 
                     .attr("class", "track-name");
