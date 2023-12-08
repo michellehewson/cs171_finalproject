@@ -5,16 +5,16 @@
 
 .section {
     background-color: white;
-    font-family: 'Mono', sans-serif;
-    padding-left: 8vh;
-    padding-right: 8vh;
+    font-family: 'DejaVu Sans Mono', Monospace;
+    padding-left: 7vh;
+    padding-right: 7vh;
 }
 
 #intro-text {
     text-align: left;
-    font-size: 48px;
     color: #333;
-    padding: 20px;
+    margin-bottom: 36px;
+    margin-top: 20px;
 }
 
 #intro-text img {
@@ -219,7 +219,7 @@ h1 {
 
 .rectangle {
     margin-bottom: 20px;
-    padding: 20px;
+    padding: 80px;
     border-radius: 15px;
     background-color: white;
     color: black;
@@ -230,6 +230,8 @@ h1 {
 
 .text-container {
     text-align: center;
+    padding: 50px;
+
 }
 
 .rectangle{
@@ -238,8 +240,8 @@ h1 {
 
 
 .column-left {
-    width: 400px;
-    padding-left: 40px;
+    width: 450px;
+    padding-left: 20px;
     padding-top: 20px;
 }
 
@@ -267,8 +269,6 @@ h1 {
     opacity: 0;
     transition: opacity 1s ease-in-out;
     padding: 20px;
-    text-align: left;
-    font-size: 24px;
 }
 
 .fade-in.show {
@@ -594,7 +594,7 @@ h3 {
 
 
 h2 {
-    font-size: 30px;
+    font-size: 36px;
     text-align: left;
     font-weight: bold;
 }
@@ -608,7 +608,7 @@ h2 {
 
 .centered-subtext {
     font-size: 24px;
-    margin-bottom: 20px;
+    padding: 20px;
     text-align: center;
 }
 
@@ -624,6 +624,20 @@ h2 {
     margin-bottom: 30px;
     font-weight: bold;
 
+}
+
+.left-bottom-image, .right-bottom-image {
+    position: absolute;
+    bottom: 0;
+    max-width: 275px
+}
+
+.left-bottom-image {
+    left: 0;
+}
+
+.right-bottom-image {
+    right: 0;
 }
 
 .first-text {
