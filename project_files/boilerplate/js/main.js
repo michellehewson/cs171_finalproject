@@ -127,11 +127,9 @@ let promises = [
 
 Promise.all(promises)
     .then(function (data) {
-       // console.log(data)
         initMainPage(data)
     })
     .catch(function (err) {
-      //  console.log(err)
     });
 
 function initMainPage(dataArray) {
