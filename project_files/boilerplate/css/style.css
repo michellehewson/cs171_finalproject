@@ -194,7 +194,7 @@ h1 {
     width: 40%;
     margin: auto;
     margin-bottom: 10px;
-    color: #ff0050;
+    color: #00f2ea;
 }
 
 .slider-container {
@@ -618,7 +618,7 @@ h3 {
     color: black;
     font-size: 24px;
     margin-top: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 
@@ -641,11 +641,7 @@ h2 {
     text-align: center;
 }
 
-.centered-subtext {
-    font-size: 18px;
-    padding: 20px;
-    text-align: center;
-}
+
 
 .main-title {
     text-align: center;
@@ -661,10 +657,15 @@ h2 {
 
 }
 
-.left-bottom-image, .right-bottom-image {
+.left-bottom-image, .right-bottom-image, .right-bottom-gif {
     position: absolute;
     bottom: 0;
     max-width: 275px
+}
+
+.img-fluid.right-bottom-gif {
+    transform: scaleX(-1);
+    right:0;
 }
 
 .left-bottom-image {
