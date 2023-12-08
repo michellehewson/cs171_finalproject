@@ -139,7 +139,7 @@ class BubbleGraph {
             tooltip.html(tooltipText)
                 .style("left", event.pageX + "px")
                 .style("top", event.pageY - 28 + "px")
-                .style('font-size', 18)
+                .style('font-size', 22)
                 .style("font-family", "Times New Roman, sans-serif");
         })
             .on("mouseout", function () {
