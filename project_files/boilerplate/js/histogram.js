@@ -1,3 +1,6 @@
+//Pluto Zhang
+//The 2 histograms for tiktok and spotify
+//Reference: https://d3-graph-gallery.com/graph/histogram_basic.html
 class Histogram{
     constructor(_parentElement, tiktokdata, spotifydata, spotify) {
         this.parentElement = _parentElement;

@@ -761,47 +761,6 @@ h2 {
 
 /*
 https://codepen.io/tystrong/pen/ewByaG
-.bounce_spot_up,
-.bounce_tik_up{
-    z-index: 1;
-    position:fixed;
-    bottom:0;
-    -webkit-animation:bounce_up 3s infinite;
-}
-
-.bounce_spot_down,
-.bounce_tik_down{
-    z-index: 1;
-    position:fixed;
-    bottom:0;
-    -webkit-animation:bounce_down 3s infinite;
-}
-.bounce_spot_up{
-    left: 5%;
-}
-.bounce_spot_down{
-    left: 15%;
-}
-
-.bounce_tik_up{
-    left: 85%;
-}
-.bounce_tik_down{
-    left: 75%;
-}
-@-webkit-keyframes bounce_up {
-    0%       { left: 5%; bottom:5%; }
-    25%       { left: 25% ; bottom:25%;}
-    50%      { left: 50%; bottom:50%; }
-    100%     {left: 10%; bottom:10%;}
-}
-
-@-webkit-keyframes bounce_down {
-    0%       { bottom:95%; }
-    25%       { bottom:75%;}
-    50%      { bottom:50%; }
-    100%     {bottom:90%;}
-}
 
 
  */

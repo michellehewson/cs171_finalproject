@@ -1,3 +1,6 @@
+//Pluto Zhang
+//The 2 scatter plots tiktok and spotify
+//Reference: https://www.d3-graph-gallery.com/graph/scatter_basic.html
 class ScatterChart {
     constructor(parentElement, tiktokdata, spotifydata, spotify) {
         this.parentElement = parentElement;
@@ -135,7 +138,9 @@ class ScatterChart {
 
 // Update
         vis.circles.transition() // Apply transition for updating circles
-            .duration(1000)
+            .duration(100)
+            .delay((d, i) => i * 5) // Delay for each element
+            .ease(d3.easeLinear) // Set easing option
             .attr("cx", d => vis.x(d[vis.Xcategory]))
             .attr("cy", d => vis.y(d[vis.Ycategory]));
 
