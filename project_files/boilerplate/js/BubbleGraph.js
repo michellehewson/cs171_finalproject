@@ -360,7 +360,7 @@ class BubbleGraph {
         });
 
         // filtering
-        let topArtists = data.slice(0, 20);
+        let topArtists = data.slice(0, 30);
 
         console.log(topArtists)
 
