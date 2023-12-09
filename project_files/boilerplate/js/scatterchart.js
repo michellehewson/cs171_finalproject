@@ -136,14 +136,14 @@ class ScatterChart {
             .transition() // Apply transition for entering circles
             .duration(500)
             .delay((d, i) => i * duration_lag/10) // Delay for each element
-            .ease(d3.easeLinear) // Set easing option
+            .ease(d3.easeBounceOut) // Set easing option
             .attr("opacity", 0.7); // Transition opacity to 0.7
 
         // Update
         vis.circles.transition() // Apply transition for updating circles
             .duration(500)
             .delay((d, i) => i * duration_lag/10) // Delay for each element
-            .ease(d3.easeLinear) // Set easing option
+            .ease(d3.easeBounceOut) // Set easing option
             .attr("cx", d => vis.x(d[vis.Xcategory]))
             .attr("cy", d => vis.y(d[vis.Ycategory]));
 
@@ -152,7 +152,7 @@ class ScatterChart {
             .transition() // Apply transition for exiting circles
             .duration(500)
             .delay((d, i) => i * duration_lag/10) // Delay for each element
-            .ease(d3.easeLinear) // Set easing option
+            .ease(d3.easeBounceOut) // Set easing option
             .attr("opacity", 0) // Transition opacity to 0 for fade-out effect
             .remove();
 
