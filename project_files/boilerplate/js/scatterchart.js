@@ -1,3 +1,6 @@
+//Pluto Zhang
+//The 2 scatter plots tiktok and spotify
+//Reference: https://www.d3-graph-gallery.com/graph/scatter_basic.html
 class ScatterChart {
     constructor(parentElement, tiktokdata, spotifydata, spotify) {
         this.parentElement = parentElement;
@@ -64,7 +67,6 @@ class ScatterChart {
             .text(vis.bartitle)
             .style("font-size", "24px")
             .style("font-weight", "bold")
-            .style('font-family', 'Times New Roman, sans-serif')
             .attr('transform', `translate(${(vis.width-vis.margin.left) / 2}, -20)`); // Rotate the text labels by -45 degrees;
 
 
@@ -94,6 +96,9 @@ class ScatterChart {
         vis.circles = vis.svg.selectAll("circle")
             .data(displayData);
 
+        let duration_lag = displayData.length;
+        duration_lag = 3000/duration_lag;
+
         // Enter
         vis.circles.enter().append("circle")
             .attr("cx", d => vis.x(d[vis.Xcategory]))
@@ -117,8 +122,6 @@ class ScatterChart {
              Energy: ${d.energy.toFixed(2)}<br>
              Liveness: ${d.liveness.toFixed(2)}<br>
              Speechiness: ${d.speechiness.toFixed(2)}`
-
-
                 )
                     .style("left", (event.pageX + 5) + "px")
                     .style("top", (event.pageY - 28) + "px");
@@ -126,31 +129,38 @@ class ScatterChart {
             .on("mouseout", function () {
                 // Hide tooltip on mouseout
                 vis.tooltip.transition()
-                    .duration(500)
+                    .duration(200)
                     .style("opacity", 0);
             })
             .merge(vis.circles)
             .transition() // Apply transition for entering circles
-            .duration(1000) // Set the duration of the transition
+            .duration(500)
+            .delay((d, i) => i * duration_lag/10) // Delay for each element
+            .ease(d3.easeBounceOut) // Set easing option
             .attr("opacity", 0.7); // Transition opacity to 0.7
 
-// Update
+        // Update
         vis.circles.transition() // Apply transition for updating circles
-            .duration(1000)
+            .duration(500)
+            .delay((d, i) => i * duration_lag/10) // Delay for each element
+            .ease(d3.easeBounceOut) // Set easing option
             .attr("cx", d => vis.x(d[vis.Xcategory]))
             .attr("cy", d => vis.y(d[vis.Ycategory]));
 
-// Exit
+        // Exit
         vis.circles.exit()
             .transition() // Apply transition for exiting circles
-            .duration(1000)
+            .duration(500)
+            .delay((d, i) => i * duration_lag/10) // Delay for each element
+            .ease(d3.easeBounceOut) // Set easing option
             .attr("opacity", 0) // Transition opacity to 0 for fade-out effect
             .remove();
 
 
         let XselectedAttributeName =  selectedX;
         let YselectedAttributeName =  selectedY;
-//add the axis labels:
+
+        //add the axis labels:
         // Append x-axis label
         vis.xAxisLabel = vis.svg.selectAll(".x-axis-label")
             .data([XselectedAttributeName]);

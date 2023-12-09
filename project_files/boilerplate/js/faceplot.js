@@ -185,7 +185,6 @@ class FacePlot {
                 .text(`Tracks for ${selectedArtist} (from ${source}):`)
                 .style('font-weight', 'bold')
                 .style('font-size', 24)
-                .style('font-family', 'Times New Roman, sans-serif');
 
             tracksContainer.append('div')
                 .html(tracksHtml);
@@ -338,7 +337,9 @@ class FacePlot {
     generateSpotifyEmbed(artistName) {
         let vis = this;
         vis.embedHTML = this.music_embed[artistName]; //dictionary of the embedded songs from Spotify (click share on a song and you can embed it)
-        return `<div class="spotify-embed">${vis.embedHTML}</div>`;
+        let textEmbed = '<b style="margin-top: 20px;">Listen to the top track on Spotify by '+artistName+'!</b>';
+        return `<div class="text-below-embed">${textEmbed}</div>
+            <div class="spotify-embed">${vis.embedHTML}</div>`;
         }
 
 }

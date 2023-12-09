@@ -77,7 +77,7 @@ class RadarChart {
         let vis = this;
         vis.NUM_OF_SIDES = 5;
         vis.NUM_OF_LEVEL = 4;
-        const size = 450;
+        const size = 400;
         const offset = Math.PI;
         const polyangle = (Math.PI * 2) / vis.NUM_OF_SIDES;
         const r = 0.8 * size;
@@ -139,18 +139,14 @@ class RadarChart {
                     .attr("y", point.y + 5)
                     .html(text)
                     .style("text-anchor", "middle")
-                    .attr("fill", "darkgrey")
                     .style("font-size", "12px")
-                    .style("font-family", "sans-serif");
             } else {
                 group.append("text")
                     .attr("x", point.x)
                     .attr("y", point.y)
                     .html(text)
                     .style("text-anchor", "middle")
-                    .attr("fill", "darkgrey")
                     .style("font-size", "12px")
-                    .style("font-family", "sans-serif");
             }
         }
 
@@ -159,7 +155,6 @@ class RadarChart {
 
         vis.drawLabels = (dataset, sideCount) => {
             const groupL = vis.g.append("g").attr("class", "labels");
-
             for (let vertex = 0; vertex < sideCount; vertex++) {
                 const angle = vertex * polyangle;
                 const label = vis.desiredColumns[vertex];
@@ -216,6 +211,8 @@ class RadarChart {
             slider = document.getElementById("tiktok-slider");
             startLabel = document.getElementById("start-label-t");
             endLabel = document.getElementById("end-label-t");
+            slider.classList.add('tiktok-slider');
+
         }
 
         startLabel.textContent = 0;
@@ -223,6 +220,7 @@ class RadarChart {
 
         let minValue = 0;
         let maxValue = Math.min(9, vis.chartData.length - 1);
+
 
         noUiSlider.create(slider, {
             start: [0, 0],
@@ -242,24 +240,19 @@ class RadarChart {
             endLabel.textContent = end + 1;
 
             d3.select("#" + vis.sortingCriteria + "-track-names").html("");
-
-            // Update the subset of Spotify or TikTok data based on the slider values
             vis.chartSubset = vis.chartData.slice(start, end + 1);
             const trackNamesDiv = d3.select("#" + vis.sortingCriteria + "-track-names");
             trackNamesDiv.style("text-align", "center");
-
             vis.chartSubset.forEach((row) => {
-                trackNamesDiv.append("h4")
+                trackNamesDiv.append("h5")
                     .text(row.track_name)
 
                     .attr("class", "track-name");
             })
 
-            // Call the method to update visualization when the slider is moved
             vis.updateVisualization();
         });
 
-        // Initial drawing will happen only when the slider is moved for the first time
     }
 
     updateVisualization() {
@@ -278,8 +271,6 @@ class RadarChart {
                     const theta = j * (2 * Math.PI / vis.NUM_OF_SIDES);
                     const len = vis.scale(attributeValue);
                     const point = vis.generatePoint({length: len, angle: theta});
-
-                    // Draw a circle at each point
                     const circleGroup = vis.g.append("g").attr("class", "circle-group");
                     circleGroup.append("circle")
                         .attr("cx", point.x)
@@ -289,7 +280,6 @@ class RadarChart {
 
                     points.push(point);
                 });
-
                 const pathGroup = vis.g.append("g").attr("class", "shape");
                 const color = vis.colorScale(row.track_name);
                 vis.drawPath([...points, points[0]], pathGroup, "black", color, 0.3);

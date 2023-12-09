@@ -1,3 +1,6 @@
+//Pluto Zhang
+//The 2 histograms for tiktok and spotify
+//Reference: https://d3-graph-gallery.com/graph/histogram_basic.html
 class Histogram{
     constructor(_parentElement, tiktokdata, spotifydata, spotify) {
         this.parentElement = _parentElement;
@@ -17,7 +20,6 @@ class Histogram{
         vis.margin = { top: 50, right: 60, bottom: 90, left: 60 };
         vis.width = document.getElementById(vis.parentElement).getBoundingClientRect().width - vis.margin.left - vis.margin.right;
         vis.height = document.getElementById(vis.parentElement).getBoundingClientRect().height - vis.margin.top - vis.margin.bottom;
-
         vis.svg = d3.select("#" + vis.parentElement).append("svg")
             .attr("width", vis.width + vis.margin.left + vis.margin.right)
             .attr("height", vis.height + vis.margin.top + vis.margin.bottom)
@@ -59,7 +61,6 @@ class Histogram{
             .text(vis.bartitle)
             .style("font-size", "24px")
             .style("font-weight", "bold")
-            .style('font-family', 'Times New Roman, sans-serif')
             .attr('transform', `translate(${(vis.width - vis.margin.left) / 2}, -20)`); // Rotate the text labels by -45 degrees;
 
         vis.svg.append('g')
@@ -104,20 +105,12 @@ class Histogram{
             .thresholds(15)
             .value((d) => d)(filtered_otherData);
 
-        //console.log(bins)
-
         const ymax = Math.max(d3.max(bins, (d) => d.length), d3.max(otherbins, (d) => d.length));
 
-        //console.log(ymax);
         // Update scales
         vis.x.domain([combinedbins[0].x0, combinedbins[combinedbins.length - 1].x1]);
         vis.y.domain([0, ymax]);
-
-
-
-
-            // Filter data based on the selected attribute
-            //
+        // Filter data based on the selected attribute
 
         // Add a tooltip div
         const tooltip = d3.select("body").append("div")
@@ -126,12 +119,12 @@ class Histogram{
 
 
 
-            // Update axes
-            vis.svg.select(".x-axis").call(vis.xAxis)
-                .selectAll("text") // select all the text elements in the x-axis
-                .attr("transform", "rotate(-30)") // rotate the text 90 degrees
-                .attr("text-anchor", "end") // set the text-anchor to end for proper alignment
-                .attr("dy", "0.5em"); // adjust the position of the text;
+        // Update axes
+        vis.svg.select(".x-axis").call(vis.xAxis)
+            .selectAll("text") // select all the text elements in the x-axis
+            .attr("transform", "rotate(-30)") // rotate the text 90 degrees
+            .attr("text-anchor", "end") // set the text-anchor to end for proper alignment
+            .attr("dy", "0.5em"); // adjust the position of the text;
 
         vis.svg.select(".y-axis").call(vis.yAxis);
 
@@ -202,6 +195,7 @@ class Histogram{
         vis.bars
             .transition() // Add transition to the update selection
             .duration(500) // Set the duration of the transition
+            .delay((d, i) => i * 100) // this makes the cool animation that makes the bars appear intermittently
             .attr("x", (d) => vis.x(d.x0)+1)
             .attr("width", (d) => vis.x(d.x1) - vis.x(d.x0)-2)
             .attr("y", (d) => vis.y(d.length))

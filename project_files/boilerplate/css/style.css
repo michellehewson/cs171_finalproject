@@ -1,23 +1,27 @@
 
 .fade-in-title {
-    text-align: left;
-    padding: 20px;
-}
 
+}
 
 .section {
     background-color: white;
-    font-family: 'Times New Roman', sans-serif;
-    padding-left: 25px;
+    font-family: 'DejaVu Sans Mono', Monospace;
+    padding-left: 7vh;
+    padding-right: 7vh;
 }
 
-
+.title-page {
+    background-color: white;
+    font-family: 'DejaVu Sans Mono', Monospace;
+    margin: 0;
+    padding: 0;
+}
 
 #intro-text {
-    font-family: 'Times New Roman', sans-serif;
     text-align: left;
-    font-size: 48px;
     color: #333;
+    margin-bottom: 36px;
+    margin-top: 20px;
 }
 
 #intro-text img {
@@ -25,29 +29,38 @@
     margin-left: 10px;
 }
 
-
 h1 {
     text-align: center;
-    font-family: 'Times New Roman', sans-serif;
     color: black;
-    margin-top: 50px;
+    margin-top: 40px;
     font-weight: bold;
 }
 
 .title-center {
-    font-size: 34px;
+    font-size: 35px;
     text-align: center;
+    font-weight: bolder;
+}
+
+.subtitle-center {
+    margin-top: 30px;
+    font-size: 35px;
+    text-align: center;
+    font-weight: normal;
+}
+
+.shoutouts {
+    font-size: 20px;
+    text-align: center;
+    font-weight: normal;
+}
+
+.sources {
     font-weight: bold;
 }
 
-.video-container {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-}
-
-.tiktok-video {
-    width: 10px;
+.tiktok-embed {
+    transform: scale(0.85)
 }
 
 .button-group {
@@ -76,7 +89,6 @@ h1 {
     font-size: 24px;
 }
 
-
 #yesButton {
     background-color: #00f2ea;
     color: black;
@@ -95,11 +107,13 @@ h1 {
     height: 30px;
     font-size: 30px;
     text-align: center;
-
     display: flex;
     justify-content: center;
     align-items: center;
 
+}
+#displayType {
+    margin-top: 20px;
 }
 
 .showTopArtistsButton{
@@ -112,10 +126,16 @@ h1 {
     background-color: #ff0050;
     color: white;
     transition: background-color 0.3s;
+    margin-top: 20px;
+}
+
+.transition {
+    padding: 70px;
+    margin: 50px;
 }
 
 .faceplotbuttonContainer {
-    margin-left: 275px;
+    margin-left: 180px;
     margin-top: 10px;
 }
 
@@ -137,28 +157,23 @@ h1 {
     cursor: pointer;
 }
 
-#input-container {
-    text-align: center;
-}
 
 .track-names {
     padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    height: 150px; /* Set a fixed maximum height for the track names container */
+    height: 150px;
     overflow-y: auto;
 }
 
 .faceplotbuttonContainer {
     display: flex;
-    align-items: center; /* Center items vertically within the container */
+    align-items: center;
 }
 
 #tiktokLogo, #spotifyLogo {
-    width: 50px; /* Adjust the width as needed */
-    height: 50px; /* Adjust the height as needed */
+    width: 50px;
+    height: 50px;
     object-fit: contain;
-    margin-right: 10px; /* Adjust the margin as needed to create space between logos and buttons */
+    margin-right: 10px;
 }
 
 .pianoTextInit {
@@ -175,11 +190,17 @@ h1 {
 }
 
 
-#spotify-slider,
 #tiktok-slider {
-    width: 40%; /* Adjust as needed */
-    margin: auto; /* Center the slider */
-    margin-bottom: 10px; /* Adjust as needed */
+    width: 40%;
+    margin: auto;
+    margin-bottom: 10px;
+}
+
+#spotify-slider {
+    width: 40%;
+    margin: auto;
+    margin-bottom: 10px;
+    color: #00f2ea;
 }
 
 .slider-container {
@@ -203,22 +224,18 @@ h1 {
     right: 0;
 }
 
+.tiktok-slider .noUi-connect {
+    background: #ff0050;
+}
+
 .tooltip {
     position: absolute;
     background-color: lightgray;
     padding: 8px;
     border-radius: 4px;
     pointer-events: none;
-    font-size: 12px;
-}
-
-.tooltip2 {
-    position: absolute;
-    background-color: lightgray;
-    padding: 8px;
-    border-radius: 4px;
-    pointer-events: none;
-    font-size: 12px;
+    font-size: 20px;
+    margin: 10px;
 }
 
 .column-container {
@@ -230,25 +247,13 @@ h1 {
 }
 
 .cluster-label {
-    font-family: 'Times New Roman', sans-serif;
     font-size: 21px;
     fill: #333;
 }
 
-#legend-description {
-    font-size: 12px;
-}
-
-.circle-container {
-    display: flex;
-    flex-direction: column; /* Align items in a column */
-    align-items: center; /* Center horizontally */
-    padding: 20px; /* Adjust padding as needed */
-}
-
 .rectangle {
     margin-bottom: 20px;
-    padding: 20px;
+    padding: 80px;
     border-radius: 15px;
     background-color: white;
     color: black;
@@ -259,16 +264,19 @@ h1 {
 
 .text-container {
     text-align: center;
+    padding: 50px;
+
 }
 
 .rectangle{
-    margin-bottom: 10px; /* Adjust the spacing between the title and the paragraph */
+    margin-bottom: 10px;
+    z-index: 2;
 }
 
 
 .column-left {
-    width: 400px;
-    padding-left: 40px;
+    width: 450px;
+    padding-left: 20px;
     padding-top: 20px;
 }
 
@@ -292,141 +300,24 @@ h1 {
     margin-top: 15px;
 }
 
-.fade-in-title {
+.fade-in {
     opacity: 0;
     transition: opacity 1s ease-in-out;
-}
-
-.fade-in-title.show {
-    opacity: 1;
-}
-
-.fade-in-fact1 {
-    opacity: 0;
-    transition: opacity 1s ease-in-out;
-}
-
-.fade-in-fact1.show {
-    opacity: 1;
-}
-
-.fade-in-fact2 {
-    opacity: 0;
-    transition: opacity 1s ease-in-out;
-}
-
-.fade-in-fact2.show {
-    opacity: 1;
-}
-
-.fade-in-fact3 {
-    opacity: 0;
-    transition: opacity 1s ease-in-out;
-}
-
-.fade-in-fact3.show {
-    opacity: 1;
-}
-
-.fade-in-fact4 {
-    opacity: 0;
-    transition: opacity 1s ease-in-out;
-}
-
-.fade-in-fact4.show {
-    opacity: 1;
-}
-
-#intro-text {
-    text-align: center;
-}
-
-#intro-text1 {
     padding: 20px;
-    text-align: left;
-    font-size: 24px;
-    font-weight: normal;
-
-
 }
 
-#intro-text2 {
-    padding: 20px;
-    text-align: left;
-    font-size: 24px;
-    font-weight: normal;
-
-
-}
-
-#intro-text3 {
-    padding: 20px;
-    text-align: left;
-    font-size: 24px;
-    font-weight: normal;
-
-
-}
-
-#intro-text4 {
-    padding: 20px;
-    text-align: left;
-    font-size: 24px;
-    font-weight: normal;
-    margin-bottom: 120px;
-
-
-}
-
-.fade-in-tiktok-text1 {
-    opacity: 0;
-    transition: opacity 1s ease-in-out;
-    text-align: left;
-
-}
-
-.fade-in-tiktok-text1.show {
+.fade-in.show {
     opacity: 1;
 }
 
-.fade-in-tiktok-text2 {
-    opacity: 0;
-    font-weight: normal;
 
-    transition: opacity 1s ease-in-out;
-    text-align: left;
-
-}
-
-.fade-in-tiktok-text2.show {
+.fade-in-tiktok-text.show{
     opacity: 1;
 }
 
-.fade-in-tiktok-text3 {
-    opacity: 0;
-    transition: opacity 1s ease-in-out;
-    text-align: left;
-
-}
-
-.fade-in-tiktok-text3.show {
-    opacity: 1;
-}
-
-.fade-in-tiktok-text4 {
-    opacity: 0;
-    transition: opacity 1s ease-in-out;
-    text-align: left;
-
-}
-
-.fade-in-tiktok-text4.show {
-    opacity: 1;
-}
 
 .chart-container .bar-label {
     font-size: 14px; /* Adjust the font size as needed */
-    font-family: "Times New Roman", sans-serif; /* Specify the font family */
 }
 
 
@@ -481,15 +372,9 @@ h1 {
 .row {
     margin-right: 0;
     margin-left: 0;
-    display: flex;
     align-items: center;
-    justify-content: center;
 }
 
-.col-md-4 {
-    padding-right: 0;
-    padding-left: 0;
-}
 
 .container-piano {
     display: grid;
@@ -561,12 +446,6 @@ h1 {
     margin-top: 30px;
 }
 
-.page-title{
-    text-align: left;
-    font-size: 33px;
-    font-weight: bold;
-}
-
 .piano-description {
     padding-top: 50px;
     padding-bottom: 20px;
@@ -575,7 +454,6 @@ h1 {
     text-align: left;
     font-size: 30px;
     font-weight: normal;
-    font-family: 'Times New Roman', sans-serif;
 }
 
 #form {
@@ -619,7 +497,6 @@ h1 {
     left: 50%;
     transform: translate(-50%, -50%);
     border: 2px solid #333333;
-    font-family: 'Times New Roman', sans-serif;
     font-size: 24px;
 }
 
@@ -627,9 +504,8 @@ h1 {
     margin-bottom: 15px;
 }
 
-.p {
-    font-size: 20px;
-    font-family: "Times New Roman", sans-serif;
+p {
+    font-size: 18px;
 }
 
 #button-box {
@@ -655,12 +531,14 @@ input[type="radio"] {
 
 label {
     display: block;
-    margin-bottom: 10px;
-    padding: 8px 12px;
-    margin-right: 10px;
+    margin-bottom: 8px;
+    padding: 5px;
+    text-align: center;
+    margin-right: 5px;
     background-color: #f0f0f0;
     border: 1px solid #ccc;
     cursor: pointer;
+    font-size: 15px;
 }
 
 label:hover {
@@ -744,14 +622,18 @@ input[type="radio"]:checked + label {
 
 h3 {
     color: black;
-    font-size: 28px;
+    font-size: 24px;
     margin-top: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
+.wider {
+    margin-right: -60px;
+    margin-bottom: 30px;
+}
 
 h2 {
-    font-size: 34px;
+    font-size: 36px;
     text-align: left;
     font-weight: bold;
 }
@@ -764,15 +646,17 @@ h2 {
 }
 
 .centered-subtext {
-    font-size: 28px;
-    margin-bottom: 20px;
+    font-size: 24px;
+    padding: 20px;
     text-align: center;
 }
 
+
+
 .main-title {
     text-align: center;
-    font-family: 'Times New Roman', sans-serif;
     color: black;
+    font-size: 50px;
     margin-top: 20px;
     margin-bottom: 20px;
 }
@@ -780,14 +664,50 @@ h2 {
 .radar-title {
     margin-bottom: 30px;
     font-weight: bold;
+}
 
+.left-bottom-image, .right-bottom-image {
+    position: absolute;
+    bottom: 0;
+    max-width: 275px
+}
+
+.left-bottom-image {
+    left: 0;
+}
+#right-music-note{
+    width:200px
+}
+
+.right-bottom-image {
+    right: 0;
+    margin-bottom: 10px;
+}
+
+#music-gif{
+    filter: grayscale(100%);
+    transform: scale(2.5);
+}
+
+#music-gif2{
+    filter: grayscale(100%);
+    transform: scale(2.5);
+    margin-bottom: 10px;
+
+}
+#spotify-gif{
+    transform: scale(.8);
+}
+
+#tiktok-gif{
+    transform: scale(.8);
+    margin-bottom: 20px;
 }
 
 .first-text {
     margin-top: 20px;
 }
 .select-title{
-    font-family: 'Times New Roman', sans-serif;
     color: black;
     font-weight: bold;
     margin-top: 30px;
@@ -807,28 +727,6 @@ h2 {
 }
 
 
-.marquee-container {
-    z-index: 1;
-    position: fixed;
-    top: 25%;
-    left: 10%;
-    right: 10%;
-    bottom: 25%;
-    overflow: hidden;
-}
-
-.marquee img {
-    display: inline-block;
-    height: 100px; /* Set the height according to your needs */
-    width: auto;
-}
-
-.wrapper {
-    background: url(../img/earbud.png) center/cover no-repeat;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
 
 .container-frontpage {
     position: fixed;
@@ -853,7 +751,6 @@ h2 {
     background-color: #ff0050;
     color: white;
     transition: background-color 0.1s;
-    font-family: 'Times New Roman', sans-serif;
 }
 
 .category-button.selected,
@@ -863,52 +760,139 @@ h2 {
     color: black;
 }
 
+/*
+https://codepen.io/tystrong/pen/ewByaG
 
-.bounce_spot_up,
-.bounce_tik_up{
-    z-index: 1;
-    position:fixed;
-    bottom:0;
-    -webkit-animation:bounce_up 3s infinite;
-}
 
-.bounce_spot_down,
-.bounce_tik_down{
-    z-index: 1;
-    position:fixed;
-    bottom:0;
-    -webkit-animation:bounce_down 3s infinite;
-}
-.bounce_spot_up{
-    left: 5%;
-}
-.bounce_spot_down{
-    left: 15%;
-}
+ */
 
-.bounce_tik_up{
-    left: 85%;
-}
-.bounce_tik_down{
-    left: 75%;
-}
-@-webkit-keyframes bounce_up {
-    0%       { bottom:5%; }
-    25%       { bottom:25%;}
-    50%      { bottom:50%; }
-    100%     {bottom:10%;}
-}
 
-@-webkit-keyframes bounce_down {
-    0%       { bottom:95%; }
-    25%       { bottom:75%;}
-    50%      { bottom:50%; }
-    100%     {bottom:90%;}
-}
 .spotify-img,
 .tiktok-img {
+    z-index: 2;
     height: 20vh;
+    width: 20vh;
+    position: absolute;
+
 }
+
+.bounce-tik {
+    animation: hori 4s linear alternate infinite,
+    verti 4s linear alternate infinite;
+    z-index: 1;
+
+}
+
+.bounce-tik2 {
+    animation: hori2 5s linear alternate infinite,
+    verti 5s linear alternate infinite;
+    z-index: 1;
+
+}
+
+.bounce-tik3 {
+    animation: hori3 7s linear alternate infinite,
+    verti 7s linear alternate infinite;
+    z-index: 1;
+
+}
+
+.bounce-spot {
+    animation: hori-spot 7s linear alternate infinite,
+    verti-spot 5s linear alternate infinite;
+    z-index: 1;
+}
+
+.bounce-spot2 {
+    animation: hori-spot2 5s linear alternate infinite,
+    verti-spot 5s linear alternate infinite;
+    z-index: 1;
+}
+
+.bounce-spot3 {
+    animation: hori-spot3 4s linear alternate infinite,
+    verti-spot 3s linear alternate infinite;
+    z-index: 1;
+}
+
+@keyframes verti {
+    from {
+        top: 5%;
+        transform: translateY(-50%);
+    }
+    to {
+        top: 95%;
+        transform: translateY(-50%) rotate(360deg);
+    }
+}
+
+@keyframes hori {
+    from {
+        left: 0%;
+    }
+    to {
+        left: 95%;
+    }
+}
+
+@keyframes hori2 {
+    from {
+        left: 95%;
+    }
+    to {
+        left: 5%;
+    }
+}
+
+@keyframes hori3 {
+    from {
+        left: 5%;
+    }
+    to {
+        left: 95%;
+    }
+}
+
+@keyframes verti-spot {
+    from {
+        top: 95%;
+        transform: translateY(-50%);
+    }
+    to {
+        top: 5%;
+        transform: translateY(-50%) rotate(360deg);
+    }
+}
+
+@keyframes hori-spot {
+    from {
+        left:95%;
+    }
+    to {
+        left: 5%;
+    }
+}
+
+@keyframes hori-spot2 {
+    from {
+        left:10%;
+    }
+    to {
+        left: 90%;
+    }
+}
+
+@keyframes hori-spot3 {
+    from {
+        left:75%;
+    }
+    to {
+        left: 45%;
+    }
+}
+
+
+
 
 #iphone {
     z-index: 0;
@@ -938,11 +922,21 @@ h2 {
     width: 375px;
 }
 
-.fade-in-tiktok-text1 h2,
-.fade-in-tiktok-text2 h2,
-.fade-in-tiktok-text3 h2 {
+.fade-in-tiktok-text {
     text-align: left;
     margin-top: 80px;
     margin-bottom: 80px;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
 
+.fade-in-tiktok-text.show {
+    opacity: 1;
+}
+
+.image-container {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
 }

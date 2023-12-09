@@ -1,4 +1,3 @@
-// READ THIS!!!!!!!!!!!!
 
 // DATA:
 // spotify_artist_counts.csv -- counts the number of times an artist appeared in the spotify data (THEY MUST BE THE FIRST ARTIST OF A SONG, WE'RE ASSUMING THAT MEANS THEY ARE THE 'OWNER' OF THE SONG)
@@ -128,11 +127,9 @@ let promises = [
 
 Promise.all(promises)
     .then(function (data) {
-       // console.log(data)
         initMainPage(data)
     })
     .catch(function (err) {
-      //  console.log(err)
     });
 
 function initMainPage(dataArray) {

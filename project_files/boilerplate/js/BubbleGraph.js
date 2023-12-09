@@ -108,7 +108,7 @@ class BubbleGraph {
             .attr('y', vis.height - 20)
             .text('Artists with Top Songs on Spotify and TikTok')
             .attr('text-anchor', 'middle')
-            .style("font-size", "24px")
+            .style("font-size", "22px")
             .attr('fill', 'black');
 
 
@@ -140,7 +140,7 @@ class BubbleGraph {
                 .style("left", event.pageX + "px")
                 .style("top", event.pageY - 28 + "px")
                 .style('font-size', 18)
-                .style("font-family", "Times New Roman, sans-serif");
+
         })
             .on("mouseout", function () {
                 vis.svg.selectAll('.bubble').style('opacity', 1);
@@ -173,7 +173,7 @@ class BubbleGraph {
             .attr('x', vis.width / 2 )
             .attr('y', vis.height - 20)
             .text('Artists with Top Songs on Spotify and TikTok')
-            .style("font-size", "24px")
+            .style("font-size", "20px")
             .attr('text-anchor', 'middle')
             .attr('fill', 'black');
 
@@ -226,29 +226,42 @@ class BubbleGraph {
         vis.svg.append('text')
             .attr('class', 'cluster-label')
             .attr('x', vis.width / 2 - 400)
-            .attr('y', vis.height - 20)
-            .text('Artists with Top Songs on Spotify')
+            .attr('y', vis.height - 40)
             .attr('text-anchor', 'middle')
             .style("font-size", "21px")
-            .attr('fill', 'black');
+            .attr('fill', 'black')
+            .text('Artists with Top Songs')
+            .append('tspan')
+            .attr('x', vis.width / 2 - 400)
+            .attr('dy', '1.2em')
+            .text('on Spotify');
 
         vis.svg.append('text')
             .attr('class', 'cluster-label')
             .attr('x', vis.width / 2 + 400)
-            .attr('y', vis.height - 20)
-            .text('Artists with Top Songs on TikTok')
+            .attr('y', vis.height - 40)
             .attr('text-anchor', 'middle')
             .style("font-size", "21px")
-            .attr('fill', 'black');
+            .attr('fill', 'black')
+            .text('Artists with Top Songs')
+            .append('tspan')
+            .attr('x', vis.width / 2 + 400)
+            .attr('dy', '1.2em')
+            .text('on TikTok');
 
         vis.svg.append('text')
             .attr('class', 'cluster-label')
             .attr('x', vis.width / 2)
-            .attr('y', vis.height - 20)
-            .text('Artists with Top Songs on Both Platforms')
+            .attr('y', vis.height - 40)
             .attr('text-anchor', 'middle')
             .style("font-size", "21px")
-            .attr('fill', 'black');
+            .attr('fill', 'black')
+            .text('Artists with Top Songs')
+            .append('tspan')
+            .attr('x', vis.width / 2)
+            .attr('dy', '1.2em')
+            .text('on Both Platforms');
+
 
         vis.svg.selectAll('.bubble')
             .style('fill', d => {
@@ -304,7 +317,7 @@ class BubbleGraph {
             .attr('x', vis.width / 4)
             .attr('y', vis.height - 20)
             .text('Artists with Only One Featured Song')
-            .style("font-size", "24px")
+            .style("font-size", "20px")
             .attr('text-anchor', 'middle')
             .attr('fill', 'black');
 
@@ -313,7 +326,7 @@ class BubbleGraph {
             .attr('x', (3 * vis.width) / 4)
             .attr('y', vis.height - 20)
             .text('Artists with More than One Song')
-            .style("font-size", "24px")
+            .style("font-size", "20px")
             .attr('text-anchor', 'middle')
             .attr('fill', 'black');
 
@@ -347,7 +360,7 @@ class BubbleGraph {
         });
 
         // filtering
-        let topArtists = data.slice(0, 20);
+        let topArtists = data.slice(0, 30);
 
         console.log(topArtists)
 
@@ -375,7 +388,7 @@ class BubbleGraph {
             .attr('class', 'cluster-label')
             .attr('x', vis.width / 4)
             .attr('y', vis.height - 20)
-            .style("font-size", "24px")
+            .style("font-size", "20px")
             .attr('text-anchor', 'middle')
             .attr('fill', 'black')
             .text('Artists with the Most Featured Songs');
@@ -384,7 +397,7 @@ class BubbleGraph {
             .attr('class', 'cluster-label')
             .attr('x', (3 * vis.width) / 4)
             .attr('y', vis.height - 20)
-            .style("font-size", "24px")
+            .style("font-size", "20px")
             .attr('text-anchor', 'middle')
             .attr('fill', 'black')
             .text('Artists with Less Featured Songs');
@@ -413,8 +426,8 @@ class BubbleGraph {
 
         let svgLegend = d3.select("#legend")
             .append("svg")
-            .attr("width", 200)
-            .attr("height", 250);
+            .attr("width", 400)
+            .attr("height", 230);
 
         let legend = svgLegend.append('g')
             .attr('class', 'legend')

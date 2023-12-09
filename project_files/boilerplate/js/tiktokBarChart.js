@@ -28,7 +28,7 @@ class BarChart {
         let vis = this;
 
         vis.margin = { top: 70, right: 10, bottom: 60, left: 60 };
-        vis.width = 960 - vis.margin.left - vis.margin.right;
+        vis.width = 900 - vis.margin.left - vis.margin.right;
         vis.height = 600;
         vis.svg = d3.select("#" + vis.parentElement)
             .append("svg")
@@ -42,11 +42,8 @@ class BarChart {
             .attr("y", (-vis.margin.top * 0.7) + 20)
             .attr("text-anchor", "middle")
             .text("Tracking the Surge of TikTok Downloads")
-            .style('font-family',  'Times New Roman, sans-serif')
             .style("font-weight", "bold")
-            .style("fill", "black")
             .style("font-size", "34px");
-
         vis.x = d3.scaleBand()
             .range([0, vis.width])
             .padding(0.1);
@@ -61,7 +58,7 @@ class BarChart {
             .scale(vis.y);
 
         vis.tooltip = d3.select("body").append("div")
-            .attr("class", "tooltip2")
+            .attr("class", "tooltip")
             .style("opacity", 0);
 
     }
@@ -132,7 +129,6 @@ class BarChart {
             .attr("x", 0 - (vis.height / 2))
             .attr("dy", "1em")
             .style("text-anchor", "middle")
-            .style('font-family',  'Times New Roman, sans-serif')
             .style("font-weight", "bold")
             .style("fill", "black")
             .text("Number of Downloads (millions)");
