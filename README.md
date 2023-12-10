@@ -12,10 +12,10 @@ Final project for CS171. Michelle Hewson, Soline Boussard, Pluto Zhang
 2. FullPage.js
    - Link: `https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/4.0.20/fullpage.css`
 3. NoUiSlider
-  - Link: `https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.4.0/nouislider.css`
+   - Link: `https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.4.0/nouislider.css`
 4. Google Fonts
-  - Link: `https://fonts.googleapis.com/css?family=Press Start 2P`
+   - Link: `https://fonts.googleapis.com/css?family=Press Start 2P`
 5. D3.js
-  - Link: `https://d3js.org/d3.v7.min.js`
+   - Link: `https://d3js.org/d3.v7.min.js`
 6. jQuery
    - Link: `https://code.jquery.com/jquery-3.6.0.min.js`
