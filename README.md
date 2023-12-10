@@ -2,9 +2,6 @@
 
 Final project for CS171. Michelle Hewson, Soline Boussard, Pluto Zhang
 
-## View it here:
-[michellehewson.github.io/cs171_finalproject/](michellehewson.github.io/cs171_finalproject/)
-
 ### How to Run the Code:
 - Download the project_files folder and open it in a JavaScript IDE like Webstorm.
 - Right-click on the HTML file within WebStorm and select "Run index.html". This will launch the file in a browser and you will be able to see what we've created!
