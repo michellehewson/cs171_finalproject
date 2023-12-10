@@ -312,13 +312,13 @@ h1 {
 
 
 .chart-container .bar-label {
-    font-size: 14px; /* Adjust the font size as needed */
+    font-size: 14px;
 }
 
 
 #artist-name-container {
-    height: 200px; /* Set the maximum height for the container */
-    overflow-y: scroll ; /* Enable vertical scrolling */
+    height: 200px;
+    overflow-y: scroll ;
 }
 
 
@@ -892,7 +892,6 @@ https://codepen.io/tystrong/pen/ewByaG
         left: 45%;
     }
 }
-
 
 
 
