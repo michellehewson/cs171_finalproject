@@ -1,3 +1,5 @@
+
+//Soline
 class RadarChart {
     constructor(parentElement, chartData, sortingCriteria) {
         this.parentElement = parentElement;
@@ -199,6 +201,7 @@ class RadarChart {
         vis.initializeNoUiSlider();
     }
 
+    // Function to initialize NoUiSlider for data selection
     initializeNoUiSlider() {
         let vis = this;
         let slider, startLabel, endLabel;
@@ -255,15 +258,18 @@ class RadarChart {
 
     }
 
+    // Update the visualization based on the selected data
     updateVisualization() {
         let vis = this;
         // Clear the existing chart
         vis.g.selectAll("*").remove();
 
+        // Redraw grid lines and levels
         vis.generateAndDrawLines(vis.NUM_OF_SIDES);
         vis.generateAndDrawLevels(vis.NUM_OF_LEVEL, vis.NUM_OF_SIDES);
-        if (vis.chartSubset.length > 0) {
 
+        // If there is data in the subset, draw data points and connecting paths
+        if (vis.chartSubset.length > 0) {
             vis.chartSubset.forEach((row, i) => {
                 const points = [];
                 vis.desiredColumns.forEach((attribute, j) => {
@@ -271,20 +277,25 @@ class RadarChart {
                     const theta = j * (2 * Math.PI / vis.NUM_OF_SIDES);
                     const len = vis.scale(attributeValue);
                     const point = vis.generatePoint({length: len, angle: theta});
+
+                    // Draw circles for data points
                     const circleGroup = vis.g.append("g").attr("class", "circle-group");
                     circleGroup.append("circle")
                         .attr("cx", point.x)
                         .attr("cy", point.y)
                         .attr("r", 4)
-                        .attr("fill", vis.colorScale(row.track_name))
+                        .attr("fill", vis.colorScale(row.track_name));
 
                     points.push(point);
                 });
+
+                // Draw paths connecting data points
                 const pathGroup = vis.g.append("g").attr("class", "shape");
                 const color = vis.colorScale(row.track_name);
                 vis.drawPath([...points, points[0]], pathGroup, "black", color, 0.3);
             });
 
+            // Draw labels for axes
             vis.drawLabels(vis.chartSubset, vis.NUM_OF_SIDES);
         }
     }

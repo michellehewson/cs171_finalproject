@@ -1,3 +1,5 @@
+
+//Soline
 class FacePlot {
     constructor(parentElement, spotifyData, tiktokData) {
         this.parentElement = parentElement;
@@ -29,6 +31,7 @@ class FacePlot {
             'Imagine Dragons': '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/1r9xUipOqoNwggBpENDsvJ?utm_source=generator&theme=0" width="60%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>'
         }
 
+        // Set up visualization parameters and create an SVG container
         vis.margin = { top: 40, right: 10, bottom: 60, left: 60 };
         vis.width = 900;
         vis.height = 440;
@@ -37,6 +40,8 @@ class FacePlot {
             .attr("height", vis.height + vis.margin.top + vis.margin.bottom)
             .append("g")
             .attr("transform", "translate(" + vis.margin.left + "," + vis.margin.top + ")");
+
+        // Define grid properties for artist circles
         const rows = 3;
         vis.cols = 3;
         vis.cellSize = {
@@ -146,6 +151,7 @@ class FacePlot {
         vis.updateVis();
     }
 
+    // Function to show TikTok logo and hide Spotify logo
     showTikTokLogo() {
         d3.select("#tiktokLogo").style("display", "inline-block");
         d3.select("#spotifyLogo").style("display", "none");
@@ -157,7 +163,7 @@ class FacePlot {
         d3.select("#spotifyLogo").style("display", "inline-block");
     }
 
-
+    // Function to display tracks for a selected artist
     showTracksForArtist(selectedArtist) {
         let vis = this;
         let artistTracks;
@@ -184,7 +190,7 @@ class FacePlot {
             tracksContainer.append('h4')
                 .text(`Tracks for ${selectedArtist} (from ${source}):`)
                 .style('font-weight', 'bold')
-                .style('font-size', 24)
+                .style('font-size', 24);
 
             tracksContainer.append('div')
                 .html(tracksHtml);
@@ -227,6 +233,7 @@ class FacePlot {
         console.log(vis.subset)
     }
 
+    // Function to handle mouse events
     handleMouseEvents() {
         let vis = this;
         vis.newCells.selectAll('circle')
@@ -245,6 +252,7 @@ class FacePlot {
 
     }
 
+    // Update the visualization based on the selected data
 
     updateVis() {
         let vis = this;
@@ -255,9 +263,9 @@ class FacePlot {
             .on('click', function () {
                 vis.showSpotifyLogo();
                 d3.select(this)
-                    .classed('button-selected', true); // Add the selected class
+                    .classed('button-selected', true);
                 d3.select('#showTiktokButton')
-                    .classed('button-selected', false); // Remove the selected class from the other button
+                    .classed('button-selected', false);
 
                 vis.getTopArtistsFromSpotify();
                 vis.updateVis();
@@ -267,9 +275,9 @@ class FacePlot {
             .on('click', function () {
                 vis.showTikTokLogo();
                 d3.select(this)
-                    .classed('button-selected', true); // Add the selected class
+                    .classed('button-selected', true);
                 d3.select('#showSpotifyButton')
-                    .classed('button-selected', false); // Remove the selected class from the other button
+                    .classed('button-selected', false);
 
                 vis.getTopArtistsFromTiktok();
                 vis.updateVis();
@@ -295,7 +303,7 @@ class FacePlot {
         const patterns = vis.newCells.selectAll('.pattern')
             .data(d => [d]);
 
-        patterns.exit().remove(); // Remove unnecessary patterns
+        patterns.exit().remove();
 
         const newPatterns = patterns.enter()
             .append('defs')
@@ -304,7 +312,7 @@ class FacePlot {
             .attr('class', 'pattern')
             .attr('width', 1)
             .attr('height', 1)
-            .merge(patterns) // Merge the enter and update selections
+            .merge(patterns)
             .select('image')
             .attr('xlink:href', d => `img/${d}.png`);
 
@@ -334,9 +342,10 @@ class FacePlot {
         vis.handleMouseEvents();
     }
 
+    // Generate Spotify embed code for a given artist
     generateSpotifyEmbed(artistName) {
         let vis = this;
-        vis.embedHTML = this.music_embed[artistName]; //dictionary of the embedded songs from Spotify (click share on a song and you can embed it)
+        vis.embedHTML = this.music_embed[artistName];
         let textEmbed = '<b style="margin-top: 20px;">Listen to the top track on Spotify by '+artistName+'!</b>';
         return `<div class="text-below-embed">${textEmbed}</div>
             <div class="spotify-embed">${vis.embedHTML}</div>`;

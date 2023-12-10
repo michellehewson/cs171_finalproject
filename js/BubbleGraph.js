@@ -560,7 +560,4 @@ class BubbleGraph {
             vis.notFoundMessage.style.display = 'block';
         }
     }
-
-
-
 }

@@ -20,9 +20,11 @@ let spotHistogram;
 let tiktokHistogram;
 let TikscatterChart;
 let SpotscatterChart;
+
+// Array of promises to load multiple CSV files using d3.csv
 let promises = [
     d3.csv("data/spotify_clean.csv").then(csv=> {
-
+        // Convert numeric columns to appropriate data types
         csv.forEach(function(d){
             d.acousticness = +d.acousticness;
             d.danceability = +d.danceability;
@@ -125,14 +127,19 @@ let promises = [
 
 ]
 
+// Using Promise.all to wait for all promises to resolve
 Promise.all(promises)
     .then(function (data) {
-        initMainPage(data)
+        // Initializing the main page with the loaded data
+        initMainPage(data);
     })
     .catch(function (err) {
+        // Handle errors if any of the promises fail
     });
 
+// Function to initialize the main page with visualizations using the loaded data
 function initMainPage(dataArray) {
+    // Creating instances of different visualization classes with specific data
 
     bubbleChart = new BubbleGraph('bubblechart', dataArray[6], dataArray[7], dataArray[8])
     spotifyradarChart = new RadarChart('spotifyradarchart', dataArray[0], 'spotify')
@@ -146,7 +153,7 @@ function initMainPage(dataArray) {
     songCharacteristics = new SongCharacteristics('songcharacteristics')
 }
 
-
+// Function to handle category change for histograms
 function categoryChange(button) {
     let selectedCategory = button.getAttribute('id');
     tiktokHistogram.updateVis(selectedCategory)
@@ -158,8 +165,11 @@ function categoryChange(button) {
     button.classList.add('selected');
 }
 
-let XselectedCategory='Danceability';
+// Default selected categories for scatter plots
+let XselectedCategory = 'Danceability';
 let YselectedCategory = 'Danceability';
+
+// Function to handle X-axis category change for scatter plots
 function XcategoryChange(button) {
 
     XselectedCategory = button.getAttribute('value');
@@ -172,6 +182,7 @@ function XcategoryChange(button) {
     button.classList.add('selected');
 }
 
+// Function to handle Y-axis category change for scatter plots
 function YcategoryChange(button) {
     YselectedCategory = button.getAttribute('value');
     TikscatterChart.updateVis(selectedX = XselectedCategory, selectedY = YselectedCategory);
