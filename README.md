@@ -1,6 +1,8 @@
 # CS 171 Final Project
 
-Final project for CS171. Michelle Hewson, Soline Boussard, Pluto Zhang
+Final project for CS171. Michelle Hewson, Soline Boussard, Pluto Zhang.
+
+This project explores the similarities and differences between popular artists and songs across Spotify and TikTok with a myriad of different interactive visualizations.
 
 ### How to Run the Code:
 - Download the project_files folder and open it in a JavaScript IDE like Webstorm.
@@ -18,4 +20,4 @@ Final project for CS171. Michelle Hewson, Soline Boussard, Pluto Zhang
 5. D3.js
    - Link: `https://d3js.org/d3.v7.min.js`
 6. jQuery
-   - Link: `https://code.jquery.com/jquery-3.6.0.min.js`
+   - Link: `https://code.jquery.com/jquery-3.6.0.min.js`s
